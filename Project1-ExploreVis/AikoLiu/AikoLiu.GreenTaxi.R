@@ -138,16 +138,16 @@ by_wday <-green_clean %>% group_by(.,wday) %>% summarise(.,speed=mean(speed),dur
 
 
 ggplot(data=by_wday,aes(x=as.factor(wday),y=count,fill=speed))+geom_bar(stat = 'identity') +ylab('taxi ride count/day') + scale_x_discrete(
-  name='week day', labels=c('1'='M','2'='T','3'='W','4'='T','5'='F','6'='S','7'='S'))
+  name='week day', labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))
 
 # Surprisingly, Sunday has the most taxi rides, Monday the next, the tues-Friday the rides increase
 # monotonically, but the speed is slow.
 
 ggplot(data=by_wday,aes(x=as.factor(wday),y=duration,fill=dist))+geom_bar(stat = 'identity') +ylab('taxi ride duration') + scale_x_discrete(
-  name='week day', labels=c('1'='M','2'='T','3'='W','4'='T','5'='F','6'='S','7'='S'))
+  name='week day', labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))
 
 ggplot(data=by_wday,aes(x=as.factor(wday),y=speed,fill=duration))+geom_bar(stat = 'identity') +ylab('taxi speed') + scale_x_discrete(
-  name='week day', labels=c('1'='M','2'='T','3'='W','4'='T','5'='F','6'='S','7'='S'))
+  name='week day', labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))
 
 by_wdayNpayment <-green_clean %>% group_by(.,wday,Payment_type=factor(Payment_type,levels=1:2,labels=c('card payment','cash payment'))) %>% summarise(.,speed=mean(speed),duration=mean(duration),
 dist=mean(Trip_distance),percent=mean(percent),count=n()/365.0)
@@ -155,8 +155,8 @@ dist=mean(Trip_distance),percent=mean(percent),count=n()/365.0)
 
 g<-ggplot(data=by_wdayNpayment,aes(x=as.factor(wday),y=count,fill=Payment_type))
 g<-g+geom_bar(stat = 'identity',position='dodge',show.legend=T)
-g<-g+ylab('taxi ride count/day') + scale_x_discrete(name='week day', labels=c('1'='M','2'='T','3'='W','4'='T',
-                            '5'='F','6'='S','7'='S'))
+g<-g+ylab('taxi ride count/day') + scale_x_discrete(name='week day', labels=c('1'='S','2'='M','3'='T','4'='W',
+                            '5'='T','6'='F','7'='S'))
 g
 
 # We study the weekday with the highest travel jam percentage
@@ -165,7 +165,7 @@ jammed <- filter(green_clean,speed<5,speed>0.5) %>% group_by(wday) %>% summarise
 background <- filter(green_clean,speed>0.5) %>% group_by(wday) %>% summarise(count=n())
 jammed$ratio <- jammed$count/background$count*100
 ggplot(data=jammed,aes(x=factor(wday),y=ratio,fill=speed))+geom_bar(stat = 'identity') +ylab('jam percentage')+scale_x_discrete(
-  name='week day', labels=c('1'='M','2'='T','3'='W','4'='T','5'='F','6'='S','7'='S'))
+  name='week day', labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))
 
 
 # next we display the by hour data distribution
@@ -197,27 +197,27 @@ Payment_type=mean(Payment_type), dist=mean(Trip_distance),percent=mean(percent),
 
 ggplot(by_wdayNhour, aes(x=as.factor(wday), y=as.factor(hour),fill=count)) + geom_tile() + scale_fill_gradientn(colors=c('black','dark red','red',
 'orange','yellow','white')) + scale_x_discrete(name='week day', 
-labels=c('1'='M','2'='T','3'='W','4'='T','5'='F','6'='S','7'='S'))+ggtitle(
+labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))+ggtitle(
 'The number of green rides in a weekday vs hour heat map') + ylab('hour') + labs(fill="Daily Ride Count")
 
 ggplot(by_wdayNhour, aes(x=as.factor(wday), y=as.factor(hour),fill=speed)) + geom_tile() + scale_fill_gradientn(colors=c('black','dark red','red',
 'orange','yellow','white')) + scale_x_discrete(name='week day', 
-labels=c('1'='M','2'='T','3'='W','4'='T','5'='F','6'='S','7'='S'))+ggtitle(
+labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))+ggtitle(
 'The green taxi speed in a weekday vs hour heat map') + ylab('hour') + labs(fill="Avg Speed (mph)")
 
 ggplot(by_wdayNhour, aes(x=as.factor(wday), y=as.factor(hour),fill=duration)) + geom_tile() + scale_fill_gradientn(colors=c('black','dark red','red',
 'orange','yellow','white')) + scale_x_discrete(name='week day', 
-labels=c('1'='M','2'='T','3'='W','4'='T','5'='F','6'='S','7'='S'))+ggtitle(
+labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))+ggtitle(
 'The Taxi speed in a weekday vs hour heat map') + ylab('hour') + labs(fill="Avg Duration")
 
 ggplot(by_wdayNhour, aes(x=as.factor(wday), y=as.factor(hour),fill=dist)) + geom_tile() + scale_fill_gradientn(colors=c('black','dark red','red',
 'orange','yellow','white')) + scale_x_discrete(name='week day', 
-labels=c('1'='M','2'='T','3'='W','4'='T','5'='F','6'='S','7'='S'))+ggtitle(
+labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))+ggtitle(
 'The Taxi distance in a weekday vs hour heat map') + ylab('hour') + labs(fill="Trip Distance")
 
 ggplot(by_wdayNhour, aes(x=as.factor(wday), y=as.factor(hour),fill=Payment_type-1.0)) + geom_tile() + scale_fill_gradientn(colors=c('black','dark red','red',
 'orange','yellow','white'),breaks=c(0.5,0.6),labels=c('50% cash payment','60% cash payment')) + scale_x_discrete(name='week day', 
-labels=c('1'='M','2'='T','3'='W','4'='T','5'='F','6'='S','7'='S'))+ggtitle(
+labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))+ggtitle(
 'The cash vs card payment in a weekday vs hour heat map') + ylab('hour') + labs(fill="Payment Type")
 
 
@@ -230,7 +230,7 @@ by_wdayNhour_card<-green_clean %>% filter(Payment_type==1) %>% group_by(.,wday,h
 
 ggplot(by_wdayNhour_card, aes(x=as.factor(wday), y=as.factor(hour),fill=percent)) + geom_tile() + scale_fill_gradientn(colors=c('black','dark red','red',
 'orange','yellow','white')) + scale_x_discrete(name='week day', 
-labels=c('1'='M','2'='T','3'='W','4'='T','5'='F','6'='S','7'='S'))+ggtitle(
+labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))+ggtitle(
 'The Tip percentage in a weekday vs hour heat map') + ylab('hour') + labs(fill="tip percentage")
 
 # From the heat maps, we notice that the tip percentages somehow are correlated to the speed of the taxi.
@@ -378,7 +378,7 @@ by_origin_wday<- green_clean %>% filter(speed>1,speed<80,percent<50,duration<60,
  ggplot(data=by_origin_wday,aes(x=Pickup_Borough,y=factor(-wday))) + geom_tile(
    aes(fill= count)) + scale_fill_gradientn(colors=c('black','dark red','red',
 'orange','yellow','white')) + scale_x_discrete(name='Originated Borough')+scale_y_discrete(
-name='week day',breaks=-1:-7,labels=c('M','T','W','T','F','S','S')
+name='week day',breaks=-1:-7,labels=c('S','M','T','W','T','F','S')
 ) +ggtitle('The daily taxi rides in an origin vs week day heat map') + labs(fill="daily taxi ride")
  
  
