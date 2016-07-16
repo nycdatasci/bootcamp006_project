@@ -59,7 +59,7 @@ library(ggmap)
 
 source('yellow_taxi_dump.R')  # source and dump to the file, dump allows writing in an appending mode
 # varNames are from the previous session
-by_wday <- Assign.yellow.taxi('by_wday',months=1:3) # aggregating the monthly tables into a single data frame by aggregating
+by_wday <- Assign.yellow.taxi('by_wday') # aggregating the monthly tables into a single data frame by aggregating
 by_wday <- Averaging.yellow.taxi(by_wday) #conver the sum statistics to mean statistics
 
 
@@ -220,9 +220,9 @@ Map.PartialReduce.yellow.taxi<-function(yellow_adm) {
                               Destination_Borough=factor(boroughCode_d,labels=Boroughs)) %>%
     summarise(percentSum=sum(percent), durationSum=sum(duration), speedSum=sum(speed), distSum=sum(Trip_distance), count=n())
   pay_byspeed_H <- y %>% filter(Payment_type==1,speed<50,percent>0,percent<50) %>% group_by(speed=floor(2*speed)/2,hour=factor(hour)) %>% summarise(
-    duration=mean(duration),percent=mean(percent),dist=mean(Trip_distance),count=n()/365.0)
+    durationSum=sum(duration),percentSum=sum(percent),distSum=sum(Trip_distance),count=n())
   noPay_byspeed_H <- y %>% filter(Payment_type==1,speed<50,percent==0) %>% group_by(speed=floor(2*speed)/2,hour=factor(hour)) %>% summarise(
-    duration=mean(duration),dist=mean(Trip_distance),count=n()/365.0)
+    durationSum=sum(duration),distSum=sum(Trip_distance),count=n())
   
   newLevel<-c(rep('0-6am',6),rep('6-9am',3),rep('9am-4pm',7),rep('4-7pm',3),rep('7-12pm',5))
   
@@ -230,10 +230,12 @@ Map.PartialReduce.yellow.taxi<-function(yellow_adm) {
               'by_month','by_wday', 'by_hour', 'by_speed_hour','by_origin_hour', 'by_dist', 'by_duration','connection')
   
   
-  noTipG  <-filter(y,percent==0)
-  noTipG_by_speed <- noTipG %>% group_by(floor(speed*2)*0.5) %>% summarise(speedSum=sum(speed),count=n())
-  tipG    <- filter(y,percent>0)
-  tipG_by_speed <- tipG %>% group_by(floor(speed*2)*0.5) %>% summarise(speedSum=sum(speed), count=n())
+  noTipG  <-filter(y,percent==0,Payment_type==1)
+  noTipG_by_speed <- noTipG %>% group_by(speed=floor(speed*2)*0.5) %>% summarise(
+  percentSum=sum(percent),durationSum=sum(duration),distSum=sum(Trip_distance),count=n())
+  tipG    <- filter(y,percent>0,Payment_type==1)
+  tipG_by_speed <- tipG %>% group_by(speed=floor(speed*2)*0.5) %>% summarise(
+    percentSum=sum(percent), durationSum=sum(duraiton), distSum=sum(Trip_distance), count=n())
   
   for (vName in myList) {
     assign(paste0(vName,months[month]), get(vName))
