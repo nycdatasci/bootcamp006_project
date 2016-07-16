@@ -235,7 +235,7 @@ Map.PartialReduce.yellow.taxi<-function(yellow_adm) {
   percentSum=sum(percent),durationSum=sum(duration),distSum=sum(Trip_distance),count=n())
   tipG    <- filter(y,percent>0,Payment_type==1)
   tipG_by_speed <- tipG %>% group_by(speed=floor(speed*2)*0.5) %>% summarise(
-    percentSum=sum(percent), durationSum=sum(duraiton), distSum=sum(Trip_distance), count=n())
+    percentSum=sum(percent), durationSum=sum(duration), distSum=sum(Trip_distance), count=n())
   
   for (vName in myList) {
     assign(paste0(vName,months[month]), get(vName))
