@@ -1,0 +1,116 @@
+---
+title: "Crime in America"
+author: "Christian Holmes"
+date: "July 17, 2016"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Is Crime Getting Better or Worse?
+
+- Most Americans think crime has been increasing over the past 20 years.
+
+- A 2015 [Gallup survey](http://www.gallup.com/poll/186308/americans-say-crime-rising.aspx) found that 70% of Americans believe crime is increasing
+
+- News organizations certainly focus on it heavily: ![](~/oreilly-chicago.jpg)
+
+##Data
+- Uniform Crime Reports going back 50 years
+- State level data from Government Finance Database
+- Shapefile for United States from Census
+
+## 
+
+
+``` {r message =FALSE}
+library(dplyr)
+library(ggplot2)
+setwd('/Users/cholmes/Desktop/Work/Bootcamp/Project 1 - Visualization/')
+statecrime = read.csv('CrimeStatebyState.csv')
+stateexpense = read.csv('StateData.csv')
+
+colnames(stateexpense)[3] = 'State'
+statemerge = merge(statecrime, stateexpense, by=c('Year','State'))
+statemerge = mutate(statemerge, Educ_per_person = Total_Educ_Total_Exp/Population.x, Police_per_person = Police_Prot_Total_Exp/Population.x, Violent_rate = Violent.crime.total/Population.x, Property_rate = Property.crime.total/Population.x)
+
+grouped_crime = summarise(group_by(statemerge, Year), Violent.Crime.Total = sum(Violent.crime.total), Property.Crime.Total = sum(Property.crime.total), Population = sum(Population.x), Education = sum(Total_Educ_Total_Exp), Police = sum(Police_Prot_Total_Exp))
+grouped_crime = mutate(grouped_crime, Total_rate = (Violent.Crime.Total+Property.Crime.Total)*1000/Population, Violent_rate = Violent.Crime.Total*1000/Population, Property_rate = Property.Crime.Total*1000/Population, Education_rate = Education/Population, Police_rate = Police/Population)
+crime_1990 = filter(statemerge, Year == 1990)
+crime_2010 = filter(statemerge, Year == 2010)
+crime_merge = merge(crime_1990, crime_2010, by='State')
+crime_merge$crime_change = (crime_merge$Violent.Crime.rate.y - crime_merge$Violent.Crime.rate.x)/crime_merge$Violent.Crime.rate.x
+crime_merge$police_change = (crime_merge$Police_per_person.y - crime_merge$Police_per_person.x)/crime_merge$Police_per_person.x
+crime_merge$education_change = (crime_merge$Educ_per_person.y - crime_merge$Educ_per_person.x)/crime_merge$Educ_per_person.x
+
+ggplot(grouped_crime, aes(Year, colour = 'red')) + 
+  geom_line(aes(Year, Total_rate), size = 1.5) +
+  ylab('Crimes per 1000 Residents') +
+  ggtitle('Total Crime from 1977-2012') +
+  theme_bw() +
+  theme(plot.title = element_text(size = rel(2)), legend.position="none")
+
+
+```
+
+## 
+``` {r}
+ggplot(grouped_crime, aes(Year)) + 
+  geom_line(aes(Year, Property_rate, color = 'Property_rate'), size = 1.5) +
+  ylab('Crimes per 1000 Residents') +
+  geom_line(aes(Year, Violent_rate, color = 'Violent_rate'), size = 1.5) +
+  ggtitle('Violent and Nonviolent Crime from 1977-2012') +
+  theme_bw() +
+  theme(plot.title = element_text(size = rel(2))) +
+  scale_color_manual(values = c('blue', 'indianred1'),name= "Crime Type", labels=c("Property", "Violent"))
+```
+
+##
+``` {r}
+ggplot(grouped_crime, aes(Year, colour = 'red')) + 
+  ylab('Crimes per 1000 Residents') +
+  geom_line(aes(Year, Violent_rate), size = 1.5) +
+  ggtitle('Violent Crime from 1977-2012') +
+  theme_bw() +
+  theme(plot.title = element_text(size = rel(2)), legend.position = 'none')
+```
+
+## Violent Crime (cont.)
+- [An animated look at state by state crime trends](http://gifmaker.cc/PlayGIFAnimation.php?folder=20160717061D8Vm1jh0JSZqSUfqW2brP&file=output_D78hlA.gif)
+
+## Why?
+Some possibilities:
+- More Education
+- Police Funding
+- Leaded Gasoline (Nevin)
+- Abortion (Levitt and Donohue)
+
+##
+``` {r}
+ggplot(crime_merge, aes(police_change)) +
+  geom_point(aes(police_change, crime_change)) +
+  ylab('% Change in Crime') + 
+  xlab('% Change in Police Funding') +
+  ggtitle('Change in Police Funding (1990-2010)') +
+  theme_bw() +
+  theme(plot.title = element_text(size = rel(2)))
+```
+
+## 
+``` {r}
+ggplot(crime_merge, aes(education_change)) +
+  geom_point(aes(education_change, crime_change)) +
+  ylab('% Change in Crime') + 
+  xlab('% Change in Education Funding') +
+  ggtitle('Change in Education Funding (1990-2010)') +
+  theme_bw() +
+  theme(plot.title = element_text(size = rel(2)))
+```
+
+## Further Areas of Interest
+- Correlation between alcohol consumption and crime
+- Religiosity and crime
+
+
