@@ -168,6 +168,7 @@ ggplot(airbnb.data, aes(x = min_nights, fill= illegal, alpha = 0.8)) + geom_area
   ggtitle("Minimum Stay")
 ```
 
+---
 
 # Correlation 
 
@@ -203,6 +204,7 @@ ggplot(aes(x = medprivateprice, y = medinc), data = abnb) +
 
 > After I doing a log transformation, we observe a linear relationship, with a correlation of 0.632 between the log of median income and the percentage of apartment that are for entire room listings. I then coloured them by Borough. We see that Brooklyn and Manhattan have the highest percentage of entire apartment listings.
 
+---
 
 # Geo-Spatial Analysis of Airbnb Listings in New York City
 
@@ -239,6 +241,8 @@ leaflet(nyc2) %>%
 
 > The red on the map shows the expensive listings, and the yellow color denote the cheaper listings. As expected Manhattan has the higeshest concetratd regions of expensive listings, especially in areas like Soho and Chelsea and the Financial District. The next plot show how prices are distributed accross the neighbourhood. 
 
+---
+
 ## Price by Neighbourhood
 
 ```{r, echo = FALSE, warning = FALSE}
@@ -269,6 +273,8 @@ leaflet(nyc2) %>%
 
 > The plot shows exactly what we could have guessed -- Manhattan has the more expensive listings, on average, and the most expensive neighborhoods are concentrated near the financial Chelsea, Soho and the Financial district. The Bronx, as well as the outskirts of Brooklyn has the cheapest neighborhood on average. 
 
+---
+
 ## Type of Listing 
 
 ```{r, echo = FALSE, warning = FALSE}
@@ -297,8 +303,28 @@ leaflet(nyc2) %>%
 
 > Above we can see how the type of listing is distributed across NYC. We can clearly see that the more expensive regions are also the regions that list more entire apartment listings. Shared rooms are rarely seen. 
 
-
-
+```{r,echo = FALSE, warning = FALSE}
+state_popup = ifelse(airbnb.data$illegal == "Illegal", paste("ARREST", airbnb.data$host_name), paste(airbnb.data$host_name))
+airbnb.data$illegal = as.factor(airbnb.data$illegal)
+airbnb.data = airbnb.data %>% group_by(illegal) %>% mutate(
+  legality = n()/nrow(airbnb.data))
+qpal_type <- colorFactor(c("blue","green"), domain = c("Illegal", "Legal"))
+leaflet(nyc2) %>%
+  addProviderTiles("CartoDB.DarkMatter") %>%
+  addCircleMarkers(
+    lng=airbnb.data$long,
+    lat=airbnb.data$lat,
+    group = "illegal",
+    radius = 1,
+    stroke = FALSE,
+    opacity=0.2,
+    color = ~qpal_type(airbnb.data$illegal),
+    popup = state_popup) %>%
+  addLegend("topleft", pal = qpal_type, values = ~airbnb.data$illegal,
+            title = "Illegal Activity",
+            opacity = 0.5
+  ) %>%  setView(lng = -73.98928, lat = 40.75042, zoom = 11)
+```
 
 
 
