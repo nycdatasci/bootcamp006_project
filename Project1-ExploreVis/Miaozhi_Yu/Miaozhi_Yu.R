@@ -1,0 +1,24 @@
+setwd("F:/Miaozhi/Academic/Data_Science/Bootcamp/Project")
+mydata = read.csv('Group3_data.csv')
+names(mydata)
+head(mydata)
+summary(mydata)
+mydata_new = mydata[mydata$area>0,]
+summary(mydata$area)
+head(mydata_new)
+
+library(dplyr)
+library(ggplot2)
+g1 = ggplot(data=mydata_new, aes(x=temp,y=area))
+range = ifelse(mydata_new$area<1,'small',ifelse(mydata_new$area>6.57,'large','median'))
+g1+geom_point(aes(color=range),position = 'jitter')+labs(title='Fire area vs temperature', x = 'Temperature',y='Fire area')
+g1+geom_smooth(data=mydata_new,method='loess', se=FALSE)
+descriptive = mutate(mydata_new,range=as.factor(range))
+
+g2=ggplot(data=mydata_new,aes(x=wind,y=area))
+g2+geom_point(position = 'jitter',aes(color=range))+labs(title='Fire area vs wind', x = 'wind',y='Fire area')
+g2+geom_smooth(data=mydata_new,method='loess', se=FALSE)
+
+g3=ggplot(data=mydata_new,aes(x=rain,y=area))
+ggplot(data=mydata_new,aes(x=rain,y=area))+geom_point(position = 'jitter',aes(color=range))+labs(title='Fire area vs rain', x = 'rain',y='Fire area')
+g2+geom_smooth(data=mydata_new,method='loess', se=FALSE)
