@@ -1,21 +1,21 @@
 (From Bernard) 
-I deleted following fields from original dataset:
+
+I deleted following columns/fields from original dataset to narrow down the set I have to work with for this project:
 	- Area
 	- Perimeter
 	- Cancerp020
 	- State_Fips
-
 	- *_lb
 	- *_ub
 	- *_lbuus
 	- *_lusub
 	- *_sp
 
-I deleted the following duplicate columns
+I deleted the following duplicate rows:
 	- anything where STATE + NCI UNIT (County Name) + NCI FIPS Code are the same, I delete all duplicate rows
+	- only affected Alaska as it had several exact rows in place
 
 Total Rows After Cleaning = 3055
-
 
 ---------------------------------------------------------------------------------------------
 Identification_Information:
