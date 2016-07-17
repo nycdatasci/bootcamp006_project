@@ -14,6 +14,8 @@ range = ifelse(mydata_new$area<1,'small',ifelse(mydata_new$area>6.57,'large','me
 g1+geom_point(aes(color=range),position = 'jitter')+labs(title='Fire area vs temperature', x = 'Temperature',y='Fire area')
 g1+geom_smooth(data=mydata_new,method='loess', se=FALSE)
 descriptive = mutate(mydata_new,range=as.factor(range))
+g = ggplot(data=mydata_new,aes(x=range,fill=range))
+g+geom_bar()
 
 g2=ggplot(data=mydata_new,aes(x=wind,y=area))
 g2+geom_point(position = 'jitter',aes(color=range))+labs(title='Fire area vs wind', x = 'wind',y='Fire area')
