@@ -58,7 +58,19 @@ b_tbl %>%                                    #Number of business by state
 	count()%>%
 	arrange(desc(n))
 
+data = b_tbl %>% group_by(stars)%>% count()
+ggplot(data,aes(x=stars,y=n)) +geom_bar(stat="identity",aes(fill=stars))
+
+#User Statistics
+
+#Distribution of users as a function of number of reviews 
+
+
 
 #Review Statistics
+
+#Distribution of number of reviews as a function of ratings
+#Distribution of number of reviews as a function of states
+
 
 
