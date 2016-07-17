@@ -1,4 +1,4 @@
-#Loading data from YELP Academic Challenge Dataset  
+#Loading data from YELP Dataset Challenge (Round 7) 
 
 lbrary(jsonlite)                  # library to read data provided in .json file format
 
