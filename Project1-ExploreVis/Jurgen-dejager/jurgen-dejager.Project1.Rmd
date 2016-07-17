@@ -301,7 +301,12 @@ leaflet(nyc2) %>%
 
 ```
 
+
 > Above we can see how the type of listing is distributed across NYC. We can clearly see that the more expensive regions are also the regions that list more entire apartment listings. Shared rooms are rarely seen. 
+
+---
+
+## Illegal Listings
 
 ```{r,echo = FALSE, warning = FALSE}
 state_popup = ifelse(airbnb.data$illegal == "Illegal", paste("ARREST", airbnb.data$host_name), paste(airbnb.data$host_name))
