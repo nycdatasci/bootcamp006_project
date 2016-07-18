@@ -1,15 +1,14 @@
-#Loading data from YELP Dataset Challenge (Round 7) 
+#Loading data from YELP Dataset Challenge (Round 7)
 
 library(jsonlite)                  # library to read data provided in .json file format
 
 setwd('~/Downloads/yelp_dataset_challenge_academic_dataset/')
 
-#checkin  = stream_in(file("yelp_academic_dataset_checkin.json"))   # read checkin data to checkin df 
+#checkin  = stream_in(file("yelp_academic_dataset_checkin.json"))   # read checkin data to checkin df
 business = stream_in(file("yelp_academic_dataset_business.json"))   # read business data to business df
 #tip      = stream_in(file("yelp_academic_dataset_tip.json"))       # read tip data to tip df
 user     = stream_in(file("yelp_academic_dataset_user.json"))      # read user data to user df
 #review   = stream_in(file("yelp_academic_dataset_review.json"))    # read review data to review df
-
 
 
 #checkin_flat  = flatten(checkin)
@@ -17,6 +16,7 @@ business_flat = flatten(business)
 #tip_flat      = flatten(tip)
 user_flat     = flatten(user)
 #review_flat   = flatten(review)
+
 
 
 library(tibble)
@@ -27,50 +27,58 @@ business_tbl  = as_data_frame(business_flat)
 user_tbl      = as_data_frame(user_flat)
 #review_tbl    = as_data_frame(review_flat)
 
-
-
-
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-#Business Statistics
+business_tbl %>% 
+  summarise(sum(review_count))
 
-b_tbl = business_tbl %>%                     #Break out categories variable
-		unnest(categories)
+business_tbl %>% 
+  group_by(state)%>% 
+  summarise(trc= sum(review_count))%>% 
+  arrange(desc(trc))
 
+business_tbl %>% 
+  group_by(state,city)%>% 
+  summarise(trc= sum(review_count))%>% 
+  arrange(desc(trc))
 
+b_tbl %>% 
+  group_by(categories) %>% 
+  count() %>%
+  arrange(desc(n))
 
-b_tbl %>%                                    #Number of business by  business categories 
-	group_by(categories)%>% 
-	count()%>%
-	arrange(desc(n))
-
-
-b_tbl %>%				     #Number of reviews by business categories 
-        group_by(categories)%>%
-        summarise("total_rc"= sum(review_count))%>%
-	arrange(desc(total_rc))
+b_tbl %>%                                    #Number of reviews by business categories
+  group_by(categories)%>%
+  summarise("total_rc"= sum(review_count))%>%
+  arrange(desc(total_rc))
 
 
 b_tbl %>%                                    #Number of business by state
-	group_by(state)%>%
-	count()%>%
-	arrange(desc(n))
-
-data = b_tbl %>% group_by(stars)%>% count()
-ggplot(data,aes(x=stars,y=n)) +geom_bar(stat="identity",aes(fill=stars))
-
-#User Statistics
-
-#Distribution of users as a function of number of reviews 
+  group_by(state)%>%
+  count()%>%
+  arrange(desc(n))
 
 
+data = business_tbl %>% 
+  group_by(stars)%>% 
+  count()
 
-#Review Statistics
-
-#Distribution of number of reviews as a function of ratings
-#Distribution of number of reviews as a function of states
-
+ggplot(data,aes(x=stars,y=n)) +
+  geom_bar(stat="identity",aes(fill=stars)) +
+  theme_bw()
 
 
+data = business_tbl %>% 
+  unnest(categories) %>% 
+  arrange(stars) 
+
+ggplot(data,aes(x=state,y=review_count))+
+  geom_bar(stat= "identity",aes(fill=stars),position="fill") +
+  coord_flip() +
+  theme_bw()
+
+data = user_tbl %>% 
+  group_by(user_id)%>% 
+  count()

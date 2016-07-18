@@ -1,0 +1,7 @@
+https://catalog.data.gov/dataset/index-violent-property-and-firearm-rates-by-county-beginning-1990
+
+
+Index, Violent, Property, and Firearm Rates By County: Beginning 1990
+Metadata Updated: Jun 16, 2016 
+
+The Division of Criminal Justice Services (DCJS) collects crime reports from more than 500 New York State police and sheriffs’ departments. DCJS compiles these reports as New York’s official crime statistics and submits them to the FBI under the National Uniform Crime Reporting (UCR) Program. UCR uses standard offense definitions to count crime in localities across America regardless of variations in crime laws from state to state. In New York State, law enforcement agencies use the UCR system to report their monthly crime totals to DCJS. The UCR reporting system collects information on seven crimes classified as Index offenses which are most commonly used to gauge overall crime volume. These include the violent crimes of murder/non-negligent manslaughter, forcible rape, robbery, and aggravated assault; and the property crimes of burglary, larceny, and motor vehicle theft. Firearm counts are derived from taking the number of violent crimes which involve a firearm. Population data are provided every year by the FBI, based on US Census information. Police agencies may experience reporting problems that preclude accurate or complete reporting. The counts represent only crimes reported to the police but not total crimes that occurred.
