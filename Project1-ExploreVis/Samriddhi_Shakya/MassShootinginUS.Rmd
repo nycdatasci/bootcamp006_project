@@ -668,3 +668,9 @@ g2014_2015_DI
 
 
 ```
+
+
+##Conclusion
+
+To sum up, by looking at the maps and bar plots in this project it can be concluded that mass shooting incidents in states like California, Florida, Georgia and Texas are very high with high number of fatalities and injuries.  The type of gun which the shooters commonly used was handguns followed by multiple guns in most of the mass shooting incident. The shooters were predominantly male with most of them belonging to White Americans or European American race. The reasons behind most of the shooter’s motives were unknown followed by mental illness. Most of the mass shooting commonly occurred in residential and neighborhood areas.Comparing the recent mass shooting data from 2014 to 2016, we can notice that there are more mass shooting in States like California, Georgia, Illinois and near Maryland. Comparing 2014 and 2015 data, there were more mass shooting and fatalities in 2015 than 2014.  
+
