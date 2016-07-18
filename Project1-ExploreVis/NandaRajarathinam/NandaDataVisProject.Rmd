@@ -1,0 +1,195 @@
+---
+title: "NYC Vision Zero - Visualization of Motor Vehicle Collison Data"
+author: "Nanda Rajarathinam"
+date: "July 17, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+The Vision Zero Action Plan is intended to help end traffic deaths and injuries on New York City streets. The plan seeks to improve street safety through a variety of measures, some of which include increasing the enforcement of moving violations, improving street designs,increasing penalties for dangerous drivers,increasing the use of enforcement cameras and reducing speed limits.
+
+Vision Zero programs are designed to discourage dangerous behavior on roads and streets by combining better enforcement and roadway engineering with improved emergency response and public campaigns on safe driving. The objective of this analysis is to analyze the variables pertaining to the New York city motor vehicle collision data and visually represent the data to understand the overall trend and big picture regarding the fatalities and injuries over the last 4 years.
+
+As a part of this analysis, I also wanted to understand how the fatalities and injuries vary across the boroughs and years. The following are some of the questions that I am trying to answer based on the visualization:
+
+1) Is there a overall trend applicable to all the boroughs or are there exceptions observed within certain areas ? Does this trend hold good for the three categories of people involved in the collisions namely pedestrians, cyclists and motorists  ?
+
+2) What are the top 5 contributing factors that account for majority of the fatalities / injuries ? Is there a trend observed in those factors over years ?
+
+3) Does the time of the day have any impact on the number of casualties ? Is there a spike in the number of fatalities during certain part of the day ?
+
+4) Do the casualities vary significantly based on neighborhood / geographical location within the boroughs ?
+
+## Data Import, Cleaning and Pre-processing 
+As a first step, I imported the data and cleaned up some of the key fields required for this analysis.
+
+```{r cars ,eval=FALSE}
+#LIBRARY READ-INS and DATA IMPORT
+library (dplyr) 
+library (ggplot2) 
+library (ggthemes) 
+library(zipcode) 
+library (lubridate) 
+library(choroplethr)
+library (choroplethrZip) 
+library(labeling)
+library(chron)
+
+setwd("C:\\Users\\trichna\\Documents\\NYCDSA\\Project 1")
+NYPD_collision = read.csv("NYPD_Motor_Vehicle_Collisions.csv",stringsAsFactors = FALSE)
+#841,853 observations
+
+#CLEANING UP THE DATA 
+NYPD_collision$DATE = as.Date(NYPD_collision$DATE, "%m/%d/%Y")
+NYPD_collision$Year = year(NYPD_collision$DATE)
+
+tbl_NYPD = tbl_df(NYPD_collision)
+
+#UNDERSTANDING THE STRUCTURE OF VARIABLES
+str(NYPD_collision)
+unique(NYPD_collision$CONTRIBUTING.FACTOR.VEHICLE.1)
+ 
+
+#PRE-PROCESSING
+grp_by_borough = NYPD_collision %>% filter(BOROUGH != "") %>% group_by(BOROUGH,Year)
+#636,343 observations
+
+
+Borough_fatalities_by_years = grp_by_borough %>% dplyr::summarise(total_num_fatalities = sum(NUMBER.OF.PERSONS.KILLED)) 
+
+```
+
+## Total number of Fatalities by Year
+As a part of answering my first research question, I looked at the overall trend in fatalities by boroughs over the last four years by creating the bar plot. 
+ 
+```{r eval= FALSE}
+
+#Total number of People killed by years
+Total_fatalities_by_years = ggplot(data = Borough_fatalities_by_years, aes(x = Year, y = total_num_fatalities)) 
+Total_fatalities_by_years + geom_bar(aes(fill = BOROUGH), stat = 'identity') + theme_economist() + theme(legend.position = "right") + theme(legend.text=element_text(size=5)) + ggtitle('Total Fatalities by Year') + ylab("Total number of Fatalities\n") + xlab("\nYear")  + theme(axis.text.x = element_text(vjust = 0, angle = 0, hjust = 0.5)) + theme(legend.position = "right") + theme(legend.text=element_text(size=10)) + theme(plot.title = element_text(hjust = 0.5))
+
+``` 
+
+Based on the bar plot, the overall number of fatalities seem to be going down over the past 3.5 years starting January 2013 until June 2016. I wanted to further drill down and observe the trend within each of the three groups of people involved in the collision namely cyclists, motorists and pedestrians.
+
+### Total number of Cyclist, Motorist and Pedestrian Fatalities by Boroughs and Years
+
+As a part of the next step, I further investigated the fatalities among the three groups - motorists, pedestrians and cyclists to understand if the big picture of declining trend holds good within each of the five boroughs or if there were any exceptions observed within the boroughs.  
+
+```{r eval= FALSE}
+
+#Total number of Motorists killed by years
+Borough_mot_ped_cyc_fatalities_by_years = grp_by_borough %>% dplyr::summarise(total_num_motorist_fatalities = sum(NUMBER.OF.MOTORIST.KILLED),total_num_ped_fatalities = sum(NUMBER.OF.PEDESTRIANS.KILLED), total_num_cyclist_fatalities = sum(NUMBER.OF.CYCLIST.KILLED)  ) 
+
+Total_mot_fatalities_by_years = ggplot(data = Borough_mot_ped_cyc_fatalities_by_years, aes(x = Year, y = total_num_motorist_fatalities)) 
+Total_mot_fatalities_by_years + geom_bar(aes(fill = BOROUGH), stat = 'identity') + facet_wrap(~BOROUGH)   + theme_economist() +  theme(legend.position = "right") + theme(legend.text=element_text(size=5)) + ggtitle('Total number of Motorist Fatalities by Year') + ylab("Number of Fatalities\n") + xlab("\nYear")  + theme(axis.text.x = element_text(vjust = 0, angle = 0, hjust = 0.5)) + theme(legend.position = "right") + theme(legend.text=element_text(size=10)) + theme(plot.title = element_text(hjust = 0.5))
+
+#Total number of Pedestrians killed by years
+Total_ped_fatalities_by_years = ggplot(data = Borough_mot_ped_cyc_fatalities_by_years, aes(x = Year, y = total_num_ped_fatalities)) 
+Total_ped_fatalities_by_years + geom_bar(aes(fill = BOROUGH), stat = 'identity') + facet_wrap(~BOROUGH)   + theme_economist() +  theme(legend.position = "right") + theme(legend.text=element_text(size=5)) + ggtitle('Total number of Pedestrian Fatalities by Year') + ylab("Number of Fatalities\n") + xlab("\nYear")  + theme(axis.text.x = element_text(vjust = 0, angle = 0, hjust = 0.5)) + theme(legend.position = "right") + theme(legend.text=element_text(size=10)) + theme(plot.title = element_text(hjust = 0.5))
+
+#Total number of cyclists killed by years
+Total_cycl_fatalities_by_years = ggplot(data = Borough_mot_ped_cyc_fatalities_by_years, aes(x = Year, y = total_num_cyclist_fatalities)) 
+Total_cycl_fatalities_by_years + geom_bar(aes(fill = BOROUGH), stat = 'identity') + facet_wrap(~BOROUGH)   + theme_economist()  + theme(legend.position = "right") + theme(legend.text=element_text(size=5)) + ggtitle('Total number of Cyclist Fatalities by Year') + ylab("Number of Fatalities\n") + xlab("\nYear")  + theme(axis.text.x = element_text(vjust = 0, angle = 0, hjust = 0.5)) + theme(legend.position = "right") + theme(legend.text=element_text(size=10)) + theme(plot.title = element_text(hjust = 0.5))
+
+``` 
+
+Although the overall trend shows a decline in the number of motorist deaths in Brooklyn, Manhattan and Queens the trend seems to be rising in Bronx and Staten Island. Regarding pedestrian casualties, Brooklyn seems to have an increasing trend in the number of pedestrian fatalities that is quite different from other boroughs. Brooklyn and Queens have a higher number of cyclist related fatalities compared to other boroughs. This probably shows that NYPD and city officials might need to focus more on specific measures within certain boroughs aimed at improving safety of the target population.
+
+## Total number of Fatalities and Injuries by Contributing factors
+
+Although there are more than 40 factors that might have likley caused the vehicle collision, I was interested in finding out the top 5 factors that would account for a siginificant percentage of the casualties. I created a bar plot of the number of fatalities and injuries by contributing factors. 
+
+```{r eval= FALSE}
+
+contributing_factor = grp_by_borough %>% filter(CONTRIBUTING.FACTOR.VEHICLE.1 != "" & CONTRIBUTING.FACTOR.VEHICLE.1 != 'Unspecified' ) %>% group_by(BOROUGH,CONTRIBUTING.FACTOR.VEHICLE.1)
+
+contributing_factor_analysis = contributing_factor  %>% dplyr::summarise(num_killed = sum(NUMBER.OF.PERSONS.KILLED), num_injured = sum(NUMBER.OF.PERSONS.INJURED))
+
+
+top5_contributing_factor_fatalities = contributing_factor_analysis  %>% arrange(desc(num_killed))  %>% group_by(BOROUGH)  %>%  do(head(., n = 6)) %>% select(BOROUGH, CONTRIBUTING.FACTOR.VEHICLE.1, num_killed)
+
+top5_contributing_factor_fatalities = transform(top5_contributing_factor_fatalities,CONTRIBUTING.FACTOR.VEHICLE.1 =reorder(CONTRIBUTING.FACTOR.VEHICLE.1,-num_killed) )
+
+Total_fatalities_by_contributing_factors = ggplot(data = top5_contributing_factor_fatalities, aes(x = CONTRIBUTING.FACTOR.VEHICLE.1, y = num_killed))
+Total_fatalities_by_contributing_factors + geom_bar(aes(fill = BOROUGH), stat = 'identity') + theme_economist() + theme(legend.position = "right") + theme(legend.text=element_text(size=5)) + ggtitle('Total Fatalities by Contributing Factors') + ylab("Total number of Fatalities\n") + xlab("\nContributing Factor")  + theme(axis.text.x = element_text(vjust = 0, angle = 90, hjust = 0.5)) + theme(legend.position = "right") + theme(legend.text=element_text(size=10)) + theme(plot.title = element_text(hjust = 0.5)) + scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+top5_contributing_factor_injuries = contributing_factor_analysis  %>% arrange(desc(num_injured))  %>% group_by(BOROUGH)  %>%  do(head(., n = 8)) %>% select(BOROUGH, CONTRIBUTING.FACTOR.VEHICLE.1, num_injured)
+
+top5_contributing_factor_injuries = transform(top5_contributing_factor_injuries,CONTRIBUTING.FACTOR.VEHICLE.1 =reorder(CONTRIBUTING.FACTOR.VEHICLE.1,-num_injured) )
+Total_injuries_by_contributing_factors = ggplot(data = top5_contributing_factor_injuries, aes(x = CONTRIBUTING.FACTOR.VEHICLE.1, y = num_injured))
+Total_injuries_by_contributing_factors + geom_bar(aes(fill = BOROUGH), stat = 'identity') + theme_economist() + theme(legend.position = "right") + theme(legend.text=element_text(size=5)) + ggtitle('Total Injuries by Contributing Factors') + ylab("Total number of Injured\n") + xlab("\nContributing Factor")  + theme(axis.text.x = element_text(vjust = 0, angle = 90, hjust = 0.5)) + theme(legend.position = "right") + theme(legend.text=element_text(size=10)) + theme(plot.title = element_text(hjust = 0.5)) + scale_x_discrete(labels = function(x) str_wrap(x, width = 10))
+
+
+NYPD_collision %>%  filter(BOROUGH != "") %>% summarise(N_INJURED = sum(NUMBER.OF.PERSONS.INJURED), N_killed = sum(NUMBER.OF.PERSONS.KILLED))
+
+
+``` 
+
+The bar plot clearly showed that the top factors that contributed towards the casualties were 
+
+* Disregard for Traffic Control 
+* Driver Inattention/Distraction
+* Failure to Yield Right-of-Way
+* Passenger Distraction
+* Following Too Closely
+* Driver Inexperience
+* Fatigued/Drowsy
+* Physical Disability 
+* Alcohol Involvement
+* Aggressive Driving/Road Rage
+
+### Trend in Fatalities and Injuries across years based on contributing factors
+
+I also analyzed the trend in fatalities and injuries across years based on contributing factors. 
+
+```{r eval= FALSE}
+temp = grp_by_borough %>% filter(CONTRIBUTING.FACTOR.VEHICLE.1 != "" & CONTRIBUTING.FACTOR.VEHICLE.1 != 'Unspecified' )
+target = c("Traffic Control Disregarded", 'Driver Inattention/Distraction', 'Failure to Yield Right-of-Way', 'Following Too Closely','Driver Inexperience','Fatigued/Drowsy','Physical Disability' , 'Alcohol Involvement','Passenger Distraction' , 'Aggressive Driving/Road Rage')
+contributing_factor_year =temp %>%  filter(CONTRIBUTING.FACTOR.VEHICLE.1  %in% target )  %>% group_by(CONTRIBUTING.FACTOR.VEHICLE.1, Year)  %>% summarise(YN_INJURED = sum(NUMBER.OF.PERSONS.INJURED), YN_killed = sum(NUMBER.OF.PERSONS.KILLED), YN_total = sum(YN_killed,YN_INJURED))
+
+
+g = ggplot(data = contributing_factor_year, aes(x = Year  ))
+g + geom_line(aes(y = YN_killed, colour = CONTRIBUTING.FACTOR.VEHICLE.1)) +    facet_wrap(~CONTRIBUTING.FACTOR.VEHICLE.1)  + xlab('Year') + ylab('Number of Fatalities/Injuries') + ggtitle('Total Fatalities by years based on contributing factors') + theme_economist() + theme(legend.text=element_text(size=8)) + theme(axis.text.x = element_text(size = 8 , angle = 90, hjust = 0)) + theme(axis.text.y = element_text(size = 8 , angle = 0, hjust = 0)) + theme(plot.title = element_text(hjust = 0.5))
+
+
+``` 
+
+Most of the factors in the top 10 category show an overall declining trend except 'Traffic control disregarded' and 'Following too closely' which display a  slightly erratic pattern over the years.
+
+## Casualties by Time of the day
+
+My third question was to determine if the time of the day really had any significance with regards to the number of casualities. In order to answer that question, I had to first categorise the day into 4 groups - Morning, Afternoon, Evening and Overnight so that we would be able to make better sense of the result instead of using the time as is. The objective was to create a line plot of the number of casualties by part of the day in all boroughs to observe the pattern. 
+
+```{r eval= FALSE}
+grp_by_borough$upd_time = times(paste0(grp_by_borough$TIME,":00"))
+str(grp_by_borough) # check if upd_time is of time data type
+
+
+Morning_fatalities = grp_by_borough %>% filter(upd_time > times('06:00:00') & upd_time < times('12:00:00')) %>% dplyr::summarise(Morning_fatalities = sum(NUMBER.OF.PERSONS.KILLED))
+Afternoon_fatalities = grp_by_borough %>% filter(upd_time > times('12:00:00') & upd_time < times('17:00:00')) %>% dplyr::summarise(Afternoon_fatalities = sum(NUMBER.OF.PERSONS.KILLED)) 
+Evening_fatalities = grp_by_borough %>% filter(upd_time > times('17:00:00'))  %>% dplyr::summarise(Evening_fatalities = sum(NUMBER.OF.PERSONS.KILLED)) 
+Night_fatalities = grp_by_borough %>% filter(upd_time > times('00:00:00') & upd_time < times('06:00:00')) %>% dplyr::summarise(Night_fatalities = sum(NUMBER.OF.PERSONS.KILLED)) 
+
+concat_list = list(Morning_fatalities, Afternoon_fatalities, Evening_fatalities, Night_fatalities) 
+
+Time_of_day_fatalities = Reduce(function(x,y) merge(x,y), concat_list) 
+Time_of_day_fatalities = mutate(Time_of_day_fatalities, Total_fatalities = apply(Time_of_day_fatalities[,3:6], 1, sum)) 
+
+
+g = ggplot(data = Time_of_day_fatalities, aes(x = Year  ))
+g + geom_line(aes(y = Morning_fatalities, color='Morning - 06:00 to 12:00 hours')) + geom_line(aes(y = Afternoon_fatalities, color='Afternoon - 12:00 to 17:00 hours')) + geom_line(aes(y = Evening_fatalities, color='Evening - 17:00 to Midnight hours')) + geom_line(aes(y = Night_fatalities, color='Overnight - Midnight to 06:00 hours')) + facet_grid(~BOROUGH)  + xlab('Year') + ylab('Number of Fatalities') + ggtitle('Total Fatalities based on time of the day') + theme_economist() + theme(legend.text=element_text(size=8)) + theme(axis.text.x = element_text(size = 8 , angle = 90, hjust = 0)) + theme(axis.text.y = element_text(size = 8 , angle = 0, hjust = 0)) + theme(plot.title = element_text(hjust = 0.5))
+
+``` 
+
+The plot showed that there was a consistent observation in all boroughs where evening time(between 5 PM and mid-night) had the most number of casualties compared to rest of the day. This could be explained due to the rush hour traffic during peak evening hours and people trying to get home after work as soon as possible.
+
+
+
+
