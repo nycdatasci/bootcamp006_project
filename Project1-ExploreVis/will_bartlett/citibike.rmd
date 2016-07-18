@@ -1,5 +1,5 @@
 ---
-title: "Citibike User Patterns"
+title: "Citibike ain't got Flow"
 author: "Will Bartlett"
 date: "July 17, 2016"
 output: html_document
@@ -20,7 +20,8 @@ my_citibike_df = select(citibike_df,
                         starttime, 
                         start.station.name, 
                         start.station.latitude,
-                        start.station.longitude)
+                        start.station.longitude,
+                        end.station.name)
 my_citibike_df$starttime = as.character.Date(my_citibike_df$starttime)
 my_citibike_df$starttime = strptime(my_citibike_df$starttime, "%m/%d/%Y %H:%M:%S")
 my_citibike_df = my_citibike_df %>% 
@@ -36,36 +37,7 @@ my_citibike_df = mutate(my_citibike_df, weekday_logical = weekday_log)
 weekday_df = my_citibike_df[my_citibike_df$weekday_logical == T,-1]
 weekend_df = my_citibike_df[my_citibike_df$weekday_logical == F,-1]
 
-#trip starts by hour map functions
-maps_total = function(x, y){
-      library(ggplot2) 
-      library(dplyr)
-      library(maps)
-      library(mapdata)
-      library(rgdal)
-      
-      stat_lat_long = weekday_df[,c(1,2,3)]
-      stat_lat_long = unique(stat_lat_long)
-      
-      nyc = get_map(location = "New York City", maptype = "roadmap", zoom = 12)
-      nycMap = ggmap(nyc)
-      weekday_df_x_y = filter(weekday_df, hour >= x & hour <= y) %>%
-            group_by(start.station.name) %>%
-            summarise(trips = n()) %>%
-            inner_join(stat_lat_long, by = "start.station.name")
-      max_station = arrange(weekday_df_x_y, desc(trips))
-      print(max_station[1:5,])
-      print(median(max_station$trips))
-      hour_usage_map = nycMap + geom_point(data = weekday_df_x_y, 
-                                           mapping = aes(x =start.station.longitude, 
-                                                         y = start.station.latitude,
-                                                         color = trips,
-                                                         size = trips)) +
-            coord_map(xlim = c(-74.03, -73.95), ylim = c(40.68, 40.79)) +
-            scale_color_gradient2(low = "yellow", high = "black", midpoint = 300) +
-            ggtitle(paste0("Total Citibike Trips Started at each Dock During Hours ", x, ":00 through ", y, ":00"))
-      return(hour_usage_map)
-}
+#trip by hour map functions
 
 maps_percent = function(x, y){
       library(ggplot2) 
@@ -87,25 +59,70 @@ maps_percent = function(x, y){
             inner_join(stat_lat_long, by = "start.station.name")
       max_station = arrange(weekday_df_x_y, desc(trips))
       print(max_station[1:5,])
-      print(median(max_station$trips))
+      med = median(max_station$trips)
+      print(med)
       hour_usage_map = nycMap + geom_point(data = weekday_df_x_y, 
                                            mapping = aes(x =start.station.longitude, 
                                                          y = start.station.latitude,
                                                          color = trips,
                                                          size = trips)) +
             coord_map(xlim = c(-74.03, -73.95), ylim = c(40.68, 40.79)) +
-            scale_color_gradient2(low = "yellow", high = "black", midpoint = .035) +
-            ggtitle(paste0("% of Citibike Trips Started at each Dock During Hours ", x, ":00 through ", y, ":00"))
+            scale_color_gradient2(low = "white", high = "black", midpoint = med) +
+            ggtitle(paste0("% of all Citibike Trips Started at each Dock for Hours ", x, ":00 through ", y, ":00"))
       return(hour_usage_map)
 }
+
+maps_ratio = function(x, y){
+      library(ggplot2) 
+      library(dplyr)
+      library(maps)
+      library(mapdata)
+      library(rgdal)
+      
+      stat_lat_long = weekday_df[,c(1,2,3)]
+      stat_lat_long = unique(stat_lat_long)
+      
+      end.station.number = filter(weekday_df, hour >= x & hour <= y) %>%
+            group_by(end.station.name) %>%
+            summarise(end_trips = n())
+      
+      nyc = get_map(location = "New York City", maptype = "roadmap", zoom = 12)
+      nycMap = ggmap(nyc)
+      weekday_df_x_y = filter(weekday_df, hour >= x & hour <= y) %>%
+            group_by(start.station.name) %>%
+            summarise(start_trips = n()) %>%
+            inner_join(end.station.number, by = c("start.station.name" = "end.station.name")) %>%
+            inner_join(stat_lat_long, by = "start.station.name")%>%
+            mutate(trips_ratio = start_trips/end_trips)
+      max_station = arrange(weekday_df_x_y, desc(trips_ratio))
+      print(max_station[1:5, c(1,6,2,3)])
+      med = median(max_station$trips_ratio)
+      print(med)
+      hour_usage_map = nycMap + geom_point(data = weekday_df_x_y, 
+                                          mapping = aes(x =start.station.longitude, 
+                                                         y = start.station.latitude,
+                                                         color = trips_ratio,
+                                                         size = trips_ratio)) +
+            coord_map(xlim = c(-74.03, -73.95), ylim = c(40.68, 40.79)) +
+            scale_color_gradient2(low = "white", high = "black", midpoint = med) +
+            ggtitle(paste0("Ratio of Citibike Trips Started:Ended at each Dock for Hours ", x, ":00 through ", y, ":00"))
+      return(hour_usage_map)
+}
+
 ```
 
 
 
-
-```{r User Patterns weekday/weekend}
+###Citibike Usage Throughout the Day; (Trip Starts by Hour) 
+```{r }
+g_allday_hour = ggplot(my_citibike_df, mapping = aes(hour))
 g_weekday_hour = ggplot(weekday_df, mapping = aes(hour))
 g_weekend_hour = ggplot(weekend_df, mapping = aes(hour))
+
+g_allday_hour + geom_bar() + 
+      xlab("Hour of the Day") + 
+      ylab("Number of Trips Started") +
+      ggtitle("Number of Citibike Trips Started Each Hour")
 
 g_weekday_hour + geom_bar() + 
       xlab("Hour of the Day") + 
@@ -118,22 +135,30 @@ g_weekend_hour + geom_bar() +
       ggtitle("Number of Citibike Trips Started Each Hour (WEEKENDS)")
 ```
 
-## 
-```{r}
+### Citibike Usage and Station Flow by Dock
+```{r warning = FALSE}
 #General Usage
-maps_total(0, 23)
+maps_percent(0,23)
+
+maps_ratio(0, 23)
 ```
 
-```{r}
-maps_total(6, 10)
+### Citibike Station Flow by Dock, Hours 6-10
+```{r warning = FALSE}
+maps_ratio(6, 10)
 ```
 
-```{r}
-maps_total(11, 15)
+### Citibike Station Flow by Dock, Hours 11-15
+```{r warning = FALSE}
+maps_ratio(11, 15)
 ```
 
-```{r}
-maps_total(16, 20)
+### Citibike Station Flow by Dock, Hours 16-20
+```{r warning = FALSE}
+maps_ratio(16, 20)
 ```
 
-
+# With more Time
+#### Compare activity with Revenue. Subscriber vs single payer
+#### Work out color scale
+#### Analyze hour choices more carefully
