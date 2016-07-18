@@ -1,0 +1,69 @@
+---
+title: "Credit Card Data Analysis"
+
+author: "Greg Domingo"
+output:
+  ioslides_presentation:
+    css: assets/css/ioslides.css
+    
+---
+##  
+
+| Is there a relationship between credit card defaults and customer Attributes?
+
+* Gender
+* Education Level
+- Marital Status
+- Age
+
+
+# Some background on the sample
+
+##
+<img src="plots/barbygender.png" alt="md_quick_ref" height="450" width="750">
+
+##
+<img src="plots/barbyedu.png" alt="md_quick_ref" height="450" width="750">
+
+##
+<img src="plots/barbymarriage.png" alt="md_quick_ref" height="450" width="750">
+
+##
+<img src="plots/barbyage.png" alt="md_quick_ref" height="450" width="750">
+
+# Relationship between Card Defaults and Attributes
+
+##
+<img src="plots/defaultbygender.png" alt="md_quick_ref" height="450" width="750">
+
+##
+<img src="plots/defaultbygenderpct.png" alt="md_quick_ref" height="450" width="750">
+
+##
+<img src="plots/defaultbyedu.png" alt="md_quick_ref" height="450" width="750">
+
+##
+<img src="plots/defaultbyedupct.png" alt="md_quick_ref" height="450" width="750">
+
+##
+<img src="plots/defaultbymarriage.png" alt="md_quick_ref" height="450" width="750">
+
+##
+<img src="plots/defaultbymarriagepct.png" alt="md_quick_ref" height="450" width="750">
+
+##
+<img src="plots/defaultbyagepct.png" alt="md_quick_ref" height="450" width="750">
+
+# SUMMARY OF FINDINGS
+
+##
+* More women borrowers than men
+and they seem to have slighter better credit
+
+* Level of education has inverse relationship
+to default occurrences
+
+* Default rates seem to rise fast as age increases until early 30s and then starts to slowly decline
+
+* Possible to come up with a model to predict default rates
+

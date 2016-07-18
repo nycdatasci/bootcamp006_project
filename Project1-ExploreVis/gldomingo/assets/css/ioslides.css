@@ -1,0 +1,34 @@
+#nextsteps {
+   color: blue;
+}
+
+.emphasized {
+   font-size: 1.8em;
+   font-weight: bold;
+}
+
+.sub-section {
+   font-size: 1.8em;
+   font-weight: bold;
+   text-align:center; 
+   height:500px; 
+   line-height:500px;
+}
+
+.gdbar img {
+  width: 675px !important;
+  height: 135px !important;
+  margin: 8px 8px;
+}
+
+.gdbar {
+  width: 700px !important;
+  height: 150px !important;
+}
+
+
+slides > slide:not(.nobackground):before {
+  width: 150px;
+  height: 35px;
+  background-size: 150px 35px;
+}
