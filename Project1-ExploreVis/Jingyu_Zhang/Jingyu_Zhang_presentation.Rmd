@@ -1,5 +1,5 @@
 ---
-title: "Impact of HbA1c Measurement on Diabetes Medications and Hosiptal Readmission"
+title: "Impact of HbA1c Measurement on Diabetic Medications and Hosiptal Readmission"
 author: "Jingyu Zhang"
 date: "July 17, 2016"
 output: ioslides_presentation
@@ -103,10 +103,10 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ## Outlines
 
-- Diabetes disbtribution in age and race 
-- The primary diagnosis population before the second diebetes diagnosis
-- The impact of H1bAc test result on medication numbers for each primary diagnosis
-- The impact of H1bAc test result on hospital readmission ratio for each primary diagnosis
+- The primarily diagnosed diseases and populations of diabetic patients
+- The diabetic population with HbA1c test
+- The impact of HbA1c test result on medication number for each primary diagnosis
+- The impact of HbA1c test result on hospital readmission ratio for each primary diagnosis
 - Summary
 
 
@@ -116,24 +116,14 @@ When you click the **Knit** button a document will be generated that includes bo
 ## Slide with R Output
 
 ```{r diabetic_data, echo = FALSE}
-names(test)
+dim(Diadata)
 dim(test)
-
+names(test)[1:15]
+names(test)[19]
+names(test)[48:51]
 ```
 
-## The diabbetic population in age and race
-
-```{r pressure}
-
-ggplot(Diadata1,aes(age,fill = race))+
-  geom_bar()+
-  scale_color_discrete(h=c(0,360)+60)+
-  ggtitle("Diabates distributions in age")
-
-#ggsave("age_with_race.pdf")
-```
-
-## The diabetic population for each primary diagnosis
+## The diabetic population for each primary diagnosis 
 
 ```{r }
 
@@ -155,16 +145,35 @@ ggplot(A, aes(x=reorder(prim_diag,count)))+
 
 ```
 
-## HbA1c test affacts medication numbers for each primary diagnosis
+##  The diabetic population with HbA1c testing
+
+```{r pressure}
+
+ggplot(exam, aes(x=new_A1Cresult))+
+  geom_bar(fill="green4",size=1, width = 0.7)+
+  scale_x_discrete(labels = c("None" = "None","Norm"="Normal",
+                              "High_medical change" ="High\n Medical\nChange",
+                              "High_medical not change" = "High\n Medical\n No Change")) +
+  xlab("HbA1c Test")+
+   ylab("Population ") +
+   theme(
+        axis.text = element_text(size = 7),
+        plot.title = element_text(size=11, vjust = 2, face="bold"),
+        axis.title = element_text(size=9,face="bold"))
+
+#ggsave("age_with_race.pdf")
+```
+
+## HbA1c affects medication number
 
 ```{r }
 
 ################################################
 ggplot(exam,aes(x=new_A1Cresult,y = num_medications))+
   geom_boxplot()+
-  ylim(c(1,50))+
+  ylim(c(1,40))+
   facet_wrap(~prim_diag)+
-  ggtitle("Patients' Medication Number VS HbA1C Test Results\n for Each Primary Diagnosis") +
+  ggtitle("Patients' Medication Numbers VS HbA1C Test Results") +
   xlab("HbA1c Test")+
   ylab("Medication Number ")+
   scale_x_discrete(labels = c("None" = "None","Norm"="Normal",
@@ -180,7 +189,7 @@ ggplot(exam,aes(x=new_A1Cresult,y = num_medications))+
 #ggsave("HbA1c_vs_numbermedication.pdf")
 ```
 
-## HbA1c test affacts hospital readmittted ratio for each primary diagnosis
+## HbA1c affects readmittted ratio
 
 ```{r }
 
@@ -190,7 +199,7 @@ ggplot(exam,aes(x=new_A1Cresult,y = num_medications))+
 pp  <-   ggplot(ratio_readmitted, aes(x= new_A1Cresult, y=ratio,fill=new_A1Cresult)) +
   geom_bar(stat = "identity", width = 0.5)+
   facet_wrap(~ prim_diag)+
-  ggtitle("Patients' Hospital Readmission Ratio Based on HbA1C Test Results\n for Each Primary Diagnosis") +
+  ggtitle("Patients' Hospital Readmission Ratios VS HbA1C Test Results") +
   xlab("HbA1c Test")+
   ylab("Readmitted Ratio")+
   scale_x_discrete(labels = c("None" = "None","Norm"="Normal",
@@ -216,6 +225,8 @@ pp
 
 ## Summary
 
-- The people with diabetes are calssified into three groups in age (0-30,30-60,60-90). The diabetes population of White and Afarica American is more than that of Asian and Hispanic.  
-- The H1bAc test resulting in similar impact on medication numbers and hopital readmissionratio.
-- The relationship between the readmission ratio and the HbA1c measurement signicantly depends on the primary diagnosis. 
+- Diabetic patients are primarily diagnosed as serval diseases. Most of the diagnoses are performed without HbA1c test. However, HbA1c test is a very improtant parameter for efficient treatment of diabetic patients.  
+
+- Using the mdication numbers of normal HbA1c result as baseline, the high H1bAc test with medication change results in an increase medication number. However, that without medication change reduces medication number.
+
+- The relationship between the readmission ratio and the HbA1c measurement signicantly depends on the primary diagnosis. Our analyses indicate whether medication change of high HbA1c result is effective for different primary diagnosis.  
