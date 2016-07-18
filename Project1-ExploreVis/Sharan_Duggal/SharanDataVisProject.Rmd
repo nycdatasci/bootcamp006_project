@@ -1,0 +1,361 @@
+---
+title: "Visualising Infant & Maternal Mortality, and their relationship with the availability of basic resources"
+author: "Sharan Duggal"
+date: "July 17, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r DataCleaning, include=FALSE}
+#LIBRARY READ-INS AND IMPORTING DATA
+library(data.table)
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+library(RColorBrewer)
+library(plotly)
+library(rworldmap)
+library(corrplot)
+library(Hmisc)
+
+setwd("~/Documents/Datascience/Projects/DataVis") 
+WorldBank = read.csv("WorldBankData.csv", stringsAsFactors = FALSE, na.strings = c("", NA))
+
+
+#CLEANING DATA
+View(WorldBank)
+str(WorldBank)
+old.names = names(WorldBank[c(6:45, 47:62)])
+new.names = substr(names(WorldBank[c(6:45, 47:62)]), 1,5)
+setnames(WorldBank, old.names, new.names)
+WorldBank[, 5:length(WorldBank)] = sapply(WorldBank[, 5:length(WorldBank)], as.numeric)
+WorldBank = WorldBank[-(7921:nrow(WorldBank)), ]
+WorldBank = tbl_df(WorldBank)
+
+#Checking the amount of missing data in each Series
+names = unique(WorldBank$Series.Name)
+
+for (num in 1:length(unique(WorldBank$Series.Name))) {
+  print (names[num])
+  print (colSums(is.na(WorldBank[WorldBank$Series.Name == names[num], ])))
+}
+
+#Updating ISO Country Codes
+#ROM to ROU, ADO to AND, ZAR to COD
+WorldBank = WorldBank %>% 
+  mutate(Country.Code = ifelse(Country.Name == "Romania", "ROU", 
+                           ifelse(Country.Name == "Congo, Dem. Rep.", "COD", 
+                                  ifelse (Country.Name == "Andorra", "AND", Country.Code))))
+
+# -- END OF OVERALL FILE DATA CLEANING -- #
+
+```
+
+## Introduction
+
+We know that war and civil unrest account for a significant proportion of deaths every year, but how much can mortality rates be attributed to a simple lack of basic resources and amenities, and what relationship do mortality rates have with such factors? That's what I set out to uncover using WorldBank data that covers the globe for up to the last 50 odd years, and I found a strong relationship with some of the available data.  
+
+If you were to look at overall mortality rates, the numbers would be muddied by several factors, including the aforementioned causes of death, so I decided to look at two related, but more specific outcome variables -- infant mortality as well as risk of maternal death.
+
+Infant mortality is defined as the number of infants dying before reaching one year of age, per 1,000 live births in a given year. 
+
+Life time risk of maternal death is the probability that a 15-year-old female will die eventually from a maternal cause assuming that current levels of fertility and mortality (including maternal mortality) do not change in the future, taking into account competing causes of death.
+ 
+While I am sure these as well can be impacted by things like civil unrest, it does focus on individuals who are more subject to be impacted by things like communicable diseases and lack of basic provisions like clean water, electricity or adequate medical resources, among others.  
+
+So, what do overall mortality rates even look like? 
+
+In the density plot below is included the overall infant mortality distribution along with some metrics indicating the availability of key resources. All curves generally appear in the area we would want them to, i.e. the green density curve, indicating infant mortality rates peaks at around 1% and the availability of resources are also skewed closer to 100%, but in both cases we see really long tails, indicating a fair share of less than ideal numbers, either for specific years or countries, or both. 
+
+```{r density, warning=FALSE, message=FALSE, echo=FALSE, comment=FALSE, fig.width=7.7, fig.height=7.7}
+
+### OVERALL DENSITY PLOT OF KEY VARIABLES
+### DENSITY PLOT
+
+WB = WorldBank %>% 
+  filter(Series.Name == "Mortality rate, infant (per 1,000 live births)" |
+           Series.Name == "Access to electricity (% of population)" | 
+           Series.Name == "Access to non-solid fuel (% of population)" | 
+           Series.Name == "Improved sanitation facilities (% of population with access)" | 
+           Series.Name == "Improved water source (% of population with access)")
+
+WB = WB[ , !names(WB) %in% c("X10.Yr.Avg", "X20.Yr.Avg", "X30.Yr.Avg", "X40.Yr.Avg", "X50.Yr.Avg")]
+WB = melt(WB, value.name = "value")
+WB = na.omit(WB)
+WB$variable = as.numeric(substr(WB$variable, 2, 5))
+WB = WB %>% filter(variable > 1989)
+
+WB = WB %>% 
+  mutate(std.values = ifelse(Series.Name == "Mortality rate, infant (per 1,000 live births)", 
+                             (value/1000)*100, value))
+
+
+breaks = c("Mortality rate, infant (per 1,000 live births)", 
+                    "Improved water source (% of population with access)", 
+                    "Improved sanitation facilities (% of population with access)", 
+                    "Access to electricity (% of population)", 
+                    "Access to non-solid fuel (% of population)")
+
+labels = c("Infant Mortality Rate", "Improved Water",  "Improved Sanitation", 
+           "Electricity Access", "Non-solid fuel Access")
+
+WB %>% ggplot(aes(std.values)) + geom_density(aes(color = Series.Name)) + 
+  ggtitle("Comparison of key metrics' distributions - Past 25 Years") + 
+  xlab("Percentage") + scale_color_brewer(palette = "Dark2", name ="", breaks = breaks, labels = labels)  +
+  theme_bw() + theme(legend.position = "bottom")
+
+
+```
+
+So to drill down further, let's have a closer look at the distribution of both outcome variables by year. The boxplots below suggest that both Infant mortality rates as well as risk of maternal death have shown not only steady overall improvements over the years but also a reduction in the disparity of cases across country-specific observations. But the upper end of these distributions yet represent shocking numbers for *some countries* with:
+* over 10% of infants dying every year (down from a high of 24% in 1961) and 
+* a 7.5%  probability that a 15 year old girl living today will eventually die of a maternal  cause (down from over 15% twenty-five years ago).        
+
+```{r infantboxplot, echo=FALSE, message = FALSE}
+# Five Decade Mortality Rates: Infants Under 1 Year old 
+infant = filter(WorldBank, Series.Name == "Mortality rate, infant (per 1,000 live births)") 
+infant = melt(infant, value.name = "value")
+infant = na.omit(infant)
+infant.chart = filter(infant, variable == "X1961" | variable == "X1971" | variable == "X1981" | variable == "X1991" | variable == "X2001" | variable == "X2011") %>% ggplot(., aes(x = variable, y = value)) + geom_boxplot(aes(fill = variable)) + geom_jitter(width = 0.2) 
+infant.chart = infant.chart + scale_x_discrete(labels = c("1961", "1971", "1981", "1991", "2001", "2011"))
+infant.chart = infant.chart + ggtitle ("Mortality Rates: Infants") + xlab("") + ylab("Mortality / 1000 infants") + scale_fill_brewer(palette = "YlOrRd", direction = -1) + theme(legend.position = "none") 
+
+ggplotly(infant.chart)
+
+```
+
+
+
+```{r maternalboxplot,echo=FALSE, message = FALSE}
+
+maternal = filter(WorldBank, Series.Name == "Lifetime risk of maternal death (%)") 
+maternal = melt(maternal, value.name = "value")
+maternal = na.omit(maternal)
+maternal.chart = filter(maternal, variable == "X1991" | variable == "X2001" | variable == "X2011") %>% ggplot(., aes(x = variable, y = value)) + geom_boxplot(aes(fill = variable)) + geom_jitter(width = 0.2) 
+maternal.chart = maternal.chart + scale_x_discrete(labels = c("1991", "2001", "2011"))
+maternal.chart = maternal.chart + ggtitle ("Risk of maternal death") + xlab("") + ylab("Risk of maternal death (%)") + scale_fill_brewer(palette = "YlOrRd", direction = -1) + theme(legend.position = "none") 
+
+ggplotly(maternal.chart)
+
+```
+*Please note: points have been marginally jittered above for clearer visual representation*
+
+
+
+##Mortality Rates across the Globe
+The below map plots the 2012 distribution of infant mortality rates by country. I chose 2012 because most of the covariates I would eventually like to use contain the best information from this year, with a couple of exceptions. It also presents a relatively recent picture of the variables of interest. 
+
+As can be seen, the world is distinctly divided, with many African, and some south asian, countries bearing a bigger burden of infant mortality. And if it wasn't noticeable on the previous boxplot, the range of values, as shown in the scale below is particularly telling of the disparity of values, pointing to a severe imbalance across the world. 
+
+```{r infantworldmap, include=FALSE}
+#Infant Mortality
+infant.reduced = filter(infant, variable == "X2012")
+
+world.map.1 = joinCountryData2Map(infant.reduced
+                                  ,joinCode = "ISO3"
+                                  ,nameJoinColumn = "Country.Code", verbose = T)
+
+```
+
+
+```{r map1, echo=FALSE, fig.height=9, fig.width=9}
+
+mapCountryData(world.map.1, mapTitle = "Mortality Rates: Infants (< 1 Yr Old) - 2012", nameColumnToPlot = "value", colourPalette = brewer.pal(7,'BuPu'))
+
+```
+
+
+The map representing the risk of maternal death is almost identical, and as such has been represented in a different color for differentiation. Here, the values range from close to 0 to over 7%.
+
+
+```{r maternalworldmap, include=FALSE}
+#Maternal Mortality
+maternal.reduced = filter(maternal, variable == "X2012")  
+
+world.map.2 = joinCountryData2Map(maternal.reduced
+                             ,joinCode = "ISO3"
+                             ,nameJoinColumn = "Country.Code")
+
+```
+
+```{r map2, echo=FALSE, fig.height=9, fig.width=9}
+mapCountryData(world.map.2, mapTitle = "Risk of Maternal Death (% Probability) - 2012", nameColumnToPlot = "value", colourPalette = brewer.pal(7,'YlOrRd'))
+
+```
+
+##Bottom Ranked Countries
+
+After factoring in all 50+ years of data for infant mortality and 26 years of data for risk of maternal death, and then ranking countries, the same countries feature at the bottom of the list. 
+
+The below chart looks at the number of times a country has had one of the worst three infant mortality rates in any given year since 1960. The chart for maternal data goes from 1990 through to 2015. It's important to note that Chad and Sierra Leone were ranked in the bottom 3 for maternal risk of death in every year since 1990. 
+
+
+```{r countrybars, include = FALSE}
+
+
+###############  BAR GRAPHS OF RANKS
+
+#COUNTRY RANKING OF INFANT MORTALITY RATES
+infant = filter(WorldBank, Series.Name == "Mortality rate, infant (per 1,000 live births)") 
+infant = infant[ , !names(infant) %in% c("X10.Yr.Avg", "X20.Yr.Avg", "X30.Yr.Avg", "X40.Yr.Avg", "X50.Yr.Avg")]
+infant = melt(infant, value.name = "value")
+infant = na.omit(infant)
+infant = infant %>% group_by(variable) %>% mutate(rank.by.year = rank(-value)) %>% 
+  arrange(variable, rank.by.year)
+
+infant = infant %>% mutate(Country = ifelse(Country.Code == "CAF", "C. A. Rep.",
+                                            ifelse(Country.Code == "SSD", "S. Sudan", 
+                                                   ifelse(Country.Code == "YEM", "Yemen", Country.Name))))
+
+country.rank.infant = infant %>% filter(rank.by.year < 4) %>% group_by(Country) %>% summarise(count = n()) %>%
+  arrange(desc(count)) %>% 
+  ggplot(aes(x = Country, y = count, fill = Country)) + 
+  geom_bar(stat = "identity") +
+  scale_fill_brewer(palette = "Paired") + theme_bw() +
+  ggtitle("Countries with the highest infant mortality") + xlab("") +
+  ylab("# of times featured in bottom 3 since 1960") + theme(legend.position = "none") + 
+  geom_text(aes(x=Country,y=count + 1,label=count))
+
+
+#COUNTRY RANKING OF RISK OF MATERNAL DEATH
+maternal = filter(WorldBank, Series.Name == "Lifetime risk of maternal death (%)") 
+maternal = maternal[ , !names(maternal) %in% c("X10.Yr.Avg", "X20.Yr.Avg", "X30.Yr.Avg", "X40.Yr.Avg", "X50.Yr.Avg")]
+maternal = melt(maternal, value.name = "value")
+maternal = na.omit(maternal)
+maternal = maternal %>% group_by(variable) %>% mutate(rank.by.year = rank(-value)) %>% 
+  arrange(variable, rank.by.year)
+
+maternal = maternal %>% mutate(Country = ifelse(Country.Code == "CAF", "C. African Rep.",Country.Name))
+View(maternal)
+
+country.rank.maternal = maternal %>% filter(rank.by.year < 4) %>% group_by(Country) %>% summarise(count = n()) %>% 
+  arrange(desc(count)) %>% 
+  ggplot(aes(x = Country, y = count, fill = Country)) + 
+  geom_bar(stat = "identity") +
+  scale_fill_brewer(palette = "Paired") + theme_bw() +
+  ggtitle("Countries with the highest maternal risk of death") + xlab("") +
+  ylab("# of times featured in bottom 3 since 1990") + theme(legend.position = "none") + 
+  geom_text(aes(x=Country,y=count + 1,label=count))
+
+```
+
+
+```{r plottingcountrybars, echo=FALSE, fig.width=10, fig.height=7}
+
+ggplotly(country.rank.infant)
+ggplotly(country.rank.maternal)
+
+```
+
+##Relationship between Mortality & Resources
+Getting back to the original question, are there any low hanging fruit and easy fixes for such a dichotomous situation? While my efforts during this analysis did not include any regressions, I did want to get an initial understanding of whether the availability of basic resources had a strong association with mortality rates, and if such a relationship existed, which provisions were more strongly linked with these outcomes? The findings could serve as a platform to do further research.
+
+The below correlation analysis helped home in on some of the stronger linkages and helped weed out some of the weaker ones. 
+
+*Note, the correlation analysis was run using 2012 data for all metrics, except for "Nurses and Midwives (per 1000 people)" and "Hospital beds (per 1000 people)" for which 2010 and 2009 data was used respectively, due to poorer availabilty of 2012 data for these measures.*
+
+```{r, echo=FALSE, fig.width=9, fig.height=9}
+#PLOTTING CORRELATIONS FOR MORTALITY RATES VERSUS AVAILABILITY OF AMENITIES AND RESOURCES
+
+WB = WorldBank %>% 
+  mutate(year.of.choice = ifelse(Series.Name == "Lifetime risk of maternal death (%)" | 
+                                  Series.Name == "Mortality rate, infant (per 1,000 live births)" |
+                                  Series.Name == "Access to electricity (% of population)" | 
+                                  Series.Name == "Access to non-solid fuel (% of population)" | 
+                                  Series.Name == "Antiretroviral therapy coverage (% of people living with HIV)" | 
+                                  Series.Name == "Average precipitation in depth (mm per year)" | 
+                                  Series.Name == "Improved sanitation facilities (% of population with access)" | 
+                                  Series.Name == "Improved water source (% of population with access)" | 
+                                  Series.Name == "Health expenditure per capita, PPP (constant 2011 international $)" | 
+                                  Series.Name == "Population density (people per sq. km of land area)" | 
+                                  Series.Name == "Immunization, DPT (% of children ages 12-23 months)" | 
+                                  Series.Name == "Immunization, measles (% of children ages 12-23 months)", X2012, 
+                      ifelse(Series.Name == "Nurses and midwives (per 1,000 people)", X2010, 
+                      ifelse(Series.Name == "Hospital beds (per 1,000 people)", X2009, NA)))) 
+          
+cols.to.remove = WB %>% select(starts_with("X"), contains("Series.Code"))
+cols.to.remove = names(cols.to.remove)
+WB = WB[ , !(names(WB) %in% cols.to.remove)]
+WB = na.omit(WB)
+WB = dcast(WB, Country.Name + Country.Code ~ Series.Name, value.var = "year.of.choice")
+WB.cor = WB[, 3:length(WB)]
+
+old.names = names(WB.cor)
+new.names = c("Electricity Access", "Non-solid fuel access", "Antiretroviral therapy coverage", 
+              "Avg. Precipitation", "Health Exp per capita", "Hospital Beds", 
+              "DPT Immunization", "Measles Immunization", "Improved Sanitation", "Improved Water source",
+              "Maternal death risk (%)", "Infant mortality rate", "Nurses & Midwives", "Pop. Density")
+setnames(WB.cor, old.names, new.names)
+
+WB.cor = cor(WB.cor, use = "pairwise.complete.obs", method = "pearson")
+
+corrplot(WB.cor, method = "ellipse", type = "lower", order = "hclust")
+
+```
+
+Focusing on the first two columns of the above correlation plot, which represent infant mortality and risk of maternal death, we see a very similar pattern across the variables included in the analysis. Besides basic resources, I had also included items like availability of renewable freshwater resources and land area, to see if naturally available resources had any linkages to the outcomes in question. They didn't and so they were removed from the analysis. In the plot above, it can also be seen that average rainfall and population density dont have much of a relationship with the mortality rates in question. What was also surprising was that access to anti-retroviral therapy too had a weak correlation with mortality rates in general. 
+
+The metrics that had the strongest relationship (in the 0.75 to 0.85 range) were: 
+* Percent of population with electricity
+* Percent of population with access to non-solid fuel
+* Percent of population with access to improved sanitation facilities, and
+* Percent of population with access to improved water sources
+
+The first two require no explanation, but access to improved sanitation facilities ensure the hygienic separation of human excreta from human contact. Access to improved water sources refers to the percentage of the population using an improved drinking water source including piped water on premises and other improved drinking water sources (public taps or standpipes, tube wells or boreholes, protected dug wells, protected springs, and rainwater collection).
+
+```{r independentsbyregion, include=FALSE}
+
+linechart = function(Title, Series) {
+  W = WorldBank %>% filter(Country.Name %in% c("Central Europe and the Baltics", "Europe & Central Asia", 
+                                         "Middle East & North Africa", "Sub-Saharan Africa", 
+                                         "East Asia & Pacific", "South Asia", "North America") & 
+                     Series.Name == Series) 
+
+  W = W[ , !names(W) %in% c("X10.Yr.Avg", "X20.Yr.Avg", "X30.Yr.Avg", "X40.Yr.Avg", "X50.Yr.Avg")]
+  
+  W = melt(W, value.name = "Value")
+  W = na.omit(W)
+  W$variable = as.numeric(substr(W$variable, 2, 5))
+  W = W %>% filter(variable > 1989)
+  
+  plot = ggplot(W, aes(x=variable, y = Value)) + geom_line(aes(group = Country.Name, color = Country.Name)) + 
+    scale_color_discrete(name ="Region") + geom_point(aes(color = Country.Name)) + theme_bw()
+  
+  plot + ggtitle(Title) + xlab("")
+}
+
+a = linechart("Access to electricity", "Access to electricity (% of population)")  + ylab("% of population")
+b = linechart("Access to non-solid fuel", "Access to non-solid fuel (% of population)")  + ylab("% of population")
+c = linechart("Improved water source", "Improved water source (% of population with access)")  + ylab("% of population with access")
+d = linechart("Improved sanitation", "Improved sanitation facilities (% of population with access)")  + ylab("% of population with access")
+
+
+```
+
+
+##Analyzing the strong correlating factors by Region
+
+The following 4 charts look at regional performance of the key identified metrics. The pattern follows the same as seen on the static world map from 2012, but this also gives us a view into how things have been trending on the resources that seem to be strongly linked with infant and maternal mortality over the past 25 years. We see a fairly shallow slope for Sub-saharran Africa on access to non-solid fuel as well as on improved sanitation facilities. Improvements in water access have been much better. 
+
+South Asian countries ranked lowest on the provision of sanitation facilities in the early '90s, but have made improvements since. 
+
+```{r plottingindependentsregion, echo = FALSE, fig.show= "hold"}
+
+ggplotly(a) 
+ggplotly(b)
+ggplotly(c)
+ggplotly(d)
+
+```
+
+##Conclusion
+My analysis found a very strong relationship between mortality rates and basic provisions. It also weeded out some factors which were less important. As a next step, it may be helpful to do a deeper country-specific analysis for African and South Asian nations that suffer from a chronic lack of basic infrastructure, to see where investments would be most fruitful in bringing these countries to a closer state of parity with the developed world. 
+
+
+
+

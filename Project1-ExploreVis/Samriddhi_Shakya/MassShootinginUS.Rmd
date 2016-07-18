@@ -1,0 +1,676 @@
+---
+title: "Exploratory Visualization Project"
+author: "Samriddhi Shakya"
+date: "July 17, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Mass Shooting in USA
+
+United State is the country with the most mass shooting in the world. From 1966 to 2012, nearly a third of the world's mass shootings took place in the U.S .According to Federal statutes; "mass killing" has been defined as an incident which results in three or more deaths. The commonly accepted definition -- the one the FBI used up to 2013 -- is a shooting that killed four or more people. According to the Gun Violence Archive, an organization which compiles data from shooting incidents, a "mass shooting" is any incident where four or more people are wounded or killed.  While the U.S. has 5% of the world's population, it had 31% of all public mass shootings. These gun statistics are quite alarming and the country really needs to act to alleviate the problem.
+
+On June 12, 2016, United States suffered the worst mass shooting in its modern history when 50 people were killed and 53 injured in Orlando, Florida, after a gunman stormed into a packed gay nightclub.
+The gunman was killed by a SWAT team after taking hostages at Pulse, a popular gay club.  Coming from Nepal where gun violence is rarely heard of, I wanted to do some spatial and statistical analysis of Gun Violence in US.
+
+This data exploration sets out to visualize the occurrence of Mass Shooting in United States. It will investigate the occurrence of Mass Shooting in Us since 1966 and will implement spatial and statistical analysis. A closer look will be taken on recent mass shooting from 2014 and 2016 to see any pattern of the occurrence. This project will try to visualize the injuries and fatalities that occurred as a result of mass shooting.
+
+This visualization project is divided into 2 parts. For the first part, I will be analyzing the Mass Shooting occurrence from 1966 till 2016 in US. The data used for this section was downloaded from [Stanford University Library](https://library.stanford.edu/projects/mass-shootings-america).
+
+The second part of this project will emphasize on the recent occurrence of Mass Shooting from 2014 till June 2016. The comparison will be made on different mass shooting occurrence for the year 2014 and 2015.The data was collected from [Gun Violence Archive](http://www.gunviolencearchive.org/reports) which is a  nonprofit corporation formed in 2013 to provide free online public access to accurate information about gun-related violence in the United States.
+
+
+## Part 1 - Mass Shooting from 1966 to 2016
+
+In this section, we are comparing the states which had the most occurrences of mass shooting and fatalities. The data used was from the Stanford University Library Mass Shootings in America (MSA) database. The definition of mass shooting used for the Stanford database is 3 or more shooting victims (not necessarily fatalities), not including the shooter. The shooting must not be identifiably gang, drug, or organized crime related. 
+
+```{r Library, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggmap)
+library(RColorBrewer)
+library(dplyr)
+library(ggplot2)
+library(reshape2) 
+library(gridExtra)
+#library(Rmisc)
+library(plotrix)
+```
+
+
+Data Preparation
+
+The data required some preparation to spatially portray in US maps.The occurrence of Mass shooting is grouped by State and is displayed in choropleth map. The darker shades of color depict the higher number of occurrence or fatality.
+
+```{r dataPrep,  message=FALSE, warning=FALSE}
+setwd("C:/Users/Samriddhi/Desktop/")
+states = map_data("state")
+MS_66_14 = read.csv("R_Folder/Practice/GunViolenceProject/MSA/Gundeaths_copy.csv")
+
+          #data Preparation
+
+#mass shooting_state
+
+MS_66_14_State = MS_66_14 %>% 
+                group_by(State) %>%  
+                summarise( Total_Incidents = n() ,
+                           Deaths = sum(Number.of.Victim.Fatalities),
+                           Injuries = sum(Number.of.Victims.Injured)
+                           ) %>% 
+                arrange(State)
+MS_66_14_State$State = tolower(MS_66_14_State$State) 
+
+
+#merging in map
+map_MS_66_14_state = merge(states, MS_66_14_State, 
+                           by.x='region',by.y='State', all=T) # merging with spatial DB 
+map_MS_66_14_state= map_MS_66_14_state[order(map_MS_66_14_state$order),]
+
+
+
+```
+
+## Mass Shooting Incident and Fatalities by State 
+
+The occurrence of Mass shooting is grouped by State and is displayed in choropleth map. The darker shades of color depict the higher number of occurrence or fatality.There are few states which did not have values and does not represent the color of the legend.
+
+```{r MS_incident, echo=FALSE, message=FALSE, warning=FALSE}
+# Mass Shooting Incident by state since 1966
+ggplot(data = map_MS_66_14_state, aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = cut_number(as.numeric(Total_Incidents),5))) +
+  geom_path(colour = 'gray') +
+  scale_fill_brewer('Incidents', palette  = 'YlGnBu') +
+  ggtitle("Mass Shooting Incidents in US (1966 - 2016)")+
+  xlab("") +
+  ylab("") 
+  
+```
+
+
+```{r MS_Death, echo=FALSE, message=FALSE, warning=FALSE}
+# Mass Shooting Deaths by state since 1966
+ggplot(data = map_MS_66_14_state, aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = cut_number(as.numeric(Deaths),5))) +
+  geom_path(colour = 'gray') +
+  scale_fill_brewer('Deaths', palette  = 'YlGnBu') +
+  ggtitle("Mass Shooting Deaths in US (1966 - 2016)")+
+  xlab("") +
+  ylab("")
+```
+
+Looking from the maps, we can conclude that States like California, Texas, Florida and Georgia has higher number of mass shooting and fatalities.
+
+## Mass Shooting classification by Gun Type
+
+In this section, we are trying to investigate which guns were more commonly used for the mass shooting. The gun type was generalized into five classes. The bar plots shows the type of gun that was used in the mass shooting and the number of victims that resulted from the incident.
+
+```{r MS_GunType, echo=FALSE, message=FALSE, warning=FALSE}
+# colnames(MS_66_14)
+MS_66_14$TypeofGunGeneral = tolower(MS_66_14$TypeofGunGeneral) 
+
+# group by gun type
+MS_66_14_GunType = MS_66_14 %>% 
+  rename(TypeOfGun = TypeofGunGeneral ) %>%
+  group_by(TypeOfGun) %>%  
+  summarise( Incidents = n() ,
+             Deaths = sum(Number.of.Victim.Fatalities),
+             Injuries = sum(Number.of.Victims.Injured)
+  )
+# MS_66_14_GunType
+# colnames(MS_66_14_GunType)
+
+melt_MS_66_14_GunType = melt(MS_66_14_GunType, id.vars = 'TypeOfGun', 
+                        measure.vars = c("Incidents", "Deaths", "Injuries"),
+                        variable.name = "statistics") %>%
+                        arrange(TypeOfGun)
+
+g_GunType = ggplot(data = melt_MS_66_14_GunType, aes(x = TypeOfGun,
+                                                     y = value,
+                                                     fill=statistics)  ) + 
+  geom_bar(stat = "identity", position='dodge') +
+  geom_text(aes(label = value), stat = "identity",
+            position = position_dodge(width = 1), size = 3) 
+# theme(axis.text.x = element_text(angle=90))
+g_GunType + coord_flip() +
+  ggtitle("Gun Type Statistics")+
+  xlab("Type of Gun") +
+  ylab("Frequency")+
+  theme(legend.background = element_rect(), legend.position=c(0.8,0.8),
+        legend.justification=c(0.6,0.4), 
+        legend.title = element_text(colour="blue", size=12, face="bold"))
+
+                #Gun type used, incident Deaths Injuries
+
+#----------------------------------------------------------------------------------------------
+
+```
+
+From the bargraph ,  we can see that the shooter/s used handguns and multiple guns in most of the incident.
+
+## Mass Shooting classification by Sex
+
+In this section, we are trying to investigate which Sex  was more commonly involved during the mass shooting incidents. The sex was generalized into four classes. The bar plots shows the sex of the shooter involved in the mass shooting and the number of victims it had.
+
+```{r MS_sex, echo=FALSE, message=FALSE, warning=FALSE}
+#----------------------------------------------------------------------------------------------
+
+# Gun incident Deaths Injuries  by Sex
+# colnames(MS_66_14)
+
+
+# group by sex
+MS_66_14_Sex = MS_66_14 %>% 
+  group_by(ShooterSex) %>%  
+  summarise( Incidents = n() ,
+             Deaths = sum(Number.of.Victim.Fatalities),
+             Injuries = sum(Number.of.Victims.Injured)
+  )
+# MS_66_14_Sex
+
+#melting
+melt_MS_66_14_sex = melt(MS_66_14_Sex, id.vars = 'ShooterSex', 
+                             measure.vars = c("Incidents", "Deaths", "Injuries"),
+                             variable.name = "statistics") 
+                            
+
+g_ShooterSex = ggplot(data = melt_MS_66_14_sex, aes(x = ShooterSex,
+                                                     y = value,  fill=statistics)  ) + 
+               geom_bar(stat = "identity", position='dodge') +
+              geom_text(aes(label = value), stat = "identity",
+            position = position_dodge(width = 1), size = 3) 
+# theme(axis.text.x = element_text(angle=90))
+g_ShooterSex + coord_flip() +
+  ggtitle("Sex of the Shooter")+
+  xlab("Sex") +
+  ylab("Frequency")+
+  theme(legend.background = element_rect(), legend.position=c(0.8,0.8),
+        legend.justification=c(0.6,0.4), 
+        legend.title = element_text(colour="blue", size=12, face="bold"))
+
+# incident Deaths Injuries by SEX
+
+#----------------------------------------------------------------------------------------------
+
+
+```
+
+From the bar graph, we can see that the male shooter/s were significantly higher than female or both.
+
+## Mass Shooting Classification by Race  
+
+In this section, we are trying to investigate which race was more involved in mass shooting incidents. The race was classified into ten classes. The bar a plot shows the race of the shooter/s involved in the mass shooting and the number of victims it had.
+
+```{r MS_race, echo=FALSE, message=FALSE, warning=FALSE}
+
+
+# Gun incident Deaths Injuries  by race
+# colnames(MS_66_14)
+
+
+# group by Race
+MS_66_14_Race = MS_66_14 %>% 
+  group_by(ShooterRace) %>%  
+  summarise( Incidents = n() ,
+             Deaths = sum(Number.of.Victim.Fatalities),
+             Injuries = sum(Number.of.Victims.Injured)
+  )
+# MS_66_14_Race
+
+#melting
+melt_MS_66_14_Race = melt(MS_66_14_Race, id.vars = 'ShooterRace', 
+                         measure.vars = c("Incidents", "Deaths", "Injuries"),
+                         variable.name = "statistics") 
+
+
+g_ShooterRace = ggplot(data = melt_MS_66_14_Race, aes(x = ShooterRace,
+                                                    y = value,  fill=statistics)  ) + 
+  geom_bar(stat = "identity", position='dodge') +
+  geom_text(aes(label = value), stat = "identity",
+            position = position_dodge(width = 1), size = 3) 
+# theme(axis.text.x = element_text(angle=90))
+g_ShooterRace + coord_flip() +
+  ggtitle("Race of the Shooter")+
+  xlab("Race") +
+  ylab("Frequency")+
+  theme(legend.background = element_rect(), legend.position=c(0.8,0.1),
+        legend.justification=c(0.6,0.4), 
+        legend.title = element_text(colour="blue", size=12, face="bold"))
+
+# incident Deaths Injuries by Race
+
+
+
+```
+
+
+From the bar graph, we can see that the white Americans or European American race was more involved in these mass shooting incidents and were responsible for large number of deaths and injuries.
+
+## Mass Shooting Classification by Type of Place
+
+In this section, we are trying to investigate which places the mass shooting mostly occurred. The bar plot shows only the top ten most commonly used places. The bar plots shows the places most of the mass shooting occurred and the number of casualties it had.
+
+```{r MS_PlaceType, echo=FALSE, message=FALSE, warning=FALSE}
+# Gun incident Deaths Injuries  by Place Type
+# colnames(MS_66_14)
+MS_66_14$Place.Type = tolower(MS_66_14$Place.Type) 
+
+
+# group by Place Type
+MS_66_14_PlaceType = MS_66_14 %>% 
+  group_by(Place.Type) %>%  
+  summarise( Incidents = n() ,
+             Deaths = sum(Number.of.Victim.Fatalities),
+             Injuries = sum(Number.of.Victims.Injured)
+  ) %>%
+  arrange(desc(Incidents)) %>%
+  head(10)
+
+# MS_66_14_PlaceType
+
+#melting
+melt_MS_66_14_PlaceType = melt(MS_66_14_PlaceType, id.vars = 'Place.Type', 
+                          measure.vars = c("Incidents", "Deaths", "Injuries"),
+                          variable.name = "statistics") 
+
+
+g_PlaceType = ggplot(data = melt_MS_66_14_PlaceType, aes(x = Place.Type,
+                                                      y = value,  fill=statistics)  ) + 
+  geom_bar(stat = "identity", position='dodge') +
+  geom_text(aes(label = value), stat = "identity",
+            position = position_dodge(width = 1), size = 3) 
+# theme(axis.text.x = element_text(angle=90))
+g_PlaceType + coord_flip() +
+  ggtitle("Mass Shooting by Type of Place")+
+  xlab("Type of Place") +
+  ylab("Frequency")+
+  theme(legend.background = element_rect(), legend.position=c(0.8,0.1),
+        legend.justification=c(0.6,0.4), 
+        legend.title = element_text(colour="blue", size=12, face="bold"))
+
+# incident Deaths Injuries by Place Type
+
+
+
+```
+
+
+From the bar graph, we can see that there were more mass shooting in residential/home and neighborhood than other places.
+
+## Mass Shooting classification by Motives 
+
+In this section, we are trying to investigate what was the motive of the shooter for the mass shooting that occurred. The bar plot shows only the top ten most common motives. 
+
+
+```{r MS_Motive, echo=FALSE, message=FALSE, warning=FALSE}
+# Gun incident Deaths Injuries  by Motive
+# colnames(MS_66_14)
+MS_66_14$Place.Type = tolower(MS_66_14$Place.Type) 
+
+
+# group by Motive
+MS_66_14_Motive = MS_66_14 %>% 
+  group_by(PossibleMotiveGeneral) %>%  
+  summarise( Incidents = n() ,
+             Deaths = sum(Number.of.Victim.Fatalities),
+             Injuries = sum(Number.of.Victims.Injured)
+  ) %>%
+  arrange(desc(Incidents))%>%
+  head(10)
+
+# MS_66_14_Motive
+
+#melting
+melt_MS_66_14_Motive = melt(MS_66_14_Motive, id.vars = 'PossibleMotiveGeneral', 
+                               measure.vars = c("Incidents", "Deaths", "Injuries"),
+                               variable.name = "statistics") 
+
+
+g_Motive = ggplot(data = melt_MS_66_14_Motive, aes(x = PossibleMotiveGeneral,
+                                                         y = value,  fill=statistics)  ) + 
+  geom_bar(stat = "identity", position='dodge') +
+  geom_text(aes(label = value), stat = "identity",
+            position = position_dodge(width = 1), size = 3) 
+# theme(axis.text.x = element_text(angle=90))
+g_Motive + coord_flip() +
+  ggtitle("Mass Shooting by Motive")+
+  xlab("Motive") +
+  ylab("Frequency")+
+  theme(legend.background = element_rect(), legend.position=c(0.9,0.1),
+        legend.justification=c(0.6,0.4), 
+        legend.title = element_text(colour="blue", size=12, face="bold"))
+
+# incident Deaths Injuries by Motive
+
+```
+
+From the bar graph, we can see that most of the time, the motive of the shooter/s  were unknown.
+
+## Part 2 - Mass Shooting from 2014 to June 2016 
+
+In this section, we are analyzing the mass shooting from 2014 to 2016 in United States. The data used for the study was downloaded from Gun Violence Archive website. According to Gun Violence Archive, a mass shooting is any incident where four or more people are wounded or killed. The data had the address location of the mass shooting incident which had to be converted into latitude and longitude to plot in the map using Geocode function.
+
+```{r MSGunArchiveData, echo=FALSE, message=FALSE, warning=FALSE}
+# Reading data from new csv file created 
+
+MS_2016 = read.csv("C:/Users/Samriddhi/Desktop/R_Folder/Practice/GunViolenceProject/GunViolenceArchive/Exportedcsv/MS2016.csv",stringsAsFactors = FALSE)
+
+MS_2015 = read.csv("C:/Users/Samriddhi/Desktop/R_Folder/Practice/GunViolenceProject/GunViolenceArchive/Exportedcsv/MS2015.csv",stringsAsFactors = FALSE)
+
+MS_2014 = read.csv("C:/Users/Samriddhi/Desktop/R_Folder/Practice/GunViolenceProject/GunViolenceArchive/Exportedcsv/MS2014.csv",stringsAsFactors = FALSE)
+
+```
+
+
+## Mass Shooting in US (2014 - 2016) 
+
+The maps show the locations where the mass shooting incident occurred in the last two years. We can see there were more occurrences in the East coast than the West coast. There were comparatively few incidents in Central America.
+
+```{r MS_2014 , echo=FALSE, message=FALSE, warning=FALSE}
+states = map_data("state")
+
+#2014
+g_MS2014 = ggplot() + 
+            geom_polygon(data = states, aes(x = long, y = lat, group=group),
+                         fill="grey60",  colour="grey90", size = 0.1) +
+            geom_point(aes(x=lon, y=lat), data=MS_2014, col="red", alpha=1,size =2 )  +
+            ggtitle("Mass Shooting in US (2014)")+
+            xlab("") +
+            ylab("")
+g_MS2014
+
+#2015
+g_MS2015 =ggplot() + 
+          geom_polygon(data = states, aes(x = long, y = lat, group=group),
+                       fill="grey60",  colour="grey90", size = 0.1) +
+          geom_point(aes(x=lon, y=lat), data=MS_2015, col="red", alpha=1,size =2 ) +
+          ggtitle("Mass Shooting in US (2015)")+
+          xlab("") +
+          ylab("")
+g_MS2015
+
+#2016
+g_MS2016= ggplot() + 
+          geom_polygon(data = states, aes(x = long, y = lat, group=group),
+                       fill="grey60",  colour="grey90", size = 0.1) +
+          geom_point(aes(x=lon, y=lat), data=MS_2016, col="red", alpha=1,size =2 ) +
+          ggtitle("Mass Shooting in US (2016)")+
+          xlab("") +
+          ylab("")
+g_MS2016
+# library(Rmisc)
+# multiplot(g_MS2014, g_MS2015, g_MS2016,  cols=2)
+
+
+
+```
+
+## Heat Map depicting Mass shooting
+
+The heat map shows the clusters where there were more occurrences of the mass shooting. The clusters are created based on the frequency of occurrences in space. From the map, we can see that the clusters of heat map are around Illinoi, Georgia, California and East Coast states where crimes seems to be significant.
+
+```{r MS_HeatMap , echo=FALSE, message=FALSE, warning=FALSE}
+#HeatMap
+
+#2014
+g_HeatMap2014= ggplot(aes(x=lon,y=lat), data=MS_2014) + 
+            geom_polygon(data = states, aes(x = long, y = lat, group=group),
+                         fill="grey60",  colour="grey90", size = 0.1) +
+            geom_point(aes(x=lon, y=lat), data=MS_2014, col="red", alpha=1,size =2 ) +
+            geom_density2d(data = MS_2014, aes(x = lon, y = lat)) +
+            stat_density2d( aes(fill = ..level.., alpha = ..level..),
+                            size = 0.01, bins = 20, geom = 'polygon')  + 
+            scale_fill_gradientn(colours=rev(brewer.pal(10,"Spectral"))) +
+            scale_alpha(range = c(0.00, 0.25), guide = FALSE) +
+            ggtitle("Heat Map in US (2014)")+
+            xlab("") +
+            ylab("")
+g_HeatMap2014
+
+
+
+#2015
+g_HeatMap2015 = ggplot(aes(x=lon,y=lat), data=MS_2015) + 
+              geom_polygon(data = states, aes(x = long, y = lat, group=group),
+                           fill="grey60",  colour="grey90", size = 0.1) +
+              geom_point(aes(x=lon, y=lat), data=MS_2015, col="red", alpha=1,size =2 ) +
+              geom_density2d(data = MS_2015, aes(x = lon, y = lat)) +
+              stat_density2d( aes(fill = ..level.., alpha = ..level..),
+                              size = 0.01, bins = 20, geom = 'polygon')  + 
+              scale_fill_gradientn(colours=rev(brewer.pal(10,"Spectral"))) +
+              scale_alpha(range = c(0.00, 0.25), guide = FALSE)  +
+              ggtitle("Heat Map in US (2015)")+
+              xlab("") +
+              ylab("")
+g_HeatMap2015
+
+
+#2016
+
+#2016
+g_HeatMap2016 = ggplot(aes(x=lon,y=lat), data=MS_2016) + 
+              geom_polygon(data = states, aes(x = long, y = lat, group=group),
+                           fill="grey60",  colour="grey90", size = 0.1) +
+              geom_point(aes(x=lon, y=lat), data=MS_2016, col="red", alpha=1,size =2 ) +
+              geom_density2d(data = MS_2016, aes(x = lon, y = lat)) +
+              stat_density2d( aes(fill = ..level.., alpha = ..level..), 
+                              size = 0.01, bins = 20, geom = 'polygon')  + 
+              scale_fill_gradientn(colours=rev(brewer.pal(10,"Spectral"))) +
+              scale_alpha(range = c(0.00, 0.25), guide = FALSE) +
+              ggtitle("Heat Map in US (2016)")+
+              xlab("") +
+              ylab("")
+g_HeatMap2016
+
+# multiplot(g_HeatMap2014, g_HeatMap2015, g_HeatMap2016,  cols=2)
+
+                                          #Head Map
+
+
+```
+
+## Mass Shooting by States (2014 - 2016)
+
+In this section, we are comparing the states which had the most occurrences of mass shooting and fatalities from 2014 to 2016. There are some states for which there are no values since the geocode function was not able to convert some address into latitude and longitude.
+
+```{r MS_state_141516 , echo=FALSE, message=FALSE, warning=FALSE}
+
+                                # Mass Shooting by States 2014,2015,2016
+
+
+#str(MS_2014)
+#2014
+MS_2014_state = MS_2014 %>% 
+  group_by(State) %>% 
+  summarise(Total_killed =sum(Killed), Total_injured = sum(Injured)) %>%
+  select(State,Total_killed_2014 = Total_killed,
+         Total_injured_2014 = Total_injured)
+
+
+MS_2014_state$State = tolower(MS_2014_state$State) # converting state to lower case
+
+# Merging State map with total gundeaths in each states
+
+map_MS_2014_State = merge(states, MS_2014_state, by.x='region',by.y='State', all=T)
+map_MS_2014_State= map_MS_2014_State[order(map_MS_2014_State$order),]
+
+ggplot(data = map_MS_2014_State, aes(x = long, y = lat, group = group)) +
+          geom_polygon(aes(fill = cut_number(as.numeric(Total_killed_2014),5))) +
+          geom_path(colour = 'gray') +
+          scale_fill_brewer('Deaths', palette  = 'YlGnBu')  +
+          ggtitle("Mass Shooting Deaths in US (2014)")+
+          xlab("") +
+          ylab("")
+
+
+
+#2015
+MS_2015_state = MS_2015 %>% 
+  group_by(State) %>%
+  summarise(Total_killed =sum(Killed), Total_injured = sum(Injured)) %>%
+  select(State,Total_killed_2015 = Total_killed,
+         Total_injured_2015 = Total_injured)
+
+MS_2015_state$State = tolower(MS_2015_state$State) # converting state to lower case
+
+# Merging State map with total gundeaths in each states
+map_MS_2015_State = merge(states, MS_2015_state, by.x='region',by.y='State', all=T)
+map_MS_2015_State= map_MS_2015_State[order(map_MS_2015_State$order),]
+
+ggplot(data = map_MS_2015_State, aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = cut_number(as.numeric(Total_killed_2015),5))) +
+  geom_path(colour = 'gray') +
+  scale_fill_brewer('Deaths', palette  = 'YlGnBu') +
+  ggtitle("Mass Shooting Deaths in US (2015)")+
+  xlab("") +
+  ylab("")
+
+
+
+#2016
+MS_2016_state = MS_2016 %>%
+                group_by(State) %>% 
+                summarise(Total_killed =sum(Killed), Total_injured = sum(Injured)) %>%
+                select(State, Total_killed_2016 = Total_killed, 
+                       Total_injured_2016 = Total_injured)
+
+MS_2016_state$State = tolower(MS_2016_state$State) # converting state to lower case
+
+# Merging State map with total gundeaths in each states
+map_MS_2016_State = merge(states, MS_2016_state, by.x='region',by.y='State', all=T)
+map_MS_2016_State= map_MS_2016_State[order(map_MS_2016_State$order),]
+
+ggplot(data = map_MS_2016_State, aes(x = long, y = lat, group = group)) +
+  geom_polygon(aes(fill = cut_number(as.numeric(Total_killed_2016),5))) +
+  geom_path(colour = 'gray') +
+  scale_fill_brewer('Deaths', palette  = 'YlGnBu') +
+  ggtitle("Mass Shooting Deaths in US (2016)")+
+  xlab("") +
+  ylab("")
+
+
+                            # Mass Shooting by States
+
+
+``` 
+
+## Comparing Mass Shooting Death and Injury by States (2014 - 2016)
+
+In this section, we are comparing the death and injuries resulting from mass shooting state wise. There are some states where the values are missing and therefore have not been included. The bar plot shows the death and injury for each state from year 2014 and 2016.
+
+```{r MS_DI_141516 , echo=FALSE, message=FALSE, warning=FALSE}
+
+#2014
+melt_MS_2014_state = melt(MS_2014_state, id.vars = 'State', 
+                          measure.vars = c("Total_killed_2014", "Total_injured_2014")) %>%
+                      arrange(State)
+
+g2014 = ggplot(data = melt_MS_2014_state, aes(x = State, y = value, fill=variable)  ) + 
+        geom_bar(stat = "identity", position='dodge') 
+       # theme(axis.text.x = element_text(angle=90))
+g2014 + coord_flip() +
+        ggtitle("Mass Shooting Deaths and Injury in US (2014)")+
+        xlab("Number of People") +
+        ylab("States")+
+        theme(legend.background = element_rect(), legend.position=c(0.8,0.8),
+              legend.justification=c(0.6,0.4), 
+              legend.title = element_text(colour="blue", size=12, face="bold"))
+
+
+#2015
+melt_MS_2015_state = melt(MS_2015_state, id.vars = 'State', 
+                          measure.vars = c("Total_killed_2015", "Total_injured_2015")) %>%
+                          arrange(State)
+
+g2015 = ggplot(data = melt_MS_2015_state, aes(x = State, y = value, fill=variable)  ) + 
+         geom_bar(stat = "identity", position='dodge') 
+# theme(axis.text.x = element_text(angle=90))
+g2015 + coord_flip() +
+  ggtitle("Mass Shooting Deaths and Injury in US (2015)")+
+  xlab("Number of People") +
+  ylab("States")+
+  theme(legend.background = element_rect(), legend.position=c(0.8,0.8),
+        legend.justification=c(0.6,0.4), 
+        legend.title = element_text(colour="blue", size=12, face="bold"))
+
+#2016
+melt_MS_2016_state = melt(MS_2016_state, id.vars = 'State', 
+                          measure.vars = c("Total_killed_2016", "Total_injured_2016")) %>%
+                          arrange(State)
+
+g2016 = ggplot(data = melt_MS_2016_state, aes(x = State, y = value, fill=variable)  ) + 
+        geom_bar(stat = "identity", position='dodge') 
+# theme(axis.text.x = element_text(angle=90))
+g2016 + coord_flip() +
+  ggtitle("Mass Shooting Deaths and Injury in US (2016)")+
+  xlab("Number of People") +
+  ylab("States")+
+  theme(legend.background = element_rect(), legend.position=c(0.8,0.8),
+        legend.justification=c(0.6,0.4), 
+        legend.title = element_text(colour="blue", size=12, face="bold"))
+
+                            # death and injury for all states
+
+
+```
+
+## Comparing Mass Shooting Death and Injury by States (2014 - 2015)
+
+In this section, we are comparing the death and injuries resulting from mass shooting state wise for year 2014 and 2015. There are some states where the values are missing and therefore have not been included.
+
+
+
+```{r MS_pyramid , echo=FALSE, message=FALSE, warning=FALSE}
+#pyramid
+
+# joining 2014 & 2015
+# 2 plots in 1
+
+MS_2014_2015_state = full_join(MS_2014_state, MS_2015_state, by = "State")
+# MS_2014_2015_state
+
+#Gundeaths comparison
+#melting 2014
+dm1 =   melt(MS_2014_2015_state, id.vars = 'State', 
+             measure.vars = c("Total_killed_2014", "Total_injured_2014"), 
+             variable.name = "y_2014") %>% 
+             arrange(State) %>% 
+             mutate(Outcome = ifelse(y_2014=="Total_killed_2014",
+                                           "Total_killed", "Total_injured" ))
+#melting 2015
+dm2 =   melt(MS_2014_2015_state, id.vars = 'State',
+             measure.vars = c("Total_killed_2015", "Total_injured_2015"), 
+             variable.name = "y_2015") %>%
+             arrange(State) %>% 
+             mutate(Outcome = ifelse(y_2015 =="Total_killed_2015",
+                                           "Total_killed", "Total_injured" ))
+
+#merging 2014 and 2015
+melt_2014_2015_DI  = merge(dm1, dm2, 
+                           by.x=c("State","Outcome"), 
+                           by.y=c("State","Outcome")) %>%
+                    select(State,Outcome, y_2014 = value.x, y_2015 = value.y ) 
+
+
+g2014_2015_DI= ggplot(data = melt_2014_2015_DI, aes(x = State )) +
+  geom_bar(aes(y=y_2014, fill=Outcome), stat="identity") +
+  geom_bar(aes(y= -y_2015, fill=Outcome), stat="identity") +
+  geom_hline(yintercept=0, colour="white", lwd=1) +  coord_flip(ylim=c(-220,220)) +
+  scale_y_continuous(breaks=seq(-225,225,25) , 
+                     labels = c('225','200','175','150','125','100','75','50','25','0','25','50'                      ,'75','100','125','150','175','200','225')) +
+  labs(y="Numbers of victims", x="State") +
+  ggtitle("2014                                                 2015")
+
+g2014_2015_DI
+
+
+
+
+
+```
+
+
+##Conclusion
+
+To sum up, by looking at the maps and bar plots in this project it can be concluded that mass shooting incidents in states like California, Florida, Georgia and Texas are very high with high number of fatalities and injuries.  The type of gun which the shooters commonly used was handguns followed by multiple guns in most of the mass shooting incident. The shooters were predominantly male with most of them belonging to White Americans or European American race. The reasons behind most of the shooter’s motives were unknown followed by mental illness. Most of the mass shooting commonly occurred in residential and neighborhood areas.Comparing the recent mass shooting data from 2014 to 2016, we can notice that there are more mass shooting in States like California, Georgia, Illinois and near Maryland. Comparing 2014 and 2015 data, there were more mass shooting and fatalities in 2015 than 2014.  
+
