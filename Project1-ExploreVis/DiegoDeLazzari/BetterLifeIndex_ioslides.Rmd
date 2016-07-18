@@ -1,0 +1,206 @@
+---
+title: "The 11 Keys to Well Being ?"
+author: "Diego De Lazzari"
+date: "18 July 2016"
+output: 
+  ioslides_presentation:
+    widescreen: true
+    smaller: False
+    logo: data-science-logos-final.png
+    self_contained: true
+    template: quarterly_report.html
+---
+
+```{r echo=FALSE}
+setwd("~/Documents/NYCDSA/Project 1")
+
+knitr::opts_chunk$set(fig.width=8, fig.height=6, include=FALSE,
+                      echo = FALSE, fig.path='Figs/')
+source('Project1c.R')
+```
+## Outlook {.flexbox .vcenter}
+
+1. A brief introduction to the _Better Life Index_;
+
+2. Comparative analysis of the aggregated indicators for well-being over the "OECD" countries;
+
+3. Focus on (direct) indicators describing the popular "perception": How do they relate with "measured" (indirect) indicators?
+
+4. Is "perception" adding information to the "big picture"?
+
+
+
+## The Source {.flexbox .vcenter} 
+
+* The Organisation for Economic Co-operation and Development (OECD) is an intergovernmental economic organisation providing a platform to compare policy experiences and monitoring economic, social and environmental changes;
+
+* 35 members + 25 non-members (such as China and Brasil) in the committees;
+
+* For more details on OECD policies, visit <http://www.oecd.org>.
+
+
+## The "Better Life" Index. How do you measure well-being? {.flexbox .vcenter}
+
+* The BLI is an interactive web-based tool created to engage people in the debate on well-being and, through this process, learn what matters the most to them.
+
+* __11__ keys calculated from __24__ indicators and __38__ countries.
+
+* __Living conditions__: Housing, Income, Jobs;
+
+* __Quality of life__: _Community_, Education, Environment, Governance, _Health_, _Life satisfaction_,  _Safety_ and Work-life balance;
+
+* The _Italic_ keys are (partly) based on public polls. To date, over 100.000
+users participated to the initiative.
+
+
+# Aggregated indicators
+
+## Aggregated indicators: Life satisfaction {.flexbox .vcenter}
+
+```{r Life satisfaction , include=TRUE}
+map.it("Life.satisfaction")
+```
+
+
+## Aggregated indicators: Community{.flexbox .vcenter}
+
+```{r Community, include=TRUE}
+map.it("Community")
+```
+
+
+## Aggregated indicators: Health{.flexbox .vcenter}
+
+```{r Health , include=TRUE}
+map.it("Health")
+```
+
+
+## Aggregated indicators: Safety{.flexbox .vcenter}
+
+```{r Safety, include=TRUE}
+map.it("Safety")
+```
+
+# Comparing Direct and Indirect indicators
+
+## A quick look at the normalized density ditribution{.flexbox .vcenter}
+```{r About density , include=TRUE,  fig.height=4}
+plot.dense() + ggtitle(paste0('Density plot for normalized direct indicators'))
+```
+
+## Health: Self-reported health + life expectancy{.flexbox .vcenter}
+
+```{r healthVSlife2, include=TRUE,fig.height=4}
+box.data(dataOECD_normalize_TMF,c('Self.reported.health','Life.expectancy')) +
+ggtitle(paste0('Box plot for normalized "Self-reported health" and "Life expectancy"'))
+```
+
+## Health: Self-reported health + life expectancy(2){.flexbox .vcenter}
+
+```{r healthVSlife, include=TRUE,fig.height=4}
+plot.data(dataOECD_TMF,'Self.reported.health','Life.expectancy','Inequality',filt = c('Men','Women')) +
+ggtitle(paste0('"Self-reported health" VS "Life expectancy"'))
+```
+
+## Safety: Feeling Safe + Homicide rate {.flexbox .vcenter}
+
+```{r SafeVSHomicide_rate, include=TRUE,fig.height=4}
+box.data(dataOECD_normalize_TMF,c('Homicide.rate','Feeling.safe.walking.alone.at.night'),'Inequality',filt = c('Men','Women')) +
+ggtitle(paste0('Box plot for normalized "Safety at night" and "homicide rate"'))
+```
+
+## Safety: Feeling Safe VS Homicide rate (2){.flexbox .vcenter}
+
+```{r SafeVSHomicide_rate2, include=TRUE,fig.height=4}
+plot.data(dataOECD_TMF,'Homicide.rate','Feeling.safe.walking.alone.at.night','Inequality',filt = c('Men','Women')) + coord_cartesian(xlim = c(0,3)) +
+ggtitle(paste0('"Homicide rate" VS "Feeling safe walking alone at night"'))
+```
+
+## Correlation matrix for the aggreagated indicators (keys)
+<div class="columns-2">
+<div class="centered">
+```{r Corr_aggr, include=TRUE,fig.width=5,fig.height=5}
+corr_aggregate()
+```
+</div>
+  - __Life satisfaction__ shows a good correlation with Jobs and Health; 
+  - __Community__ does not appear to correlate with any other variable;
+  - __Safety__ correlates with Education.
+</div>
+
+## Life satisfaction VS Jobs/Health{.flexbox .vcenter}
+
+```{r Life satisfaction VS Jobs, include=TRUE,fig.height=5,fig.width=5}
+plot.aggregated(dataOECD_aggregate_TMF,'Life.satisfaction','Jobs','Inequality',filt = c('Total')) + geom_smooth() +
+ggtitle(paste0('Plot for normalized "Life Satisfaction" and "Jobs"'))
+plot.aggregated(dataOECD_aggregate_TMF,'Life.satisfaction','Health','Inequality',filt = c('Total')) + geom_smooth() +
+ggtitle(paste0('Plot for normalized "Life Satisfaction" and "Health"'))
+```
+
+## Correlation among direct indicators
+<div class="columns-2">
+<div class="centered">
+```{r Corr_direct, include=TRUE,fig.height=4,fig.width=4}
+corr_NonAggregate(c('Life.satisfaction','Self.reported.health','Feeling.safe.walking.alone.at.night','Quality.of.support.network'))
+```
+</div>
+  - Most direct indicators show a good correlation; 
+  - This might suggest a bias in the data gather in public polls;
+  - People rank their well being in a "local" context.
+</div>
+
+## Conclusions{.flexbox .vcenter}
+* The BLI captures the popular perception of well being in 4 indicators obtained through public opinion polls;
+* The limited number of samples (~200.000 in 2015) and the lack of an appropriate weighting, limits the reliability of the aggregated indicators such as "Safety" and "Health";
+* The dataset contains a number of "outlying" countries i.e. countries with significantly low values for most indicators. As a result, the normalized distributions are skewed towards the high ranking countries ;
+
+## Conclusions (2){.flexbox .vcenter}
+* The density distribution of the 4 direct indicators suggests that a "optimistic" bias; 
+* Direct indicators do not seem to correlate well with the indirect indicators, even within the same key.
+* Quality of support network, does not seem to correlate with any indirect indicator.
+
+# Q&A
+
+## Correlation among non aggregated indicators
+
+```{r Corr_all, include=TRUE,fig.height=6}
+corr_NonAggregate_all()
+```
+
+## Aggregated indicators: Wealth{.flexbox .vcenter}
+
+```{r Wealth, include=TRUE}
+map.it("Wealth")
+```
+
+## Aggregated indicators: Housing{.flexbox .vcenter}
+
+```{r Housing, include=TRUE}
+map.it("Housing")
+```
+
+## Aggregated indicators: Jobs{.flexbox .vcenter}
+
+```{r Job, include=TRUE}
+map.it("Jobs")
+```
+
+## Aggregated indicators: Education{.flexbox .vcenter}
+
+```{r Education, include=TRUE}
+map.it("Education")
+```
+
+## Aggregated indicators: Environment{.flexbox .vcenter}
+
+```{r Environment, include=TRUE}
+map.it("Environment")
+```
+
+## Aggregated indicators: Engagement{.flexbox .vcenter}
+
+```{r Engagement, include=TRUE}
+map.it("Engagement")
+```
+

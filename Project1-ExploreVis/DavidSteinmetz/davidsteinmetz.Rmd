@@ -1,0 +1,201 @@
+---
+title: "The Pressure Cooker:"
+subtitle: "Do Higher Population Densities Increase Crime?"
+author: "David Richard Steinmetz"
+date: "July 18, 2016"
+output:
+  ioslides_presentation:
+    widescreen: true
+    #smaller: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source('D:/Projects/DataScienceBootcamp/11_Project1_Exploratory_Data_Analysis/02_Selfgen/160715_eda_data_source.R')
+```
+
+## The relationship between population density and crime rates is not straightforward
+
+Cities are pressure cookers: if you squeeze people together, crime rates go up. After all, in the country, you wouldn't shoot your neighbor, right?
+
+But everyone knows that you'd rather not be in a subway station alone late at night. More people around make it less likely you'll be mugged.
+
+So which is it? Does crime increase or decrease with population density?
+
+
+## The population density in NYC counties is an order of magnitude higher than the rest of New York's counties
+
+```{r choropleth}
+data(df_pop_county)
+ny_choro <- df_pop_county[1829:1890,]
+ny_choro$value <- (subset(crime$Density.sq.mi, Year==2000))
+county_choropleth(ny_choro,
+                  title      = "New York Population Density by County",
+                  legend     = "Density",
+                  num_colors = 1,
+                  state_zoom = c("new york"))
+```
+
+
+## The population density in NYC counties is an order of magnitude higher than the rest of New York's counties
+
+```{r log_choropleth}
+data(df_pop_county)
+ny_choro <- df_pop_county[1829:1890,]
+ny_choro$value <- log(subset(crime$Density.sq.mi, Year==2000))
+county_choropleth(ny_choro,
+                  title      = "New York Log Population Density by County",
+                  legend     = "Density",
+                  num_colors = 1,
+                  state_zoom = c("new york"))
+```
+
+
+## The mean population density has risen nearly 8% in New York counties outside NYC since 1990
+
+```{r popden_trend_nys}
+stden <- crime_nys %>% 
+    select(Year, Density.sq.mi) %>%
+    group_by(Year) %>%
+    summarise(Density.sq.mi=mean(Density.sq.mi))
+
+p9 <- ggplot(stden, aes(x=Year, y=Density.sq.mi)) + 
+    geom_line() +
+    ggtitle('Population Density in New York State (minus NYC)') +
+    xlab('Year') +
+    ylab('Population Density (ppl/sq.mi)') + 
+    theme_minimal()
+p9
+```
+
+
+## The mean population density in NYC also rose nearly 8% in the late 1990's
+
+```{r popden_trend_nyc}
+stden <- crime_nyc %>% 
+    select(Year, Density.sq.mi) %>%
+    group_by(Year) %>%
+    summarise(Density.sq.mi=mean(Density.sq.mi))
+
+p10 <- ggplot(stden, aes(x=Year, y=Density.sq.mi)) + 
+    geom_line() +
+    ggtitle('Population Density in New York City') +
+    xlab('Year') +
+    ylab('Population Density (ppl/sq.mi)') + 
+    theme_minimal()
+p10
+```
+
+
+
+
+
+## Four measures of crime rate have all decreased in the past 25 years in New York State
+
+```{r crime_nys}
+# NEW YORK STATE ONLY
+stsum <- crime_nys %>% 
+    select(Year, Index.Rate, Property.Rate, Violent.Rate,
+           Firearm.Rate) %>%
+    group_by(Year) %>%
+    summarise(Index.Rate=mean(Index.Rate),
+              Property.Rate=mean(Property.Rate),
+              Violent.Rate=mean(Violent.Rate),
+              Firearm.Rate=mean(Firearm.Rate))
+stsum_melt <- melt(stsum, id='Year', value.name = 'Value')
+names(stsum_melt)[2] <- 'Crime.Type'
+
+p3 <- ggplot(stsum_melt, aes(x=Year, y=Value)) + 
+    geom_line(aes(color=Crime.Type),size=1) +
+    ggtitle('Trend of Crime Rates in New York State (minus NYC)') +
+    xlab('Year') +
+    ylab('Crime Rate (Incidents per 100,000 ppl)') + 
+    theme_minimal()
+p3
+```
+
+
+## Four measures of crime rate also decreased during the 1990s in NYC
+
+```{r crime_nyc}
+# NEW YORK CITY ONLY
+ctysum <- crime_nyc %>% 
+    select(Year, Index.Rate, Property.Rate, Violent.Rate,
+           Firearm.Rate) %>%
+    group_by(Year) %>%
+    summarise(Index.Rate=mean(Index.Rate),
+              Property.Rate=mean(Property.Rate),
+              Violent.Rate=mean(Violent.Rate),
+              Firearm.Rate=mean(Firearm.Rate))
+ctysum_melt <- melt(ctysum, id='Year', value.name = 'Value')
+names(ctysum_melt)[2] <- 'Crime.Type'
+
+p3 <- ggplot(ctysum_melt, aes(x=Year, y=Value)) + 
+    geom_line(aes(color=Crime.Type),size=1) +
+    ggtitle('Trend of Crime Rates in New York City') +
+    xlab('Year') +
+    ylab('Crime Rate (Incidents per 100,000 ppl)') + 
+    theme_minimal()
+p3
+```
+
+
+## The crime rates rose with population density outside NYC when it remains under 500
+
+```{r indr_popden_u500nys}
+# NEW YORK STATE ONLY
+
+p11 <- ggplot(data=u500nys, aes(x=Density.sq.mi, y=Index.Rate)) + 
+    geom_point() +
+    geom_smooth(method = 'lm') + 
+    ggtitle('NY counties outside NYC with population density < 500 ppl/sq.mi') +
+    xlab('Population Density (ppl/sq.mi)') +
+    ylab('Index Crime Rate (Incidents per 100,000 ppl)') + 
+    theme_minimal()
+p11
+```
+
+
+## Crime rates did not increase with population density above 500 outside NYC
+
+```{r indr_popden_oe500nys}
+# NEW YORK STATE ONLY
+
+p11 <- ggplot(data=oe500nys, aes(x=Density.sq.mi, y=Index.Rate)) + 
+    geom_point() +
+    geom_smooth(method = 'lm') + 
+    ggtitle('NY counties outside NYC with population density >= 500 ppl/sq.mi') +
+    xlab('Population Density (ppl/sq.mi)') +
+    ylab('Index Crime Rate (Incidents per 100,000 ppl)') + 
+    theme_minimal()
+p11
+```
+
+
+## The index crime rate rises with population density in NYC
+
+```{r indr_popden_oe500nyc}
+# NEW YORK CITY ONLY
+
+p11 <- ggplot(data=oe500nyc, aes(x=Density.sq.mi, y=Index.Rate)) + 
+    geom_point() +
+    geom_smooth(method = 'lm') + 
+    ggtitle('NYC counties') +
+    xlab('Population Density (ppl/sq.mi)') +
+    ylab('Index Crime Rate (Incidents per 100,000 ppl)') + 
+    theme_minimal()
+p11
+```
+
+
+## Takeaway
+
+- Population density in NY state has increased over the last 25 years
+- Crime rates in NY state have decreased over the last 25 years
+- In NYC counties, crime rates increase with population density
+- In counties outside NYC, an increase in crime rates appears with an increase  in population density, but only up to 500 ppl/sq.mi, where it then appears to decrease
+
+
+## Future Work
+
+Household income, racial diversity, age, and education are all variables which intuitively could impact crime rates for which there is available data. Expanding the investigation to account of those variables would shed more light on the factors affecting crime rates and help guide policy decisions.

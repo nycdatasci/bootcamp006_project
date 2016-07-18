@@ -1,0 +1,126 @@
+---
+title: "A Study of El Niño and La Niña effects on North America"
+author: "Bin Fang"
+date: "July 17, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = T)
+```
+
+## Introduction
+El Niño (Warm) and La Niña (cool) are two extreme events that particularly happens in tropical pacific region. El Niño has both negative and positive global impacts, especially in U.S. Western coast and Southeast U.S., In contrast with El Niño, La Niña normally appears associated with cold extreme weather. The two events are expected to bring above average precipitation to U.S. during Fall-Winter-Spring, reduced risk of wildfires, more hurricane activities, as well as higher risk of flooding.
+To study their effects on North America, the author used land surface variables derived from North American Land Data Assimilation System (NLDAS-2). This data set contains a series of land surface parameters simulated from the land-surface model (LSM) and are in 1/8th degree grid spacing and range from Jan 1979 to the present. The temporal resolution is monthly.
+The five variables used for temporal and spatial analysis are listed below.
+
+```{Variables}
+Variables:
+Vegetation transpiration (W/m^2), 
+Precipitation (frozen+unfrozen, kg/m^2), 
+Temperature (C), 
+Soil wetness (kg/m^2), 
+Snow cover (%)
+```
+
+# Data Visualization and Exploration
+## a. Time series analysis of averaged anomalies of U.S. East/West coast:
+The five monthly NLDAS variables between 1980-2015 are averaged from three continuous months for each season. The averaged anmolies for each variable are calculated by subtracting the long-term averaged data from each year. In order to better summarize the weather anomalies, two typical regions: Eastern U.S. (region of 25-45 deg NW, 65-85 deg NW) and Western U.S.(region of 30-50 deg NW, 115-125 deg NW) are clipped out and used for averaging. The five winters of the years (1982-1983, 1988-1989, 1997-1998, 2006-2007, 2014-2015) are highlighted for better comparing between the variables.
+```{Anomalies of U.S. East, echo=T}
+library(ggplot2)
+library(R.matlab)
+anoma_avg = readMat("anoma_avg.mat")
+year = c("1980","1981","1982","1983","1984","1985","1986","1987","1988","1989","1990","1991",
+              "1992","1993","1994","1995","1996","1997","1998","1999","2000","2001","2002","2003",
+              "2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015")
+table_temp = rbind(year, anoma_avg$ano.east.win)
+
+anoma_east = data.frame(Year =  as.factor(table_temp[1,]), Temperature = as.numeric(table_temp[2,]), 
+                        Rainfall = as.numeric(table_temp[3,]), Snow_Cover = as.numeric(table_temp[4,]), 
+                        Soil_Wetness = as.numeric(table_temp[5,]), Vegetation_Transipiration = as.numeric(table_temp[6,]))
+
+###########################################
+
+df = melt(anoma_east[, c("Year", "Temperature", "Rainfall", "Snow_Cover", 
+"Soil_Wetness", "Vegetation_Transipiration")], id="Year")
+ggplot(df) + geom_line(aes(x=Year, y=value, color=variable, group = 1))  + 
+facet_wrap( ~ variable, scales="free") + scale_x_discrete(breaks=c("1980","1985","1990",
+"1995","2000","2005","2010","2015"), labels=c("80","85","90","95","00","05","10","15")) +
+geom_area(aes(x=Year, y=value, color=variable, group = 1), stat="identity", fill="black", alpha=.3) + 
+  geom_rect(aes(x=Year, y=value, xmin = "1982", xmax = "1983",ymin = -Inf, ymax = Inf), 
+            fill="deeppink",stat="identity", alpha = 0.01) +
+  geom_rect(aes(x=Year, y=value, xmin = "1997", xmax = "1998",ymin = -Inf, ymax = Inf),
+            fill="deeppink",stat="identity", alpha = 0.01) +
+  geom_rect(aes(x=Year, y=value, xmin = "2014", xmax = "2015",ymin = -Inf, ymax = Inf),
+            fill="deeppink",stat="identity", alpha = 0.01) +
+  geom_rect(aes(x=Year, y=value, xmin = "1988", xmax = "1989",ymin = -Inf, ymax = Inf),
+            fill="cyan",stat="identity", alpha = 0.01) +
+  geom_rect(aes(x=Year, y=value, xmin = "2007", xmax = "2008",ymin = -Inf, ymax = Inf),
+            fill="cyan",stat="identity", alpha = 0.01) +
+  labs(title="Variable Anomalies of U.S. East") 
+
+######################################################################################
+
+year = c("1980","1981","1982","1983","1984","1985","1986","1987","1988","1989","1990","1991",
+         "1992","1993","1994","1995","1996","1997","1998","1999","2000","2001","2002","2003",
+         "2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015")
+table_temp = rbind(year, anoma_avg$ano.west.win)
+
+anoma_west = data.frame(Year =  as.factor(table_temp[1,]), Temperature = as.numeric(table_temp[2,]), 
+                        Rainfall = as.numeric(table_temp[3,]), Snow_Cover = as.numeric(table_temp[4,]), 
+                        Soil_Wetness = as.numeric(table_temp[5,]), Vegetation_Transipiration = as.numeric(table_temp[6,]))
+
+###########################################
+df = melt(anoma_west[, c("Year", "Temperature", "Rainfall", "Snow_Cover", 
+                         "Soil_Wetness", "Vegetation_Transipiration")], id="Year")
+ggplot(df) + geom_line(aes(x=Year, y=value, color=variable, group = 1))  + 
+  facet_wrap( ~ variable, scales="free") + scale_x_discrete(breaks=c("1980","1985","1990",
+                                                                     "1995","2000","2005","2010","2015"), labels=c("80","85","90","95","00","05","10","15")) +
+  geom_area(aes(x=Year, y=value, color=variable, group = 1), stat="identity", fill="black", alpha=.3) + 
+  geom_rect(aes(x=Year, y=value, xmin = "1982", xmax = "1983",ymin = -Inf, ymax = Inf), 
+            fill="deeppink",stat="identity", alpha = 0.01) +
+  geom_rect(aes(x=Year, y=value, xmin = "1997", xmax = "1998",ymin = -Inf, ymax = Inf),
+            fill="deeppink",stat="identity", alpha = 0.01) +
+  geom_rect(aes(x=Year, y=value, xmin = "2014", xmax = "2015",ymin = -Inf, ymax = Inf),
+            fill="deeppink",stat="identity", alpha = 0.01) +
+  geom_rect(aes(x=Year, y=value, xmin = "1988", xmax = "1989",ymin = -Inf, ymax = Inf),
+            fill="cyan",stat="identity", alpha = 0.01) +
+  geom_rect(aes(x=Year, y=value, xmin = "2007", xmax = "2008",ymin = -Inf, ymax = Inf),
+            fill="cyan",stat="identity", alpha = 0.01) +
+  labs(title="Variable Anomalies of U.S. West")  
+  
+```
+
+The time series plots demonstrate anomalies of the selected variables. It seems both El Niño and La Niña are usually associated with higher temperature, greater rainfall and higher vegetation trasnpiration actvity. The other two variables snow cover and soil wetness are also determined by other factors and lagged to respond to the change of temperature and rainfall. The Eastern U.S. are greater influenced by the two events than Western U.S.
+
+# b. Analysis of spatial distribution pattern :
+```{Spatial distribution pattern, echo=T}
+install.packages(c("ggplot2", "devtools", "dplyr", "stringr"))
+# some standard map packages.
+install.packages(c("maps", "mapdata"))
+devtools::install_github("dkahle/ggmap")
+
+library(R.matlab)
+library(mapsdata)
+library(maps)
+setwd("/Users/binfang/Documents/Data_Academy/project/Project_1/matlab_codes")
+mapping = readMat("mapping.mat")
+mapping = data.frame(mapping)
+
+########################################################################################
+mapping_data = data.frame(Longitude = mapping$lst.data.1, Latitude = mapping$lst.data.2, 
+                          Temperature = mapping$lst.data.5)
+us_states <- map_data("state")
+g1 = ggplot(data=mapping_data, aes(x=Longitude,y=Latitude,fill=Temperature))
+g1 + geom_tile()+ geom_polygon(data=us_states,aes(x=long, y=lat, group=group), 
+colour="black", fill="white", alpha=0)+ scale_fill_gradientn(colours = topo.colors(10)) +
+labs(title="Temperature Anomalies(1998)")  
+
+ggsave("lst_98.pdf",width = 25, height = 12.5, units = "cm")
+```
+By analyzing the spatial distirbution pattern of the variables, we may know that from the temperature map, Central West and Northeastern U.S. experienced abnormal high temperature ranging 4-8 C, while 2 C lower from normal record in Central Mexico. Great precipitation activies occured in California and Southern and Eastern U.S., which were up to 50-200 kg/m^2 higher than normal expecially in Northern California and Florida. The snow cover map shows in New England region is a bit higher than normal. Southeast U.S. and Texas are observed of higher vegetation trasnpiration activities than usual from the map.
+
+## Conclusion:
+From the study of anomalies of five land surface variables: temperature, precipitation, snow cover, soil wetness and vegetation transpiration, it can be found that temperatue and prepicitation are directly related to El Niño/La Niña effects. El Niño is positively related to temperature and precipitation while La Niña is more negatively related to the two variables. South and East Coast U.S. as well as California tend to be easier affected by the two extreme events.
+ 
+
