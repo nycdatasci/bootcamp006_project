@@ -1,0 +1,127 @@
+---
+title: "Bitcoin - Presentation 1"
+author: "Ben Townson"
+date: "July 18, 2016"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(Quandl)
+library(quantmod)
+library(dplyr)
+library(ggplot2)
+library(reshape)
+library(scales)
+
+bc_ohlc=readRDS("bc_ohlc.rds")
+```
+
+## Bitcoin - Does It Have Legs?
+```{r leader, echo=F,fig.height=3,fig.width=3}
+library(png)
+library(grid)
+img <- readPNG("bc_img.png")
+ grid.raster(img)
+```
+  
+* **Bitcoin is:**
+* Electronic currency, exchanged via blockchain technology
+* Traded currency, transacted on various exchanges
+
+##The Datasets
+* **Trading data from Bitcoincharts.com**
+* Consolidated trades from all bitcoin exchanges
+* includes daily high, low, open, and close data
+
+* **Bitcoin blockchain transaction data from Blockchain.info**
+* Total Transactions: Non-exchange transactions on the blockchain
+* Unique Addresses: Unique bitcoin users, excluding top 100 addresses
+* Transaction Volume: USD value of transactions in bitcoin
+
+## Highly Volatile Currency
+```{r vol1, echo=F}
+g <- ggplot(bc_ohlc, aes(x=date, weighted.price)) 
+g <- g + geom_line() + ggtitle("Daily Weighted Price for bitcoin")
+g
+
+```
+
+* Maximum Daily Volatility (Annualized): `r paste0(round(100*max(bc_ohlc$realized.vol[20:length(bc_ohlc)]),2),'%')`
+* Maximum Daily Move: `r max(bc_ohlc$range)`
+
+## Volatility Highlighted
+```{r vol2, echo=F}
+g1 <- ggplot(bc_ohlc[732:854,], aes(x=date, lower=candleLower, middle = candleLower,upper=candleUpper,ymin=low,ymax=high)) 
+g1 <- g1 + geom_boxplot(stat='identity', aes(group=date,fill=fill)) + ggtitle("Daily Price for bitcoin from November 2014-January 2015") + theme(legend.position = "none")
+g1
+
+```
+
+## Volatility Highlighted
+```{r vol3, echo=F,warning=F}
+
+g2 <- ggplot(bc_ohlc,aes(return))
+g2 <- g2 + geom_histogram(aes(fill=year),bins = 60) + ggtitle("Distribution of Daily Returns") + scale_x_continuous(labels=percent)
+g2
+
+```
+
+
+## Adoption of Bitcoin
+```{r adopt1, echo=F}
+
+g3 <- ggplot(bc_ohlc,aes(date,unique.addresses))
+g3 <- g3 + geom_point() + geom_smooth(method="loess") + ggtitle("Unique Bitcoin Addresses Used Daily") + scale_y_continuous(labels=comma)
+g3
+
+```
+
+## Adoption of Bitcoin
+```{r adopt2, echo=F}
+
+g4 <- ggplot(bc_ohlc,aes(date,daily.transactions))
+g4 <- g4 + geom_point() + geom_smooth(method="loess")+ ggtitle("Daily Estimated Transactions") + scale_y_continuous(labels=comma) 
+g4
+
+```
+
+## Adoption of Bitcoin
+```{r adopt3, echo=F}
+
+g5 <- ggplot(bc_ohlc,aes(date,estimated.transaction.volume))
+g5 <- g5 + geom_point() + geom_smooth(method="loess")+ ggtitle("Estimated USD Transaction Volume") + scale_y_continuous(labels=comma)
+g5
+
+```
+
+## Unfazed by Volatility
+```{r unfazed1, echo=F}
+
+g6 <- ggplot(bc_ohlc,aes(weighted.price,daily.transactions))
+g6 <- g6 + geom_point(aes(color=date)) + ggtitle("Weighted Price vs Daily Transactions") + scale_y_continuous(labels=comma)
+g6
+
+```
+
+## Unfazed by Volatility
+```{r unfazed2, echo=F,error=F}
+g7 <- ggplot(bc_ohlc,aes(ret.bucket,estimated.transaction.volume))
+g7 <- g7 + geom_bar(aes(fill=year),stat="identity",position='dodge')+ ggtitle("Transactions vs Daily Returns") + scale_y_continuous(labels=comma) + xlab("Return Buckets")
+g7
+
+```
+
+## Unfazed by Volatility
+```{r unfazed3, echo=F,error=F}
+g8 <- ggplot(bc_ohlc,aes(range,daily.transactions))
+g8 <- g8 + geom_point(aes(color=year))+ scale_y_continuous(labels=comma)+ ggtitle("Daily Price Range vs Daily Transactions")
+g8
+
+```
+
+## Conclusion
+
+- Users of bitcoin remain unfazed by volatility
+- Growth of bitcoin as a means of transacting remains a function of time
+- The future for bitcoin is not threatened by price and volatility

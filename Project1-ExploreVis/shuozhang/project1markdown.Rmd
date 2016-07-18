@@ -1,0 +1,447 @@
+---
+title: "Why did she get A while I got D?"
+author: "Shuo Zhang"
+date: "July 12,2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+Education is a key factor  for achieving a long-term economic progress.
+Determinants of students' performance have been the subject of ongoing debate among educators, academics, and policy makers. During the last decades, the Portuguese education level has improved. In the secondary schools, the core classes of Mathematics and Portuguese (the native language)  is the most important since they provide fundamental knowledge for the success  in the remaining school subjects (e.g. physics or history).  The data of student performance in Mathematics and Portuguese holds value information and can be used to improve decision making of parents and schools and optimize student success.
+Modeling student performance is an important tool for both educators, parents and students, for the reason that it can help a better understanding of this phenomenon and ultimately improve it.
+
+
+# Dataset description
+
+This data approach student achievement in secondary education of two Portuguese schools. The data attributes include student grades, demographic, social and school related features and it was collected by using school reports and questionnaires. Two datasets are provided regarding the performance in two distinct subjects: Mathematics (mat) and Portuguese language (por). The target is to investigate the contributing factors associated with G3 (the final year grade). At first, the two datasets are merged to one dataset by the same variables.
+
+```{r, include=FALSE}
+library(plyr); library(dplyr)
+library(ggplot2)
+setwd("~/Desktop/student")
+d1_mat=read.csv("student-mat.csv", sep=';', header=T, stringsAsFactors = F)
+d2_por=read.csv("student-por.csv", sep=';', header = T, stringsAsFactors = F)
+data=merge(d1_mat,d2_por,by=c("school", "sex", "age", "address", "famsize", 
+                              "Pstatus","Medu", "Fedu", "Mjob", "Fjob", "reason",
+                              "nursery", "internet"))
+summary(data)
+```
+
+This data contains 382 observations and 53 variables. The target variables are G3.x (the final year grade of Math) and G3.y (the final year grade in Portuguese). The contributing factors will be presented in 3 categories: school-related (i.e. school extra education support), student-related (i.e. past course performance, age, study time, desire to pursue higher education) and family-related (i.e. parents' status, quality of family relationship, parents' education and job). I analyzed most variables and listed the top contributing factors in the following.
+
+# Data Visualization in R
+
+## Which school has better student performance? 
+
+```{r plot1, echo=FALSE}
+library(lattice)
+library(plyr)
+library(Rmisc)
+p1<-ggplot(data=data, aes(x=school, y=G3.x))+
+  geom_point(aes(color=school))+
+  geom_boxplot(aes(color=school))+
+  xlab('School')+
+  ylab("Final Grade of Math")+
+  geom_hline(yintercept=9,colour='grey20',size=0.5,linetype=2)+
+  geom_hline(yintercept=11,colour='grey20',size=0.5,linetype=2)+
+  geom_hline(yintercept=13,colour='grey20',size=0.5,linetype=2)+
+  geom_hline(yintercept=15,colour='grey20',size=0.5,linetype=2)+
+  annotate('text', x=2.5, y=c(8.5,10.5,12.5,14.5, 17), 
+           label=c('F', 'D', 'C', 'B', 'A'), colour='red')+
+  ggtitle("G3 in Math vs School")+
+  theme_bw()+
+  theme(legend.position="none")
+p2<-ggplot(data=data, aes(x=school, y=G3.y))+
+  geom_point(aes(color=school))+
+  geom_boxplot(aes(color=school))+
+  scale_x_discrete(name='School')+
+  scale_y_continuous(name="Final Grade of Portuguese")+
+  geom_hline(yintercept=9,colour='grey20',size=0.5,linetype=2)+
+  geom_hline(yintercept=11,colour='grey20',size=0.5,linetype=2)+
+  geom_hline(yintercept=13,colour='grey20',size=0.5,linetype=2)+
+  geom_hline(yintercept=15,colour='grey20',size=0.5,linetype=2)+
+  annotate('text', x=2.5, y=c(8.5,10.5,12.5,14.5, 17), 
+           label=c('F', 'D', 'C', 'B', 'A'), colour='red')+
+  ggtitle("G3 in Portuguese vs School")+
+  theme_bw()+
+  theme(legend.position="none")
+multiplot(p1, p2, cols =1)
+```
+
+The boxplots of final year grade distribution show the difference in student performance by school. In this graph we can see that for GP school the median final year grade of Math is C and the median final year grade of Portuguese is B, while for GP school the median final year grade of Math is D and the median final year grade of Portuguese is C. We can conclude that GP school has better student performance. In the following analysis, I will separate the plots based on school.
+
+## Does the current student performance have a correlation with the past?
+
+The next question we want to assess is whether G1 and G2 will make significant influence in G3. Let's take math performance for example.
+
+```{r plot2, echo=FALSE}
+p3<-ggplot(data=data, aes(x=G1.x, y=G3.x, color=school))+
+  geom_point(size=1, shape=1, position = "jitter")+
+  scale_x_continuous(name="First Period Grade of Math")+
+  scale_y_continuous(name="Final Grade of Math")+
+  ggtitle("G3 vs G1 in Math")+
+  scale_color_manual(values=c('red', 'blue'))+
+  theme_bw()
+p4<-ggplot(data=data, aes(x=G2.x, y=G3.x, color=school))+
+  geom_point(size=1, shape=1, position = "jitter")+
+  scale_x_continuous(name="Second Period Grade of Math")+
+  scale_y_continuous(name="Final Grade of Math")+
+  ggtitle("G3 vs G2 in Math")+
+  scale_color_manual(values=c('red', 'blue'))+
+  theme_bw()
+multiplot(p3, p4, cols=2)
+```
+
+There are a couple interesting facts that show up in their graph. First, we noticed the data trend can be categorize to two relationships: the cluster with 0 grade (students who dropped course) and a strong correlation between G3 and  G2, G1 (students who did not drop course ). So the analysis is divided to two parts based on the trend.
+
+### Students who did not drop class:
+
+```{r plot3, echo=FALSE}
+data_G3xgreater0=data[data$G3.x>0,]
+ p5<-ggplot(data=data_G3xgreater0, aes(x=G2.x, y=G3.x, color=school))+
+     geom_point(size=1, shape=1, position = "jitter")+
+     scale_x_continuous(name="Second Period Grade of Math")+
+     scale_y_continuous(name="Final Grade of Math")+
+     ggtitle("G3 vs G2 in Math")+
+     scale_color_manual(values=c('red', 'green') )+
+     geom_smooth(se=F, method='lm', aes(group=1), alpha=0.8)+
+     theme_bw()
+p6<-ggplot(data=data_G3xgreater0, aes(x=G1.x, y=G3.x, color=school))+
+     geom_point(size=1, shape=1, position = "jitter")+
+     scale_x_continuous(name="First Period Grade of Math")+
+     scale_y_continuous(name="Final Grade of Math")+
+     ggtitle("G3 vs G1 in Math")+
+     scale_color_manual(values=c('red', 'green') )+
+     geom_smooth(se=F, method='lm', aes(group=1), alpha=0.8)+
+     theme_bw()
+multiplot(p5, p6, cols=2)
+#
+```
+
+The figure shows linear relationship between the current grade and the past grade, which mean the better you did in the first and second grade, the higher final year grade you would get. 
+
+### Students who did not drop the course:
+
+Upon further inspection of the data, it becomes obvious that these cluster with 0 grade most likely belongs to students who dropped the course.
+There are a couple interesting facts that show up the previous graph. First, it has G1 and/or G2 grades but final grades of 0. Second, there are no G1s of 0 but there are G2s with 0 value. 
+
+```{r plot4, echo=FALSE}
+data_G3x0<-data[data$G3.x==0,]
+ p7<-ggplot(data=data_G3x0, aes(x=school, y=G1.x))+
+     geom_point(aes(color=school))+
+     geom_boxplot(aes(color=school))+
+     scale_x_discrete(name='School')+
+     scale_y_continuous(name='First Grade of Math')+
+     geom_hline(yintercept=9,colour='grey20',size=0.5,linetype=2)+
+  geom_hline(yintercept=11,colour='grey20',size=0.5,linetype=2)+
+  geom_hline(yintercept=13,colour='grey20',size=0.5,linetype=2)+
+  geom_hline(yintercept=15,colour='grey20',size=0.5,linetype=2)+
+  annotate('text', x=2.5, y=c(8.5,10.5,12.5,14.5, 17), 
+           label=c('F', 'D', 'C', 'B', 'A'), colour='red')+
+     ggtitle('students who drop Grade 3')+
+     theme_bw()+
+   theme(legend.position="none")
+p8<-ggplot(data=data_G3x0, aes(x=school, y=G2.x))+
+     geom_point(aes(color=school))+
+     geom_boxplot(aes(color=school))+
+     scale_x_discrete(name='School')+
+     scale_y_continuous(name='Second Grade of Math')+
+   geom_hline(yintercept=9,colour='grey20',size=0.5,linetype=2)+
+  geom_hline(yintercept=11,colour='grey20',size=0.5,linetype=2)+
+  geom_hline(yintercept=13,colour='grey20',size=0.5,linetype=2)+
+  geom_hline(yintercept=15,colour='grey20',size=0.5,linetype=2)+
+  annotate('text', x=2.5, y=c(8.5,10.5,12.5,14.5, 17), 
+           label=c('F', 'D', 'C', 'B', 'A'), colour='red')+
+     ggtitle('students who drop Grade 3')+
+     theme_bw()+
+  theme(legend.position="none")
+data_G2x0<-data[data$G2.x==0,]
+multiplot(p7, p8,cols=2)
+```
+
+```{r, include=FALSE}
+nrow(data_G2x0)
+# 13 dropped G2
+nrow(data_G3x0)
+# 39 dropped G3
+data_Gx00<-data[(data$G2.x==0 & data$G3.x==0),]
+nrow(data_Gx00)
+# 13 dropped both G2, G3
+```
+
+The graph shows that the students who dropped G3 failed both at G1 and G2. The further investigation of the data displays that 13 students dropped G2, 39 students dropped G3 and all of students dropped G3 also dropped G2.
+
+## Does student performance affect by past class failure?
+
+```{r plot5, echo=FALSE}
+p9<-ggplot(data=data, aes(x=failures.x, y=G3.x))+
+  geom_point(aes(color=failures.x))+
+  geom_boxplot(aes(group=failures.x, color=failures.x))+
+  xlab('Past Class Failures')+
+  scale_y_continuous(name='Final Grade of Math')+
+  ggtitle('G3 vs Failures')+
+  theme_bw()+
+  facet_wrap(~school)+
+  theme(legend.position="none")
+  
+p10<-ggplot(data=data, aes(x=failures.y, y=G3.y))+
+  geom_point(aes(color=failures.y))+
+  geom_boxplot(aes(group=failures.y, color=failures.y))+
+  xlab('Past Class Failures')+
+  scale_y_continuous(name='Final Grade of Portuguese')+
+  theme_bw()+
+  facet_wrap(~school)+
+  theme(legend.position="none")
+multiplot(p9, p10, cols=1)
+```
+
+The graph shows the fact that the past class failure play a roles in current student performance, and we can summarize that successful students tend to have a history of success.
+
+## Does student performance change based on age?
+
+```{r plot6, echo=FALSE}
+p11<-ggplot(data=data, aes(x=age, y=G3.x))+
+  geom_point(aes(color=age))+
+  geom_boxplot(aes(group=age, color=age))+
+  xlab('Age')+
+  ylab('Final Grade of Math')+
+  ggtitle('G3 vs Age')+
+  theme_bw()+
+  facet_wrap(~school)+
+  theme(legend.position="none")
+p12<-ggplot(data=data, aes(x=age, y=G3.y))+
+  geom_point(aes(color=age))+
+  geom_boxplot(aes(group=age, color=age))+
+  xlab('Age')+
+  ylab('Final Grade of Portuguese')+
+  theme_bw()+
+  facet_wrap(~school)+
+  theme(legend.position="none")
+multiplot(p11, p12, cols=1)
+```
+
+From this graph, we can conclude that the age of the students also plays a factor in the final year grade. The older the student is, the lower final year grade he would achieve.
+
+## Does the student who wants to take higher education do better at school?
+
+```{r plot7, echo=FALSE}
+p13<-ggplot(data=data, aes(x=higher.x, y=G3.x))+
+  geom_point(aes(color=higher.x))+
+  geom_boxplot(aes(color=higher.x))+
+  scale_x_discrete(name='Wants to take higher education')+
+  scale_y_continuous(name='Final Grade of Math')+
+  ggtitle('G3 vs Higher')+
+  theme_bw()+
+  facet_grid(school~.)+
+  theme(legend.position="none")
+p14<-ggplot(data=data, aes(x=higher.y, y=G3.y))+
+  geom_point(aes(color=higher.y))+
+  geom_boxplot(aes(color=higher.y))+
+  scale_x_discrete(name='Wants to take higher education')+
+  scale_y_continuous(name='Final Grade of Portuguese')+
+  theme_bw()+
+  ggtitle('G3 vs Higher')+
+  facet_grid(school~.)+
+  theme(legend.position="none")
+multiplot(p13, p14, cols=2)
+```
+
+In terms of study motivation, the student with desire to take higher education has a higher probability to achieve success.
+
+## Is the fact true that the more time a student spend on studying, he has higher grade?
+
+```{r plot8, echo=FALSE}
+p15<-ggplot(data=data, aes(x=studytime.x, y=G3.x))+
+  geom_point(aes(color=studytime.x))+
+  geom_boxplot(aes(group=studytime.x, color=studytime.x))+
+  xlab('Weekly Study Time')+
+  scale_y_continuous(name='Final Grade of Math')+
+  ggtitle('G3 vs Study Time')+
+  theme_bw()+
+  facet_wrap(~school)+
+  theme(legend.position="none")
+p16<-ggplot(data=data, aes(x=studytime.y, y=G3.y))+
+  geom_point(aes(color=studytime.y))+
+  geom_boxplot(aes(group=studytime.y, color=studytime.y))+
+  xlab('Weekly Study Time')+
+  scale_y_continuous(name='Final Grade of Portuguese')+
+  theme_bw()+
+  facet_wrap(~school)+
+  theme(legend.position="none")
+multiplot(p15,p16,cols=1)
+```
+
+The graph shows a association between study time and the final year grade and the  successful students tend to spend more time on course.
+
+## Does absence relate with student performance?
+
+```{r plot9, echo=FALSE}
+p17<-ggplot(data=data, aes(x=absences.x, y=G3.x))+
+  geom_point(aes(color=absences.x))+
+  geom_boxplot(aes(group=absences.x, color=absences.x))+
+  xlab('Absences')+
+  ylab('Final Grade of Math')+
+  ggtitle('G3 vs Absences')+
+  facet_grid(school~.)+
+  theme_bw()+
+  scale_color_gradient(low='red', high='yellow', name='absences')+
+  coord_cartesian(xlim=c(0, 30))+
+  theme(legend.position="none")
+p18<-ggplot(data=data, aes(x=absences.y, y=G3.y))+
+  geom_point(aes(color=absences.y))+
+  geom_boxplot(aes(group=absences.y, color=absences.y))+
+  xlab('Absences')+
+  ylab('Final Grade of Portuguese')+
+  facet_grid(school~.)+
+  theme_bw()+
+  scale_color_gradient(low='red', high='yellow', name='absences')+
+  coord_cartesian(xlim=c(0, 30))+
+  theme(legend.position="none")
+multiplot(p17, p18, cols=1)
+```
+
+It is hard to conclude a relationship between number of school absences and final year grade. To get a better understanding of the plot, I grouped number of school absences to 4 categories: 0-9, 10-19, 20-29, 30+.
+
+```{r, include=FALSE}
+#str(data$absences.x)
+data$absences.xgroup=numeric(nrow(data))
+for (i in 1:nrow(data)){
+  if (data$absences.x[i]>=0&data$absences.x[i]<=9){
+    data$absences.xgroup[i]="0-9"
+  }
+  else if (data$absences.x[i]>=10&data$absences.x[i]<=19){
+    data$absences.xgroup[i]="10-19"
+  }
+  else if (data$absences.x[i]>=20&data$absences.x[i]<=29){
+    data$absences.xgroup[i]="20-29"
+  }
+  else if (data$absences.x[i]>=15&data$absences.x[i]<=19){
+    data$absences.xgroup[i]="15-19"
+  }
+  else
+    data$absences.xgroup[i]="30+"
+}
+data$absences.ygroup=numeric(nrow(data))
+for (i in 1:nrow(data)){
+  if (data$absences.y[i]>=0&data$absences.y[i]<=9){
+    data$absences.ygroup[i]="0-9"
+  }
+  else if (data$absences.y[i]>=10&data$absences.y[i]<=19){
+    data$absences.ygroup[i]="10-19"
+  }
+  else if (data$absences.y[i]>=20&data$absences.y[i]<=29){
+    data$absences.ygroup[i]="20-29"
+  }
+  else if (data$absences.y[i]>=15&data$absences.y[i]<=19){
+    data$absences.ygroup[i]="15-19"
+  }
+  else
+    data$absences.ygroup[i]="30+"
+}
+```
+
+```{r plot10, echo=FALSE}
+p19<-ggplot(data=data, aes(x=absences.xgroup, y=G3.x))+
+  geom_point(aes(color=absences.xgroup))+
+  geom_boxplot(aes(group=absences.xgroup, color=absences.xgroup))+
+  xlab('Absences Group')+
+  ylab('Final Grade of Math')+
+  ggtitle('G3 vs Absences Group')+
+  facet_grid(school~.)+
+  theme_bw()+
+  theme(legend.position="none")
+p20<-ggplot(data=data, aes(x=absences.ygroup, y=G3.y))+
+  geom_point(aes(color=absences.ygroup))+
+  geom_boxplot(aes(group=absences.ygroup, color=absences.ygroup))+
+  xlab('Absences Group')+
+  ylab('Final Grade of Math')+
+  ggtitle('G3 vs Absences Group')+
+  facet_grid(school~.)+
+  theme_bw()+
+  theme(legend.position="none")
+multiplot(p19, p20, cols=2)
+```
+
+The new graph presents that successful students tend to have less school absences.
+
+## Does the parents' education and job influence student performance?
+
+let's take mother's education and job for example.
+
+```{r plot11, echo=FALSE}
+p21<-ggplot(data=data, aes(x=Mjob, y=G3.x))+
+  geom_point(aes(color=Mjob))+
+  xlab('Mother Job')+
+  ylab('Final Grade of Math')+
+  ggtitle('G3 vs Mother Job')+
+  geom_boxplot(aes(group=Mjob, color=Mjob))+
+  facet_grid(school~.)+
+  theme_bw()+
+  theme(legend.position="none")
+p22<-ggplot(data=data, aes(x=Mjob, y=G3.y))+
+  geom_point(aes(color=Mjob))+
+  xlab('Mother Job')+
+  ylab('Final Grade of Portuguese')+
+  geom_boxplot(aes(group=Mjob, color=Mjob))+
+  facet_grid(school~.)+
+  theme_bw()+
+  theme(legend.position="none")
+p23<-ggplot(data=data, aes(x=Medu, y=G3.x))+
+  geom_point(aes(color=Medu))+
+  xlab('Mother Education')+
+  ylab('Final Grade of Math')+
+  ggtitle('G3 vs Mother Education')+
+  geom_boxplot(aes(group=Medu, color=Medu))+
+  facet_grid(school~.)+
+  theme_bw()+
+  theme(legend.position="none")
+p24<-ggplot(data=data, aes(x=Medu, y=G3.y))+
+    geom_point(aes(color=Medu))+
+    xlab('Mother Education')+
+    ylab('Final Grade of Portuguese')+
+    geom_boxplot(aes(group=Medu, color=Medu))+
+    facet_grid(school~.)+
+    theme_bw()+
+  theme(legend.position="none")
+data$Meducha=as.character(data$Medu)
+p25<-ggplot(data=data, aes(x=Mjob))+
+  geom_bar(aes(fill=Meducha), position='fill')+
+  xlab('Mother Job')+
+  ggtitle('Mjob vs Medu')+
+  theme_bw()
+multiplot(p21, p22,p25, p23, p24, cols=2)
+```
+
+The boxplots at the left of the graph present that the student with working mother incline to have a better course performance that that with home-staying mother. Also upon further investigation of mother job types, the boxplots at the right of the graph  demonstrate the student whose mother has a higher education level is most likely to achieve be successful at courses. Furthermore plotting mother's job with education allows us to understand how the job distribution varies among education levels. Here we see the working mother has a greater portion of higher education level and especially the mother who works as a teacher has the most advanced  education degree in average. In conclusion, the student who has a working and well-educated mother tend to be more successful.
+
+# What is the top consideration to choose a school?
+
+```{r plot12, echo=FALSE}
+ggplot(data=data, aes(x=reason))+
+  geom_bar(aes(fill=reason))+
+  xlab('Reason to Choose School')+
+  ylab('Count')+
+  ggtitle('Reason to Choose School')+
+  theme_bw()+
+  facet_wrap(~school)
+```
+
+From the graph we can see that the first consideration is the quality of school course and the second is that whether the school is close to home.
+
+# Conclusion
+
+I have addressed the data visualization of secondary student grades of two core classes (Mathematics and Portuguese) by using past school grades (first and
+second periods), demographic and school related data. In conclusion, the student achievement is highly affected by previous performances.
+Also, there are other relevant features that contribute to the student performance, such as: school related, demographic (e.g. student’s age, study time, desire to pursue higher education , parent’s job and education) variables.
+The conclusion is summarized: 
+
+* GP school has more successful students than MS.
+* The final year grade is highly affected by the first and second year grade.     Student are more likely to drop a course if they’ve had bad initial grades in   that course.
+* Successful students tend to have younger age, a history of success and a
+  desire to continue on to higher education, less school absences and also spend   more time on course.
+* Successful students are prone to have working and well-educated parents.
+    
