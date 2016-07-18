@@ -16,6 +16,9 @@ library(maps)
 library(mapdata)
 library(rgdal)
 
+colnames(citibike_df)
+
+
 my_citibike_df = select(citibike_df,
                         starttime, 
                         start.station.name, 
