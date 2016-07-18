@@ -19,7 +19,7 @@ Over the same period, the average debt of graduates has increased to almost $27,
 90% of student loan debt in 2015 was comprised of federal loan borrowing
 
 
-![alt text](./images/plot4.png "Federal Loan Borrowing as Tercent of Total Debt")
+![alt text](./images/plot4.png "Federal Loan Borrowing as Percent of Total Debt")
 
 which accounts for nearly 27% of the US federal government's total assets as reported in the 2015 US Tresury's financial statements. ($845.1B of the $3,229.8B). This is a 3.5% increase since 2014 ($731.2B of $3,065.3B). Although this pails in comparision to the over 21 trillion dollar US deficit, student loans are becoming an ever growing part of the US governments' assets. 
 
@@ -31,6 +31,9 @@ The short answer is that yes, it could be a very serious problem for a variety o
   1) Although unemployment rates are stabilizing, many graduates do not go on to have an income that affords the amount of debt they take on from the federal government to attend college and go on to take on higher education that only amplifies this problem
   
   2) Universities have taken advantage of the influx of students and their accessibility to loans and have increased tuition at a rate that far out weighs unemployment recovery and the consumer price index. 
+  
+![alt text](./images/plot5.png "Average College Cost")
+
   
   3) All student loans are rated AAA, which they cannot possibly be. Because student loan rates have been held so low, federal loan almost always have a lower interest rates than private loans higher interest rates, which promotes borrowers usually prioritize repaying private loans first. Another big difference between federal loans and private loans is that federal loans all have fixed rates, while private loans usually have rates that vary from borrower to borrower based on his or her credit. Unlike private lenders, the federal government doesn’t check credit records for student loan borrowers. This leads to many uncreditworthy borrowers qualifying for loans and then being saddled with debt indefinitely with little hope of paying it back. This has lead to an increasing default rate over the past three years, which surely only brings a portion of the borrowers who can't pay back there loans compared ot many others taking advantage of 
   

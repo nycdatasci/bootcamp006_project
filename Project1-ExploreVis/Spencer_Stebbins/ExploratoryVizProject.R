@@ -38,7 +38,7 @@ ggplotly(ggplot(student_loans_outstanding_df, aes(x=Date,y=student_loans_outstan
 
 
 
-state_college_data <- read.csv("./data/CollegeInSight_Explore.csv", stringsAsFactors = FALSE, )
+state_college_data <- read.csv("./data/CollegeInSight_Explore.csv", stringsAsFactors = FALSE)
 #parse state names
 state_college_data$Name = gsub(' - 4-year or above', '', state_college_data$Name)
 #rename Year column to Date and Name to State
@@ -46,19 +46,17 @@ state_college_data <- rename(state_college_data, Date=Year, State=Name)
 #convert date to year format
 state_college_data$Date = substr(state_college_data$Date,0, nchar(state_college_data$Date) -3)
 
-# #student loan deliquencies per state
-# state_student_loan_delinquencies_data <- read.csv("./data/FRBNY-HDC_STLOANDEL.csv", stringsAsFactors = FALSE)
-# #melt state column to single column 
-# state_student_loan_delinquencies_data  <- melt(state_student_loan_delinquencies_data, id= 'Date', variable.name='State', value.name="Percent.student.loan.delinquences")
-# #convert date to year format
-# state_student_loan_delinquencies_data$Date = as.character(state_student_loan_delinquencies_data$Date)
-# state_student_loan_delinquencies_data$Date = substr(state_student_loan_delinquencies_data$Date,0, nchar(state_student_loan_delinquencies_data$Date) -6)
+#student loan deliquencies per state
+state_student_loan_delinquencies_data <- read.csv("./data/FRBNY-HDC_STLOANDEL.csv", stringsAsFactors = FALSE)
+#melt state column to single column 
+state_student_loan_delinquencies_data  <- melt(state_student_loan_delinquencies_data, id= 'Date', variable.name='State', value.name="Percent.student.loan.delinquences")
+#convert date to year format
+state_student_loan_delinquencies_data$Date = as.character(state_student_loan_delinquencies_data$Date)
+state_student_loan_delinquencies_data$Date = substr(state_student_loan_delinquencies_data$Date,0, nchar(state_student_loan_delinquencies_data$Date) -6)
 
 #combine delinquencies with state data frame
-# state_data <- merge(state_college_data,state_student_loan_delinquencies_data,by=c('Date','State'))
+state_data <- merge(state_college_data,state_student_loan_delinquencies_data,by=c('Date','State'))
 
-
-state_data <- state_college_data
 #convert all NA in order to summarize on year
 NAs <- state_data == "N/A"
 state_data[NAs] <- NA
@@ -96,7 +94,7 @@ ggplotly(ggplot(percent_federal_debt , aes(x=Date,y=Percent,group=variable,color
 ##-------------------------------------
 increasing <- select(data,Date,Total.cost.of.attendance..on.campus.)
 increasing <- melt(increasing,id = 'Date', value.name='Amount.in.Thousands')
-ggplotly(ggplot(increasing, aes(x=Date,y=Amount.in.Thousands,group=variable,color=variable)) + geom_line() + theme(legend.position="none"))
+ggplotly(ggplot(increasing, aes(x=Date,y=Amount.in.Thousands,group=variable,color=variable)) + geom_line() + ggtitle('Average College Costs') + theme(legend.position="none"))
 
 
 
