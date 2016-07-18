@@ -30,7 +30,7 @@ library(ggthemes)
 
 View this project presentation <a href='https://slides.com/sjstebbins/exploratory-data-visualization-project'>HERE</a>
 
-View html <a href="https://github.com/nycdatasci/bootcamp006_project/blob/master/Project1-ExploreVis/Spencer_Stebbins/ExploratoryVizProject.html">HERE</a>
+View html <a href="http://rpubs.com/sjstebbins/ExploratoryVizProject">HERE</a>
 
 #Are student loans a subprime time-bomb for the US government?
 
@@ -90,7 +90,7 @@ date <- c('2003','2004','2005','2006','2007','2008','2009','2010','2011','2012',
 student_loan_federal_asset_data <- data.frame(Date=date,student_loan_asset=student_loan_asset, total_federal_asset=total_federal_asset)
 student_loan_federal_asset_data$student_loan_as_percentage_federal_assets = student_loan_federal_asset_data$student_loan_asset/total_federal_asset
 
-data <- join_all(list(data,student_loan_as_percentage_federal_assets), by='Date', type = "outer")
+data <- merge(data,student_loan_federal_asset_data, by='Date')
 
 ##-------------------------------------
 ##PLOT 2 - Average Student Loan Debt
