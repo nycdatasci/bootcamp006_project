@@ -1,0 +1,414 @@
+---
+title: "7 Sins in NYC"
+author: "Chuan Sun (sundeepblue at gmail dot com)"
+date: "July 17, 2016"
+output: 
+  html_document: 
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 15
+    highlight: tango
+    number_sections: yes
+    theme: flatly
+---
+
+
+# Questions
+
+> One man's wilderness is another man's theme park.
+>                                 —— Author unknown
+
+New York City is heaven for many, but hell for some, especially those who were affected by the seven "sins": 
+
+* Burglary
+
+* Fellony assult
+
+* Grand larceny
+
+* Grand Larceny of motor vehicle
+
+* Rape
+
+* Robbery
+
+* Murder & non-negl manslaughte
+
+
+Safety is one of the most fundamental human needs. This report investigats 7 sins, a.k.a, felonies, in New York City occurred in the past ten years (2006-2015), and focuses on answering the following questions:
+
+1. Is NYC becoming a safer city over the last 10 years?
+
+2. Which months in one year can be considered as unsafe?
+
+3. Which days in a week can be considered as unsafe?
+
+4. Which hours in a day can be considered as unsafe?
+
+5. Which places are more unsafe than others?
+
+
+# Dataset
+
+The NYPD 7 Major Felony Incidents dataset contains Seven Major Felonies that is quarterly updated at the incident level. It was made public at Dec 29, 2015, and is available [here](https://data.cityofnewyork.us/Public-Safety/NYPD-7-Major-Felony-Incidents/hyij-8hr7). 
+
+According to the [NYPD Incident Level Data Footnotes](https://nycopendata.socrata.com/api/views/dvh8-u7es/files/2cb20832-af65-45d4-aa04-9097212581f8?download=true&filename=NYPDIncidentLevelDataFootnotes.pdf):
+
+* Crime complaints which involve multiple offenses are classified according to the most serious offense
+
+* For privacy reasons, incidents have been moved to the midpoint of the street segment on which they occur. 
+
+* Attempted crimes are recorded as if the crime actually occurred
+
+* Data presented here are based on the year the incident was reported, not necessarily when it occurred. The result is that some crimes listed here were reported during this time, but may have occurred in a previous year
+
+The first point indicates that the number of actual incidents is larger than that in the dataset. Since we know nothing about which types of offenses are typically associated together in incidents of multiple offenses, we make no assumption on it. The second point affects the accuracy of incident locations, but at the scale of borough or city level, the inaccuracy in longitude and latitude will not have major impact on overall distribution of incidents on map, since we are more interested in the overall metric, such as total number and density of murder in Manhattan.
+
+# Preprocess
+The dataset is 194M in size, and contains around 1.2 million rows with 22 variables. 
+
+```{r, eval=T, message=F, warning=F}
+# install.packages("ff")
+library(ff)
+library(dplyr)
+
+setwd("/Users/sundeepblue/Bootcamp/projects/explore_dataset")
+
+# since the csv has around 1.1 million lines, we use ffdf for fast loading
+t = read.csv.ffdf(file="NYPD_7_Major_Felony_Incidents.csv", header=TRUE, 
+                  VERBOSE=TRUE, first.rows=10000, next.rows=50000, colClasses=NA)
+
+# convert ffdf type to data.frame for later conversion
+t = as.data.frame(t)
+
+# convert some columns with unnecesary factor type into character type
+t$Identifier = as.character(t$Identifier)
+t$Occurrence.Date = as.character(t$Occurrence.Date)
+t$Location.1 = as.character(t$Location.1)
+
+# we are only interested in offenses in last 10 years [2006, 2015]
+t_2006_to_2015 = filter(t, Occurrence.Year >= 2006)
+# ignore observations with missing value
+t_2006_to_2015 = na.omit(t_2006_to_2015)
+
+# re-level factor variable "Day.of.Week"
+t_2006_to_2015$Day.of.Week = factor(t_2006_to_2015$Day.of.Week, 
+                                    levels=c("Monday", "Tuesday", "Wednesday", 
+                                             "Thursday", "Friday", "Saturday", "Sunday"));
+
+# re-level factor variable "Occurrence.Month"
+t_2006_to_2015$Occurrence.Month = factor(t_2006_to_2015$Occurrence.Month, 
+                                  levels=c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""));
+
+# define 3 helper functions for string manipulation
+trim_spaces = function(x) { gsub("^\\s+|\\s+$", "", x) }
+trim_first_char = function(x) { gsub('^.', '', x) }
+trim_last_char = function(x) { gsub('.$', '', x) }
+
+# parse the column "Location.1"
+loc_strings = t_2006_to_2015$Location.1
+L = sapply(loc_strings, strsplit, split=',')
+L = sapply(L, unlist)
+loc_x = sapply(L[1,], trim_first_char)
+loc_y = sapply(L[2,], trim_last_char)
+
+# add two columns "loc_x" and "loc_y"
+t_2006_to_2015$loc_x = as.numeric(loc_x)
+t_2006_to_2015$loc_y = as.numeric(loc_y)
+
+# write.table(t_2006_to_2015, file="NYPD_7_FELONIES_2006_2015.csv", sep=",")
+```
+
+After preprocessing, we load the preprocessed dataset as follows. First we load several libraries.
+
+```{r, message=F, warning=F}
+library(ff)
+library(ggplot2)
+library(dplyr)
+library(grid)
+library(gridExtra)
+library(leaflet)
+library(ggmap)
+require(cowplot)
+```
+
+And run below to see the detailed information about variables.
+
+```{r, tidy=T}
+# tb = read.csv("NYPD_7_FELONIES_2006_2015.csv", header=T, sep=",", stringsAsFactors=F)
+tb = t_2006_to_2015
+str(tb)
+```
+
+
+# Exploration
+I focus on two perspectives to uncover unknown from this dataset: the when and the where. The "when" is related to revealing how did years, months, days of week, and hours correlate to offenses. The "where" is related to where did the incidents occur.
+
+## Analysis of the When
+
+### Analysis by year
+
+```{r, tidy=T}
+t_total_count_by_year_and_offense = tb %>%
+  group_by(Occurrence.Year, Offense) %>% summarise(count=n())
+
+ggplot(data=t_total_count_by_year_and_offense, aes(x=as.numeric(Occurrence.Year), y=count)) +
+  ggtitle("Number of offense insidents over the last 10 years (2006-2015)") +
+  xlab("Year from 2006 to 2015") +
+  ylab("Number of incidents") + 
+  geom_point(aes(color=Offense), size=5.0) + 
+  geom_line(aes(color=Offense), size=2.0)
+```
+
+We can learn from the figure that: 
+
+* Grand larceny is the most frequent offense out of 7. The number of indidents caused by grand larceny went down in 2015.
+
+* There is no clear trend showing felony assult is decling.
+
+* The number of all the rest offenses are declining.
+
+Overall, NYC is becoming safer than before.
+
+### Analysis by month
+
+Now let us see how does the offense incidents distribute across 12 months.
+
+```{r, tidy=T}
+ggplot(data=tb, aes(x=Occurrence.Month, color=Offense)) + 
+  geom_bar(aes(fill = Offense)) + 
+  ggtitle("Number of offense insidents across 12 months of all 10 years") +
+  xlab("Month (from January to December") +
+  ylab("Number of incidents") + 
+  theme(legend.position = "bottom") + 
+  scale_x_discrete(labels=c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)) +
+  facet_wrap(~Offense, nrow=2)
+```
+
+What we can learn:
+
+* Suprisingly, the number of incidents in April is smallest for all offenses except murder. 
+
+* It seems that Auguest has the second smallest overall incidents for many offenses.
+
+
+
+
+### Analysis by day of week
+Now we draw the bar view of incidents per day of week.
+
+```{r, tidy=T, size=5}
+ggplot(data=tb, aes(x=Day.of.Week, color=Offense)) + 
+  geom_bar(aes(fill = Offense)) + 
+  ggtitle("Number of offense insidents across days of week in 10 years") +
+  xlab("Day of week") +
+  ylab("Number of incidents") + 
+  theme(legend.position = "bottom") + 
+  scale_x_discrete(labels=c("Mo", "Tu", "We", "Th", "Fr", "Sa", "Su")) +
+  facet_wrap(~Offense, nrow=1)
+```
+
+What we find?
+
+* On Friday, burglary, grand larceny, larceny of motor vehicle, and robery occur most frequently. The feature is visually very perceivable. 
+
+* Murder and rape occurs more on weekends (the figure is a little hard to differentiate)
+
+
+
+### Analysis by hour 
+
+Now we visualize the number of incidents by hour in day.
+
+```{r, tidy=T}
+# This graph shows tons of insights.
+# TODO: add label for each subplot (add "middle night", "early morning", "morning", "noon", "afternoon", "evening", "late night")
+ggplot(data=tb, aes(x=Occurrence.Hour)) + geom_density(aes(color=Offense)) + 
+  theme(aspect.ratio = 1) + 
+  ggtitle("The density of offense insidents across 24 hours of day in 10 years") +
+  xlab("Hour") +
+  ylab("Density of incidents") + 
+  theme(legend.position = "bottom") + 
+  facet_wrap(~Offense, nrow=1)
+```
+
+But in order to get more detailed information, we can also look at the histogram.
+
+```{r, tidy=T}
+ggplot(data=tb, aes(x=Occurrence.Hour)) + geom_histogram(aes(fill=Offense), binwidth=1) +
+  ggtitle("The histogram of offense insidents across 24 hours of day in 10 years") +
+  xlab("Hour") +
+  ylab("Number of offenses") + 
+  theme(legend.position = "bottom") + 
+  facet_wrap(~Offense, nrow=1)
+```
+
+
+It shows that:
+
+* Burgalary happens most often during 7am - 8am, and least often on 5am.
+
+* Feloney assult occurrs most often during middle night, and least often during 5am-6am.
+
+* Grand larceny occurs most often at 12pm - 3pm, and least often on 5am.
+
+* Larceny of motor vehicle occurs most often at middle night, and least often on 5am.
+
+* Rape occurs most often at middle night, and least often in the morning.
+
+* Robbery occurs most often in the afternoon, especially at 3pm, and least often at 7am
+
+* Murder occurs most often at 11pm and 3am, and least often at 8am.
+
+
+
+
+## Analysis of the Where
+According to the footnote pdf file mentioned above, as for this dataset:
+
+* Crimes occurring anywhere other than at an intersection are represented by a midpoint X coordinate and a midpoint Y coordinate (center of block)
+
+* Rape offenses are geo-coded as occurring at the police station house within the precinct of
+occurrence
+
+* Offenses that lack an X coordinate and Y coordinate are geo-coded as occurring at the police station
+house within the precinct of occurrence.
+
+* Offenses occurring in open areas such as parks or beaches may be geo-coded as occurring on streets
+or intersections bordering the area.
+
+### Analysis by borough in 2015
+
+Now we analysis the offense by borough in 2015. Since we will use the library "ggmap" to visualize map, we need to first add two columns: 'lon' and 'lat':
+
+```{r, tidy=T}
+tb = tb %>% mutate(lon=loc_y, lat=loc_x);
+```
+
+And the graph is shown below.
+
+```{r, tidy=T}
+ggplot(data=(tb %>% filter(Occurrence.Year==2015)), aes(x = Offense)) + 
+  geom_bar(aes(fill = Offense)) + 
+  ggtitle("The histogram of offense insidents by borough") +
+  xlab("Offenses") +
+  ylab("Number of offenses") + 
+  theme(legend.position = "bottom") + 
+  scale_x_discrete(labels=c("Bu", "FA", "GL", "GM", "RP", "RO", "M")) +
+  facet_wrap(~Borough, nrow=1)
+```
+
+We can see that in 2015:
+
+* Manhattan has the most number of grand larceny. 
+
+* Brooklyn has the most number of burglary, felony assault, grand larceny of motor vehicle, robbery, and rape.
+
+### Interative map
+I provide an interactive map for better visualization.
+
+```{r, tidy=T}
+t_MANHATTAN_2015 = tb %>% filter(Borough=="MANHATTAN", Occurrence.Year=="2015")
+
+leaflet(tb, height=300, width=900) %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=t_MANHATTAN_2015$loc_y, lat=t_MANHATTAN_2015$loc_x,
+             clusterOptions = markerClusterOptions())
+
+```
+
+### Detailed offenses by borough in 2015
+
+Let's first define a function to draw density map of offenses for different boroughs.
+
+```{r, tidy=T, warning=F, message=F}
+draw_density_map_of_offenses_for_borough = function(area_map_obj, tb) {
+ggmap(area_map_obj, base_layer = ggplot(aes(x = lon, y = lat), data = tb)) +
+  stat_density2d(aes(x = lon, y = lat), data=tb, color="blue", alpha=0.5) + 
+  stat_density2d(aes(x = lon, y = lat, fill = ..level.., alpha = ..level..),
+                 bins = 7, geom = "polygon", alpha=0.3, contour=T, data = tb) +
+  scale_fill_gradient(low = "green", high = "red") +
+  facet_wrap(~ Offense, nrow=2)
+}
+```
+
+Now the density map for Manhattan is plotted below.
+
+```{r, tidy=T, warning=F, message=F}
+area_map_obj = get_map("MANHATTAN NYC", zoom=13, maptype="toner-background", source="stamen")
+t_manhattan = tb %>% 
+  filter(Borough=="MANHATTAN", Occurrence.Year=="2015") %>% mutate(lon=loc_y, lat=loc_x);
+draw_density_map_of_offenses_for_borough(area_map_obj, t_manhattan)
+```
+
+The density map for Queens:
+
+```{r, tidy=T, warning=F, message=F}
+area_map_obj = get_map("QUEENS NYC", zoom=11, maptype="toner-background", source="stamen")
+t_queens = tb %>% 
+  filter(Borough=="QUEENS", Occurrence.Year=="2015") %>% mutate(lon=loc_y, lat=loc_x);
+draw_density_map_of_offenses_for_borough(area_map_obj, t_queens)
+```
+
+The density map for Bronx:
+
+```{r, tidy=T, warning=F, message=F}
+area_map_obj = get_map("BRONX NYC", zoom=12, maptype="toner-background", source="stamen")
+t_bronx = tb %>% 
+  filter(Borough=="BRONX", Occurrence.Year=="2015") %>% mutate(lon=loc_y, lat=loc_x);
+draw_density_map_of_offenses_for_borough(area_map_obj, t_bronx)
+```
+
+The density map for Brooklyn:
+
+```{r, tidy=T, warning=F, message=F}
+area_map_obj = get_map("Brooklyn NYC", zoom=12, maptype="toner-background", source="stamen")
+t_brooklyn = tb %>% 
+  filter(Borough=="BROOKLYN", Occurrence.Year=="2015") %>% mutate(lon=loc_y, lat=loc_x);
+draw_density_map_of_offenses_for_borough(area_map_obj, t_brooklyn)
+```
+
+The density map for Staten Island:
+
+```{r, tidy=T, warning=F, message=F}
+area_map_obj = get_map("Staten Island NYC", zoom=12, maptype="toner-background", source="stamen")
+t_staten_island = tb %>% 
+  filter(Borough=="STATEN ISLAND", Occurrence.Year=="2015") %>% mutate(lon=loc_y, lat=loc_x);
+draw_density_map_of_offenses_for_borough(area_map_obj, t_staten_island)
+```
+
+
+# Insights
+Now the answers of the proposed questions are as follows.
+
+**Q1. Is NYC becoming a safer city over the last 10 years?**
+
+Anser: Yes. New York City is becoming safer than before.
+
+**Q2. Which months in one year can be considered as unsafe?**
+
+Answer: All 7 felony offenses occur on all months of a year, but it seems that April and August are the two least "unsafe" months.
+
+**Q3. Which days in a week can be considered as unsafe?**
+
+Answer: Oveall, Friday is the unsafest weekday since 5 out 7 felonies occur most often on Friday. On weekend, felony assult and murder occur more often than other felonies. 
+
+**Q4. Which hours in a day can be considered as "unsafe"?**
+
+Answer: Depending on the felony type, many hours within a day are unsafe. 
+
+* In the Morning (7am - 10am), burglary and grand larceny occur more often than other felonies. 
+
+* In the afternoon (1pm - 3pm), grand larceny and robbery occur more often. 
+
+* In the evening (7pm - 10pm), felony assult, robbery, and murder occur more often.
+
+* In middle night (11pm - 3am), larceny of motor vehicle, felony assult, rape, robbery, murder occurs more often.
+
+Fortunately, 5am seems to be the only hour within a day that is the least unsafe.
+
+
+**Q5. According to historical data, which borough are more unsafe than others?**
+
+Answer: Brooklyn
