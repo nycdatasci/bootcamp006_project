@@ -1,0 +1,174 @@
+---
+title: "NYC Yellow Taxi Analysis"
+author: "Venkatesh"
+date: "July 17, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Exploratory Analysis Of New York City Yellow Taxi Cab Data 
+
+The New York City Taxi & Limousine Commission has released a staggeringly detailed historical dataset covering over 1.1 billion individual taxi trips in the city from January 2009 through June 2015. Taken as a whole, the detailed trip-level data is more than just a vast list of taxi pickup and drop off coordinates, specifying some other useful information about the number of passenger, pick up time and their like.
+
+However, I soon discovered that there is big data, and then there is big data. Humongous tables - 77,080,575  taxi trips in the year 2015 - clogged my bandwidth, hogged my RAM, and stymied my efforts. So I have chosen to reduce my scope and explored on a small scale of data.
+This  project is all about finding insight from the data through visualizaion.
+
+## About the Data:
+
+This dataset includes trip records from all trips completed in yellow taxis from in NYC from January to June in 2015.  Records include fields capturing pick-up and drop-off dates/times, pick-up and drop-off locations, trip distances, itemized fares, rate types, payment types, and driver-reported passenger counts.
+
+The data has 77,080,575 rows and 11 columns
+
+## Plotting the pick up points for taxi
+```
+library(ggplot2)
+library(ggmap)
+library(dplyr)
+
+x <- mutate(y , pickup = as.Date(y$tpep_pickup_datetime, format = "%m/%d/%Y") )
+
+
+
+
+sub <- y[y$tpep_pickup_datetime %in% n ,]
+
+x <- y[which(y$tpep_pickup_datetime %in% ('1/7/2015')),]
+
+z <- y %>% group_by(pickup_latitude, pickup_longitude)
+p <- summarise(z, Rev = mean(total_amount))
+head(p)
+
+
+latitude <- p$pickup_latitude
+longitude <- p$pickup_longitude
+
+basemap <- get_map(location='NewYork, UnitedStates', zoom = 11, maptype='roadmap', color='bw', source='google')
+basemap
+
+map1 <- ggmap(basemap, extent='panel', base_layer=ggplot(p, aes(x=longitude, y=latitude)))
+
+print(map1)
+
+
+# add data points 
+map.money <- map1 + geom_point(color = "blue", size = 2) 
+# add plot labels 
+map.money <- map.money + labs(title="Plot of Taxi Pickup Location ", x="Longitude", y="Latitude")
+
+map.money <- map.money + theme(plot.title = element_text(hjust = 0, vjust = 1, face = c("bold")))
+
+print(map.money)
+
+map.survey <- map1 + geom_point(aes(color = Rev), size = 4, alpha = .8)
+
+map.survey <- map.survey + labs(title="Taxi Pickup Location based on Money Value", x="Longitude", y="Latitude", color="Total_Amount")
+
+map.survey <- map.survey + theme(plot.title = element_text(hjust = 0, vjust = 1, face = c("bold")))
+
+print(map.survey)
+
+```
+## Plotting the Total Revenue across the week 
+
+```
+x <- mutate(y , pickup = as.Date(y$tpep_pickup_datetime, format = "%m/%d/%Y") )
+q1 <- aggregate(x$total_amount,by = list(x$pickup),sum)
+
+q1$day <- weekdays(as.Date(q1$Group.1,'%Y-%m-%d'))
+
+q2 <- aggregate(q1$x, by = list(q1$day),sum)
+
+ggplot(q2,aes(x = q2$Group.1, y = q2$x))+ geom_bar(aes(fill = q2$Group.1), stat = 'identity') + ggtitle("Total Amount of Revenue based on each day of the week") + xlab("Day") + ylab("Amount")
+```
+
+## Plotting Number of Customers on Friday
+
+```
+
+x <- mutate(x, clock = substr(x$tpep_pickup_datetime, 11, 15))
+
+f <- filter(x, x$pickup == '2015-01-16')
+
+tm <- aggregate(f$total_amount,by = list(f$clock),sum)
+head(tm)
+
+
+tm$Group.1 <- as.POSIXct(tm$Group.1,format="%H:%M")
+
+ggplot(tm,aes(x = tm$Group.1, y = tm$x)) + geom_point()
+ggplot(tm,aes(x = tm$Group.1, y = tm$x)) + geom_line()
+ggplot(tm,aes(x = tm$Group.1, y = tm$x)) + geom_smooth(se = FALSE) + ggtitle("Total Amount of Revenue on Friday") + xlab("Time(in 24 hour format)") + ylab("Amount")
+```
+
+## Plotting Number of Customer on Saturday
+
+```
+s <- filter(x, x$pickup == '2015-01-17')
+View(s)
+
+tm2 <- aggregate(s$total_amount,by = list(s$clock),sum)
+head(tm2)
+
+
+tm2$Group.1 <- as.POSIXct(tm2$Group.1,format="%H:%M")
+
+ggplot(tm2,aes(x = tm2$Group.1, y = tm2$x)) + geom_point()
+ggplot(tm2,aes(x = tm2$Group.1, y = tm2$x)) + geom_line()
+ggplot(tm2,aes(x = tm2$Group.1, y = tm2$x)) + geom_smooth() + ggtitle("Total Amount of Revenue on Saturday") + xlab("Time(in 24 hour format)") + ylab("Amount")
+```
+
+## plotting Number of Customers on Sunday:
+
+```
+su <- filter(x, x$pickup == '2015-01-18')
+View(su)
+
+tm3 <- aggregate(su$total_amount,by = list(su$clock),sum)
+head(tm3)
+
+
+tm3$Group.1 <- as.POSIXct(tm3$Group.1,format="%H:%M")
+
+ggplot(tm3,aes(x = tm3$Group.1, y = tm3$x)) + geom_point()
+ggplot(tm3,aes(x = tm3$Group.1, y = tm3$x)) + geom_line()
+ggplot(tm3,aes(x = tm3$Group.1, y = tm3$x)) + geom_smooth() + ggtitle("Total Amount of Revenue on Sunday") + xlab("Time(in 24 hour format)") + ylab("Amount")
+
+```
+
+## Ploting Number of Customers on Weekday
+
+```
+m <- filter(x, x$pickup == '2015-01-19' | x$pickup == '2015-01-21' | x$pickup == '2015-01-22' | x$pickup == '2015-01-23')
+head(m)
+tm4 <- aggregate(m$total_amount,by = list(m$clock),sum)
+tm4 <- mutate(tm4, meanx = tm4$x / 4)
+head(tm4)
+
+
+tm4$Group.1 <- as.POSIXct(tm4$Group.1,format="%H:%M")
+
+ggplot(tm4,aes(x = tm4$Group.1, y = tm4$x)) + geom_point()
+ggplot(tm4,aes(x = tm4$Group.1, y = tm4$x)) + geom_line()
+ggplot(tm4,aes(x = tm4$Group.1, y = tm4$x)) + geom_smooth() + ggtitle("Total Amount of Revenue on Weekday") + xlab("Time(in 24 hour format)") + ylab("Amount")
+
+```
+
+## Key Insight obtained from the plots:
+The following questions can be answered from the plot
+
+- How much can the industry expect to earn from a day 
+- How the number of customers changes from start to the end of the day
+- How to plan the work schedule so that the driver works in best possible time and day and     increase the his profit considerably
+
+## Conclusion:
+
+The plots obtained in the exploratory phase provides so many insights about how to improve the business of a  NYC yellow taxi cab driver.
+
+
+
+
+
+
