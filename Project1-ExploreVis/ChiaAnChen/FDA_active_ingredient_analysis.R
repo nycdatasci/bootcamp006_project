@@ -39,7 +39,7 @@ active_ingr = inner_join(inner_join(id_date, select(application, ApplNo, Sponsor
 approval_case_ai = summarise(group_by(active_ingr, year), approved_cases = n())
 total_approval = ggplot(approval_case_ai, aes(x=year, y=approved_cases)) + geom_point(size = 5, alpha = .5) + geom_smooth(color ="black") +
   labs (y="number of approved cases", title = "Number of Approved New Drug Applications vs. Year") + 
-  theme_bw() + scale_fill_brewer(palette = "BrBG")
+  theme_bw() + scale_fill_manual(color = "blue")
 total_approval
 
 # get a general idea of which ingredient is often used w/o grouping by year
@@ -56,25 +56,21 @@ application_vec = data.frame(
                       "Nonsteroidal Anti-inflammatory Drug (NSAID)", "Water and Electrolytes", "Pain Reliever", 
                       "Increase Blood Sugar", "Treat Type 2 Diabetes", "Pain Reliever", "Other"))
 
-# count and percentage
+# add columns: count, percentage, and label w/ applications
 actives_count = transmute(sort_active, activeingred = as.character(activeingred), count = count)[1:n,]
 remain_count = nrow(sort_active) - summarise(actives_count, sum(count))[[1]]
-sort_active_for_pie = rbind(actives_count, c("OTHER", remain_count)) %>%
+sort_active_for_plot = rbind(actives_count, c("OTHER", remain_count)) %>%
   transmute(activeingred = activeingred, count = as.integer(count)) %>% 
-  mutate(percentage = round(count*100/sum(count))) %>% cbind(application_vec)
-    
-# pie chart for top ingredients
-pie_label = paste(as.character(sort_active_for_pie$activeingred), as.character(sort_active_for_pie$Application), sep = ": ")
-
-sorted_actives_pie = ggplot(sort_active_for_pie, aes(x="", y=count, fill = activeingred)) + 
-  geom_bar(width = 1, stat ="identity", alpha =.8) + coord_polar("y", start = 0) + 
-    theme_void() + theme(axis.text.x = element_blank(), plot.title = element_text(size = 20, face = "bold", hjust =0.5), 
-                         legend.title = element_text(size = 20, face = "bold"),
-                         legend.text = element_text(size = 20)) +
-    labs (title = "Top 10 Active Ingredients and Their Applications") +
-    scale_fill_brewer(palette = "BrBG", name="ACTIVE INGREDIENT: Application", 
-                      breaks = sort_active_for_pie$activeingred, labels = pie_label)
-sorted_actives_pie
+  mutate(percentage = round(count*100/sum(count))) %>% cbind(application_vec) 
+sort_active_for_bar = arrange(sort_active_for_plot, desc(count)) %>%
+  mutate(label = paste(as.character(sort_active_for_plot$activeingred), 
+                       as.character(sort_active_for_plot$Application), sep = ": "))
+# create bar plot
+sorted_actives_bar = ggplot(sort_active_for_bar, aes(x = reorder(label, count), y = count, fill = label)) + 
+  geom_bar(width = 1, stat ="identity", alpha =.8,  colour="grey", show.legend = FALSE) + coord_flip() +
+  theme_bw() + theme(axis.text.y = element_text(size = 15), plot.title = element_text(size = 20)) + 
+  labs(title = "Top 10 Active Ingredients and Their Applications", x ="", y ="Number of Approved Cases") +
+  scale_fill_brewer(palette = "BrBG", guide = FALSE) 
 
 # generate df for the top n active ingredients
 master_ai = arrange(distinct(select(active_ingr, year)), year) %>% mutate(year = as.factor(year))
@@ -84,22 +80,24 @@ for (i in 1:n) {
 }
 master_ai[is.na(master_ai)] = 0
 names(master_ai) = c("year",as.character(sort_active$activeingred)[1:n])
+
 # transformation for plotting purpose
 ai_to_plot = gather(master_ai, "year", "drug", 2:(n+1)) 
 names(ai_to_plot) = c("year","active_ingr", "count")
 ai_to_plot = transmute(ai_to_plot, year = as.integer(year), active_ingr=active_ingr, count=count)
-# plot: year vs. count of different active ingredients
+
 # normalize data
 ai_to_plot = inner_join(ai_to_plot, approval_case_ai) %>% mutate(norm_count = count/approved_cases)
-ai_label = select(sort_active_for_pie, activeingred, Application)[1:10,] %>% arrange(activeingred) %>% 
+ai_label = select(sort_active_for_plot, activeingred, Application)[1:10,] %>% arrange(activeingred) %>% 
   mutate( "label" = paste(as.character(activeingred), as.character(Application), sep = ": ")) 
 
 # create general plotting function for active ingredient
 plot_active_fun = function(data, y_value, ...) {
   ggplot(data, aes(x=strptime(year, format = "%Y"), y = y_value, colour = active_ingr, group = active_ingr)) + 
-    geom_smooth(se = FALSE, size = 3) + theme_bw()
+    geom_smooth(se = FALSE) + theme_bw()
 }
 
+# plot: count of different active ingredients vs. year
 # total counts for each active ingredient
 g_ai = plot_active_fun(ai_to_plot, ai_to_plot$count) + labs(y = "Number of Approved Cases", x = "Year") +
   scale_colour_brewer(palette = "BrBG") 
@@ -116,11 +114,10 @@ legend = grobs[[which(sapply(grobs, function(x) x$name) == "guide-box")]]
 title = ggdraw() + draw_label( "Approved Cases for Top 10 Active Ingredients vs. Year", fontface = "bold", size = 20)
 p_with_legend = plot_grid(p_frame, legend, rel_widths = c(2,1))
 final_ai_plot = plot_grid(title, p_with_legend, ncol=1, rel_heights=c(0.1, 1))
-final_ai_plot
 
 # subset pain reliever after year 1960 for plotting
 pain_names = c("ACETAMINOPHEN", "HYDROCODONE BITARTRATE", "IBUPROFEN", "OXYCODONE HYDROCHLORIDE")
-pain_label = filter(ai_label, activeingred %in% pain_names)
+pain_label = filter(ai_label, activeingred %in% pain_names) %>% arrange(activeingred)
 # filter data after 1960
 pain_to_plot = filter(ai_to_plot, active_ingr %in% pain_names, year >=1960) %>%
   arrange(active_ingr)
@@ -128,15 +125,9 @@ pain_to_plot = filter(ai_to_plot, active_ingr %in% pain_names, year >=1960) %>%
 # functino to plot bar plot
 bar_active_fun = function(data, y_value, grouping, label_vec){
   ggplot(data, aes(x=strptime(year, format = "%Y"), y=y_value, fill = grouping, group = grouping)) + 
-    geom_bar(stat="identity") + geom_smooth(color = "black") + theme_bw() +
+    geom_bar(stat="identity") + geom_smooth(color = "black", size = .5) + theme_bw() +
     scale_fill_brewer(palette = "BrBG", name="Active Ingredient", labels = label_vec)
 }
-
-# pain reliver bar plot, raw count w/o normalization
-pain_bar = bar_active_fun(pain_to_plot, pain_to_plot$count, pain_to_plot$active_ingr, pain_label) +
-  labs(title = "Pain Reliever - Number of Approved Cases vs. Year", 
-       y = "Number of Approved Cases", x = "Year") + 
-  facet_grid(.~active_ingr)
 
 # pain reliver bar plot, normalized w/ total approval cases
 pain_bar_norm = bar_active_fun(pain_to_plot, pain_to_plot$norm_count, pain_to_plot$active_ingr, pain_label) +
@@ -169,9 +160,19 @@ total_approval_bar = ggplot(approval_case_ai, aes(x = year, y = approved_cases))
   geom_smooth(color ="black") + scale_fill_brewer(palette = "BrBG")
 
 # Other types of plots for active ingredient analysis are tried
+# pie chart for top ingredients
+pie_label = paste(as.character(sort_active_for_plot$activeingred), as.character(sort_active_for_plot$Application), sep = ": ")
+sorted_actives_pie = ggplot(sort_active_for_plot, aes(x="", y=count, fill = activeingred)) + 
+  geom_bar(width = 1, stat ="identity", alpha =.8) + coord_polar("y", start = 0) + 
+  theme_void() + theme(axis.text.x = element_blank(), plot.title = element_text(size = 20, face = "bold", hjust =0.5), 
+                       legend.title = element_text(size = 20, face = "bold"),
+                       legend.text = element_text(size = 20)) +
+  labs (title = "Top 10 Active Ingredients and Their Applications") +
+  scale_fill_brewer(palette = "BrBG", name="ACTIVE INGREDIENT: Application", 
+                    breaks = sort_active_for_plot$activeingred, labels = pie_label)
 
 # googleVis interactive pie chart
-pie = gvisPieChart(sort_active_for_pie)
+pie = gvisPieChart(sort_active_for_plot)
 plot(pie)
 
 # line plot
@@ -180,6 +181,7 @@ pain_line = ggplot(pain_to_plot, aes(x = year, y = norm_count, fill = active_ing
   geom_point(alpha = .5) + geom_smooth(color = "grey") + facet_grid(.~active_ingr) +
   scale_y_continuous(labels = percent, limits = c(0, NA)) +
   scale_fill_brewer(palette = "BrBG", name="Active Ingredient", labels = pain_label)
+pain_line
 
 # normalized pain_to_plot count w/ approval cases of just four active ingredients 
 pain_to_plot2 = summarise(group_by(pain_to_plot, year), "case_count" = sum(count)) %>% 
@@ -216,6 +218,12 @@ norm_g_ai_bar
 ai_to_plot_ace = filter (ai_to_plot_10, active_ingr == "ACETAMINOPHEN")
 norm_ai_ace_polar = ggplot(ai_to_plot_ace, aes(x=year_10, y=count, fill = active_ingr, group = active_ingr)) + 
   geom_bar(stat="identity") + facet_grid(.~active_ingr) + coord_polar()
+
+# pain reliver bar plot, raw count w/o normalization
+pain_bar = bar_active_fun(pain_to_plot, pain_to_plot$count, pain_to_plot$active_ingr, pain_label) +
+  labs(title = "Pain Reliever - Number of Approved Cases vs. Year", 
+       y = "Number of Approved Cases", x = "Year") + 
+  facet_grid(.~active_ingr)
 
 # Another category with trend: USP for intravenous injection
 # subset USP for plotting
