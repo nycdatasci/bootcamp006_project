@@ -1,0 +1,142 @@
+> View(texas.cvs)
+> tx=ggplot(data=texas.cvs,aes(x=long,y=lat))+geom_polygon(aes(fill=bin,group=group))
+> tx
+> tx=ggplot(data=texas.cvs,aes(x=long,y=lat))+geom_polygon(aes(fill=bin,group=1))
+> tx
+> tx=ggplot(data=texas.cvs,aes(x=long,y=lat))+geom_polygon(aes(fill=bin,group=1))
+> tx=ggplot(data=texas.cvs,aes(x=long,y=lat))+geom_polygon(aes(fill=bin,group=group))
+> tx
+
+#This is selected code generating 
+> summary(Nut_data)
+      Row.Labels Assay.Analyzer    Condoseo     Database.Explorer     Total       CollectionNum   
+           : 1   Min.   :  10   Min.   :  1.0   Min.   :   1.0    Min.   :   56   Min.   : 82.00  
+ 10/10/2011: 1   1st Qu.: 179   1st Qu.: 54.5   1st Qu.:   7.0    1st Qu.:  280   1st Qu.: 96.75  
+ 10/11/2011: 1   Median : 303   Median :178.0   Median :  70.5    Median :  548   Median :111.50  
+ 10/12/2011: 1   Mean   :1249   Mean   :201.1   Mean   : 423.2    Mean   : 1588   Mean   :111.50  
+ 10/13/2011: 1   3rd Qu.: 767   3rd Qu.:288.5   3rd Qu.: 321.8    3rd Qu.: 1120   3rd Qu.:126.25  
+ 10/14/2011: 1   Max.   :9846   Max.   :732.0   Max.   :4788.0    Max.   :14634   Max.   :141.00  
+ (Other)   :55   NA's   :4      NA's   :17      NA's   :25        NA's   :1       NA's   :1       
+> summary(Nut_data)
+> as.Date(Nut_data$Row.Labels)
+Error in charToDate(x) : 
+  character string is not in a standard unambiguous format
+> as.Date(Nut_data$Row.Labels
+> as.Date(Nut_data$Row.Labels,"%m/%d/%Y")
+ [1] "2011-09-14" "2011-09-15" "2011-09-16" "2011-09-19" "2011-09-20" "2011-09-21" "2011-09-23"
+ [8] "2011-09-25" "2011-09-26" "2011-09-27" "2011-09-28" "2011-09-29" "2011-09-30" "2011-10-03"
+[15] "2011-10-04" "2011-10-05" "2011-10-06" "2011-10-07" "2011-10-10" "2011-10-11" "2011-10-12"
+[22] "2011-10-13" "2011-10-14" "201q1-10-17" "2011-10-18" "2011-10-19" "2011-10-20" "2011-10-21"
+[29] "2011-10-24" "2011-10-25" "2011-10-26" "2011-10-27" "2011-10-28" "2011-10-31" "2011-11-01"
+[36] "2011-11-02" "2011-11-03" "2011-11-04" "2011-11-07" "2011-11-08" "2011-11-09" "2011-11-10"
+[43] "2011-11-11" "2011-11-14" "2011-11-15" "2011-11-16" "2011-11-17" "2011-11-18" "2011-11-21"
+[50] "2011-11-22" "2011-11-23" "2011-11-25" "2011-11-28" "2011-11-29" "2011-11-30" "2011-12-01"
+[57] "2011-12-02" "2011-12-05" "2011-12-06" "2011-12-07" NA          
+> Bas_data$Date<-as.Date(Bas_data$Row.Labels,"%m/%d/%Y")
+> View(Bas_data)
+> format(Bas_data$Date,"%b")
+ [1] "Sep" "Sep" "Sep" "Sep" "Sep" "Sep" "Sep" "Sep" "Sep" "Sep" "Sep" "Sep" "Sep" "Oct" "Oct" "Oct"
+[17] "Oct" "Oct" "Oct" "Oct" "Oct" "Oct" "Oct" "Oct" "Oct" "Oct" "Oct" "Oct" "Oct" "Oct" "Oct" "Oct"
+[33] "Oct" "Oct" "Nov" "Nov" "Nov" "Nov" "Nov" "Nov" "Nov" "Nov" "Nov" "Nov" "Nov" "Nov" "Nov" "Nov"
+[49] "Nov" "Nov" "Nov" "Nov" "Nov" "Nov" "Nov" "Dec" "Dec" "Dec" "Dec" "Dec" NA   
+> Bas_data$Month<-format(Bas_data$Date,"%b")
+> View(Bas_data)
+> ggplot(Bas_data,aes(x=Date,y=Condoseo))
+Error in eval(expr, envir, enclos) : object 'Assay.Analizer' not found
+> names(Bas_data)
+[1] "Row.Labels"        "Assay.Analyzer"    "Condoseo"          "Database.Explorer"
+[5] "Total"             "CollectionNum"     "Date"              "Month"            
+> ggplot(Bas_data,aes(x=Date,y=Condoseo))
+> ggplot(Bas_data,aes(x=Date,y=Condoseo))+
++ geom_point()
+Warning message:
+Removed 4 rows containing missing values (geom_point). 
+> ggplot(Bas_data,aes(x=Date,y=Condoseo))+ geom_point()+ geom_line()
+X+ geom_point()+
+X+ geom_line()
+Warning messages:
+1: Removed 4 rows containing missing values (geom_point). 
+2: Removed 1 rows containing missing values (geom_path). 
+> ggplot(Bas_data)+ geom_point(aes(x=Date,y=Condoseo))+ geom_line()+ geom_line(aes(x=Date,y=Total))
+X+   geom_point(aes(x=Date,y=Condoseo))+
+X+   geom_line()+
+X+   geom_line(aes(x=Date,y=Total))
+Error in order(data$PANEL, data$group, data$x) : 
+  argument 3 is not a vector
+> ggplot(Bas_data)+ geom_point(aes(x=Date,y=Condoseo))+ geom_line(aes(x=Date,y= Condoseo))+  geom_line(aes(x=Date,y=Total)) 
+X+   geom_point(aes(x=Date,y=Condoseo))+
+X+   geom_line((aes(x=Date,y= Condoseo))+
+X+   geom_line(aes(x=Date,y=Total))
++ 
+
+> ggplot(Bas_data)+
++   geom_point(aes(x=Date,y=Condoseo))+
++   geom_line(aes(x=Date,y=Condoseo))+
++   geom_line(aes(x=Date,y=Total))
+Warning messages:
+1: Removed 4 rows containing missing values (geom_point). 
+2: Removed 1 rows containing missing values (geom_path). 
+3: Removed 1 rows containing missing values (geom_path). 
+> ggplot(Bas_data)+ geom_point(aes(x=Date,y=Condoseo))+ geom_point(aes(x=Date,y=Condoseo))+ geom_line(aes(x=Date,y=Condoseo),col="Red")+ geom_line(aes(x=Date,y=Total))
+X+   geom_point(aes(x=Date,y=Condoseo))+ geom_line(aes(x=Date,y=Condoseo),col="Red")+ geom_line(aes(x=Date,y=Total))
+X+   geom_line(aes(x=Date,y=Condoseo),col="Red")+
+X+   geom_line(aes(x=Date,y=Total))
+Warning messages:
+1: Removed 4 rows containing missing values (geom_point). 
+2: Removed 1 rows containing missing values (geom_path). 
+3: Removed 1 rows containing missing values (geom_path). 
+> source('~/Data/BootCamp/Project!.R')
+> source('~/Data/BootCamp/Project!.R')
+Installing package into ‘C:/Users/annei/OneDrive/Documents/R/win-library/3.3’
+(as ‘lib’ is unspecified)
+also installing the dependencies ‘gridExtra’, ‘viridis’, ‘htmlwidgets’, ‘tidyr’, ‘hexbin’
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/gridExtra_2.2.1.zip'
+Content type 'application/zip' length 483303 bytes (471 KB)
+downloaded 471 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/viridis_0.3.4.zip'
+Content type 'application/zip' length 1746409 bytes (1.7 MB)
+downloaded 1.7 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/htmlwidgets_0.6.zip'
+Content type 'application/zip' length 843491 bytes (823 KB)
+downloaded 823 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/tidyr_0.5.1.zip'
+Content type 'application/zip' length 840018 bytes (820 KB)
+downloaded 820 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/hexbin_1.27.1.zip'
+Content type 'application/zip' length 781954 bytes (763 KB)
+downloaded 763 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/plotly_3.6.0.zip'
+Content type 'application/zip' length 828397 bytes (808 KB)
+downloaded 808 KB
+
+package ‘gridExtra’ successfully unpacked and MD5 sums checked
+package ‘viridis’ successfully unpacked and MD5 sums checked
+package ‘htmlwidgets’ successfully unpacked and MD5 sums checked
+package ‘tidyr’ successfully unpacked and MD5 sums checked
+package ‘hexbin’ successfully unpacked and MD5 sums checked
+package ‘plotly’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\annei\AppData\Local\Temp\RtmpkXMpgh\downloaded_packages
+
+Attaching package: ‘plotly’
+
+The following object is masked from ‘package:ggplot2’:
+
+    last_plot
+
+The following object is masked from ‘package:graphics’:
+
+    layout
+
+Error: Don't know how to add scale_fill_brewer to a plot
+In addition: Warning message:
+package ‘plotly’ was built under R version 3.3.1 
+> library("dplyr", lib.loc="~/R/win-library/3.3")
+> library("ggplot2", lib.loc="~/R/win-library/3.3")
