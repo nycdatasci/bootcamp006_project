@@ -94,7 +94,7 @@ top15outflow.plot<-ggplot(data=top15_Origin,aes(x=reorder(Origin,-Passengers_out
   geom_bar(aes(y=Passengers_out,fill=Origin),stat = "identity")
 
 top15outflow.plot<-top15outflow.plot+labs(
-  title="Top 15 Accumulative Outflow of Passengers to Origin Airport",
+  title="Top 15 Accumulative Outflow of Passengers from Origin Airport",
   x="Origin Airport",
   y="Number of Passengers Outflow")
 
@@ -128,6 +128,8 @@ top15inflow.plot
 
 Compare the above two barcharts, it is easily to find out that the names of the origin airport are exact the same as the names of destination airport. In other words, the net passengers flow for each airport may approxiemately to zero. Take a further look into the Jackson Atlanta International Airport(ATL), it ranks at the first both of the total outflow and total inflow, which is make sense as the ATL is a large hub airport, also a transit airport.
 
+##Explore the Variation of Air Traffic Volume during the Year 2009
+
 Secondly, make a line polt to visialize the fluctuation of the air traffic load during the year of 2009. According to the monthly traffic chart below, we will find out that the traffic volume reaches the peak at July. The reason of that I guess is because of Independence day and summer holiday season. 
 
 ```{r air traffic peak, echo=FALSE, results="asis"}
@@ -150,8 +152,6 @@ plot(monthly_traffic.gplot,"chart")
 ```
 
 
-##Analysis the population movement 
-Zoom into each month data and calculate the netflow of the passengers to explore how the passengers are moving around. For the simplicity and efficience, I select the airports with top 10 and last 10 netflow of passengers in each month. 
 ```{r subsetdf_netflow, warning=TRUE, include=FALSE, results="asis"}
 
 #create month 12 df
@@ -769,6 +769,9 @@ month12_20.Column <- gvisColumnChart(
 ```
 
 
+##Analysis the population movement by month 
+Zoom into each month data and calculate the netflow of the passengers to explore how the passengers are moving around. For the simplicity and efficience, I select the airports with top 10 and last 10 netflow of passengers in each month. Compared to the following graphs, I find one obvious pattern is that in December, people will travel from North to South area in US, as we see the the Top 3 net inflow passengers are airport MIA(Miami International Airport),FLL(Fort Lauderdale Hollywood International Airport ),MCO(Orlando International Airport),which are all located in Florida, the southmost state.  Meanwhile, the last three airports DCA,ORD and BOS are located at Washington,Chicago and Boston,respectively, which are at the Northern part of US. However, when we check back to the January of the year 2009, the movement is opposite, people are going from Sounth to North of US. In Jan., the first 3 netflow airports are DCA(Ronald Reagan Washington National Airport ),BOS(General Edward Lawrence Logan International Airport) and SFO(San Francisco International Airport) are located at the city of Washington , Boston and San Francisco. While, the last 3 airports with negative netflows are FLL, MCO, MIA,all located at Florida.
+
 ```{r merge 12 plots, echo=FALSE, warning=TRUE, results="asis"}
 #Merge 12 plots of net flow
 month1and2.plot<-gvisMerge(
@@ -787,5 +790,120 @@ plot(month9_20.Column,"chart")
 plot(month10_20.Column,"chart")
 plot(month11_20.Column,"chart")
 plot(month12_20.Column,"chart")
+
+```
+
+
+```{r individualairports, warning=TRUE, include=FALSE, results="asis"}
+#subset origin from ewr airport 
+ewr_origin<- filter(year2009,Origin=="EWR")
+ord_origin<-filter(year2009,Origin=="ORD")
+mia_origin<-filter(year2009,Origin=="MIA")
+atl_origin<-filter(year2009,Origin=="ATL")
+# summarise the number of flights from the origin airport of ewr for each month 
+ewr_monthly_outflow <-ewr_origin%>%group_by(Month)%>%
+  summarise(Passengers_out=sum(Passengers),flights_out=sum(Flights))
+
+ord_monthly_outflow <-ord_origin%>%group_by(Month)%>%
+  summarise(Passengers_out=sum(Passengers),flights_out=sum(Flights))
+
+mia_monthly_outflow <-mia_origin%>%group_by(Month)%>%
+  summarise(Passengers_out=sum(Passengers),flights_out=sum(Flights))
+
+atl_monthly_outflow <-atl_origin%>%group_by(Month)%>%
+  summarise(Passengers_out=sum(Passengers),flights_out=sum(Flights))
+
+#mean(ord_monthly_outflow$Passengers_out)
+#mean(ord_origin$Passengers)
+# summarise the number of flights to the desitination airport of ewr for each month 
+ewr_destination<-filter(year2009,Destination=="EWR")
+ewr_monthly_inflow<-ewr_destination%>%group_by(Month)%>%
+  summarise(Passengers_in=sum(Passengers),flights_in=sum(Flights))
+
+ord_destination<-filter(year2009,Destination=="ORD")
+ord_monthly_inflow<-ord_destination%>%group_by(Month)%>%
+  summarise(Passengers_in=sum(Passengers),flights_in=sum(Flights))
+
+mia_destination<-filter(year2009,Destination=="MIA")
+mia_monthly_inflow<-mia_destination%>%group_by(Month)%>%
+  summarise(Passengers_in=sum(Passengers),flights_in=sum(Flights))
+
+atl_destination<-filter(year2009,Destination=="ATL")
+atl_monthly_inflow<-atl_destination%>%group_by(Month)%>%
+  summarise(Passengers_in=sum(Passengers),flights_in=sum(Flights))
+
+#merge the two dataframe into one = ewr 
+ewr<-merge(ewr_monthly_inflow,ewr_monthly_outflow,by.x="Month")
+
+ord<-merge(ord_monthly_inflow,ord_monthly_outflow,by.x="Month")
+
+mia<-merge(mia_monthly_inflow,mia_monthly_outflow,by.x="Month")
+
+atl<-merge(atl_monthly_inflow,atl_monthly_outflow,by.x="Month")
+
+# caculate the net flow of passengers for each month
+ewr<-mutate(ewr,net_flow=(Passengers_in-Passengers_out))
+ord<-mutate(ord,net_flow=(Passengers_in-Passengers_out))
+mia<-mutate(mia,net_flow=(Passengers_in-Passengers_out))
+atl<-mutate(atl,net_flow=(Passengers_in-Passengers_out))
+
+
+
+```
+
+##Analysis the Population Movement by each Airport
+The pattern of the passengers netflow also could be analysised by each of the airport. I chose the 4 airports here to disucss to show how the flow of passengers varies during the year.
+For the Newark Liberty International Airport, the month 7 is very special, as we see more people leave from New York or New Jersey than come in. May be because the long holiday of independent day. 
+But this pattern is not seen in the Chicago ORD airport. There are more people come to Chicago at April and May. 
+The above two airport are located at North of the US, so in the winter ,we will see that more people go out to other places. As I analysis before, the people prefer going to Sountern part of US.
+The net flow flutuate the most at the month Dec.,of passengers in MIA airport, as there are more people come into Miami from Northen US area.
+The last plot, I just want to check how the Atlanta Airport pattern is, because i menthioned before the ATL is the biggiest hub and transit in US, so the net flow of it should not flutuate so strongly.  The flutate is smaller than the other airports menthioned. But it is not visually see , we have to do statictical analysis to prove that the variance is significantly smaller. 
+
+```{r plotnetflow4, echo=FALSE, warning=TRUE, results="asis"}
+
+  
+# make plot (problems in Month as x)
+#EWR
+ewr.plot<-gvisAreaChart(data=ewr,xvar = "Month",
+                        yvar=c("net_flow"),
+                        options=list(
+                          vAxes="[{title:'Netflow of Passengers'}]",
+                          title="EWR Airport",
+                          legend="{position:'right'}",
+                          width="1000px", height="500px",
+hAxis="{title:'Month',titleTextStyle:{color:'#003366',
+               fontSize:16}}"))
+plot(ewr.plot,"chart")
+
+#ORD
+ord.plot<-gvisAreaChart(data=ord,xvar = "Month",
+                        yvar=c("net_flow"),
+                        options=list(
+                          vAxes="[{title:'Netflow of Passengers'}]",
+                          title="ORD Airport",
+                          legend="{position:'right'}",
+                          width="1000px", height="500px",
+hAxis="{title:'Month',titleTextStyle:{color:'#003366',fontSize:16}}"))
+plot(ord.plot,"chart")
+
+#MIA
+mia.plot<-gvisAreaChart(data=mia,xvar = "Month",yvar=c("net_flow"),
+                 options=list(vAxes="[{title:'Netflow of Passengers'}]",
+                              title="MIA Airport",
+                              legend="{position:'right'}",
+                              width="1000px", height="500px",
+hAxis="{title:'Month',titleTextStyle:{color:'#003366',fontSize:16}}"))
+plot(mia.plot,"chart")
+
+#ATL
+atl.plot<-gvisAreaChart(data=atl,xvar = "Month",
+                        yvar=c("net_flow"),
+                        options=list(
+                          vAxes="[{title:'Netflow of Passengers'}]",
+                          title="ATL Airport",
+                          legend="{position:'right'}",
+                          width="1000px", height="500px",
+hAxis="{title:'Month',titleTextStyle:{color:'#003366',fontSize:16}}"))
+plot(atl.plot,"chart")
 
 ```
