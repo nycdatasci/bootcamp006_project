@@ -169,10 +169,15 @@ shinyServer(function(input, output, session){
       Sys.sleep(0.3)
  
       DF<-getDataFrame()
+      DF1<-DF[,getYear()]
+      maxV<-max(DF1)
+      minV<-min(DF1)
+      medV<-median(DF1)
+      colorStr=paste("{values:[",minV,",",medV,",",maxV,"],")
       gvisGeoChart(DF, "GeoName", getYear(),
                    options=list(region="US", displayMode="regions", 
                                 resolution="provinces",
-                                width="auto", height="auto",backgroundColor='#F6E3CE',colorAxis="{colors:['red','#FFFFFF','#0404B4']}",height='330pex'))
+                                width="auto", height="auto",backgroundColor='#F6E3CE',colorAxis=paste0(colorStr,"colors:['red','#FBEFEF','#0404B4']}"),height='330pex'))
     })   
     
      output$table1 <- renderGvis({
