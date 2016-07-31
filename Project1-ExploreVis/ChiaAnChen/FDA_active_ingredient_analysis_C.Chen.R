@@ -1,6 +1,6 @@
-# NYC data science academy
-# Project 1: Exploratory Visualization Project 
-# Chia-An Chen
+# NYC Data Science Academy
+# Project 1: Exploratory and R Visualization Project 
+# Author: Chia-An Chen
 # 07/17/16
 
 # Data Source: http://www.fda.gov/Drugs/InformationOnDrugs/ucm079750.htm
@@ -14,9 +14,9 @@ library(cowplot)
 library(tidyr)
 library(RColorBrewer)
 library(scales)
-library(googleVis)
 
 # Mannually convert .txt into .csv if needed for easier reading, and read data into R
+# Modify the path accordindly if you download the data to your computer
 application = read.csv("/Users/annecool37/Dropbox/DataScience/Project1/drugsatfda/application.csv", header = TRUE, sep = ",")
 reg_date = read.table("/Users/annecool37/Dropbox/DataScience/Project1/drugsatfda/RegActionDate.txt", header = TRUE, sep = "\t")
 product = read.csv("/Users/annecool37/Dropbox/DataScience/Project1/drugsatfda/Product.csv", header = TRUE, sep = ",")
@@ -35,11 +35,11 @@ master_file = inner_join (inner_join(id_date, application_partial) , product_par
 active_ingr = inner_join(inner_join(id_date, select(application, ApplNo, SponsorApplicant)),distinct(select(product, ApplNo, activeingred))) %>%
   mutate(activeingred = as.character(activeingred), year_10 = floor(date/10)*10) %>% rename(year = date)
 
-# trend of total approval
+# trend of total approvals
 approval_case_ai = summarise(group_by(active_ingr, year), approved_cases = n())
 total_approval = ggplot(approval_case_ai, aes(x=year, y=approved_cases)) + geom_point(size = 5, alpha = .5) + geom_smooth(color ="black") +
   labs (y="number of approved cases", title = "Number of Approved New Drug Applications vs. Year") + 
-  theme_bw() + scale_fill_manual(color = "blue")
+  theme_bw() 
 total_approval
 
 # get a general idea of which ingredient is often used w/o grouping by year
@@ -47,7 +47,7 @@ total_approval
 df_active = data.frame(activeingred = unlist(strsplit(active_ingr$activeingred, split="; ")))
 # find the active ingredient with highest frequency
 sort_active = arrange(summarise(group_by(df_active, activeingred), count=n()), desc(count))
-# list top 1o active ingredients and their application
+# list top 10 active ingredients and their application
 # n is the number of active ingredient w/ top freqencies
 n = 10
 top_10_actives = sort_active$activeingred[1:n]
@@ -68,7 +68,7 @@ sort_active_for_bar = arrange(sort_active_for_plot, desc(count)) %>%
 # create bar plot
 sorted_actives_bar = ggplot(sort_active_for_bar, aes(x = reorder(label, count), y = count, fill = label)) + 
   geom_bar(width = 1, stat ="identity", alpha =.8,  colour="grey", show.legend = FALSE) + coord_flip() +
-  theme_bw() + theme(axis.text.y = element_text(size = 15), plot.title = element_text(size = 20)) + 
+  theme_bw() + #theme(axis.text.y = element_text(size = 15), plot.title = element_text(size = 20)) + 
   labs(title = "Top 10 Active Ingredients and Their Applications", x ="", y ="Number of Approved Cases") +
   scale_fill_brewer(palette = "BrBG", guide = FALSE) 
 
@@ -142,103 +142,15 @@ pain_bar_norm = bar_active_fun(pain_to_plot, pain_to_plot$norm_count, pain_to_pl
 ## Number of Approved New Drug Applications Has Increase Over Past Decades 
 total_approval
 ## Top 10 Active Ingredients in Approved Cases
-sorted_actives_pie
+sorted_actives_bar
 ## How Top 10 Active Ingredients Changes Over Years
 final_ai_plot
-# pain reliver bar plot, raw count w/o normalization
-pain_bar
 # pain reliver bar plot, normalized w/ total approval cases
 pain_bar_norm
 
-#############################################################################
-#############################################################################
-###################### Data or plots not used ###############################
-#############################################################################
-#############################################################################
-total_approval_bar = ggplot(approval_case_ai, aes(x = year, y = approved_cases)) + geom_bar(stat="identity") +
-  labs (y="number of approved cases", title = "Number of Approved New Drug Applications vs. Year") + theme_bw() + 
-  geom_smooth(color ="black") + scale_fill_brewer(palette = "BrBG")
-
-# Other types of plots for active ingredient analysis are tried
-# pie chart for top ingredients
-pie_label = paste(as.character(sort_active_for_plot$activeingred), as.character(sort_active_for_plot$Application), sep = ": ")
-sorted_actives_pie = ggplot(sort_active_for_plot, aes(x="", y=count, fill = activeingred)) + 
-  geom_bar(width = 1, stat ="identity", alpha =.8) + coord_polar("y", start = 0) + 
-  theme_void() + theme(axis.text.x = element_blank(), plot.title = element_text(size = 20, face = "bold", hjust =0.5), 
-                       legend.title = element_text(size = 20, face = "bold"),
-                       legend.text = element_text(size = 20)) +
-  labs (title = "Top 10 Active Ingredients and Their Applications") +
-  scale_fill_brewer(palette = "BrBG", name="ACTIVE INGREDIENT: Application", 
-                    breaks = sort_active_for_plot$activeingred, labels = pie_label)
-
-# googleVis interactive pie chart
-pie = gvisPieChart(sort_active_for_plot)
-plot(pie)
-
-# line plot
-pain_line = ggplot(pain_to_plot, aes(x = year, y = norm_count, fill = active_ingr, group = active_ingr)) + 
-  labs(y = "Percentage of Approved Cases", x = "Year", title = "Pain Reliever - Percentage of Approved Cases vs. Year") +
-  geom_point(alpha = .5) + geom_smooth(color = "grey") + facet_grid(.~active_ingr) +
-  scale_y_continuous(labels = percent, limits = c(0, NA)) +
-  scale_fill_brewer(palette = "BrBG", name="Active Ingredient", labels = pain_label)
-pain_line
-
-# normalized pain_to_plot count w/ approval cases of just four active ingredients 
-pain_to_plot2 = summarise(group_by(pain_to_plot, year), "case_count" = sum(count)) %>% 
-  inner_join(pain_to_plot) %>% select(year, active_ingr, count, case_count) %>%
-  mutate(norm_count = count/case_count)
-pain_bar2 = ggplot(pain_to_plot2, aes(x=strptime(year, format = "%Y"), y=norm_count, fill = active_ingr, group = active_ingr)) + 
-  labs(y = "Percentage of Approved Cases", x = "Year") +
-  geom_bar(stat="identity") + scale_y_continuous(labels = percent, limits = c(0, NA)) +
-  geom_smooth(color = "black") + theme_bw() + facet_grid(.~active_ingr) +
-  scale_fill_brewer(palette = "BrBG", name="Active Ingredient", labels = pain_label)
-
-# line plot
-norm_pain_plot = plot_active_fun(pain_to_plot, pain_to_plot$norm_count) + labs(y = "Percentage of Approved Cases", x = "Year", title = "Pain Reliever - Percentage of Approved Cases vs. Year") +
-  scale_colour_brewer(palette = "BrBG", name="Active Ingredient", labels = pain_label) + scale_y_continuous(labels=percent/100)
-
-# group by every 10 years
-master_ai_10 = arrange(distinct(select(active_ingr, year_10)), year_10) %>% mutate(year_10 = as.factor(year_10))
-for (i in 1:n) {
-  df = data.frame(table(active_ingr[grep(sort_active$activeingred[i], active_ingr$activeingr), "year_10"])) %>% rename("year_10" = Var1)
-  master_ai_10 = left_join(master_ai_10, df, by = "year_10")
-}
-master_ai_10[is.na(master_ai_10)] = 0
-names(master_ai_10) = c("year_10",as.character(sort_active$activeingred)[1:n])
-ai_to_plot_10 = gather(master_ai_10, "year_10", "drug", 2:(n+1)) 
-names(ai_to_plot_10) = c("year_10","active_ingr", "count")
-ai_to_plot_10 = transmute(ai_to_plot_10, year_10 = as.integer(year_10), active_ingr=active_ingr, count=count)
-
-# plot all top 10 active ingredients, count vs. every 10 year
-norm_g_ai_bar = ggplot(ai_to_plot_10, aes(x=strptime(year_10, format = "%Y"), y=count, fill = active_ingr, group = active_ingr)) + 
-  geom_bar(stat="identity") + facet_grid(.~active_ingr) + geom_smooth(se=FALSE, color ="black")
-norm_g_ai_bar
-
-# pie chart with only drugs w/ ACETAMINOPHEN as active ingredient 
-ai_to_plot_ace = filter (ai_to_plot_10, active_ingr == "ACETAMINOPHEN")
-norm_ai_ace_polar = ggplot(ai_to_plot_ace, aes(x=year_10, y=count, fill = active_ingr, group = active_ingr)) + 
-  geom_bar(stat="identity") + facet_grid(.~active_ingr) + coord_polar()
-
-# pain reliver bar plot, raw count w/o normalization
-pain_bar = bar_active_fun(pain_to_plot, pain_to_plot$count, pain_to_plot$active_ingr, pain_label) +
-  labs(title = "Pain Reliever - Number of Approved Cases vs. Year", 
-       y = "Number of Approved Cases", x = "Year") + 
-  facet_grid(.~active_ingr)
-
-# Another category with trend: USP for intravenous injection
-# subset USP for plotting
-usp_names = c("SODIUM CHLORIDE", "POTASSIUM CHLORIDE","DEXTROSE")
-usp_label = filter(ai_label, activeingred %in% usp_names)
-usp_to_plot = filter(ai_to_plot, active_ingr %in% usp_names, year >=1960)
-
-usp_bar = bar_active_fun(usp_to_plot, usp_to_plot$norm_count, usp_to_plot$active_ingr, usp_label) +
-  labs(title = "USP - Percentage of Approved Cases vs. Year") + facet_grid(.~active_ingr)
-g_usp = plot_active_fun(usp_to_plot, usp_to_plot$norm_count) + labs(y = "Percentage of Approved Cases", x = "Year") +
-  scale_colour_brewer(palette = "Blues") 
-
-###################
-# dosage and form #
-###################
+########
+# Form #
+########
 id_date_all = transmute(reg_date, ApplNo = ApplNo, date=as.integer(substr(as.character(ActionDate),1,4)))
 form_df = distinct(select(product, ApplNo, Form)) %>% inner_join(id_date) %>% mutate( Form = as.character(Form))
 # form_df = (select(product, ApplNo, Form)) %>% full_join(id_date)
@@ -259,11 +171,7 @@ form_df = cbind(form_df, c(type, form)) %>% select(-ApplNo, -Form) %>% rename(ye
 # group, rank, and sort form
 master_form = group_by(form_df, year, form) %>% summarise(count = n())
 sort_form = arrange(summarise(group_by(form_df, form), count=n()), desc(count))
-# group, rank, and sort type
-master_type = group_by(form_df, year, type) %>% summarise(count = n())
-sort_type = arrange(summarise(group_by(form_df, type), count=n()), desc(count))
 
-# form
 # manually pick top 10 forms via as.character(sort_form$form[1:10])
 form_list = c("ORAL", "INJECTION", "TOPICAL", "OPHTHALMIC", "INHALATION", "INTRAVENOUS", "IV (INFUSION)", "NASAL", "SUBCUTANEOUS", "TRANSDERMAL", "VAGINAL")
 form_to_plot = data.frame(year = numeric(), form = factor(), count = numeric())
@@ -272,42 +180,32 @@ for (i in 1:n) { # zoom in the graph by setting 3:10 in the for loop if needed
   sub = filter(master_form, form == form_list[i])
   form_to_plot = full_join(form_to_plot, sub)
 }
-# normalize data with total case each year
+# normalize data with number of total cases each year
 approval_case_sum_f = summarise(group_by(form_df, year), form_cases = n())
 form_to_plot = inner_join(form_to_plot, approval_case_sum_f) %>% mutate(norm_count = count/form_cases)
-# plot: year vs. count of different forms
-g_f = ggplot(form_to_plot, aes(x=strptime(year, format = "%Y"), y=count, colour = form, group = form)) + geom_smooth(se = FALSE)
-norm_g_f = ggplot(form_to_plot, aes(x=strptime(year, format = "%Y"), y=norm_count, colour = form, group = form)) + geom_smooth(se = FALSE)
-plot_form = plot_grid(g_f, norm_g_f, labels=c("standard form", "normalized form"), ncol = 2, nrow = 1)
+# plot: count of different forms vs. year
+# plot w/ raw data
+g_f = ggplot(form_to_plot, aes(x=strptime(year, format = "%Y"), y=count, colour = form, group = form)) + geom_smooth(se = FALSE) +
+  labs(y = "Number of Approved Cases", x = "Year") + scale_colour_brewer(palette = "BrBG")
+# plot w/ normaized data
+norm_g_f = ggplot(form_to_plot, aes(x=strptime(year, format = "%Y"), y=norm_count, colour = form, group = form)) + 
+  geom_smooth(se = FALSE) + labs(y = "Number of Approved Cases", x = "Year") + 
+  scale_colour_brewer(palette = "BrBG", name="Forms of Drug") + scale_y_continuous(labels = percent)
+# combine two plots
+p_frame = plot_grid(g_f + theme(legend.position="none"), norm_g_f + theme(legend.position="none"),
+                    align = 'vh', hjust = -1, nrow = 1, labels = c("Standard", "Normalized"))
+grobs = ggplotGrob(norm_g_f)$grobs
+legend = grobs[[which(sapply(grobs, function(x) x$name) == "guide-box")]]
+title = ggdraw() + draw_label( "Approved Cases for Top 10 Forms vs. Year", fontface = "bold", size = 20)
+p_with_legend = plot_grid(p_frame, legend, rel_widths = c(2,1))
+final_form_plot = plot_grid(title, p_with_legend, ncol=1, rel_heights=c(0.1, 1))
+final_form_plot
 
-#######################################################################
-# Trend found:                                                        #
-# Oral dominate the form of drug --> then injection --> then others   #
-# noramalized data suggests injection is in the trend of declining    #
-#######################################################################
-
-# type
-# manually pick top 10 types via as.character(sort_type$type[1:15])
-type_list = c("TABLET", "INJECTABLE", "CAPSULE", "SOLUTION", "CREAM","SYRUP", "OINTMENT", "SUSPENSION", "POWDER", "GEL")
-type_to_plot = data.frame(year = numeric(), type = factor(), count = numeric())
-n = 10
-for (i in 1:n) {
-  sub = filter(master_type, type == type_list[i])
-  type_to_plot = full_join(type_to_plot, sub)
-}
-
-# normalize data with total case each year
-type_to_plot = inner_join(type_to_plot, approval_case_sum_f) %>% mutate(norm_count = count/form_cases)
-g_t = ggplot(type_to_plot, aes(x=strptime(year, format = "%Y"), y=count, colour = type, group = type)) + geom_smooth(se = FALSE)
-norm_g_t = ggplot(type_to_plot, aes(x=strptime(year, format = "%Y"), y=norm_count, colour = type, group = type)) + geom_smooth(se = FALSE)
-plot_type = plot_grid(g_t, norm_g_t, labels=c("standard type", "normalized type"), ncol = 2, nrow = 1)
-
-################
-# review class #
-################
+#############
+# Potential #
+#############
 # P	Priority review drug: A drug that appears to represent an advance over available therapy
 # S	Standard review drug: A drug that appears to have therapeutic qualities similar to those of an already marketed drug
-# O	Orphan drug - a product that treats a rare disease affecting fewer than 200,000 Americans
 review = select(application_partial, ApplNo, Ther_Potential) %>% filter(Ther_Potential != "")  %>% inner_join(id_date) %>% transmute (year = date, Ther_Potential= as.character(Ther_Potential))
 length = nrow(review)
 potential = character()
@@ -320,38 +218,25 @@ review_case_sum = summarise(group_by(review, year), review_cases = n())
 # Priority & Standard drugs
 review_to_plot = data.frame(table(review)) %>% filter(potential != "") %>% rename (count = Freq) %>% 
   mutate(year = as.integer(as.character(year))) %>% inner_join(review_case_sum) %>% mutate(norm_count = count/review_cases)
-g_ps = ggplot(review_to_plot, aes(x=strptime(year, format = "%Y"), y=count, colour = potential, group = potential)) + geom_smooth(se = FALSE)
-norm_g_ps = ggplot(review_to_plot, aes(x=strptime(year, format = "%Y"), y=norm_count, colour = potential, group = potential)) + geom_smooth(se = FALSE)
-plot_ps = plot_grid(g_ps, norm_g_ps, labels=c("standard review", "normalized review"), ncol = 2, nrow = 1)
-
-# Orphan drugs
-orphan = select(application_partial, ApplNo, Orphan_Code) %>% filter (Orphan_Code != "") %>% inner_join(id_date) %>% transmute (year = date, orphan= as.character(Orphan_Code))
-orphan_to_plot = summarise(group_by(orphan, year), count = n()) %>% inner_join(review_case_sum) %>% mutate(norm_count = count/review_cases, potential = "O")
-total_review_to_plot = full_join(review_to_plot, orphan_to_plot)
-g_r = ggplot(total_review_to_plot, aes(x=strptime(year, format = "%Y"), y=count, colour = potential, group = potential)) + geom_line() + geom_smooth(se = FALSE)
-norm_g_r = ggplot(total_review_to_plot, aes(x=strptime(year, format = "%Y"), y=norm_count, colour = potential, group = potential)) + geom_line()  + geom_smooth(se = FALSE)
-plot_r = plot_grid(g_r, norm_g_r, labels=c("standard review", "normalized review"), ncol = 2, nrow = 1)
-# nothing surprising....but the retio of priority and standard drugs remain steady for decades 
-
-##########
-# Others #
-##########
-# chem_type = read.csv("/Users/annecool37/Dropbox/DataScience/Project1/drugsatfda/ChemTypeLookup.csv", header = TRUE, sep = ",")
-# review_class = read.csv("/Users/annecool37/Dropbox/DataScience/Project1/drugsatfda/ReviewClass_Lookup.csv", header = TRUE, sep = ",")
-
-# sth may be interested to look into
-# chemtype 7: drug in market w/o DFA approval
-# check indredient and potential
-drug_with_no_approval = select(application_partial, ApplNo, Chemical_Type) %>% filter(Chemical_Type ==7) %>%
-  inner_join(product_partial) 
-sum = summarise(group_by(drug_with_no_approval, activeingred),count = n())
-# however, no clear trend was found
-
-# see how many approvals did each company get (sorted result)
-# and the first few ones seem to focus on generic drugs
-company_approvals = arrange(summarise(group_by(active_ingr, SponsorApplicant), count = n()), desc(count))
-# see how many companies got approvals each year
-company_count = distinct(select(active_ingr, year, SponsorApplicant)) %>% group_by(year) %>% summarise(company_count = n())
+# plot w/ raw data
+g_ps = ggplot(review_to_plot, aes(x=strptime(year, format = "%Y"), y=count, colour = potential, group = potential)) + 
+  geom_smooth(se = FALSE) + labs(y = "Number of Approved Cases", x = "Year") +
+  scale_colour_brewer(palette = "Set1")
+# plot w/ normalized data
+norm_g_ps = ggplot(review_to_plot, aes(x=strptime(year, format = "%Y"), y=norm_count, colour = potential, group = potential)) + 
+  geom_smooth(se = FALSE) +
+  labs(y = "Percent of Approved Cases", x = "Year") + 
+  scale_colour_brewer(palette = "Set1", name="Potentials of Drug", labels = c("Priority", "Standard")) + 
+  scale_y_continuous(labels = percent)
+# combine two plots
+p_frame = plot_grid(g_ps + theme(legend.position="none"), norm_g_ps + theme(legend.position="none"),
+                    align = 'vh', hjust = -1, nrow = 1, labels = c("Standard", "Normalized"))
+grobs = ggplotGrob(norm_g_ps)$grobs
+legend = grobs[[which(sapply(grobs, function(x) x$name) == "guide-box")]]
+title = ggdraw() + draw_label( "Two Potentials vs. Year", fontface = "bold", size = 20)
+p_with_legend = plot_grid(p_frame, legend, rel_widths = c(2,1))
+final_potential_plot = plot_grid(title, p_with_legend, ncol=1, rel_heights=c(0.1, 1))
+final_potential_plot
 
 ######################
 # Miscellaneous Note #
