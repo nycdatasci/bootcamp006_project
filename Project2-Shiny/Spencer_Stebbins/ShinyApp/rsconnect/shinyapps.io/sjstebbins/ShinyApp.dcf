@@ -2,8 +2,8 @@ name: ShinyApp
 account: sjstebbins
 server: shinyapps.io
 appId: 117721
-bundleId: 520450
+bundleId: 520453
 url: https://sjstebbins.shinyapps.io/ShinyApp/
-when: 1470019435.44988
+when: 1470019892.2436
 asMultiple: FALSE
 asStatic: FALSE
