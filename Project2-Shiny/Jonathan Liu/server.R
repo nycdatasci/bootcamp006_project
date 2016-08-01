@@ -168,7 +168,7 @@ shinyServer(function(input, output, session) {
     avg <- colMeans(summaryDT()[, -'Name', with = F], na.rm = T)
     avgDT <- as.data.table(avg, keep.rownames = T) %>% rename(Nutrition = rn)
     summaryDT <- merge(avgDT, daily_nutritions, by = 'Nutrition') %>%
-      mutate('%' = avg / DV)
+      mutate('%' = round(avg / DV, 2))
   })
   
   summaryValues <- reactive(summaryAvgDT()[, get('%')])
@@ -197,19 +197,15 @@ shinyServer(function(input, output, session) {
         )})
     )))
   
-  output$summary_statVB <- renderUI(
-    valueBox(
-      value = dim(summaryDT()),
-      subtitle = 'Number of Items Selected',
-      icon = icon("apple", lib = "glyphicon"),
-      width = 3)
-    )
+  # stat <- renderText(dim(summaryDT())[1])
+  output$summary_statVB <- renderText(
+    paste0(dim(summaryDT())[1], ' Food In Summary'))
   
   # Avg vs DV Table
   output$summary_avgDT <- 
     renderDataTable(
-    summaryAvgDT(),
-    options = list(dom = 't')
+      summaryAvgDT(),
+      options = list(dom = 't')
     )
   
   # Detail Table

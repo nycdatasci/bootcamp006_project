@@ -2,23 +2,34 @@ library(shinydashboard)
 
 #### Title ####
 header <- dashboardHeader(
-  titleWidth = 200, title = "Food Browser")
+  titleWidth = 200, title = "Food Explorer")
 
 #### Sidebar ####
 sidebar <- dashboardSidebar(
   width = 200,
   
   # Logo
-  sidebarUserPanel("Jonathan Liu", image = "Nyan.gif"),
+  sidebarUserPanel("Jonathan Liu", image = "donuts.gif"),
   
   # Tabs
   sidebarMenu(
-    menuItem("Map", tabName = "tab_map", 
+    menuItem("Overview", tabName = "tab_map", 
              icon = icon("map")),
-    menuItem("Plan", tabName = "tab_plan", 
+    menuItem("Explorer", tabName = "tab_plan", 
              icon = icon("apple", lib = "glyphicon")),
     menuItem('Summary', tabName = 'tab_summary', 
-             icon = icon("star"))
+             icon = icon("star")),
+    br(),
+    verbatimTextOutput('summary_statVB'),
+    br(),
+    fluidRow(align = 'center',
+    actionButton(inputId = 'summary_reset', 
+                 label = 'Reset Selections',
+                 icon('refresh'),
+                 style = "color: #fff; 
+                 background-color: #337ab7; 
+                 border-color: #2e6da4;
+                 height: 60px"))
   )
 )
 
@@ -140,19 +151,10 @@ tab_summary <- tabItem(
         title = 'Selection vs. DV - Detail', width = 12,
         dataTableOutput('summary_avgDT'))),
   
-  fluidRow(
-    box(status = 'primary', solidHeader = T,
-        title = 'Stat', width = 12,
-        
-        htmlOutput('summary_statVB'),
-        actionButton(inputId = 'summary_reset', 
-                     label = 'Reset Selections',
-                     icon('refresh'),
-                     style = "color: #fff; 
-                 background-color: #337ab7; 
-                 border-color: #2e6da4;
-                 height: 60px")
-    )),
+  # fluidRow(
+  #   column(12, align = 'right',
+  #          
+  #   )),
   
 
   fluidRow(
@@ -160,13 +162,6 @@ tab_summary <- tabItem(
         title = 'Detail', width = 12,
         dataTableOutput('summary_DT')))
 ) # End of summary Tab
-
-
-
-
-
-
-
 
 #### Dashboard Body ####
 body <- dashboardBody(
