@@ -96,9 +96,9 @@ shinyServer(function(input,output){
   output$other_regions <- renderPlot({
     plot_data=sortdata(as.data.frame(render_data(other.codes,input$category,datasetInput(),FALSE,second_Cond())),4)
     if (input$data_type=='sum'){
-      barplot(height=plot_data$sum,names.arg=plot_data$full,width=10,space=1)
-    } else {
-      barplot(height=plot_data$diff,names.arg=plot_data$full,width=10,space=1)
+      barplot(height=plot_data$sum,names.arg=plot_data$state,width=60,space=0.5,col=c('darkgreen','lightgreen'))
+  } else {
+      barplot(height=plot_data$sum,names.arg=plot_data$state,width=60,space=0.5,col=c('darkgreen','lightgreen'))
     }
     
   })
@@ -167,9 +167,9 @@ shinyServer(function(input,output){
   output$other_con_regions <- renderPlot({
     plot_data=sortdata(as.data.frame(render_data(other.con.codes,'Consumption',datasetInput(),FALSE,second_Cond())),4)
     if (input$data_type=='sum'){
-      barplot(height=plot_data$sum,names.arg=plot_data$full,width=2,space=1)
+      barplot(height=plot_data$sum,names.arg=plot_data$state,width=60,space=0.5,col=c('darkgreen','lightgreen'))
     } else {
-      barplot(height=plot_data$diff,names.arg=plot_data$full,width=2,space=1)
+      barplot(height=plot_data$sum,names.arg=plot_data$state,width=60,space=0.5,col=c('darkgreen','lightgreen'))
     }
   })
   
