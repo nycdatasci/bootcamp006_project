@@ -1,7 +1,6 @@
 library(dplyr)
 library(stringr)
 # library(RCurl)
-# campaignsXML = getURL(“https://api.constantcontact.com/ws/customers/{username}/campaigns?access_token={token}”)
 
 # v <- read.csv("../data/violence.csv")
 
