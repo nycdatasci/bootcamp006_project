@@ -9,24 +9,24 @@ library(fmsb)
 
 shinyServer(function(input, output){
   
-########### Tab1 - The Map  #############
+  ########### Tab1 - The Map  #############
   
   # Tab1 - Output 1 --- Interactive Map Name -----
   
-    myMapName <- reactive({
-     switch(input$Ratio,
+  myMapName <- reactive({
+    switch(input$Ratio,
            "Perceived Opportunities" = "Percentage of 18-64 population who see good opportunities to start a firm in the area where they live",
            "Perceived Capabilities" = "Percentage of 18-64 population who believe they have the required skills and knowledge to start a business",
            "Fear of Failure Rate" = "Percentage of 18-64 population who indicate that fear of failure would prevent them from setting up a business",
            "Entrepreneurial Intention" = "Percentage of 18-64 population who intend to start a business within three years")
-    })
-    
-    output$mapname <- renderText(myMapName())
+  })
+  
+  output$mapname <- renderText(myMapName())
   
   # Tab1 - Output 2 --- Interactive Map ---------
-    
+  
   #  Step 1 ----- Create dynamic map inputs ----
-    
+  
   mypal <- reactive({
     colorNumeric(
       palette = switch (input$Ratio,
@@ -43,7 +43,7 @@ shinyServer(function(input, output){
       )
     )
   })
-
+  
   myratio <- reactive({
     switch (input$Ratio,
             "Perceived Opportunities" = worldaps$Perceived.Opportunities,
@@ -52,14 +52,14 @@ shinyServer(function(input, output){
             "Entrepreneurial Intention" = worldaps$Entrepreneurial.Intention
     )
   })
-
+  
   mylegtitle <- reactive({
     switch(input$Ratio,
            "Perceived Opportunities" = "% Perceived Opportunities",
            "Perceived Capabilities" = "% Perceived Capabilities",
            "Fear of Failure Rate" = "% Fear of Failure",
            "Entrepreneurial Intention" = "% Entrepreneurial Intention"
-           )
+    )
   })
   
   detail_popup <-  reactive({
@@ -97,16 +97,16 @@ shinyServer(function(input, output){
                 opacity = 0.7
       )
   })
-
+  
   
   ########### Tab2 - The Country Profile  #############
   
   # Tab2 - Output 1myRadarName --- Interactive Chart Name -----
-
+  
   myRadarName <- reactive({
-           country_selected <-  paste0(input$Country, collapse = ', ')
-           paste0("Entrepreneurial Framework Condition Scores of ", 
-                 "<strong>",country_selected,"</strong>")
+    country_selected <-  paste0(input$Country, collapse = ', ')
+    paste0("Entrepreneurial Framework Condition Scores of ", 
+           "<strong>",country_selected,"</strong>")
   })
   
   output$radarname <- renderUI(HTML(myRadarName()))
@@ -116,7 +116,7 @@ shinyServer(function(input, output){
   #  Step 1 ----- Create dynamic dataframe inputs ---- 
   
   myNesRadar <- reactive({
-      nesRadar %>%
+    nesRadar %>%
       filter(Economy %in% c("8", "0", input$Country))
   })
   
@@ -137,9 +137,8 @@ shinyServer(function(input, output){
            title = "Country", col = COL(), seg.len = 2, border = "transparent", pch = 16, lty = 1
     )
   })
-
-?radarchart
-
+  
+  
+  
 })
 
-?colorRampPalette

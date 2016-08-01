@@ -24,9 +24,10 @@ shinyUI(dashboardPage(
       
       menuItem("Country Profile", tabName = "radar", icon = icon("map-marker")),
       selectizeInput("Country",
-                  "Choose your Countries to Compare",
-                  choice = nes$Economy, selected = "USA",
-                  multiple = TRUE),
+                     "Choose your Countries to Compare",
+                     choice = nes$Economy, selected = "USA",
+                     multiple = TRUE),
+      
       menuItem("Country Rank", tabName = "rank", icon = icon("list-ol")),
       menuItem("Data Table", tabName = "table", icon = icon("table")),
       menuItem("About", tabName = "info", icon = icon("info"))
@@ -55,7 +56,21 @@ shinyUI(dashboardPage(
       
       tabItem(tabName = "table", ""),
       
-      tabItem(tabName = "info", "")
+      tabItem(tabName = "info", 
+              h4("Data Source"),
+              p("Source: ",a("Global Entrepreneurship Monitor",href="http://www.gemconsortium.org/data")),
+              p("Description: ","The Global Entrepreneurship Monitor is the world's foremost study of entrepreneurship. They collaborate with organizations across the globe conducting annual entrepreneurship surveys."),
+              p("Usage: ","NES(National Expert Survey)2015 contains information about the national context and how that impacts entrepreneurship. APS(Adult Population Survey)2015 contains information about the entrepreneurial behaviour and attitudes of individuals. Both files are downloaded on July 22nd."),
+              p("Project Code: ",a("git@github.com:danlizeng/Shiny_Project.git", href = "https://github.com/danlizeng/Shiny_Project.git")),
+              br(),
+              h4("Author Information"),
+              p("Danli Zeng"),
+              p("Email: danli@nyu.edu"),
+              p("LinkedIn:", a("https://www.linkedin.com/in/danli-zeng-39856095",href="https://www.linkedin.com/in/danli-zeng-39856095")),
+              br(),
+              br()
+      )
     )
   )
-))
+)
+)
