@@ -9,6 +9,11 @@ data <- read.csv("data.csv",stringsAsFactors = F)
 # rownames(state_stat) <- NULL
 # # # create variable with colnames as choice
 # choice <- colnames(state_stat)[-1]
+##Annual data from each year 
+annual<- data%>%
+  group_by(Year)%>%
+  summarise(TotalPassengers=sum(Passengers),TotalFlights=sum(Flights))
+annual <- ungroup(annual)
 
 # data for motion chart yearly 
 year<- data%>%
@@ -28,7 +33,19 @@ month <- data%>%group_by(Airport,Year,Month,City,State,AirportType)%>%
 
 month$State <- as.character(month$State)
 
-#data for map by state 
+#data for Airport location map
+mapAirport<- mutate(year,latlong = 
+                      paste(latitude_deg,longitude_deg, 
+                            sep=":"))
 
+mapAirport <- mapAirport%>%
+  group_by(Year,Airport,AirportType,latlong)%>%
+  summarise(Flights=sum(Flights),Passengers=sum(Passengers),
+            Population=mean(Population),Netflow=sum(Netflow),
+            Occupancy=mean(Occupancy))
+
+mapAirport <- ungroup(mapAirport)
+
+# choice <- c("SmallHub",  "Nonhub","MediumHub", "LargeHub")
 
 

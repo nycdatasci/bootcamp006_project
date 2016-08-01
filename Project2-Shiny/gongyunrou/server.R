@@ -5,6 +5,25 @@ library(stringr)
 library(DT)
 shinyServer(function(input, output){
   
+    #show line chart
+    
+    output$home <- renderGvis({
+      gvisLineChart(
+        data=annual,xvar = "Year",yvar=c("TotalFlights","TotalPassengers"),
+        options=list(series="[{targetAxisIndex: 0},
+                     {targetAxisIndex:1}]",
+                     colors=c("#99ccff","orange"),
+                     width="1000px", height="500px",
+                     vAxes="[{title:'Number of Flights'},{title:'Number of Passengers'}]",
+                     hAxes="[{title:'Year'}]",
+                     title="Variation of Flights and Passengers from 1990 to 2009",
+                     titleTextStyle="{fontSize:18}",
+                     legend="{position:'Top'}"))
+      
+      
+      
+    })
+  
     # show motion chart1
 
     output$motion1 <- renderGvis({
@@ -31,16 +50,47 @@ shinyServer(function(input, output){
     })
     
     # show Airport Location Map
+    data_airport<- reactive({
+      data_airport_filter<- mapAirport %>% filter(.,Year == input$Year_airport&
+                                                    AirportType==input$airporttype) 
+
+      
+      
+    })
+    
     output$airport <- renderGvis({
-        gvisGeoChart(filter(state_stat,Year==1990 & AirportType=="SmallHub"),
+        gvisGeoChart(data_airport(),
                      locationvar ="latlong",
                      colorvar = "Occupancy",
                      sizevar="Flights",
                      hovervar = "Airport",
                      options=list(displayMode="Markers", region="US",
+                                  resolution="provinces",
                                   colorAxis="{minValue:0,maxValue:1,colors:['#FAF2FC', '#9900CC']}",
+                                  sizeAxis="{ minValue: 100, maxValue:800000 }",
                                   backgroundColor="lightblue",
                                   width="auto", height="auto"))
+      
+        # if (input$NunHub) {
+        #   data_nunhub<- reactive({
+        #     data_nunhub_filter<- mapAirport %>% filter(.,Year == input$Year_airport& AirportType=="NunHub") 
+        #     
+        #   })
+        #   
+        #   gvisGeoChart(data_nunhub(),
+        #                locationvar ="latlong",
+        #                colorvar = "Flights",
+        #                sizevar="Occupancy",
+        #                hovervar = "Airport",
+        #                options=list(displayMode="Markers", region="US",
+        #                             colorAxis="{minValue:100,maxValue:800000,colors:['#FAF2FC', '#9900CC']}",
+        #                             backgroundColor="lightblue",
+        #                             width="auto", height="auto"))
+        # 
+        # }
+        # 
+      
+      
       
     })
     
@@ -80,21 +130,21 @@ shinyServer(function(input, output){
     
     # show data using DataTable
     output$table <- DT::renderDataTable({
-        datatable(data, rownames=FALSE) %>% 
+        datatable(year, rownames=FALSE) %>% 
             formatStyle(input$selected, background="skyblue", fontWeight='bold')
     })
     
-    # show statistics using infoBox
-    output$maxBox <- renderInfoBox({
-        max_value <- max(data_map()%>%
-                           group_by(State)%>%
-                           summarise(Netflow=sum(Netflow)))
-        # max_state <- 
+    # # show statistics using infoBox
+    # output$maxBox <- renderInfoBox({
+    #     max_value <- max(data_map()%>%
+    #                        group_by(State)%>%
+    #                        summarise(Netflow=sum(Netflow)))
+    #     # max_state <- 
         #     data_map()%>%group_by(State)%>%
         #   summarise(Netflow=sum(Netflow))%>%
         #               find(State== max_value)
         # infoBox(max_state, max_value, icon = icon("hand-o-up"))
-    })
+    # })
     # output$minBox <- renderInfoBox({
     #     min_value <- min(state_stat[,input$selected])
     #     min_state <- 
