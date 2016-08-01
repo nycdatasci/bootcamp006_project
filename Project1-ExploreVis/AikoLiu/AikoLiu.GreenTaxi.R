@@ -17,7 +17,7 @@ library(rgdal)
 
 # Loading the NYC geojson polygon file
 nyc<-geojson_read('nycboroughboundaries.geojson',what='sp')
-Boroughs = c('Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Stanten Island') #BoroughCode Mapping
+Boroughs = c('Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Staten Island') #BoroughCode Mapping
 
 nyc2<-nyc
 nyc2@data[,2:3]<-NULL #only keep the borough code, throw away the others
@@ -96,8 +96,10 @@ green_clean<-filter(green_adm,Fare_amount<200,Total_amount<1000,Tolls_amount<30,
 nrow(green_clean) # after partial cleaning, we have > 18M green-taxi data for 2015
 rm(green_adm)
 
-by_passenger<-green_clean %>% group_by(Passenger_count) %>% summarise(count=n())
-ggplot(data=by_passenger,aes(x=as.factor(Passenger_count),y=count))+geom_bar(stat = 'identity') +ylab('taxi ride count')
+by_passenger<-green_clean %>% group_by(passenger=factor(Passenger_count)) %>% summarise(count=n())
+ggplot(data=by_passenger,aes(x=passenger,y=count))+geom_bar(
+stat = 'identity',aes(fill=passenger)) +scale_y_continuous(name='taxi ride count',breaks=seq(0,1.5e7,by=5e6),
+labels=c('0M','5M','10M','15M'))+xlab('Passenger Count') + ggtitle('green taxi passenger count statistics')+theme(legend.position='none')
 
 by_payment <- green_clean %>% group_by(Payment_type) %>% summarise(percent=mean(percent),count=n())
 ggplot(data=by_payment,aes(x=as.factor(Payment_type),y=count,fill=percent))+geom_bar(stat = 'identity') +ylab('taxi ride count') + scale_x_discrete(
@@ -108,17 +110,19 @@ ggplot(data=by_dist,aes(x=as.factor(dist),y=count,fill=speed))+geom_bar(stat = '
 name='Travel Distance',breaks=seq(0,10,by=1))
 
 by_speed <- green_clean %>% filter(speed<50) %>% group_by(speed=floor(2*speed)*0.5) %>% summarise(count=n(),percent_sd=sd(percent), duration=mean(duration))
-ggplot(data=by_speed,aes(x=as.factor(speed),y=count))+geom_bar(stat = 'identity') +ylab('taxi ride count')+scale_x_discrete(
-  name='avg speed',breaks=seq(0,50,by=10))
+ggplot(data=by_speed,aes(x=as.factor(speed),y=count))+geom_bar(stat = 'identity',aes(fill=I('green'))) +ylab('taxi ride count')+scale_x_discrete(
+  name='avg speed (mph)',breaks=seq(0,50,by=10)) + ggtitle('green taxi ride counts vs speed')
 
 by_duration <- green_clean %>% filter(duration<60) %>% group_by(duration=floor(2*duration)*0.5) %>% summarise(count=n(),speed=mean(speed))
 ggplot(data=by_duration,aes(x=as.factor(duration),y=count,fill=speed))+geom_bar(stat = 'identity') +ylab('taxi ride count')+scale_x_discrete(
   name='duration of the ride',breaks=seq(0,60,by=5))
 
-by_month <-green_clean %>% group_by(.,month) %>% summarise(.,speed=mean(speed),duration=mean(duration),
+by_month <-green_clean %>% group_by(month=factor(month)) %>% summarise(.,speed=mean(speed),duration=mean(duration),
                                                    dist=mean(Trip_distance),percent=mean(percent),count=n())
 
-ggplot(data=by_month,aes(x=as.factor(month),y=count,fill=speed))+geom_bar(stat = 'identity') +ylab('taxi ride count')
+ggplot(data=by_month,aes(x=month,y=count,fill=speed))+geom_bar(stat = 'identity') +scale_y_continuous(name='taxi ride count',breaks=seq(0,1.5e6,by=5e5),
+labels=c('0M','0.5M','1M','1.5M'))+ggtitle('monthly green ride counts colored by the speeds')+scale_fill_gradient(low='darkgreen',high='white',name='speed (mph)')
+                                                                                                                                                                          
 ggplot(data=by_month,aes(x=as.factor(month),y=dist,fill=duration))+geom_bar(stat = 'identity') +ylab('taxi ride avg distance')
 
 # We investigate which month has the higher traffic jam rate
@@ -133,12 +137,12 @@ ggplot(data=jammed,aes(x=as.factor(month),y=ratio,fill=speed))+geom_bar(stat = '
 
 # next we move to the wday-hour analysis
 
-by_wday <-green_clean %>% group_by(.,wday) %>% summarise(.,speed=mean(speed),duration=mean(duration),
+by_wday <-green_clean %>% group_by(.,wday=factor(wday)) %>% summarise(.,speed=mean(speed),duration=mean(duration),
                                                           dist=mean(Trip_distance),percent=mean(percent),count=n()/365.0)
 
 
-ggplot(data=by_wday,aes(x=as.factor(wday),y=count,fill=speed))+geom_bar(stat = 'identity') +ylab('taxi ride count/day') + scale_x_discrete(
-  name='week day', labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))
+ggplot(data=by_wday,aes(x=wday,y=count,fill=speed))+geom_bar(stat = 'identity') +ylab('taxi ride count/day') + scale_x_discrete(
+  name='week day', labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S')) + scale_fill_gradient(low='darkgreen',high='white',name='speed (mph)')
 
 # Surprisingly, Sunday has the most taxi rides, Monday the next, the tues-Friday the rides increase
 # monotonically, but the speed is slow.
@@ -198,7 +202,7 @@ Payment_type=mean(Payment_type), dist=mean(Trip_distance),percent=mean(percent),
 ggplot(by_wdayNhour, aes(x=as.factor(wday), y=as.factor(hour),fill=count)) + geom_tile() + scale_fill_gradientn(colors=c('black','dark red','red',
 'orange','yellow','white')) + scale_x_discrete(name='week day', 
 labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))+ggtitle(
-'The number of green rides in a weekday vs hour heat map') + ylab('hour') + labs(fill="Daily Ride Count")
+'The number of rides in a weekday vs hour heat map') + ylab('hour') + labs(fill="Daily Ride Count")
 
 ggplot(by_wdayNhour, aes(x=as.factor(wday), y=as.factor(hour),fill=speed)) + geom_tile() + scale_fill_gradientn(colors=c('black','dark red','red',
 'orange','yellow','white')) + scale_x_discrete(name='week day', 
@@ -208,12 +212,12 @@ labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))+ggtitle(
 ggplot(by_wdayNhour, aes(x=as.factor(wday), y=as.factor(hour),fill=duration)) + geom_tile() + scale_fill_gradientn(colors=c('black','dark red','red',
 'orange','yellow','white')) + scale_x_discrete(name='week day', 
 labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))+ggtitle(
-'The Taxi speed in a weekday vs hour heat map') + ylab('hour') + labs(fill="Avg Duration")
+'the trip duration in a weekday vs hour heat map') + ylab('hour') + labs(fill="duration (min)")
 
 ggplot(by_wdayNhour, aes(x=as.factor(wday), y=as.factor(hour),fill=dist)) + geom_tile() + scale_fill_gradientn(colors=c('black','dark red','red',
 'orange','yellow','white')) + scale_x_discrete(name='week day', 
 labels=c('1'='S','2'='M','3'='T','4'='W','5'='T','6'='F','7'='S'))+ggtitle(
-'The Taxi distance in a weekday vs hour heat map') + ylab('hour') + labs(fill="Trip Distance")
+'the trip distance in a weekday vs hour heat map') + ylab('hour') + labs(fill="distance (miles)")
 
 ggplot(by_wdayNhour, aes(x=as.factor(wday), y=as.factor(hour),fill=Payment_type-1.0)) + geom_tile() + scale_fill_gradientn(colors=c('black','dark red','red',
 'orange','yellow','white'),breaks=c(0.5,0.6),labels=c('50% cash payment','60% cash payment')) + scale_x_discrete(name='week day', 
@@ -254,25 +258,25 @@ by_speed_H <-green_clean %>% filter(Payment_type==1,speed<30,percent<50) %>% gro
 
 levels(by_speed_H$hour)<-newLevel
 
-g<-ggplot(by_speed_H, aes(x=(speed), y=percent)) + geom_point(size=2,shape=1) + scale_x_continuous(
-name='speed (mph)',breaks=seq(0,30,by=10))+geom_smooth(se=F) + ylab('tip percentage')
-g+facet_grid(.~hour)
+g<-ggplot(by_speed_H, aes(x=(speed), y=percent))  + scale_x_continuous(
+name='speed (mph)',breaks=seq(0,50,by=10))+ geom_smooth(se=F,aes(color=I('green'))) + ylab('tip percentages')
+g+facet_wrap(~hour) + ggtitle('The Tip Percentages at Differerent Speeds')
 
 # duration plot
 
 ggplot(by_speed, aes(x=(speed), y=duration)) + geom_point(aes(color
 =count),size=2,shape=1) + scale_x_continuous(name='speed (mph)',breaks=seq(0,50,by=5))+geom_smooth(se=F) + ylab('duration (minutes)')
 
-g<-ggplot(by_speed_H, aes(x=(speed), y=duration)) + geom_point(size=2,shape=1) + scale_x_continuous(
-  name='speed (mph)',breaks=seq(0,30,by=10))+geom_smooth(se=F) + ylab('duration (minutes)')
-g+facet_grid(.~hour)
+g<-ggplot(by_speed_H, aes(x=(speed), y=duration)) + scale_x_continuous(
+  name='speed (mph)',breaks=seq(0,50,by=10))+geom_smooth(se=F,aes(color=I('green'))) + ylab('duration (minutes)')
+g+facet_wrap(~hour) + ggtitle('The Ride Duration at Differerent Speeds')
 
 ggplot(by_speed, aes(x=(speed), y=dist)) + geom_point(aes(color
 =count),size=2,shape=1) + scale_x_continuous(name='speed (mph)',breaks=seq(0,50,by=5))+geom_smooth(se=F)+ylab('trip distance (miles)')
 
-g<-ggplot(by_speed_H, aes(x=(speed), y=dist)) + geom_point(size=2,shape=1) + scale_x_continuous(
-  name='speed',breaks=seq(0,30,by=10))+geom_smooth(se=F) + ylab('tip percentage')
-g+facet_grid(.~hour)
+g<-ggplot(by_speed_H, aes(x=(speed), y=dist)) + scale_x_continuous(
+  name='speed',breaks=seq(0,50,by=10))+geom_smooth(se=F,aes(color=I('green'))) + ylab('Trip distance (miles)')
+g+facet_wrap(~hour) + ggtitle('The Ride Distance at Differerent Speeds')
 
 #  We point out that the drop of tip percentage is in part due to the change of the proportion of
 # passengers who decide not to pay the tips w.r.t. the speed of the taxi.
@@ -287,7 +291,7 @@ ggplot(noPay_byspeed, aes(x=(speed), y=ratio)) + geom_point(size=2,shape=1) + sc
 pay_byspeed<-green_clean %>% filter(Payment_type==1,speed<50,percent>0,percent<50) %>% group_by(speed=floor(2*speed)/2) %>% summarise(
   duration=mean(duration),percent=mean(percent),dist=mean(Trip_distance),count=n()/365.0)
 
-ggplot(pay_byspeed, aes(x=(speed), y=percent)) + geom_point(aes(color=count), size=2,shape=1) + scale_x_continuous(name='speed (mph)',breaks=seq(0,50,by=5))+geom_smooth(se=F)+ylab('Tip percentages for those who pay')
+ggplot(pay_byspeed, aes(x=(speed), y=percent)) + geom_point(size=2,shape=1) + scale_x_continuous(name='speed (mph)',breaks=seq(0,50,by=5))+geom_smooth(se=F)+ylab('Tip percentages for those who pay')
 
 pay_byspeed_H <- green_clean %>% filter(Payment_type==1,speed<50,percent>0,percent<50) %>% group_by(speed=floor(2*speed)/2,hour=factor(hour)) %>% summarise(
   duration=mean(duration),percent=mean(percent),dist=mean(Trip_distance),count=n()/365.0)
@@ -323,11 +327,11 @@ stat_d$Destination_Borough <- factor(Boroughs)
 g<-ggplot(data=stat_p,aes(x=Pickup_Borough,y=count,color=Pickup_Borough)) + geom_bar(
   stat='identity',aes(fill=Pickup_Borough))
 g + ylab('green taxi rides in 2015') + scale_x_discrete(name='5 NYC Boroughs',
-labels=c('Bronx','Brklyn','Manhattan','Queens','Stanten'))+scale_y_continuous(breaks=seq(0,6e6,by=2e6),labels=c('0M','2M','4M','6M'))
+labels=c('Brnx','Brklyn','Man','Qns','Staten'))+scale_y_continuous(breaks=seq(0,6e6,by=2e6),labels=c('0M','2M','4M','6M'))
 
 g<-ggplot(data=stat_d,aes(x=Destination_Borough,y=count,color=Destination_Borough)) + geom_bar(
   stat='identity',aes(fill=Destination_Borough)) + ylab('green taxi rides in 2015')
-g + scale_x_discrete(name='5 NYC Boroughs', labels=c('Bronx','Brklyn','Manhattan','Queens','Stanten')) +scale_y_continuous(breaks=seq(0,6e6,by=2e6),labels=c('0M','2M','4M','6M'))
+g + scale_x_discrete(name='5 NYC Boroughs', labels=c('Bronx','Brklyn','Manhattan','Queens','Staten')) +scale_y_continuous(breaks=seq(0,6e6,by=2e6),labels=c('0M','2M','4M','6M'))
 
 
 connection<- green_clean %>% filter(speed>1,speed<80,percent<50,duration<60,Trip_distance<20) %>% 
@@ -349,8 +353,8 @@ labels=c('0M','2M','4M'))
 
 
 ggplot(connection, aes(x=as.factor(Pickup_Borough), y=as.factor(Destination_Borough),fill=speed)) + geom_tile() + scale_fill_gradientn(colors=c('black','dark red','red',
-    'orange','yellow','white')) + scale_x_discrete(name='Originated Borough') +ggtitle(
-'The speed in an origin vs target borough heat map') + ylab('Target Borough') + labs(fill="speed")
+    'orange','yellow','white')) + scale_x_discrete(name='Green Taxi Originated Borough') +ggtitle(
+'speed-origin vs target borough heat map') + ylab('Target Borough') + labs(fill="speed")
 
 
 by_origin_hour <- green_clean %>% filter(speed>1,speed<80,percent<50,duration<60,Trip_distance<20,boroughCode_p!=5) %>% 
@@ -365,7 +369,7 @@ ggplot(data=by_origin_hour,aes(x=as.factor(Pickup_Borough),y=as.factor(hour))) +
 'The ride count in an origin vs hour heat map') + ylab('hour') + labs(fill="daily taxi rides")
 
 
- ggplot(data=by_origin_hour,aes(x=Pickup_Borough,y=as.factor(hour))) + geom_tile(aes(fill= speed)) + scale_fill_gradientn(colors=c('black','dark red','red',
+ggplot(data=by_origin_hour,aes(x=Pickup_Borough,y=as.factor(hour))) + geom_tile(aes(fill= speed)) + scale_fill_gradientn(colors=c('black','dark red','red',
  'orange','yellow','white')) + scale_x_discrete(name='Originated Borough') +ggtitle(
  'The speed in an origin vs hour heat map') + ylab('hour') + labs(fill="speed")
 

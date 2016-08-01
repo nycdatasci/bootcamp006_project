@@ -25,7 +25,7 @@ library(rgdal)
 # readable
 
 nyc<-geojson_read('nycboroughboundaries.geojson',what='sp')  # load the nyc spatial polygon data frame
-Boroughs = c('Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Stanten Island') #BoroughCode Mapping
+Boroughs = c('Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Staten Island') #BoroughCode Mapping
 
 months = str_pad(1:12,2,"left",pad='0')
 yellow_taxi_files         = paste0('yellow_tripdata_2015-',months,'.csv.gz')
@@ -78,6 +78,8 @@ months = str_pad(1:12,2,"left",pad='0')
 
 yellow_files = paste0('yellow_adm_2015_',months,'.RDatas')
 colNames = c('Pickup_longitude','Pickup_latitude','percent','boroughCode_p','boroughCode_d')
+colNames = c('Dropoff_longitude','Dropoff_latitude','boroughCode_p','boroughCode_d')
+
 inNYC    = list()
 for (i in 1:12) {
 yellow_partial<-loads(file=yellow_files[i],variables=colNames, to.data.frame=T)
@@ -88,15 +90,16 @@ if (i%%3==0) {gc()}
 }
 
 colNames <- c('Pickup_longitude','Pickup_latitude','duration','percent')
-
+#colNames <- c('Pickup_longitude','Pickup_latitude','duration','Trip_distance')
+#colNames <- c('Trip_distance', 'duration')
 yellow_samples = as.data.frame(matrix(nrow=0,ncol=length(colNames)))
 colnames(yellow_samples) <- colNames
 
 for (i in 1:12) {
   
   yellow_partial<-loads(file=yellow_files[i],variables=colNames, to.data.frame=T)
-
-  yellow_samples <- rbind(yellow_samples, sample_frac(filter(yellow_partial,inNYC[[i]]),size=0.015))
+  yellow_samples<-rbind(yellow_samples, yellow_partial)
+  #yellow_samples <- rbind(yellow_samples, sample_frac(filter(yellow_partial,inNYC[[i]]),size=0.015))
   rm(yellow_partial)  # tell the garbage collector that it can discard the variable
   if (i%%3==0) { gc() }  # calling garbage collector
 }
@@ -132,7 +135,7 @@ library(saves)
 library(stringr)
 library(sp)
   
-Boroughs = c('Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Stanten Island') #BoroughCode Mapping
+Boroughs = c('Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Staten Island') #BoroughCode Mapping
 
 nyc2<-nyc
 nyc2@data[,2:3]<-NULL

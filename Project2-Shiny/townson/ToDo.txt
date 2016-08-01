@@ -1,0 +1,16 @@
+Shiny App Things To Do
+
+DONE 1) Setup the rest of the data
+	DONE A) Perhaps generate separate files so they don't have to adjust on new data selection?
+	DONE B) Will require different baselines for each
+2) Overlay additional charts
+3) Allow for mean,median,etc
+4) Allow for baseline to 1991???
+5) Automation over time
+7) Create additional tab for state-level all data
+8) Slider for dates
+9) Make first tab just Annual Numbers, with selection range slider
+10 EXCLUDE TEXAS
+
+
+8) USE LEAFLET??
