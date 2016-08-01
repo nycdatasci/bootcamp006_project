@@ -57,7 +57,7 @@ tab_about <- tabItem(
             tags$p("You can use it to make better food choices, 
                      and as it is open data, anyone can re-use it for any purpose."),
             tags$a(href = 'http://world.openfoodfacts.org/discover',
-                   'Learn more about Open Food Facts'))
+                   'Learn more about Open Food Facts', target = '_blank'))
         )), # End of Tab Panel 1
       tabPanel(
         "About Me",
@@ -76,10 +76,10 @@ tab_about <- tabItem(
               br(),
               tags$p(icon('github-alt'), 
                      tags$a(href = 'https://github.com/jonathanlxy',
-                            'My Github')),
+                            'My Github', target = '_blank')),
               tags$p(icon('linkedin'), 
                      tags$a(href = 'https://www.linkedin.com/in/jonathanlxy',
-                            'My LinkedIn'))
+                            'My LinkedIn', target = '_blank'))
             )))) # End of Tab Panel 2
     ))) # End of Tab Box
                
@@ -108,12 +108,12 @@ tab_map <- tabItem(
   fluidRow(
     box(
       title = 'World Map', status = 'primary', solidHeader = T,
-      height = 580, width = 9,
+      height = 590, width = 9,
       htmlOutput("map_map")
     ), # End of Map Box
     box(
       title = 'Country Summary', status = 'primary', 
-      solidHeader = T, height = 580, width = 3,
+      solidHeader = T, height = 590, width = 3,
       dataTableOutput('map_country')
     )  # End of Info Box
   )
