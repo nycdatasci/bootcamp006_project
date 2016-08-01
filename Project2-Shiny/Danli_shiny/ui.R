@@ -6,7 +6,7 @@ shinyUI(dashboardPage(
   skin = "yellow",
   ######### Dashboard Header ###############
   dashboardHeader(title = "Global Entrepreneurship Monitor 2015",
-                  titleWidth = 400),
+                  titleWidth = 380),
   
   ######### Dashboard Sidebar ##############
   dashboardSidebar(

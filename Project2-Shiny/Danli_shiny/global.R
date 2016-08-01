@@ -7,9 +7,10 @@ nes <- read.csv('Data/NES2015.csv', header = TRUE, stringsAsFactors = FALSE, che
 nescols <-names(nes)
 nescols <- gsub('\\.', ' ', nescols)
 colnames(nes) <- nescols
+nes <- nes[,-1]
 
 
 worldaps <- joinCountryData2Map(aps, joinCode = "NAME", nameJoinColumn = "Economy")
 worldnes <- joinCountryData2Map(nes, joinCode = "NAME", nameJoinColumn = "Economy")
 
-nesRadar <- rbind(rep(10, 14), rep(0, 14), nes)
+nesRadar <- rbind(rep(8, 14), rep(0, 14), nes)

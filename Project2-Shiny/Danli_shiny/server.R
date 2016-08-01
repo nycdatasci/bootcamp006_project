@@ -63,16 +63,22 @@ shinyServer(function(input, output){
   })
   
   detail_popup <-  reactive({
-                      paste0("<strong> ",worldaps$Economy," </strong>",
-                          "<br><strong> Ratio: </strong>",
-                          switch (input$Ratio,
-                                  "Perceived Opportunities" = worldaps$Perceived.Opportunities,
-                                  "Perceived Capabilities" = worldaps$Perceived.Capabilities,
-                                  "Fear of Failure Rate" = worldaps$Fear.of.Failure.Rate,
-                                  "Entrepreneurial Intention" = worldaps$Entrepreneurial.Intention
-                          ),
-                          "%"
-        )
+    paste0("<strong> ",worldaps$Economy," </strong>",
+           "<br><strong>" ,
+           switch(input$Ratio,
+                  "Perceived Opportunities" = "Perceived Opportunities: ",
+                  "Perceived Capabilities" = "Perceived Capabilities: ",
+                  "Fear of Failure Rate" = "Fear of Failure: ",
+                  "Entrepreneurial Intention" = "Entrepreneurial Intention: "
+           ), "</strong>",
+           switch (input$Ratio,
+                   "Perceived Opportunities" = worldaps$Perceived.Opportunities,
+                   "Perceived Capabilities" = worldaps$Perceived.Capabilities,
+                   "Fear of Failure Rate" = worldaps$Fear.of.Failure.Rate,
+                   "Entrepreneurial Intention" = worldaps$Entrepreneurial.Intention
+           ),
+           "%"
+    )
   })
   
   #  Step 2 --- Render Reactive Map -------------- 
@@ -111,18 +117,29 @@ shinyServer(function(input, output){
   
   myNesRadar <- reactive({
       nesRadar %>%
-      filter(Economy %in% c("10", "0", input$Country)) %>%
-      select(-c(Code, Economy))
-  })
-
-  #  Step 2 ----- Create Radar Chart ----    
-  output$myradar <- renderPlot({  
-  radarchart(myNesRadar(), axistype = 1,
-            plwd = 2.5, pcol = c(1:10), pfcol = c(1:10), pdensity = 4,  
-            plty = 1, cglcol="orange", cglty= 3, cglwd = 2,
-            axislabcol="orange", caxislabels=seq(0,8,1), 
-            centerzero = TRUE, vlcex=1.2, calcex = 1.2)
+      filter(Economy %in% c("8", "0", input$Country))
   })
   
+  COL<-reactive({
+    colorRampPalette(c(1:10))(nrow(myNesRadar())-2) 
+  })
+  
+  #  Step 2 ----- Create Radar Chart ----    
+  
+  output$myradar <- renderPlot({  
+    radarchart(myNesRadar()[,-1], axistype = 1, seg = 8,
+               plwd = 2.5, pcol = COL(), pfcol = COL(), pdensity = 4,  
+               plty = 1, cglcol="orange", cglty= 3, cglwd = 2,
+               axislabcol="orange", caxislabels=seq(0,8,1),
+               centerzero = TRUE, vlcex=1.2, calcex = 1.2)
+    
+    legend(1.4, 1.25, legend = levels(as.factor(myNesRadar()$Economy[-c(1,2)])), 
+           title = "Country", col = COL(), seg.len = 2, border = "transparent", pch = 16, lty = 1
+    )
+  })
+
+?radarchart
 
 })
+
+?colorRampPalette
