@@ -3,9 +3,9 @@ library(googleVis)
 library(DT)
 
 shinyUI(dashboardPage(
-  dashboardHeader(title = "My Dashboard"),
+  dashboardHeader(title = "Natural Gas"),
   dashboardSidebar(
-    sidebarUserPanel("Benjamin Townson",image="BenTownson.JPG"),
+    sidebarUserPanel("Production and Consumption"),
     sidebarMenu(id="menu",
                 menuItem("Natural Gas Withdrawals Map", tabName = "map_tot",icon=icon("map")),
                 menuItem("Natural Gas Consumption Map", tabName = "map_con", icon=icon("map-o")),
