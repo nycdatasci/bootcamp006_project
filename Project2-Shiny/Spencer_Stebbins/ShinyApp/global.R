@@ -1,13 +1,12 @@
 library(dplyr)
 library(stringr)
 # library(RCurl)
-# campaignsXML = getURL(“https://api.constantcontact.com/ws/customers/{username}/campaigns?access_token={token}”)
 
 # v <- read.csv("../data/violence.csv")
 
 # set source and destination port latitude and longitudes
 #read in ihs data
-ihs <- read.csv("../data/ihs.csv")
+ihs <- read.csv("./Data/ihs.csv")
 #fix date format func
 ihs$Date <- as.Date(ihs$Date, format = "%m/%d/%Y")
 ihs$C3 <- as.numeric(gsub(",", "", as.character(ihs$C3)))
@@ -60,7 +59,7 @@ ihs$color <- c("#0055ff","#00aaff","#00ffaa","#aaff00")[colors]
 # ihs <- left_join(ihs, select(ports,PortName,Latitude,Longitude), by=c('Destination..1.' ='PortName')) %>%
 #           rename(Destination.Port.Lat=Latitude, Destination.Port.Long=Longitude)
 #set source and destination country latitude and longitudes
-countries <- read.delim("../data/countries.csv")
+countries <- read.delim("./Data/countries.csv")
 #join tables with new source and destination lat and longs
 ihs <- left_join(ihs, select(countries,Country,Latitude,Longitude), by=c('Source..1.' ='Country')) %>% 
   rename(Source.Country.Lat=Latitude, Source.Country.Long=Longitude)
