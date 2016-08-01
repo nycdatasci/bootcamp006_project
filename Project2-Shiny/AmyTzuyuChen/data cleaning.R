@@ -6,7 +6,7 @@ library(ggmap)
 library(dplyr)
 
 ##################use address to get long/lat info################
-kinder <- read.csv(url("https://github.com/amy17519/NYCPre-KGuide/blob/master/Universal_Pre-K__UPK__School_Locations.csv"), 
+kinder <- read.csv("~/Universal_Pre-K__UPK__School_Locations.csv", 
                    stringsAsFactors=FALSE)
 
 ######paste zipcodes to all addresses to increase accuracy of locating
