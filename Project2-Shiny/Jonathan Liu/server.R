@@ -20,7 +20,7 @@ shinyServer(function(input, output, session) {
   )
   
   output$map_country <- renderDataTable(
-    country_stat
+    country_stat, options = list(dom = 't')
   )
   
   output$countryBox <- renderValueBox(
@@ -191,7 +191,7 @@ shinyServer(function(input, output, session) {
         valueBox(
           value = paste0(value, '%'),
           subtitle = summaryItems()[i],
-          icon = icon("apple", lib = "glyphicon"),
+          icon = icon(ifelse(value > 50, 'exclamation-circle', "check-circle")),
           width = 3,
           color = ifelse(value > 50, 'yellow', 'green')
         )})
@@ -220,8 +220,6 @@ shinyServer(function(input, output, session) {
                    )
     )
   )
-  
-  
   
   
 })
