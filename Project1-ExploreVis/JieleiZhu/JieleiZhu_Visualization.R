@@ -51,38 +51,22 @@ head(population)
 population = population %>% filter(Year>=start_year & Year<=end_year)
 
 ggplot(population, aes(Year, Change/1e6)) + 
-  geom_area() + 
+  geom_line(color='blue') + 
   ylab('Population (in millions)') + 
   ggtitle('U.S. population')
     
 
 population_range = max(population$Change) - min(population$Change)
 population$Normalized = (population$Change - min(population$Change)) / population_range
+population$distinct_national = distinct_national$Normalized
 
-ggplot() + 
-  geom_area(data=population, aes(Year, Normalized)) +
-  geom_line(data=distinct_national, aes(Year, Normalized), color='red') + 
-  ylab('Normalized Population') + 
-  ggtitle('Unique names against population')
-
-
-#================================find frequencies of names that occured less than 5 times in a given state
-
-less_than_five = data.frame(Year=selected_years, Difference=NA)
-
-national_by_year = filtered_national %>% group_by(Year) %>% summarise(Total = sum(Count))
-
-filtered_state = state %>% filter(Year>=start_year & Year<=end_year)
-state_by_year = filtered_state %>% group_by(Year) %>% summarise(Total = sum(Count))
-
-less_than_five$Count = (national_by_year$Total - state_by_year$Total)/2.5
-
-ggplot(less_than_five, aes(Year, Count/1e3)) +
-  geom_line() +
-  ggtitle('Number of rare names') +
-  ylim(0, round_any(max(less_than_five$Count/1e3), 100, f=ceiling)) +
-  ylab('Count (in thousands)')
-
+ggplot(population, aes(Year)) + 
+  geom_line(aes(y=distinct_national, color='blue')) +
+  geom_line(aes(y=Normalized, color='red')) +
+  scale_colour_manual("",
+                   labels = c("Unique names", "Population"),
+                   values = c("red", "blue")) +
+  ggtitle('Number of unique names against population')
 
 #================================population per name
 
@@ -90,7 +74,7 @@ population_per_name = data.frame(Year = selected_years)
 population_per_name$Ratio = population$Change / (filtered_national %>% group_by(Year) %>% summarise(Count = n_distinct(Name)))$Count
 
 ggplot() +
-  geom_area(data=population_per_name, aes(Year, Ratio)) +
+  geom_line(data=population_per_name, aes(Year, Ratio),color='purple') +
   ylab('Population per name (in thousands)') +
   ggtitle('Population per name') + 
   ylim(0, round_any(max(population_per_name$Ratio), 10000, f=ceiling))

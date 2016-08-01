@@ -480,3 +480,6 @@ wordcloud::wordcloud(words = t3,scale=c(4,.5),min.freq=5,
 #-------------------------------------------------------------------------------------------
 
 ?get_nrc_sentiment
+
+install.packages('rsconnect')
+rsconnect::setAccountInfo(name='samriddhishakya', token='4A76A95C4A2A879F0B70497A96BAAFFA', secret='7vFw3w4gATz+Z21qa4RScP94xyGAgzFzt267hBME')

@@ -29,47 +29,96 @@ sidebar <- dashboardSidebar(
                  style = "color: #fff; 
                  background-color: #337ab7; 
                  border-color: #2e6da4;
-                 height: 60px"))
+                 height: 60px")),
+    br(),
+    menuItem('About', tabName = 'tab_about',
+             icon = icon('info-circle'))
   )
 )
 
 #### Tabs - About ####
-# tab_about   <- tabItem(tabName = 'about')
-
+tab_about <- tabItem(
+  tabName = 'tab_about',
+  fluidRow(
+    tabBox(
+      width = 12,
+      title = tagList(shiny::icon("map-o"), 'Overview'),
+      id = 'tabbox1',
+      tabPanel(
+        "About World Food Fact Data",
+        fluidRow(
+          column(
+            width = 3,
+            tags$img(src = 'openfoodfacts-logo.png', width = "178px", height = "150px")),
+          column(
+            width = 9,
+            tags$p("Open Food Facts is a food products
+                     database made by everyone, for everyone."),
+            tags$p("You can use it to make better food choices, 
+                     and as it is open data, anyone can re-use it for any purpose."),
+            tags$a(href = 'http://world.openfoodfacts.org/discover',
+                   'Learn more about Open Food Facts', target = '_blank'))
+        )), # End of Tab Panel 1
+      tabPanel(
+        "About Me",
+        fluidRow(
+          box(
+            width = 12, title = ,
+            column(
+              width = 2,
+              tags$img(
+                src = 'JonathanLiu.jpg',
+                width = "100px", height = "100px")),
+            column(
+              width = 10,
+              tags$p(aboutme),
+              br(),
+              br(),
+              tags$p(icon('github-alt'), 
+                     tags$a(href = 'https://github.com/jonathanlxy',
+                            'My Github', target = '_blank')),
+              tags$p(icon('linkedin'), 
+                     tags$a(href = 'https://www.linkedin.com/in/jonathanlxy',
+                            'My LinkedIn', target = '_blank'))
+            )))) # End of Tab Panel 2
+    ))) # End of Tab Box
+               
 #### Tabs - Map ####
 tab_map <- tabItem(
   tabName = "tab_map", 
   # Row 1, Region Selection
+  
   fluidRow(
     column(9, align = 'center',
            selectInput(inputId  = 'Map_RegionSelection',
-                label    = 'Select Region to Display',
-                choices  = region_geo$Region,
-                selected = 'World')
-           ),
+                       label    = 'Select Region to Display',
+                       choices  = region_geo$Region,
+                       selected = 'World')
+    ),
     column(3, align = 'left',
            valueBox(
              value = dim(country_stat)[1],
              subtitle = "Countries Available",
              icon = icon("globe", lib = "glyphicon"),
              width = 16)
-           )
+    )
   ),
   
   # Row 2, Map of Region + Country List
   fluidRow(
     box(
       title = 'World Map', status = 'primary', solidHeader = T,
-      height = 595, width = 9,
+      height = 590, width = 9,
       htmlOutput("map_map")
-      ), # End of Map Box
+    ), # End of Map Box
     box(
       title = 'Country Summary', status = 'primary', 
-      solidHeader = T, height = 595, width = 3,
+      solidHeader = T, height = 590, width = 3,
       dataTableOutput('map_country')
-      )  # End of Info Box
+    )  # End of Info Box
   )
-)
+  
+) # End of Map Tab
 
 #### Tabs - Plan ####
 tab_plan    <- tabItem(
@@ -167,10 +216,10 @@ tab_summary <- tabItem(
 body <- dashboardBody(
   ### Tabs
   tabItems(
-    # tab_about,  # About tab
     tab_map,    # Map tab
     tab_plan,   # Plan tab
-    tab_summary # Summary tab
+    tab_summary, # Summary tab
+    tab_about  # About tab
   ) # End of Tabs
 ) # End of Body
 

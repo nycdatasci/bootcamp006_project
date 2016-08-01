@@ -2,6 +2,22 @@ library(shinydashboard)
 library(shiny)
 library(googleVis)
 library(DT)
+require(twitteR)
+require(RCurl)
+require(wordcloud) # text visual package
+require(tm) # text mining package
+require(RColorBrewer)
+require(stringi)
+require(stringr)
+require(syuzhet)
+require(googleVis)
+require(ggplot2)
+require(DT)
+require(dplyr)
+require(Hmisc)
+require(shinythemes)
+library(shiny)
+library(shinyBS)
 
 shinyUI(
   navbarPage(

@@ -1,14 +1,3 @@
-# library(shiny)
-# library(shinydashboard)
-# library(leaflet)
-# library(dplyr)
-# library(tidyr)
-# library(ggmap)
-# library(DT)
-# library(googleVis)
-# library(RColorBrewer)
-# library(plotly)
-
 shinyServer(function(input, output,session){
   observe({
     # data frames
@@ -44,18 +33,22 @@ shinyServer(function(input, output,session){
     
     # specify map projection/options
     g <- list(
-      scope='europe',
+      scope='world',
       projection=list(scale = 1),
-      showframe = FALSE,
+      showframe = T,
       showcoastlines = T,
-      projection = list(type = 'Mercator'),
+      projection = list(type = 'Mercator'),#''Orthographic
       lataxis = list(range = c(30,50)),
-      lonaxis = list(range = c(0,40))
+      lonaxis = list(range = c(0,40)),
+      showsubunits = T,
+      showcountries = T
     )
-    
     plot_ly(sel.data, z = Arrivals, text = Country, locations = Code, type = 'choropleth',
-            color = Arrivals, colors = 'Blues', marker = list(line = l)) %>%
-      layout(title = 'Daily Arrivals across the Balkans', geo = g)
+            color = Arrivals, colors = 'Blues', marker = list(line = l),inherit = FALSE,
+            colorbar = list(title = 'Arrivals')) %>%
+      add_trace(.,type="scattergeo",
+                locations = country_codes$Code, text = country_codes$Country, mode="text") %>%
+      layout(title ='Daily arrivals across the Balkans', geo = g, width = 900)
              
   })
   

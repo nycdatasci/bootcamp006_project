@@ -10,8 +10,7 @@ library(dplyr)
 library(plotly)
 
 # ------------------------------------------------------------------------------
-setwd("~/Bootcamp/projects/shiny_project/world_population/")
-#source("country_names.R")
+# setwd("~/Bootcamp/projects/shiny_project/world_population_explorer/")
 
 # world_ogr is used to render the leaflet map in server.R file
 world_ogr <-
