@@ -123,7 +123,20 @@ shinyUI(
                 tabItem(tabName = "info",
                     fluidRow(
                         box(width=12,
-                            HTML("<h2>LPG Tracker</h2>")
+                            HTML("<h2>LPG Tracker</h2>"),
+                            HTML("<h3>Purpose</h3>"),
+                            HTML("<p>This application is meant to visualize the flow of transported LPG over seas between countries.</p>"),
+                            HTML("<h3>Pages</h3>"),
+                            HTML("<h4>Map</h4>"),
+                            HTML("<p>The map page displays arcs indicating trade of LPG defined as C3 + C4 from country to country. 
+                                 The more green and the wider the arc the greater the volume transported.</p>"),
+                            HTML("<h4>Flow Chart</h4>"),
+                            HTML("<p>A sankey chart visualizing the import and exports between countries filter  by the data range slider and selectors located in the side bar menu.</p>"),
+                            HTML("<h4>Data</h4>"),
+                            HTML("<p>A table displaying the data filtered by the data range slider and selectors located in the side bar menu.</p>"),
+                            HTML("<h3>Sources</h3>"),
+                            HTML("<a href='https://developers.google.com/public-data/docs/canonical/countries_csv'>Google Countries Lat and Long Dataset</a></br>"),
+                            HTML("<a href='https://www.marketintelligencenetwork.com/'>IHS liftings data for volume tranported</a>")
                         )
                     )
                 )
@@ -151,25 +164,3 @@ shinyUI(
         )
     ) 
 )
-# fluidRow(
-#       sliderInput(v, "Year",
-#           min = min(v$year), max = max(v$year),
-#           value = min(data$Year), animate = TRUE)
-# )
-#animation
-# animationOptions(interval = 1000, loop = FALSE, playButton = NULL, pauseButton = NULL)
-
-# tabItem(tabName = "data",
-#         fluidRow(box(DT::dataTableOutput("table"), width = 12)))
-
-#ADD Sankey chart for import export
-# datSK <- data.frame(From=c(rep("A",3), rep("B", 3)),
-#                     To=c(rep(c("X", "Y", "Z"),2)),
-#                     Weight=c(5,7,6,2,9,4))
-# 
-# Sankey <- gvisSankey(datSK, from="From", to="To", weight="Weight",
-#                      options=list(
-#                        sankey="{link: {color: { fill: '#d799ae' } },
-#                        node: { color: { fill: '#a61d4c' },
-#                        label: { color: '#871b47' } }}"))
-# plot(Sankey)
