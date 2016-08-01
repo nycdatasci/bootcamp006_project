@@ -1,13 +1,3 @@
-# library(shiny)
-# library(shinydashboard)
-# library(leaflet)
-# library(dplyr)
-# library(tidyr)
-# library(ggmap)
-# library(DT)
-# library(googleVis)
-# library(RColorBrewer)
-# library(plotly)
 
 shinyUI(
   # fluidPage(
@@ -74,17 +64,18 @@ shinyUI(
                     ),
             tabItem(tabName = "destination",
                     fluidRow(
-                      box(width = 12, plotlyOutput("map"),
-                          absolutePanel(bottom = 1, left = 10, right = 10,
+                      box(width = 12,
+                          plotlyOutput("map"),
+                          absolutePanel(bottom = 0, left = 10, right = 10,
                                         sliderInput("slider.map", "Date", min(slider.range),
                                                     max(slider.range),
                                                     min(slider.range), ticks = TRUE,
                                                     sep = ",", timeFormat = '%F',
                                                     dragRange = TRUE, animate = 
-                                                    animationOptions(interval = 500,
-                                                                 loop = FALSE))   
+                                                    FALSE)   
                                         )
                       )
+                      
                       # box(width = 12, sliderInput("slider.map", "Date", min(slider.range),
                       #                             max(slider.range),
                       #                             min(slider.range), ticks = TRUE,

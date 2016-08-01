@@ -4,6 +4,9 @@ library(dtplyr) # Make dplyr output as data.table
 library(data.table)
 library(DT)
 
+#### MISC ####
+aboutme <- readChar('Data/AboutMe.txt', nchars = 9999)
+
 #### Data Preparation ####
 # Read Country Statistics 
 country_stat <- fread('Data/Country_stat.csv') %>% rename(Country = index)
