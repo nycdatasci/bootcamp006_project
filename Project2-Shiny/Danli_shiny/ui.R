@@ -1,6 +1,7 @@
 library(shiny)
 library(shinydashboard)
 library(leaflet)
+library(DT)
 
 shinyUI(dashboardPage(
   skin = "yellow",
@@ -48,13 +49,48 @@ shinyUI(dashboardPage(
       tabItem(tabName = "radar",
               fluidRow(box(title = uiOutput("radarname"),
                            width = 12, solidHeader = TRUE,
-                           plotOutput("myradar", width = "100%", height = "700px"))
+                           plotOutput("myradar", width = "100%", height = "650px"))
               )
       ),
       
-      tabItem(tabName = "rank", ""),
+      tabItem(tabName = "rank", 
+              fluidRow(
+                box(
+                  title = "Entrepreneurship Ranks", status = "warning",
+                  sliderInput("rank_", 
+                              "Choose Number of Countries to Rank", min = 0, max = 60, value = 6)
+                )
+                ,
+                box(
+                  title = "Entrepreneurship Ranks", 
+                  selectInput("Ratio2",
+                              "Choose 2 Ratios to Rank",
+                              choice = names(aps)[-c(1,2)],
+                              selected = c("Perceived.Opportunities", "Perceived.Capabilities"),
+                              multiple = TRUE)
+                )
+              ),
+              
+              fluidRow(box(width = 6, solidHeader = TRUE,
+                           plotOutput("Rank1")),
+                       box(width = 6, solidHeader = TRUE,
+                           plotOutput("Rank2"))
+              )       
+      ),
       
-      tabItem(tabName = "table", ""),
+      tabItem(tabName = "table",
+              fluidRow(
+                tabBox(
+                  title = "Data Tables",
+                  width = 12,
+                  id = "tables", height = "650px",
+                  tabPanel("National Expert Survey", 
+                           DT::dataTableOutput("nesTable", width = "100%")),
+                  tabPanel("Adult Population Survey", 
+                           DT::dataTableOutput("apsTable", width = "100%"))
+                )
+              )
+              ),
       
       tabItem(tabName = "info", 
               h4("Data Source"),
