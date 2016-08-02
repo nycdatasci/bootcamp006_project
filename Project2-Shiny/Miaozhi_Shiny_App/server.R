@@ -65,7 +65,8 @@ shinyServer(function(input,output){
                       addProviderTiles("Stamen.Toner",options = providerTileOptions(opacity = 0.35))%>%
                       addCircleMarkers(~lon, ~lat,
                                        radius = 4,
-                                       stroke = FALSE, fillOpacity = 0.4,popup = content)#,icon = Icon)
+                                       stroke = FALSE, fillOpacity = 0.4,popup = content)%>%
+                      addMarkers(clusterOptions = markerClusterOptions())#,icon = Icon)
         #addPopups(content,options = popupOptions(closeButton = FALSE))
         }else{
           if(input$area == ' '){
