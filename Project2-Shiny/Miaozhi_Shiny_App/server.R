@@ -63,7 +63,9 @@ shinyServer(function(input,output){
         if(nrow(df()) != 0){
                     m <- leaflet(df()) %>%
                       addProviderTiles("Stamen.Toner",options = providerTileOptions(opacity = 0.35))%>%
-                      addMarkers(clusterOptions = markerClusterOptions(),popup=content)#,icon = Icon)
+                      addCircleMarkers(~lon, ~lat,
+                                       radius = 4,
+                                       stroke = FALSE, fillOpacity = 0.4,popup = content)#,icon = Icon)
         #addPopups(content,options = popupOptions(closeButton = FALSE))
         }else{
           if(input$area == ' '){
