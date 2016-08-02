@@ -29,11 +29,11 @@ shinyServer(function(input, output){
   # show histogram using googleVis
   data <-reactive({
     data = rename(melt(filter(hist_data,
-                  Marital_Status == input$marital_status,
-                  Year == input$year,
-                  Race == input$race,
-                  Gender == input$gender)[, !(colnames(hist_data) %in% optional_columns), drop=FALSE]
-  ))}) #, 'Population (in thousands)'=value)})
+                              Marital_Status == input$marital_status,
+                              Year == input$year,
+                              Race == input$race,
+                              Gender == input$gender)[, !(colnames(hist_data) %in% optional_columns), drop=FALSE]
+    ))})
   
   output$hist <- renderGvis({
     (a<- gvisColumnChart(data(), 
@@ -44,6 +44,27 @@ shinyServer(function(input, output){
                                       width = 1200,
                                       height = 700)))
   })
+  
+  # calculate points
+  output$points <- renderPrint({
+    if (input$answer1 == 2) {
+      points = points + input$bet1
+    }
+    if (input$answer2 == 2) {
+      points = points + input$bet2
+    }
+    if (input$answer3 == 1) {
+      points = points + input$bet3
+    }
+    if (input$answer4 %in% c(1,3)) {
+      points = points + input$bet4
+    }
+    if (input$answer5 == 2) {
+      points = points + input$bet5
+    }
+    points
+    })
 })
+
 
 

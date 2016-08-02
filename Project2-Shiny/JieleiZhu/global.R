@@ -32,3 +32,5 @@ marital_choice <- unique(marital_data$Marital_Status)
 year_choice <-unique(hist_data$Year)
 race_choice <- unique(race_data$Race)
 gender_choice <- unique(gender_data$Gender)
+
+points = 0
