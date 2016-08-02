@@ -7,6 +7,7 @@ library(dplyr)
 library(dygraphs)
 library(xts)
 source('Shiny.R')
+library(scales)
 
 #load data
 lo = read.csv('./data/lo.csv')
@@ -71,3 +72,8 @@ Upper_West_Side=xts(x=group$avg[group$area=="Upper West Side"],order.by = group$
 
 all = cbind(Midtown,Brooklyn,Downtown,Upper_West_Side,Upper_Manhattan,Upper_East_Side,Financial_District)
 all
+# Icon <- makeIcon(
+#   iconUrl = "https://cdn1.iconfinder.com/data/icons/travel-line-icons-vol-3/48/078-512.png",
+#   iconWidth = 2, iconHeight = 2,
+#   iconAnchorX = 2, iconAnchorY = 2
+# )

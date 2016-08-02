@@ -11,10 +11,23 @@ library(htmltools)
 
 #outputs  
 shinyServer(function(input,output){
-  output$map <- renderLeaflet({
+  df = reactive({
+    if (input$neighbour=="All"){
+      
+      df = data.frame(lon = final[
+         final$BEDS %in% input$select &
+                                    final$BATHS %in% input$select2 &
+                                    final$area %in% input$area &
+                                    final$cost<input$range,]$lon,
+                      lat = final[
+                         final$BEDS %in% input$select & 
+                                     final$BATHS %in% input$select2 &
+                                     final$area %in% input$area &
+                                    final$cost<input$range,]$lat)
 
+      }else{
       df = data.frame(lon = final[final$BEDS == input$select & 
-                                            final$BATHS ==input$select2 & 
+                                    final$BATHS ==input$select2 & 
                                     final$area %in% input$area &
                                     final$NEIGHBORHOOD %in% input$neighbour &
                                     final$cost<input$range,]$lon,
@@ -23,7 +36,12 @@ shinyServer(function(input,output){
                                     final$area %in% input$area &
                                     final$NEIGHBORHOOD %in% input$neighbour &
                                     final$cost<input$range,]$lat)
-      
+      }
+    
+    
+  })
+  output$map <- renderLeaflet({
+      # 
       #print(input$checkGroup)
       # if(nrow(df)==0){
       #    m <- leaflet(geoloc) %>%
@@ -41,40 +59,28 @@ shinyServer(function(input,output){
                        "<b><a href='https://www.cityrealty.com/nyc/market-insight/market-data/recent-sales#?page=1'>City Realty</a></b>",
                        as.character(final$ADDRESS)
       )
-        if(nrow(df) != 0){
-                    m <- leaflet(df) %>%
-          addProviderTiles("MtbMap") %>%
-          addProviderTiles("Stamen.TonerLabels",
-                           options = providerTileOptions(opacity = 0.35)
-          ) %>%
-        addProviderTiles("Stamen.TonerLabels")%>%
-         addCircleMarkers(~lon, ~lat,
-         radius = 4,
-         stroke = FALSE, fillOpacity = 0.4,popup = content)
+      
+        if(nrow(df()) != 0){
+                    m <- leaflet(df()) %>%
+                      addProviderTiles("Stamen.Toner",options = providerTileOptions(opacity = 0.35))%>%
+                      addMarkers(clusterOptions = markerClusterOptions(),popup=content)#,icon = Icon)
         #addPopups(content,options = popupOptions(closeButton = FALSE))
         }else{
           if(input$area == ' '){
+            
           m <- leaflet(geoloc) %>%
-                addProviderTiles("MtbMap") %>%
-                addProviderTiles("Stamen.TonerLabels",
-                                 options = providerTileOptions(opacity = 0.35)
-                ) %>%
-                addProviderTiles("Stamen.TonerLabels") %>%  # Add default OpenStreetMap map tiles
+            addProviderTiles("Stamen.Toner",options = providerTileOptions(opacity = 0.35))%>%  # Add default OpenStreetMap map tiles
             addCircleMarkers(~lon, ~lat,
                              radius = 4,
                              stroke = FALSE, fillOpacity = 0.4,popup = content)%>%
             #addPopups(content,options = popupOptions(closeButton = FALSE)) %>%
               setView(-73.97694,40.74554,zoom = 12)
          }else{
-            m <- leaflet(geoloc) %>%
-              addProviderTiles("MtbMap") %>%
-              addProviderTiles("Stamen.TonerLabels",
-                               options = providerTileOptions(opacity = 0.35)
-              ) %>%
-              addProviderTiles("Stamen.TonerLabels") %>%  # Add default OpenStreetMap map tiles
+            m <- leaflet(df()) %>%
+              addProviderTiles("Stamen.Toner",options = providerTileOptions(opacity = 0.35)) %>%  # Add default OpenStreetMap map tiles
               setView(-73.97694,40.74554,zoom = 12)
           }
-          }
+        }
       })
   
   dygraph_data = reactive({
@@ -96,13 +102,12 @@ shinyServer(function(input,output){
 
     })
    
-   output$tbl = renderDataTable(final
-   )
+   output$tbl = renderDataTable(mydata)
    
    output$neighbourhood = renderUI({
      
      neighbourhoods <- unique(filter(final, area %in% input$area) %>% select(NEIGHBORHOOD))
-     selectInput('neighbour',label=h3('Neighborhood'), choices = neighbourhoods, selected = NULL)
+     selectInput('neighbour',label=h3('Neighborhood'), choices = c("All",neighbourhoods), selected = "All",multiple = F)
    })
 })
   
