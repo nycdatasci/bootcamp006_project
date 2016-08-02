@@ -54,6 +54,7 @@ boroughs = data.frame(NEIGHBORHOOD = reg,
 final = inner_join(finaldata,boroughs)
 final$NEIGHBORHOOD = as.character(final$NEIGHBORHOOD)
 bor = levels(final$area)
+name = data.frame(final$ADDRESS,final$lon,final$lat)
 final$SALE.DATE = as.Date(final$SALE.DATE, '%d-%b-%y')
 xt = xts(x=final$cost.FT2, order.by = final$SALE.DATE)
 
@@ -67,3 +68,6 @@ Financial_District=xts(x=group$avg[group$area=="Financial District"],order.by = 
 Upper_East_Side=xts(x=group$avg[group$area=="Upper East Side"],order.by = group$SALE.DATE[group$area=="Upper East Side"])
 Upper_Manhattan=xts(x=group$avg[group$area=="Upper Manhattan"],order.by = group$SALE.DATE[group$area=="Upper Manhattan"])
 Upper_West_Side=xts(x=group$avg[group$area=="Upper West Side"],order.by = group$SALE.DATE[group$area=="Upper West Side"])
+
+all = cbind(Midtown,Brooklyn,Downtown,Upper_West_Side,Upper_Manhattan,Upper_East_Side,Financial_District)
+all

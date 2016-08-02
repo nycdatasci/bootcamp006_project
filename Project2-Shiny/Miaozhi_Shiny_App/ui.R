@@ -5,6 +5,7 @@ library(shinythemes)
 library(DT)
 
 var = list(
+  'Choose Your Area'= ' ',
   "Brooklyn" = bor[2],
   "Downtown" = bor[3],
   "Financial District" = bor[4], 
@@ -100,16 +101,17 @@ shinyUI(
         
          #Include our custom CSS
       includeCSS("styles.css"),
-      includeScript("gomap.js")
+      includeScript("gomap.js"),
+      includeScript('leaflet_google.js')
       )),
     leafletOutput("map",height = "840",width = "1800"),
    absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
                 draggable = TRUE, top = 60, left = "auto", right = 20, bottom = "auto",
                 width = 330, height = "auto",
                 sliderInput('range',label=h3('Price range:'),
-                                                      min=0, max = 50000000,value=0),
+                                                      min=0, max = 50000000,value=50000000),
 
-                checkboxGroupInput('area', label = h3('Area'),var,selected = NULL),
+                selectInput('area', label = h3('Area'),var,selected = ' '),
 
                 uiOutput("neighbourhood"),
                 selectInput('select',label=h3('Choose the number of bedrooms'),
@@ -124,66 +126,7 @@ shinyUI(
                                                                        '4 ba'= bath[9], '4.5 ba'=bath[10],
                                                                        '5 ba'=bath[11], '5.5 ba'=bath[12],
                                                                       '6+ ba'=bath[13]),selected=NULL))),
-  # sidebarLayout(
-  #   sidebarPanel(
-  #               sliderInput('range',label=h3('Price range:'),
-  #                           min=0, max = 50000000,value=0),
-  #               
-  #               checkboxGroupInput('area', label = h3('Area'),var,selected = NULL),
-  #               
-  #               uiOutput("neighbourhood"),
-  #                   # conditionnalPanel(condition="input$area=='Midtown'",
-  #                   #                    selectInput('checkGroup',label=h3('Neighborhood'),
-  #                   #                                          choices = c('Beekman/Sutto...','Midtown East','Midtown West','Murray Hill','Turtle Bay/Un...'),selected=NULL)),
-  #                 # 
-  #                 #   conditionalPanel(condition="input$area=='Brooklyn'",
-  #                 #                    selectInput('checkGroup',label=h3('Neighborhood'),
-  #                 #                                choices= list('Bath Beach','Bay Ridge','Bedford-Stuyv...','Bensonhurst','Bergen Beach','Boerum Hill','Borough Park','Brighton Beac...','Brooklyn Heig...',
-  #                 #                                             'Bushwick','Canarsie', 'Carroll Garde...','Clinton Hill','Cobble Hill','Coney Island',
-  #                 #                                             'Crown Heights','Downtown Broo...','DUMBO','East New York','Flatbush','Fort Greene',
-  #                 #                                             'Fort Hamilton','Gowanus','Gravesend','Greenpoint','Homecrest','Kensington','Madison',
-  #                 #                                             'Midwood','New Lots','Park Slope','Prospect Heig...','Prospect Leff...','Red Hook','Sheepshead Ba...',
-  #                 #                                             'South Slope -...','Sunset Park','Williamsburg','Windsor Terra...'),selected=NULL)
-  #                 #     ),
-  #                 # 
-  #                 #    conditionalPanel(condition="input$area=='Downtown'",
-  #                 #         selectInput('checkGroup',label=h3('Neighborhood'),
-  #                 #                     choices = list('Chelsea','East Village','Flatiron/Unio...','Gramercy Park','Greenwich Vil...','Greenwich Vil.',
-  #                 #                                    'Lower East Si...','NOHO','NoLiTa/Little...','SOHO','Tribeca','West Village'),selected=NULL)),
-  #                 # 
-  #                 #    conditionalPanel(condition="input$area=='Financial District'",
-  #                 #         selectInput('checkGroup',label=h3('Neighborhood'),
-  #                 #                     choices = list('Battery Park ...','Financial Dis...'),selected=NULL)
-  #                 #   ),
-  #                 # 
-  #                 #  conditionalPanel(condition="input$area=='Upper East Side'",
-  #                 #         selectInput('checkGroup',label=h3('Neighborhood'),
-  #                 #                     choices = list('Carnegie Hill','Park/Fifth Av...','Roosevelt Isl...','Yorkville'),selected=NULL)),
-  #                 #   conditionalPanel(condition="input$area=='Upper Manhattan'",
-  #                 #       selectInput('checkGroup',label=h3('Neighborhood'),
-  #                 #                   choices = list('East Harlem','Hamilton Heig...','Harlem','Inwood','Washington He...'),selected=NULL)),
-  #                 # 
-  #                 # conditionalPanel(condition="input$area=='Upper West Side'",
-  #                 #       selectInput('checkGroup',label=h3('Neighborhood'),
-  #                 #                   choices = list('Broadway Corr...','Central Park ...','Lenox Hill','Lincoln Cente...','Morningside H...','Riverside Dr....'),selected=NULL)),
-  #                 # 
-  #               
-  #               selectInput('select',label=h3('Choose the number of bedrooms'),
-  #                           choices = list('Studio'= bed[10], '1 bd'=bed[3],
-  #                                          '2 bd'= bed[4],'3 bd'=bed[5],
-  #                                          '4 bd'=bed[6],'5 bd'=bed[7],
-  #                                          '6+ bd'=bed[8],'Loft bd'=bed[9]),selected=NULL),
-  #               selectInput('select2',label=h3('Choose the number of bathrooms'),
-  #                             choices = list('1 ba'= bath[3], '1.5 ba'=bath[4],
-  #                                            '2 ba'= bath[5],'2.5 ba'=bath[6],
-  #                                            '3 ba'=bath[7], '3.5 ba'=bath[8],
-  #                                            '4 ba'= bath[9], '4.5 ba'=bath[10],
-  #                                            '5 ba'=bath[11], '5.5 ba'=bath[12],
-  #                                           '6+ ba'=bath[13]),selected=NULL)
-  #           ),
-  #     mainPanel(
-  #       leafletOutput("map",width = "1200",height = "900"))
-  #   )) ,
+ 
     tabPanel('Explore Data',
              sidebarLayout(
                sidebarPanel(
