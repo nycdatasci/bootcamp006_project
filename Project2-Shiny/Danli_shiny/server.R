@@ -140,44 +140,41 @@ shinyServer(function(input, output){
   # Tab3 - Output 1 --- Interactive Rank Charts ---------
   
   Rank1table <- reactive({
-    top_n(aps, input$rank_, Perceived.Capabilities)
+    arrange_(aps[1:input$rank_,], input$Ratio2[1])
   })
 
   Rank2table <- reactive({
-      top_n(aps, input$rank_, Perceived.Opportunities)
+    arrange_(aps[1:input$rank_,], input$Ratio2[2])
   })
   
-  # ratio_selected <- reactive({
-  #   get(input$Ratio2)
-  # })
-
-  # output$Rank2 <- renderPlot({
-  #   print(Rank2table())
-  # })
-  
   output$Rank1 <- renderPlot({
+    # print(Rank1table())
     ggplot(data = Rank1table(),
-           aes(x = reorder(Economy, desc(Perceived.Capabilities)), y = Perceived.Capabilities)
+           #aes_string(x = reorder("Economy", input$Ratio2[1]), y = input$Ratio2[1])
+           aes(x = reorder(Economy, desc(Rank1table()[[input$Ratio2[1]]])), 
+               y = Rank1table()[[input$Ratio2[1]]]
+               )
            ) +
       geom_bar(stat = "identity", aes(fill = Economy)) +
       theme(axis.text.x=element_blank()) +
-      labs(x = "Economy")
+      labs(x = "Country", y = input$Ratio2[1])
   })
   
   output$Rank2 <- renderPlot({
-    # print(get(input$Ratio2[2]))
     ggplot(data = Rank2table(),
-           aes(x = reorder(Economy, desc(Perceived.Opportunities)), y = Perceived.Opportunities)
+           aes(x = reorder(Economy, desc(Rank1table()[[input$Ratio2[2]]])), 
+               y = Rank1table()[[input$Ratio2[2]]]
+           )
            ) +
       geom_bar(stat = "identity", aes(fill = Economy)) +
       theme(axis.text.x=element_blank()) +
-      labs(x = "Economy") 
+      labs(x = "Country", y = input$Ratio2[2]) 
   })
   
   # Tab4 - Output 1 --- Data Tables ---------
-  output$nesTable <- DT::renderDataTable(nes)
+  output$nesTable <- DT::renderDataTable(nes, options = list(scrollX = TRUE))
   
-  output$apsTable <- DT::renderDataTable(aps)
+  output$apsTable <- DT::renderDataTable(aps, options = list(scrollX = TRUE))
   
 })
 

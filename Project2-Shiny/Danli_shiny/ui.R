@@ -82,11 +82,10 @@ shinyUI(dashboardPage(
               fluidRow(
                 tabBox(
                   title = "Data Tables",
-                  width = 12,
-                  id = "tables", height = "650px",
-                  tabPanel("National Expert Survey", 
+                  id = "tables", height = "650px", width = "100%",
+                  tabPanel("National Expert Survey",
                            DT::dataTableOutput("nesTable", width = "100%")),
-                  tabPanel("Adult Population Survey", 
+                  tabPanel("Adult Population Survey",
                            DT::dataTableOutput("apsTable", width = "100%"))
                 )
               )

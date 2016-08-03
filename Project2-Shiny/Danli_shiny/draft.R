@@ -31,4 +31,7 @@ arg[1]
 test1 <- top_n(aps, 2, aps$Perceived.Opportunities)
 
 test2 <- prop("x", as.symbol(arg[1]))
-??prop
+
+
+
+
