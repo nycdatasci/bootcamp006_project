@@ -43,7 +43,7 @@ shinyUI(
              sidebarLayout(
                sidebarPanel(
                  helpText("Select either Top 20 Countries visiting US or North American Countries visiting US"),
-                 radioButtons("radio", label = h2("Radio buttons"),
+                 radioButtons("radio", label = h2("Select an input"),
                               choices = list("North America" = "nam", "Top 20 Countries" = "top"),
                               selected = 1)
 
