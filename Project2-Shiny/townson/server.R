@@ -19,10 +19,6 @@ shinyServer(function(input,output){
     return(as.character(input$daterange))
   })
   
-  # datasetInput2 <- reactive({
-  #   return(as.character(input$daterange2))
-  # })
-  
   datasetInput3 <- reactive({
     return(as.character(input$daterange3))
   })
@@ -67,7 +63,7 @@ shinyServer(function(input,output){
       sliderInput("daterange", "Date range:",
                   min = 1991,
                   max = 2014,
-                  value = 1)
+                  value = 2005,animate=TRUE)
 
   })
   output$filter3 <- renderUI({
@@ -75,7 +71,7 @@ shinyServer(function(input,output){
       sliderInput("daterange3", "Date range:",
                   min = 1992,
                   max = 2014,
-                  value = 1)
+                  value = 2014)
     } else {
     
     if (input$data_type == 'sum') {
@@ -87,7 +83,7 @@ shinyServer(function(input,output){
       sliderInput("daterange3", "Date range:",
                   min = 1992,
                   max = 2014,
-                  value = 1)
+                  value = 2014)
     
     }
     }
@@ -96,46 +92,46 @@ shinyServer(function(input,output){
   output$other_regions <- renderPlot({
     plot_data=sortdata(as.data.frame(render_data(other.codes,input$category,datasetInput(),FALSE,second_Cond())),4)
     if (input$data_type=='sum'){
-      barplot(height=plot_data$sum,names.arg=plot_data$state,width=60,space=0.5,col=c('darkgreen','lightgreen'))
+      barplot(height=plot_data$sum,names.arg=plot_data$state,width=60,space=0.5,col=c('darkgreen','lightgreen'),options(scipen=15),legend=FALSE)
   } else {
-      barplot(height=plot_data$sum,names.arg=plot_data$state,width=60,space=0.5,col=c('darkgreen','lightgreen'))
+      barplot(height=plot_data$sum,names.arg=plot_data$state,width=60,space=0.5,col=c('darkgreen','lightgreen'),options(scipen=15),legend=FALSE)
     }
     
   })
   
   output$chart <- renderPlot({
     if (input$chart_filters=='All') {
-      plot.xts(chart_data(total.codes,input$category,timerangeInput(),'US'))  
+      plot.xts(chart_data(total.codes,input$category,timerangeInput(),'US'),main='Total US Natural Gas Withdrawals, Bcf')  
     } else if (input$chart_filters=='Offshore') {
-      plot.xts(chart_data(other.codes,input$category,timerangeInput(),'FX'))
+      plot.xts(chart_data(other.codes,input$category,timerangeInput(),'FX'),main='Federal Offshore Gas Withdrawals, Bcf')
     } else {
-      plot.xts(chart_data(st.codes,input$category,timerangeInput(),input$chart_filters))
+      plot.xts(chart_data(st.codes,input$category,timerangeInput(),input$chart_filters),main=paste(input$chart_filters,'Gas Withdrawals, Bcf'))
     }
   })
   
   output$total_US <- renderText({
     if (input$data_type=='sum') {
-      paste("Total US Withdrawals: ",render_data(total.codes,input$category,datasetInput(),texasInput(),second_Cond())[3])
+      paste("Total US Withdrawals: ",format(render_data(total.codes,input$category,datasetInput(),texasInput(),second_Cond())[3]))
     } else{
-      paste("Total US Withdrawals: ",render_data(total.codes,input$category,datasetInput(),texasInput(),second_Cond())[4])
+      paste("Total US Withdrawals: ",format(render_data(total.codes,input$category,datasetInput(),texasInput(),second_Cond())[4]))
     }
   })
   
   output$total_con_US <- renderText({
     if (input$data_type=='sum') {
-      paste("Total US Consumption: ",render_data(total.con.codes,'Consumption',datasetInput(),texasInput(),second_Cond())[3])
+      paste("Total US Consumption: ",format(render_data(total.con.codes,'Consumption',datasetInput(),texasInput(),second_Cond())[3]))
     } else{
-      paste("Total US Consumption: ",render_data(total.con.codes,'Consumption',datasetInput(),texasInput(),second_Cond())[4])
+      paste("Total US Consumption: ",format(render_data(total.con.codes,'Consumption',datasetInput(),texasInput(),second_Cond())[4]))
     }
   })
   
   output$chart2 <- renderPlot({
     if (input$chart_filters=='All') {
-      plot.xts(chart_data(total.con.codes,'Consumption',timerangeInput(),'US'))  
+      plot.xts(chart_data(total.con.codes,'Consumption',timerangeInput(),'US'),main='Total US Natural Gas Consumption, BCf')  
     } else if (input$chart_filters=='Offshore') {
-      plot.xts(chart_data(other.con.codes,'Consumption',timerangeInput(),'3F'))
+      plot.xts(chart_data(other.con.codes,'Consumption',timerangeInput(),'3F'),main='Federal Offshore Natural Gas Consumption, BCf')
     } else {
-      plot.xts(chart_data(cn.codes,'Consumption',timerangeInput(),input$chart_filters))
+      plot.xts(chart_data(cn.codes,'Consumption',timerangeInput(),input$chart_filters),main=paste(input$chart_filters,'Natural Gas Consumption, BCf'))
     }
   })
   
@@ -167,9 +163,9 @@ shinyServer(function(input,output){
   output$other_con_regions <- renderPlot({
     plot_data=sortdata(as.data.frame(render_data(other.con.codes,'Consumption',datasetInput(),FALSE,second_Cond())),4)
     if (input$data_type=='sum'){
-      barplot(height=plot_data$sum,names.arg=plot_data$state,width=60,space=0.5,col=c('darkgreen','lightgreen'))
+      barplot(height=plot_data$sum,names.arg=plot_data$state,width=60,space=0.5,col=c('darkgreen','lightgreen'),options(scipen=15),legend=FALSE)
     } else {
-      barplot(height=plot_data$sum,names.arg=plot_data$state,width=60,space=0.5,col=c('darkgreen','lightgreen'))
+      barplot(height=plot_data$sum,names.arg=plot_data$state,width=60,space=0.5,col=c('darkgreen','lightgreen'),options(scipen=15),legend=FALSE)
     }
   })
   

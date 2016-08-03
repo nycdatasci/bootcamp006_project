@@ -237,4 +237,12 @@ function(input, output) {
         end_index = start_and_end_index_of_areas[2]
         draw_plotly_population_by_continent(start_index, end_index)
     })
+    
+    output$boxplot_graph = renderPlot({
+        po = population_of_countries_df %>%
+            select(Place, ends_with(as.character(2015)))
+        
+        p <- ggplot(po[1:5, ], aes(Place, X2015))
+        p + geom_boxplot() + geom_jitter(width = 0.2)
+    })
 }

@@ -1,16 +1,16 @@
 library(shiny)
 library(shinydashboard)
-library(leaflet)
 library(dplyr)
 library(tidyr)
-library(ggmap)
-library(DT)
-library(googleVis)
-library(RColorBrewer)
 library(plotly)
 library(dygraphs)
+library(xts)
+library(DT)
+# library(leaflet)
+# library(ggmap)
 
-setwd("~/Documents/NYCDSA/Project 2")
+# Local path
+# setwd("~/Documents/NYCDSA/Project 2")
 
 # First dataset
 balkanRoute = readRDS('data/PathGreeceBalkans2016.rds', refhook = 'Balkans')
@@ -23,9 +23,9 @@ strsplit(names(balkanRoute)[3:length(balkanRoute)], 'to[.]') %>%
 sapply(., function(x){x[length(x)]})
 colnames(balkanRoute)[2] = c('Greece')
 
-# Next, gather countries and add Geo-location. 
-geo_loc = geocode(names(balkanRoute)[2:length(balkanRoute)]) %>% 
-mutate(.,"Country" = names(balkanRoute)[2:length(balkanRoute)])
+# Next, gather countries and add Geo-location. Used for Leaflet map
+# geo_loc = geocode(names(balkanRoute)[2:length(balkanRoute)]) %>% 
+# mutate(.,"Country" = names(balkanRoute)[2:length(balkanRoute)])
 
 # Next load country codes and join them to the initial data frame
 country_codes =  readRDS('data/countryCodes.rds', refhook = 'codes')

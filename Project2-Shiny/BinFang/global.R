@@ -1,3 +1,4 @@
+library(plotly)
 
 # Read in ratio tables
 ratio_data <- list()

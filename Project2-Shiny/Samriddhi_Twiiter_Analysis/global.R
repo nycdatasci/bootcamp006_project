@@ -14,6 +14,9 @@ require(Hmisc)
 require(shinythemes)
 library(shiny)
 library(shinyBS)
+#install.packages("SnowballC")
+
+# 10.0.0.16:3168
 
 # -------------------------------twitter connection--------------------------------------------
 connectTwitter = function(){
