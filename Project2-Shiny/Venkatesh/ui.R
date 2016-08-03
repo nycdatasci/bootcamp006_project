@@ -20,7 +20,7 @@ shinyUI(
                    p("The U.S. Department of Commerce announced that 5.5 million international visitors traveled to the United States in January 2016.January 2016 registered the fifth straight month of increases in total U.S. visits."),
                    br(),
                    h4(strong("Why this app?")),
-                   p("Fill The app analyzes the foreign travellers travelling to United States "),
+                   p("The app analyzes the foreign travellers travelling to United States based on country, purpose of visit and port of entry "),
                    br(),
                    h4(strong("Where was the data obtained?")),
                    p("The data was obtained from the", a("United States Travel Trade Government Data.",
