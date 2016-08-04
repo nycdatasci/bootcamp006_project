@@ -18,13 +18,13 @@ shinyUI(navbarPage(theme = 'bootstrap.css', title = "Capital is King",
     sidebarLayout(
       globeOutput("invest_global_map", width = "100%", height = "600px"),
       absolutePanel(top = 100, left = 50, class = "panel panel-default small",
-                    h4("Investments cross the world"),
+                    h4("Investments Between 2 contries"),
         # helpText(""),
         sliderInput("N",  
-                    "Top:",
-                    min = 0, 
+                    "Top relationship by Investment Amount:",
+                    min = 1, 
                     max = 1000, 
-                    value = 150,
+                    value = c(1,150),
                     step = 50)
         )
 
@@ -35,9 +35,12 @@ shinyUI(navbarPage(theme = 'bootstrap.css', title = "Capital is King",
                         plotOutput('plot_in',width = "100%", height = "600px"),
                         absolutePanel(top = 500, left = 50, class = "panel panel-default small", draggable = T,
                                       radioButtons('in_by','Capital Flow-in',
-                                                 list('Total','Average')))
+                                                 list('Total','Average')), actionButton("go", "Download"))
                           )
                       ),
+             
+             
+             
              
              tabPanel("Flow Out",
                       sidebarLayout(

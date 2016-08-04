@@ -1,0 +1,17 @@
+Zip files, database files:
+ftp://ftp.nhtsa.dot.gov/FARS/
+
+
+Online query of the database files:
+http://www-fars.nhtsa.dot.gov/QueryTool/QuerySection/SelectYear.aspx
+
+
+Documentation -- Variable codings
+812216.pdf
+https://crashstats.nhtsa.dot.gov/#/DocumentTypeList/4
+
+
+Jobs Data -- http://www.bls.gov/oes/current/oes_research_estimates.htm
+http://www.bls.gov/oes/special.requests/oes_research_2014_sec_48-49.xlsx
+
+
