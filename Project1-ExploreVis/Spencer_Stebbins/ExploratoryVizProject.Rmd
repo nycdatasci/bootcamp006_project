@@ -7,34 +7,17 @@ library(plyr)
 library(dplyr)
 library(reshape2)
 library(scales)
-library(plotly)
+library(ggplot2)
 library(ggthemes)
-###--------------------
-#THESIS
-###-------------------
-#show inrease student loan debt
-#show increasse average borrowing 
-#show increase percent of student borrowing
-#show increase percent of that is federal
-#show percentage of US assests made up by student loans
-#show decrease student loan rates
-#show decresing earnings for graduates
-#show increassing tuition rates
-#compare outstanding student loans to outstanding mortgages
-#compare deliquencies rates respectively
-#compare volume of MBS and SLABS
-#(determine starting events for the trends)
-#correlation between loans and delinquency and ABS, then bewteen mortgage and student over similar time frame
-#show percentage of bank portfolio made up of MBS and percent of Gov made up of student loans
 ```
 
-View this project presentation <a href='https://slides.com/sjstebbins/exploratory-data-visualization-project'>HERE</a>
+#Are Student Loans a Subprime Time-bomb for the US Government?
 
-View html <a href="http://rpubs.com/sjstebbins/ExploratoryVizProject">HERE</a>
+In order to attempt to answer this question, lets first investigate some existing student loan trends...
 
-#Are student loans a subprime time-bomb for the US government?
+##Increasing total outstanding student loan debt
 
-Many of you may be aware that there is an outstanding student loan debt problem in the US. As of 2015, there is 1.3 trillion dollars in outstanding student loan debt and this number has increased steadily over the past 10 years.
+Many of you may be aware that there is an outstanding student loan debt problem in the United States. As of 2015, there is 1.3 trillion dollars in outstanding student loan debt and this number has increased steadily over the past 10 years.
 
 ```{r, echo = FALSE, warning = FALSE}
 ##-------------------------------------
@@ -46,11 +29,14 @@ student_loans_outstanding_df <- transmute(student_loans_outstanding_df, Date=DAT
 #convert to dollars
 student_loans_outstanding_df$student_loans_outstanding = student_loans_outstanding_df$student_loans_outstanding * 100000
 student_loans_outstanding_df$Date = as.Date(student_loans_outstanding_df$Date)
-ggplotly(ggplot(student_loans_outstanding_df, aes(x=Date,y=student_loans_outstanding) ) +geom_line( color='red') + ylab("") + ggtitle("Outstanding Student Loan Debt (Dollars)") + scale_x_date(breaks = date_breaks("5 year"), labels = date_format("%Y")) + theme_fivethirtyeight()) 
+ggplot(student_loans_outstanding_df, aes(x=Date,y=student_loans_outstanding)) +geom_line( color='red') + ggtitle("Outstanding Student Loan Debt") + scale_x_date( labels = date_format("%Y"))  + scale_y_continuous( labels = comma) + theme_fivethirtyeight() + theme(legend.title=element_blank()) + theme(axis.title = element_text(), axis.title.x = element_blank()) + ylab('Dollars')
 
 ```
 
+##More students take on more debt
+
 Over the same period, the average debt of graduates has increased to almost $27,000 per graduate and the percentage of graduates with student loan debt has increased to nearly 60%.
+
 
 ```{r, echo = FALSE, warning = FALSE}
 state_college_data <- read.csv("./data/CollegeInSight_Explore.csv", stringsAsFactors = FALSE)
@@ -83,35 +69,28 @@ state_data <- select(state_data, -State)
 #group by on year and summarize means
 data <- state_data %>% group_by(Date) %>% summarise_each(funs(mean(., na.rm = TRUE))) 
 
-#create student_loan_as_percentage_federal_assets data frame
-student_loan_asset <- c(84.5,92.1,97.7,101.0,108.0,124.4,157.8,231.3,356.1,495.5,613.9,731.2,845.1)
-total_federal_asset <- c(1405.4,1397.3,1447.9,1496.5,1581.1,1974.7,2667.9,2883.8,2707.3,2748.3,2968.3,3065.3,3229.8)
-date <- c('2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015')
-student_loan_federal_asset_data <- data.frame(Date=date,student_loan_asset=student_loan_asset, total_federal_asset=total_federal_asset)
-student_loan_federal_asset_data$student_loan_as_percentage_federal_assets = student_loan_federal_asset_data$student_loan_asset/total_federal_asset
-
-data <- merge(data,student_loan_federal_asset_data, by='Date')
 
 ##-------------------------------------
 ##PLOT 2 - Average Student Loan Debt
 ##-------------------------------------
 average_debt <- select(data,Date, Average.debt.of.graduates)
 average_debt<- melt(average_debt,id = 'Date', value.name='Amount.in.Thousands')
-ggplotly(ggplot(average_debt,aes(x=Date,y=Amount.in.Thousands,group=variable,color=variable)) + geom_line()  + ggtitle('Average Student Loan Debt') + theme(legend.position="none") + theme_fivethirtyeight())
+ggplot(average_debt,aes(x=Date,y=Amount.in.Thousands,group=variable,color=variable)) + geom_line()  + ggtitle('Average Student Loan Debt') + theme_fivethirtyeight()+ theme(legend.title=element_blank()) + theme(axis.title = element_text(), axis.title.x = element_blank()) + ylab('Dollars') +theme(legend.position="none") 
 ```
-<br/>
+
 ```{r, echo = FALSE, warning = FALSE}
 ##-------------------------------------
 ##PLOT 3 - Percent of Student with Debt
 ##-------------------------------------
 percent_student_with_debt <- select(data,Date, Percent.of.graduates.with.debt)
 percent_student_with_debt <- melt(percent_student_with_debt ,id = 'Date', value.name='Percent')
-ggplotly(ggplot(percent_student_with_debt , aes(x=Date,y=Percent,group=variable,color=variable)) + geom_line() + ggtitle('Percent of Students with Debt') +  theme(legend.position="none") + theme_fivethirtyeight())
+percent_student_with_debt$Percent <- as.numeric(percent_student_with_debt$Percent) * 100 
+ggplot(percent_student_with_debt , aes(x=Date,y=Percent,group=variable,color=variable)) + geom_line() + ggtitle('Percent of Students with Debt')+ theme_fivethirtyeight()+ theme(legend.title=element_blank()) + theme(axis.title = element_text(), axis.title.x = element_blank()) + ylab('Percent')  +  theme(legend.position="none") 
 ```
 
-###But where is this money coming from?
+##Most student loans are federal loans
 
-90% of student loan debt in 2015 was comprised of federal loan borrowing
+90% of student loan debt in 2015 was comprised of federal loan borrowing.
 
 ```{r, echo = FALSE, warning = FALSE}
 ##-------------------------------------
@@ -119,56 +98,124 @@ ggplotly(ggplot(percent_student_with_debt , aes(x=Date,y=Percent,group=variable,
 ##-------------------------------------
 percent_federal_debt <- select(data,Date, Federal.debt.of.graduates..as.percent.of.total.debt)
 percent_federal_debt <- melt(percent_federal_debt ,id = 'Date', value.name='Percent')
-ggplotly(ggplot(percent_federal_debt , aes(x=Date,y=Percent,group=variable,color=variable)) + geom_line() + ggtitle('Federal Loan Borrowing as Percent of Total Debt') +  theme(legend.position="none") + theme_fivethirtyeight())
+ggplot(percent_federal_debt , aes(x=Date,y=Percent,group=variable,color=variable)) + geom_line() + ggtitle('Federal Borrowing as Percent of Total Debt')  + theme_fivethirtyeight() + theme(legend.title=element_blank()) + theme(axis.title = element_text(), axis.title.x = element_blank()) + ylab('Percent')+  theme(legend.position="none") 
 ```
 
-which accounts for nearly 27% of the US federal government's total assets as reported in the 2015 US Tresury's financial statements. ($845.1B of the $3,229.8B). This is a 3.5% increase since 2014 ($731.2B of $3,065.3B). Although this pails in comparision to the over 21 trillion dollar US deficit, student loans are becoming an ever growing part of the US governments' assets. 
+##Student loans make up a large, increasing portion of the US Govt.'s assets
+
+Nearly 27% of the US federal government's total assets as reported in the 2015 US Tresury's financial statements. ($845.1B of the $3,229.8B). This is a 3.5% increase since 2014 ($731.2B of $3,065.3B). Although this pails in comparison to the over 21 trillion dollar US deficit, student loans are becoming an ever growing part of the US governments' assets since 2009/10.
+
 
 ```{r, echo = FALSE, warning = FALSE}
 ##-------------------------------------
 ##PLOT 5 -  Student Loans as Percent of Federal Assets
 ##-------------------------------------
-student_loan_as_percentage_federal_assets <- select(data,Date, student_loan_as_percentage_federal_assets)
-student_loan_as_percentage_federal_assets <- melt(student_loan_as_percentage_federal_assets ,id = 'Date', value.name='Percent')
-ggplotly(ggplot(student_loan_as_percentage_federal_assets , aes(x=Date,y=Percent,group=variable,color=variable)) + geom_line() + ggtitle('Student Loans as Percent of Federal Assets') +  theme(legend.position="none") + theme_fivethirtyeight())
+#create student_loan_as_percentage_federal_assets data frame
+student_loan_asset <- c(84.5,92.1,97.7,101.0,108.0,124.4,157.8,231.3,356.1,495.5,613.9,731.2,845.1)
+total_federal_asset <- c(1405.4,1397.3,1447.9,1496.5,1581.1,1974.7,2667.9,2883.8,2707.3,2748.3,2968.3,3065.3,3229.8)
+date <- c('2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015')
+student_loan_federal_asset_data <- data.frame(Date=date,student_loan_asset=student_loan_asset, total_federal_asset=total_federal_asset)
+student_loan_federal_asset_data$Percent= student_loan_asset/total_federal_asset
+student_loan_as_percentage_federal_assets <- select(student_loan_federal_asset_data, Percent, Date)
+student_loan_as_percentage_federal_assets$Percent <- as.numeric(student_loan_as_percentage_federal_assets$Percent) * 100 
+ggplot(student_loan_as_percentage_federal_assets , aes(x=Date,y=Percent,group='',color='red')) + geom_line() + ggtitle('Student Loans as Percent of Federal Assets') + theme_fivethirtyeight() + theme(legend.title=element_blank()) + theme(axis.title = element_text(), axis.title.x = element_blank()) + ylab('Percent')+  theme(legend.position="none") 
 ```
 
-###Is this really a serious problem? 
+##What changed in 2009/10 to prompt increasing student loans?
 
-The short answer is that yes, it could be a very serious problem for a variety of reasons.
+The Health Care and Education Reconciliation Act of 2010 was signed into law by President Barack Obama on March 30, 2010. Many people have heard of "Obamacare", which is the nickname this program took on, but what they may not know is that in addition to the major changes implemented in the Healthcare sector, this act also implemented some major student loan reforms as well.
 
-  1) Although unemployment rates are stabilizing, many graduates do not go on to have an income that affords the amount of debt they take on from the federal government to attend college and go on to take on higher education that only amplifies this problem
-  
-  2) Universities have taken advantage of the influx of students and their accessibility to loans and have increased tuition at a rate that far out weighs unemployment recovery and the consumer price index. 
-  
+###Here are some of the changes that were made by President Obama:
+
+1.  The federal government will no longer give subsidies to private lending institutions for federally backed loans.
+2.  Borrowers of new loans starting in 2014 will qualify to make payments based on 10% of their discretionary income.
+3.  New borrowers would also be eligible for student loan forgiveness after 20 years instead of 25 on qualifying payments.
+4.  Money will be used to fund poor and minority students and increase college funding.
+
+It is highly probable that the increase in student loan borrowing was promoted by the 2008 recession and the ensuing high unemployment rate which prompted many to return to school, but the changes implemented by the Health Care and Education Reconciliation Act of 2010 allowed many people the means to return to school and consequently the government now owns 90% of all student loans.
+
+##More unemployed & underemployed graduates
+
+Although unemployment rates have been stabilizing since the recession in 2008, an increasing number of graduates are still unemployed or underemployed. Underemployment includes three groups of people: unemployed workers who are actively looking for work; involuntarily part-time workers who want full-time work but have had to settle for part-time hours; and so-called marginally-attached workers who want and are available to work, but have given up actively looking. Additionally, the percentage of employed college graduates under age 27 were working in a job that did not require a college degree has increased from 38 to 46 percent from 2007 to 2014 (Abel and Deitz 2014).
+
 ```{r, echo = FALSE, warning = FALSE}
 ##-------------------------------------
-##PLOT 6 - Increasing College Costs
+##PLOT 6 - Unemployment Rate for young graduates
+##-------------------------------------
+grad_unemployment_data <- read.delim("./data/graduateunemployment.csv")
+grad_unemployment_data$Date = as.Date(grad_unemployment_data$Date)
+grad_unemployment_data <- filter(grad_unemployment_data, Date >= "2003-01-01")
+grad_unemployment_data <- melt(grad_unemployment_data, id = 'Date',measure.vars = names(select(grad_unemployment_data,-Date)))
+ggplot(grad_unemployment_data, aes(x=Date,y=value, group=variable, color=variable)) + geom_line() + ggtitle('Graduate Unemployment & Underemployment') + theme_fivethirtyeight() + theme(legend.title=element_blank()) + theme(axis.title = element_text(), axis.title.x = element_blank()) + ylab('Percent')
+```
+
+##Graduate earnings are flat
+
+In addition to the large number of graduates who are unemployed or underemployed, initial young graduate earnings are not increasing along with increasing debt they are taking on. On average, young college graduates have an hourly wage of $17.94, which translates to an annual salary of roughly $37,300 for a full-time, full-year worker. This is a decline of 2.5 percent from what a typical college graduate would have made in 2000 ($38,300).
+
+```{r, echo = FALSE, warning = FALSE}
+##-------------------------------------
+##PLOT 7 - graduate earnings
+##-------------------------------------
+earnings_data <- read.delim("./data/earnings.csv")
+earnings_data$Date = as.Date(earnings_data$Date)
+earnings_data <- filter(earnings_data, Date >= "2003-01-01")
+earnings_data <- rename(earnings_data, college_grads=All, high_school_grads=All.1)
+earnings_data <- melt(earnings_data, id = 'Date',measure.vars = names(select(earnings_data, -Men,-Women,-Men.1,-Women.1,-Date)))
+ggplot(earnings_data, aes(x=Date,y=value, group=variable, color=variable)) + geom_line() + ggtitle("Graduate Earnings") + theme_fivethirtyeight() + theme(legend.title=element_blank()) + theme(axis.title = element_text(), axis.title.x = element_blank()) + ylab('Hourly Wage')
+
+```
+
+##Rising cost of attending college
+
+Between 2003 and 2013, the average cost of attending college has increased over 30%. This rising cost of college combined with the failure of wages to grow for young college graduates signals that a college education is becoming a more uncertain investment. Universities have taken advantage of the influx of students and their accessibility to loans and have increased tuition at a rate that far out weighs unemployment recovery and graduate earnings, signaling that college is becoming an increasingly difficult investment.
+
+```{r, echo = FALSE, warning = FALSE}
+##-------------------------------------
+##PLOT 8 - Increasing College Costs
 ##-------------------------------------
 increasing_college_costs <- select(data,Date,Total.cost.of.attendance..on.campus.)
 increasing_college_costs <- melt(increasing_college_costs,id = 'Date', value.name='Amount.in.Thousands')
-ggplotly(ggplot(increasing_college_costs, aes(x=Date,y=Amount.in.Thousands,group=variable,color=variable)) + geom_line() + ggtitle('Average College Costs') + theme(legend.position="none") + theme_fivethirtyeight())
+ggplot(increasing_college_costs, aes(x=Date,y=Amount.in.Thousands,group=variable,color=variable)) + geom_line() + ggtitle('Average College Costs') +  theme_fivethirtyeight() + theme(legend.title=element_blank()) + theme(axis.title = element_text(), axis.title.x = element_blank()) + ylab('Dollars')+theme(legend.position="none") 
 ```
-  
-  3) All student loans are rated AAA, which they cannot possibly be. Because student loan rates have been held so low, federal loan almost always have a lower interest rates than private loans higher interest rates, which promotes borrowers usually prioritize repaying private loans first. Another big difference between federal loans and private loans is that federal loans all have fixed rates, while private loans usually have rates that vary from borrower to borrower based on his or her credit. Unlike private lenders, the federal government doesn’t check credit records for student loan borrowers. This leads to many uncreditworthy borrowers qualifying for loans and then being saddled with debt indefinitely with little hope of paying it back. This has lead to an increasing default rate over the past three years, which surely only brings a portion of the borrowers who can't pay back there loans compared ot many others taking advantage of 
-  
-  
-  
-####explain laon forgiveneess and how repayments are delayed
 
-The name “Obama Student Loan Forgiveness” has become the nickname for a program actually called the William D. Ford Direct Loan program. Many people only know about the program, and have heard of it through others as the Obama Student Loan Forgiveness program.The name came about when President Obama reformed part of the Direct Loan program in 2010 by signing the Health Care and Education Reconciliation Act of 2010.
+##High student loan default rates
 
-Here are some of the changes that were made by President Obama.
+Student loan default rates have decreased over the past few years, but have remained fairly high as the number of loans has increased dramatically.
 
-The federal government will no longer give subsidies to private lending institutions for federally backed loans.
-Borrowers of new loans starting in 2014 will qualify to make payments based on 10% of their discretionary income.
-New borrowers would also be eligible for student loan forgiveness after 20 years instead of 25 on qualifying payments.
-Money will be used to fund poor and minority students and increase college funding
+```{r, echo = FALSE, warning = FALSE}
+##-------------------------------------
+##PLOT 9 -  Student Loan Default Rates -Department of Education
+##-------------------------------------
+default_rate_data <- read.csv("./data/default.csv", stringsAsFactors = FALSE)
+default_rate_data <- melt(default_rate_data, id = 'Date',measure.vars = names(select(default_rate_data,-Date)))
+ggplot(default_rate_data, aes(x=Date,y=value, group=variable, color=variable)) + geom_line() + ggtitle('Student Loan Default Rates') + theme_fivethirtyeight() + theme(legend.title=element_blank()) + theme(axis.title = element_text(), axis.title.x = element_blank()) + ylab('Percent')
+```
 
-####correlate current student loan probelm with mortgage crisis
+#Conclusion
 
- This harkens back to the sub-prime housing loans that drove up the housing bubble.
+Although student default rates seem to be decreasing in recent years, there are an overwhelming number of factors that support the claim that student loans may be a subprime bubble. Lets restate these trends:
 
+1.  Outstanding student loan debt has linearly increased over the past 10 years and is in excess of 1.3 Trillion dollars.
+2.  The average debt of students is linearly increased over the past 10 years and exceeds $27,000 per student.
+3.  Over 60% of students have student loan debt and 90% of that debt is in federal loans.
+4.  Since 2009, student loans as a percentage of the US government's assets has increased from 3% to almost 30%
+5.  7% of young graduates are unemployed, 15% of remaining graduates are underemployed, and 46% are employed in jobs that do not require a college degree.
+6.  The average cost of college has increased over 30% between 2003 and 2013.
+7.  Student loan default rates are still high at ~12.5% on average.
+
+Furthermore, the U.S. Govt treats these federal loans as if they are triple AAA rated, increasing their portion of total US assets to nearly 30% in 2015, yet they require no credit check on borrowers. Yes, the statistics show that college graduates earn more compared to those who do not graduate college, but the only way to access this college premium is by completing a college degree, but of the 66 percent of young adults who began college, 37.5 haven’t completed their degree by age 27 (BLS 2014) Additionally, graduate have not increased alongside increasing tuition costs and consequently the average amount of federal debt each student takes on and this trend only seems to be continuing. Finally, the Health Care and Education Reconciliation Act of 2010's income based payment plans have made it easy for students to pay back the bare minimum of this loans and these loans are entitled to be forgiven after 20 years.
+
+So are student loans a subprime bubble? Besides a sudden, minimal decrease in default rates, the rest of these trends do not bode very well for the ever increasing asset line of the U.S. Govt, but I'll let you be the judge...
+
+ 
+##What Next?
+- Correlate subprime mortgage crisis and current student loan trends
+- Find and further analyze loan repayment data
+- Compare default rates between states and if they match that of the mortgage crisis
+- Compare mortgage backed securities and student loan asset backed securities data
+- Show how both Hillary Clinton or Donald Trump's student loan stances may effect these trends
+- Predict likelihood of default rates based on loan composition
 ```{r, echo = FALSE, warning = FALSE, include=FALSE}
 #-------------------------------------------------------------
 #LATER WORK
@@ -187,7 +234,7 @@ Money will be used to fund poor and minority students and increase college fundi
 # #melt data on date
 # debt_data <- melt(debt_df,id = 'Date', measure.vars = names(select(debt_df, -Date)))
 # #plot graph
-# ggplotly(ggplot(debt_data, aes(x=Date,y=value,group=variable,color=variable)) + geom_line() + facet_wrap(~variable, scales = "free"))
+# ggplot(debt_data, aes(x=Date,y=value,group=variable,color=variable)) + geom_line() + facet_wrap(~variable, scales = "free"))
 #   
 # #-------------------------------------------------------------
 # #compare deliquencies rates respectively
@@ -205,7 +252,7 @@ Money will be used to fund poor and minority students and increase college fundi
 # delinquencies_data <- melt(delinquencies_df,id = 'Date', measure.vars = names(select(delinquencies_df, -Date)))
 # delinquencies_data <- na.omit(delinquencies_data)
 # #plot graph
-# ggplotly(ggplot(delinquencies_data, aes(x=Date,y=value,group=variable,color=variable) ) + geom_line() + scale_x_date(breaks = date_breaks("5 year"), labels = date_format("%Y")))
+# ggplot(delinquencies_data, aes(x=Date,y=value,group=variable,color=variable) ) + geom_line() + scale_x_date(breaks = date_breaks("5 year"), labels = date_format("%Y")))
 # 
 # #-------------------------------------------------------------
 # # compare volume of MBS and SLABS
