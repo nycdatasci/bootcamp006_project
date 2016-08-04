@@ -2,6 +2,10 @@ load("~/Downloads/violations_2016.RData")
 
 violations = violations[as.numeric(violations$month)>5,]
 violations$popup = paste(violations$Description, violations$Make, violations$Model, sep = ", ")
+violations$speed = grepl("SPEED", violations$popup)
+violations$alc = c(grepl("ALCOHOL", violations$popup) | 
+                         grepl("INTOXICATED", violations$popup) |
+                         grepl("INFLUENCE", violations$popup))
 
 library(dplyr)
 library(shiny)
@@ -60,14 +64,17 @@ sidebar = dashboardSidebar(width = 320,
                                                    "Other" = "OTHER"),
                                        multiple = TRUE,
                                        selected = levels(violations$Race)),
-                           selectInput(inputId = "sb", "Seatbelts", 
-                                       choices = c("Do not filter", "No","Yes"))
-      
-      )
+                           selectInput(inputId = "Alc", "Alcohol", 
+                                       choices = c("Do not filter", "No" = FALSE,"Yes" = TRUE)),
+                        selectInput(inputId = "speed", "Speeding", 
+                                    choices = c("Do not filter", 
+                                    "No" = FALSE,
+                                    "Yes" = TRUE)))
 
 
 body = dashboardBody(
       textOutput("number"),
+      textOutput("number_red"),
       leafletOutput("map", width = "100%", height = 600),
       box(title = "Color", selectInput(inputId = "green", label ="Red", 
                                        choices = c("Nothing",
@@ -78,7 +85,9 @@ body = dashboardBody(
                                                    "seatbelts: yes" = "Yes", 
                                                    "seatbelts: no" = "No", 
                                                    "Male" = "M",
-                                                   "Female" = "F"),
+                                                   "Female" = "F",
+                                                   "Speeding",
+                                                   "Alcohol"),
                                        multiple = T, selected = "Nothing"),
                                     
 collapsible = T))
@@ -93,12 +102,14 @@ server <- shinyServer(function(input, output) {
                                                  & violations$day_of_month<=input$mday_range[2]
                                                  & violations$Race%in%input$race
                                                  ),]
-                        if (input$sb != "Do not filter"){
-                              violations = violations[violations$Belts%in%input$sb, ]
+                        if (input$Alc != "Do not filter"){
+                              violations = violations[violations$alc%in%input$Alc, ]
                         }
                         if (input$gen != "Do not filter"){
-                          violations = violations[violations$Gender%in%input$gen, ]
+                              violations = violations[violations$Gender%in%input$gen, ]
                         }
+                        if (input$speed != "Do not filter"){
+                               violations = violations[violations$speed%in%input$speed, ]}
                         return(violations)
                         })
       
@@ -113,13 +124,18 @@ server <- shinyServer(function(input, output) {
                "BLACK"%in% input$green |
                "HISPANIC"%in% input$green){
                   a=a[a$Race %in% input$green,]}
-      }
+            if("Speeding"%in%input$green){
+                  a=a[a$speed==T,]}
+            if("Alcohol"%in%input$green){
+                  a=a[a$alc==T,]}
+            }
       else{a=a[a$Latitude==max(a$Latitude),]}
       return(a)
             })
       
-      output$number = renderText({paste("Number of Violations:", nrow(data()))})
       
+      output$number = renderText({paste("Number of Violations:", nrow(data()))})
+      output$number_red = renderText({paste("Number of Red Violations:", nrow(green()))})
       output$map = renderLeaflet({
             m = leaflet() %>% 
                   addTiles() %>%
@@ -149,6 +165,8 @@ server <- shinyServer(function(input, output) {
 ui = dashboardPage(header, sidebar, body)
 
 shinyApp(ui = ui, server = server)
+
+
 
 
 
