@@ -46,21 +46,36 @@ shinyServer(function(input, output){
   })
   
   # calculate points
-  output$points <- renderPrint({
+  output$points <- renderText({
     if (input$answer1 == 2) {
       points = points + input$bet1
+    }
+    else {
+      points = points - input$bet1
     }
     if (input$answer2 == 2) {
       points = points + input$bet2
     }
+    else {
+      points = points - input$bet2
+    }
     if (input$answer3 == 1) {
       points = points + input$bet3
+    }
+    else {
+      points = points - input$bet3
     }
     if (input$answer4 %in% c(1,3)) {
       points = points + input$bet4
     }
+    else {
+      points = points - input$bet4
+    }
     if (input$answer5 == 2) {
       points = points + input$bet5
+    }
+    else {
+      points = points - input$bet5
     }
     points
     })

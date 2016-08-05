@@ -9,12 +9,14 @@ library(Hmisc)
 
 
 z = read.csv('foo.csv', stringsAsFactors = F)
+#z = kNN(u, k = 10) #Imputing using 5NN.
+
 
 for (i in 2:6){
   z[,i] <- sapply(z[, i], function(x) as.numeric(gsub("[,$]", "", x)))
 }
 
-z$Date <- as.Date(z$Date, "%Y-%m-%d")
+z$Date <- as.Date(z$Date, "%m/%d/%Y")
 
 
 top <- read.csv('top_20_business_vs_pleasure.csv', stringsAsFactors = F)
