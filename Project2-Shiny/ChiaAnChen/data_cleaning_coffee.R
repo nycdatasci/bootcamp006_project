@@ -6,6 +6,10 @@
 # Data Source: 
 # production, supply and distribtion of coffee_df: https://apps.fas.usda.gov/psdonline/psdDownload.aspx
 # price of coffee_df, and price paid to farmers: http://www.ico.org/new_historical.asp
+# population: http://databank.worldbank.org/data/reports.aspx?source=2&series=SP.POP.TOTL&country=#
+# GDP: http://databank.worldbank.org/data/reports.aspx?source=2&series=NY.GDP.MKTP.CD&country=#
+# Annual working hour: https://stats.oecd.org/Index.aspx?DataSetCode=ANHRS
+
 # Date downloaded: 07/22/2016
 
 ############################################################
