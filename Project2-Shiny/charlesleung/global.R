@@ -1,7 +1,8 @@
+#Shiny Project
+
 library(shiny)
 library(ggplot2)
 library(dplyr)
-library(plotly)
 library(ggmap)
 library(maptools)
 
