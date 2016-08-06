@@ -1,4 +1,5 @@
 shinyServer(function(input, output, session){
+
     values<-reactiveValues(starting=T)
     session$onFlushed(function() {  values$starting <- F})
 
@@ -10,12 +11,14 @@ shinyServer(function(input, output, session){
     })
     
     observe({
+
       Sys.sleep(0.1)
       selected <- input$selected
       updateSliderInput(session,'slider1',value=startYear[[selected]],min=startYear[[selected]],max=endYear[[selected]])
     })
     
     observe({
+
       nonCorr<-input$heatX != input$heatY
       Sys.sleep(0.1)
       if (grepl('growth',input$selected) & nonCorr)
@@ -25,6 +28,7 @@ shinyServer(function(input, output, session){
     })
     
     observe({
+
       Sys.sleep(0.1)
       isInside <- input$heatY %in% c(heatYChoices,input$heatX)
       if (input$heatX!='sectors' & isInside)
@@ -35,6 +39,7 @@ shinyServer(function(input, output, session){
     })
 
     observe({
+
       Sys.sleep(0.1)
       if (input$heatX==input$heatY)
         updateSelectizeInput(session,'heatR',label=ts_cs,choices=c('time series'))#,'cross sectional'))
@@ -48,6 +53,7 @@ shinyServer(function(input, output, session){
     observe({ updateSelectizeInput(session,'stateB',label='second state',setdiff(states,input$stateA),selected='New York') })
     
     observe({
+
       Sys.sleep(0.1)
       if (input$heatX==input$heatY) 
       {output$title4<-renderText(paste(input$heatX,'vs',input$heatY, "Correlation"))}  
@@ -59,6 +65,7 @@ shinyServer(function(input, output, session){
     # reactive 
     
     getYear<-reactive({ 
+
       if (values$starting) return('X2015')
       year<-as.numeric(input$slider1)
       if (startYear[[input$selected]]>year) {year<-startYear[[input$selected]]}
@@ -67,23 +74,27 @@ shinyServer(function(input, output, session){
       )
     
     getDataStates<-reactive({
+
       if (!(input$selected %in% names(data))) return(NULL)
       return(data[[input$selected]])
     })
 
     getDataRegions<-reactive({
+
       if (!(input$selected %in% names(GDP_regions))) return(NULL)
       return(GDP_regions[[input$selected]])
       
     })
     
     getSectorRGDPSectorDataStates<-reactive({
+
       if (!(input$sector %in% names(rGDP_sector_states))) return(NULL)
       return(list(original=rGDP_sector_states[[input$sector]],
                   growth=rGDP_sector_states_growth[[input$sector]]))
     })
     
     getSectorNGDPSectorDataStates<-reactive({
+
       if (!(input$sector %in% names(nGDP_sector_states))) return(NULL)
       return(list(original=nGDP_sector_states[[input$sector]],
                   growth=nGDP_sector_states_growth[[input$sector]]))
@@ -129,6 +140,7 @@ shinyServer(function(input, output, session){
     
     
     output$linePlot <- renderGvis({
+
       if (values$starting) return(NULL)
       Sys.sleep(0.3)
       output$warning <- renderText(paste('No data to display for',input$selected,'with the current state/region choices'))
@@ -143,10 +155,12 @@ shinyServer(function(input, output, session){
       } else 
       {
         if (input$state1=='None') {
+
            if (input$region1=='None') return(NULL)
            if (grepl('real',selected)) myList<-getSectorRGDPSectorDataRegions()
            else myList<-getSectorNGDPSectorDataRegions() }
         else {
+
           if (grepl('real',selected)) myList<-getSectorRGDPSectorDataStates()
           else myList<-getSectorNGDPSectorDataStates()
         }
@@ -184,6 +198,7 @@ shinyServer(function(input, output, session){
     })   
     
     output$map <- renderGvis({
+
       if (values$starting) return(NULL)
       Sys.sleep(0.3)
  
@@ -201,6 +216,7 @@ shinyServer(function(input, output, session){
     })   
     
      output$table1 <- renderGvis({
+
        if (values$starting) return(NULL)
       Sys.sleep(0.3)
       Xyear <- getYear()
@@ -215,6 +231,7 @@ shinyServer(function(input, output, session){
         output$title1<-renderText(US_GDP_Visual)
       }
       else if (grepl('growth$',selected)) {
+
         DF<-getDataRegions()
         if (is.null(DF)) return(NULL)
         DF<-DF[,c('GeoName',Xyear)]
@@ -223,6 +240,7 @@ shinyServer(function(input, output, session){
         output$title1<-renderText(paste(US_GDP_Visual,'----US',input$selected,US_GDP))
       }
       else if (selected != 'per capita real GDP') {
+
         DF<-getDataRegions()
         if (is.null(DF)) return(NULL)
         US_GDP<-ConvertNum(DF[1,Xyear])
@@ -234,6 +252,7 @@ shinyServer(function(input, output, session){
         output$title1<-renderText(paste(US_GDP_Visual,'----US',input$selected,US_GDP))
       }
       else {
+
         DF<-getDataRegions()
         if (is.null(DF)) return(NULL)
         US_GDP<-ConvertNum(DF[1,Xyear])
@@ -250,11 +269,13 @@ shinyServer(function(input, output, session){
     })
 
     output$barPlot <- renderGvis({
+
       if (values$starting) return(NULL)
       Sys.sleep(0.3)
       Xyear <- getYear()
       selected <- input$selected
       if (selected %in% noRegions) {
+
         DF<-data[[selected]][,c('GeoName',Xyear)]
         DF<-DF[order(DF[[Xyear]],decreasing=T),]
         DF<-head(DF,10)
@@ -262,16 +283,19 @@ shinyServer(function(input, output, session){
         hTitle = paste0("[{title:'top ",selected,"'}]")
       }
       else if (grepl('growth$',selected)) {
+
         DF<-GDP_regions[[selected]][,c('GeoName',Xyear)]
         DF[Xyear]<-DF[Xyear]*100.0
         hTitle = "[{title:'U.S. GDP growth percentage'}]"
       }
       else if (selected != 'per capita real GDP') {
+
         DF<-GDP_regions[[selected]][,c('GeoName',Xyear)]
         DF[,Xyear] = DF[,Xyear]/DF[1,Xyear]*100.0
         hTitle     = "[{title:'percentage contributing to U.S. GDP'}]"
         DF<-DF[-1,]
       } else {
+
         DF<-GDP_regions[[selected]][,c('GeoName',Xyear)]
         hTitle     = "[{title:'U.S. per capita real GDP'}]"
         DF<-DF[-1,]
@@ -284,6 +308,7 @@ shinyServer(function(input, output, session){
 
     # show statistics using infoBox
     output$maxBox <- renderInfoBox({
+
         if (values$starting) { Xyear<-'X2007'}
         else { Xyear = getYear() }
         DF<-getDataFrame()
@@ -295,6 +320,7 @@ shinyServer(function(input, output, session){
         infoBox(max_state, ConvertNum(max_value), icon = icon("chevron-up"),color='blue')
     })
     output$minBox <- renderInfoBox({
+
         if (values$starting) { Xyear='X2007'}
         else { Xyear = getYear() }
         DF<-getDataFrame()
@@ -338,6 +364,7 @@ shinyServer(function(input, output, session){
     })
     
     output$heat<-renderPlot({
+
       if (values$starting) return(NULL)
       Sys.sleep(0.6)
       heatX<-input$heatX
@@ -383,10 +410,6 @@ shinyServer(function(input, output, session){
           else { DF<-myList[['growth']]}
       }
       
-      #if (!('years' %in% c(heatX,heatY)) & input$heatR!='time series')
-      #output$title4<-renderText(paste0("Now it is year ",input$slider1))
-      #else { output$title4<-renderText(paste(heatX,'vs Years 2D HEAT MAP'))}
-      
       if (correlational) {
         if (isTimeSeries) {
           if (heatX=='states'){
@@ -408,19 +431,15 @@ shinyServer(function(input, output, session){
                DF<-StackDFs(X,'Sectors')
             } else {return(NULL)}
         } else {
-           # not implemented yet for cross sessional correlations
+           # stub, not implemented yet for cross sessional correlations
           if (heatX=='states'){
-            
           } else if (heatX=='regions') {
-            
           } else if (heatX=='sectors') {
-            
-            
           }          
         }
-         if (!exists('DF')) { #print("DF doesn't exist")
+         if (!exists('DF')) { 
            return(NULL)}
-         myScale = 1.0
+           myScale = 1.0
          if (heatX=='states') { 
            rownames(DF)<-FindStateAbbreviation(DF[,1])
            myScale = 0.7
@@ -436,6 +455,7 @@ shinyServer(function(input, output, session){
       DF<-TreatAsMissing(DF)
       
       if (input$heatR=='relative') {
+
            if (input$heatY=='sectors') DF<-NormalizeDFAlongRows(DF)
            else DF<-NormalizeDFAlongColumns(DF)
         }
@@ -444,6 +464,7 @@ shinyServer(function(input, output, session){
 
       if (heatY=='sectors') DF<-transmute(DF,GeoName=factor(GeoName),Sector=factor(variable),value)
       else DF<-transmute(DF,GeoName=factor(GeoName),years=factor(variable),value)
+
       if (heatX=='US regions') DF<-filter(DF,GeoName!='United States')
       
       if (heatY=='sectors') g <- ggplot(DF, aes(x=GeoName, y=SectorAbbre(Sector),fill=value))
@@ -457,6 +478,7 @@ shinyServer(function(input, output, session){
     })
 
     output$bubble2<-renderGvis({
+
       if (values$starting) return(NULL)
       Sys.sleep(0.3)
       
@@ -464,6 +486,7 @@ shinyServer(function(input, output, session){
       isStates<-T
       isReal  <- grepl('real',selected)
       if (!grepl('growth',selected)) {
+
         output$titleB<-renderText('Support real or nominal GDP growth only')
         return(NULL)}
       else {output$titleB<-renderText(paste0('Motion Chart of ',input$selected))}
@@ -473,6 +496,7 @@ shinyServer(function(input, output, session){
       if (isReal  & !isStates) decisionToken <- 'ru'
       if (!isReal & isStates)  decisionToken <- 'ns'
       if (!isReal & !isStates) decisionToken <- 'nu'
+
       x<-c('r','n')
       names(x)<-x
       y<-c('states','regions')
@@ -489,7 +513,9 @@ shinyServer(function(input, output, session){
       Aloc<-input$stateA
       Bloc<-input$stateB
       locPair<-c(Aloc,Bloc)
+
       if(length(unique(locPair))!=2) return(NULL)
+
       X<-filter(X,GeoName %in% locPair)
       Y<-filter(Y,GeoName %in% locPair)
       X1<-melt(X,id.var='GeoName')
