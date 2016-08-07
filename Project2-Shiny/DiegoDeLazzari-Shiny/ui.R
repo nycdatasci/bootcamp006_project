@@ -1,7 +1,7 @@
 
 shinyUI(
-  # fluidPage(
-  # titlePanel('Tracking migration paths from the Middle East'),
+  fluidPage(
+  titlePanel('Tracking migration paths from the Middle East'),
   dashboardPage(
     dashboardHeader(title = "Navigation"),
     dashboardSidebar(
@@ -71,8 +71,8 @@ shinyUI(
                                                     max(slider.range),
                                                     min(slider.range), ticks = TRUE,
                                                     sep = ",", timeFormat = '%F',
-                                                    dragRange = TRUE, animate = 
-                                                    FALSE)   
+                                                    dragRange = TRUE, animate = animationOptions(interval = 500,
+                                                    loop = FALSE))   
                                         )
                       )
                       
@@ -93,8 +93,8 @@ shinyUI(
             tabItem(tabName = "stats",
                     fluidRow( 
                         column( width = 9,
-                                box(plotlyOutput("origin"), width = 450, height = 300),
-                                box(plotlyOutput("gender"), width = 450, height = 300)
+                                box(plotlyOutput("origin"), width = "100%", height = '70%'),
+                                box(plotlyOutput("gender"), width = "100%", height = '70%')
                               ),
                         column( width = 3, 
                           box( width = NULL, status = "primary", solidHeader = TRUE, title = "Parameters",
@@ -108,11 +108,13 @@ shinyUI(
                                      icon("users"),width = NULL),
                           valueBox("> 1.7 M",'Migrants since 2008', icon = 
                                      icon("users"),width = NULL,color='orange'),
+                          valueBox("~ 2.8 M ",'Syrian refugees in Turkey', icon = 
+                                     icon("send"),width = NULL,color='green'),
                           valueBox("10.222", 'Estimated deaths', icon = 
                                      icon("warning"),width = NULL,color='red')
                               )
                     )
             )
             )
-    )
-))#)
+    )))
+)

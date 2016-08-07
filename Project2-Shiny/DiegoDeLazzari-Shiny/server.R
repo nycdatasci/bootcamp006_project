@@ -39,7 +39,7 @@ shinyServer(function(input, output,session){
       showcoastlines = T,
       projection = list(type = 'Mercator'),#''Orthographic
       lataxis = list(range = c(30,50)),
-      lonaxis = list(range = c(0,40)),
+      lonaxis = list(range = c(-10,40)),
       showsubunits = T,
       showcountries = T
     )
@@ -48,16 +48,22 @@ shinyServer(function(input, output,session){
             colorbar = list(title = 'Arrivals')) %>%
       add_trace(.,type="scattergeo",
                 locations = country_codes$Code, text = country_codes$Country, mode="text") %>%
-      layout(title ='Daily arrivals across the Balkans', geo = g, width = 900)
+      # add_trace(., type = 'scattergeo', lon = otherMarkers2016$lon, lat = otherMarkers2016$lat,
+      #           text = otherMarkers2016$hover,
+      #           marker = list(size = log10(otherMarkers2016$Total)*3, line = list(width = 0),
+      #                         color = 'rgb(0, 255, 0)'),
+      #           showlegend = FALSE, showscale = FALSE) %>%
+      layout(title ='Daily arrivals across the Balkans', geo = g, width = "100%")
              
   })
   
 
     output$origin <- renderPlotly({
       
-      filt.dataOrigin2016 = filter(dataOrigin2016, Country == input$country)
+      filt.dataOrigin2016 = filter(dataOrigin2016, Country == input$country) %>%
+                            arrange(.,desc(Total.2015))
       
-      p1 = plot_ly(
+        p1= plot_ly(
         x = filt.dataOrigin2016$Origin,
         y = filt.dataOrigin2016$Total.2016,
         name = "2016",
@@ -68,8 +74,8 @@ shinyServer(function(input, output,session){
         y = filt.dataOrigin2016$Total.2015,
         name = "2015",
         type = "bar") %>%
-        layout(.,title = "Country of origin",  width = 480, height = 280,
-               yaxis = list(title = "Arrivals",type='log'), xaxis = list(title = ""),tickangle=-90)
+        layout(.,title = "Country of origin",
+               yaxis = list(title = "Arrivals",type='log'), xaxis = list(title = "", tickangle=-90))
      })
     # p1 = plot_ly(data=dataOrigin2016, labels = filt.dataOrigin2016$Origin, domain = list(x = c(0, 0.4), y = c(0.4, 1)),
     #               name = '2016', values = filt.dataOrigin2016$Total.2016, type = "pie", showlegend = F) %>%
@@ -93,8 +99,8 @@ shinyServer(function(input, output,session){
                   y = filt.dataGender2016$Total.2015,
                   name = "2015",
                   type = "bar") %>%
-        layout(.,title = "Demographics",  width = 480, height = 280, barmode = "stack",
-               yaxis = list(title = "Arrivals"), xaxis = list(title = ""),tickangle=-90)
+        layout(.,title = "Demographics", barmode = "stack",
+               yaxis = list(title = "Arrivals"), xaxis = list(title = "",tickangle=-90))
     })
     
     # Plot time series
@@ -102,9 +108,7 @@ shinyServer(function(input, output,session){
     
     
     output$arrivals_by_day <- renderDygraph({
-    # Show only Greece, Croatia and Austria
-      dygraph(balkanTimeSeries[,c(1,4,5)]) %>%
-        # dyOptions(logscale=TRUE) %>%
+      dygraph(balkanTimeSeries) %>%
         dyHighlight(highlightCircleSize = 5, 
                     highlightSeriesBackgroundAlpha = 0.2,
                     hideOnMouseOut = FALSE) %>% 

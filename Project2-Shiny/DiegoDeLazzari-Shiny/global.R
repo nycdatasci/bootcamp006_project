@@ -10,7 +10,7 @@ library(DT)
 # library(ggmap)
 
 # Local path
-# setwd("~/Documents/NYCDSA/Project 2")
+setwd("~/Documents/NYCDSA/Project 2")
 
 # First dataset
 balkanRoute = readRDS('data/PathGreeceBalkans2016.rds', refhook = 'Balkans')
@@ -35,6 +35,9 @@ balkanRoute.map = balkanRoute %>%
                   inner_join(.,country_codes,by = "Country")
 
 balkanTimeSeries = xts(balkanRoute[,-1],order.by = unique(balkanRoute$Date))
+# Aggregate by month
+TimeSeries_montly = apply.monthly(balkanTimeSeries,FUN=colSums)
+# Append data for italy ??? 
 
 slider.range = balkanRoute.map$Date
 
@@ -43,6 +46,15 @@ dataOrigin2016 = readRDS('data/dataOrigin2016.rds', refhook = 'dataOrigin')
 
 # Third dataset: About gender distribution
 dataGender2016 = readRDS('data/dataGender2016.rds', refhook = 'dataGender')
+
+# Fourth dataset: Only annual numbers, for the moment
+
+otherMarkers2016 = data.frame('Country'=c('Italy','Spain','Turkey'),
+                              'Code' = c('ITA', 'SPA','TUR'), 
+                              'lon'=  c(12.5, -3, 32.50), 
+                              'lat' = c(42, 40, 39.5),
+                              'Total'=c(93611, 2476, 660754))
+otherMarkers2016$hover <- paste("Arrivals Oct-15, May-16: ", otherMarkers2016$Total)
 
 # Initialize tab and define choices for InputBoxes
 # Inputbox "whichData"
