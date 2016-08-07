@@ -1,9 +1,8 @@
 
-library(shinydashboard)
-library(shiny)
-library(googleVis)
-library(DT)
-
+require(shinydashboard)
+require(shiny)
+require(googleVis)
+require(DT)
 require(twitteR)
 require(RCurl)
 require(wordcloud) # text visual package
@@ -12,14 +11,11 @@ require(RColorBrewer)
 require(stringi)
 require(stringr)
 require(syuzhet)
-require(googleVis)
 require(ggplot2)
-require(DT)
 require(dplyr)
 require(Hmisc)
 require(shinythemes)
-library(shiny)
-library(shinyBS)
+require(shinyBS)
 
 shinyServer(function(input, output){
   connectTwitter()
@@ -53,12 +49,12 @@ shinyServer(function(input, output){
 #-------------------------------------------------------------------------------------------  
   # sentiments plot
   
-  tot_sentiment2 <- reactive({
+  tot_sentiment2 = reactive({
     getSentiments(search_tweet_df())
   })
   
   # show columnchart using googleVis
-  output$Sentiments2 <- renderGvis({
+  output$Sentiments2 = renderGvis({
     gvisColumnChart(tot_sentiment2(), xvar = "sentiment", yvar = "count",
                     options=list(
                       chartArea="{left:150,top:50,width:'100%',height:'75%'}",
@@ -72,17 +68,21 @@ shinyServer(function(input, output){
   
   #-----------------------------------------------------------------------------------------
   
+  
+  
     # wordCloud for people tweets
-   output$wordcloud2 <- renderPlot({
+   output$wordcloud2 = renderPlot({
                wordcloud(words = getTextData(search_tweet_df()),scale=c(6,.5),
                max.words=150,  colors=brewer.pal(8, "Dark2")   )
   })
   
+
+
   #------------------------------------------------------------------------------------------
   
   # show data using DataTable 
    #  datatable(search_tweet_df()[, "text",drop = FALSE], extensions = 'AutoFill', 
-  output$table2 <- DT::renderDataTable({
+  output$table2 = DT::renderDataTable({
     datatable(search_tweet_df()[, c("text","screenName", "created"),drop = FALSE],
               extensions = 'AutoFill', 
               options = list(
@@ -99,11 +99,11 @@ shinyServer(function(input, output){
   #----------------------------------------------------------------------------------------
   
   # Top 10 Users
-  top10UserTweets <- reactive({
+  top10UserTweets = reactive({
     top10UserTweets = Top10UserTweets(search_tweet_df())
   })
   # show barplot using googleVis
-   output$plot2 <- renderGvis({
+   output$plot2 = renderGvis({
                  gvisBarChart(top10UserTweets(), xvar="screenName", yvar="TotalTweets",
                           options=list(
                            chartArea="{left:150,top:50,width:'100%',height:'70%'}",
@@ -149,7 +149,7 @@ shinyServer(function(input, output){
    #------------------------------------------------------------------------------------------------
    
    # Candidates Trump Hillary Data Table
-   output$table1 <- DT::renderDataTable({
+   output$table1 = DT::renderDataTable({
      datatable(tweetsByUserDate_df()[, c("text","retweetCount", "created"),drop = FALSE],
                extensions = 'AutoFill', 
                options = list(
@@ -196,12 +196,12 @@ shinyServer(function(input, output){
    #----------------------------------------------------------------------------------------
    
   # Candidates Calendar Tweets
-      Usertweets_calendar_df <- reactive({
+      Usertweets_calendar_df = reactive({
       Usertweets_calendar(input$candidate1, NoOfTweets1())
    })
    
   # show Calendar using googleVis
-     output$Calendar1 <- renderGvis({
+     output$Calendar1 = renderGvis({
                  gvisCalendar(Usertweets_calendar_df(), datevar = "Tweetdate", 
                           numvar = "totalTweets",
                           options=list(
@@ -218,7 +218,7 @@ shinyServer(function(input, output){
   #  
    #-----------------------------------------------------------------------------------------
    
-     output$wordcloud1 <- renderPlot({
+     output$wordcloud1 = renderPlot({
        wordcloud(words = getTextData(tweetsByUserDate_df()),scale=c(6,.5),
                  max.words=150,  colors=brewer.pal(8, "Dark2")
        )
@@ -226,12 +226,12 @@ shinyServer(function(input, output){
      
    #-----------------------------------------------------------------------------------------------------
    
-     tot_sentiment1 <- reactive({
+     tot_sentiment1 = reactive({
        getSentiments(tweetsByUserDate_df())
      })
      
      # show histogram using googleVis
-     output$Sentiments1 <- renderGvis({
+     output$Sentiments1 = renderGvis({
        gvisColumnChart(tot_sentiment1(), xvar = "sentiment", yvar = "count",
                        options=list(
                          chartArea="{left:150,top:50,width:'100%',height:'75%'}",
