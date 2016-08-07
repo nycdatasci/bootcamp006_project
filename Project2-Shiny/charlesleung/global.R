@@ -1,7 +1,8 @@
+#Shiny Project
+
 library(shiny)
 library(ggplot2)
 library(dplyr)
-library(plotly)
 library(ggmap)
 library(maptools)
 
@@ -23,4 +24,4 @@ Incomes = select(ACS, PUMA, Year, HINCP, AGEP, PINCP, VAL) %>%
 ACS_P = read.csv('data/ACS_Percentages.csv')
 ACS_P$PUMA = sprintf('%05d', ACS_P$PUMA)
 
-#shapes = readShapePoly('data/tl_2010_36_puma10.shp')
+shapes = readShapePoly('data/tl_2010_36_puma10.shp')

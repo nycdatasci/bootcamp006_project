@@ -22,3 +22,16 @@ myNesRadar <-
 radarchart(myNesRadar, axistype = 1,
            pcol="RdGy", plwd = 2.5,
            cglcol="grey", cglty=2, axislabcol="grey", caxislabels=seq(0,20,5), vlcex=0.5)
+
+names(aps)
+
+arg <- c("Perceived.Capabilities", "Perceived.Opportunities")
+arg[1]
+
+test1 <- top_n(aps, 2, aps$Perceived.Opportunities)
+
+test2 <- prop("x", as.symbol(arg[1]))
+
+
+
+

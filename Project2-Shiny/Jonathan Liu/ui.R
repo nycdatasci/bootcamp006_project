@@ -2,7 +2,9 @@ library(shinydashboard)
 
 #### Title ####
 header <- dashboardHeader(
-  titleWidth = 200, title = "Food Explorer")
+  titleWidth = 200, 
+  title = tagList(shiny::icon("grain", lib = "glyphicon"), 
+                  "Food Explorer"))
 
 #### Sidebar ####
 sidebar <- dashboardSidebar(
@@ -42,7 +44,7 @@ tab_about <- tabItem(
   fluidRow(
     tabBox(
       width = 12,
-      title = tagList(shiny::icon("map-o"), 'Overview'),
+      title = tagList(shiny::icon("info-circle"), 'Overview'),
       id = 'tabbox1',
       tabPanel(
         "About World Food Fact Data",
@@ -87,7 +89,6 @@ tab_about <- tabItem(
 tab_map <- tabItem(
   tabName = "tab_map", 
   # Row 1, Region Selection
-  
   fluidRow(
     column(9, align = 'center',
            selectInput(inputId  = 'Map_RegionSelection',
@@ -136,16 +137,17 @@ tab_plan    <- tabItem(
       box(width = 12, align = 'center', 
         collapsible = T, collapsed = T,
         status = 'info', solidHeader = T,
-        title = 'Nutrition Filters',
+        title = tagList(shiny::icon("sliders"), 'Nutrition Filters'),
         
         # Checkgroup
         column(2, align = 'left',
-               helpText("Derply Derp Nyan Nyan Nyan"),
+               helpText("Only Filters of Selected 
+                        Nutritions Will be Effective"),
                checkboxGroupInput(
                  inputId = "plan_CheckGroup", 
-                 label = h3("Checkbox group"),
+                 label = h3("Select Nutritions"),
                  choices = nutritions,
-                 selected = nutritions[1]
+                 selected = NULL
                )
         ), # End of Checkgroup
         
@@ -183,10 +185,43 @@ tab_plan    <- tabItem(
     # Items DT
     fluidRow(
       box(status = 'primary', solidHeader = T,
-          title = 'Matching Items', width = 12,
+          collapsible = T, collapsed = F,
+          title = tagList(shiny::icon("table"), 'Matching Items'), 
+          width = 12,
         dataTableOutput('plan_displayDT')
         )
-      )
+      ),
+    
+    # Plot Box
+    fluidRow(
+      box(
+        width = 12, height = 'auto', align = 'center', 
+        collapsible = T, collapsed = T,
+        status = 'primary', solidHeader = T,
+        title = tagList(shiny::icon("line-chart"), 'Correlations Between Nutritions'),
+        
+        fluidRow(
+          column(
+            width = 6,
+            selectInput(inputId  = 'map_plotX',
+                        label    = 'Select Nutrition for X axis',
+                        choices  = nutritions,
+                        selected = nutritions[1])),
+          column(
+            width = 6,
+            selectInput(inputId  = 'map_plotY',
+                        label    = 'Select Nutrition for Y axis',
+                        choices  = nutritions,
+                        selected = nutritions[2]))
+        ),
+        fluidRow(
+          column(1),
+          column(
+            10, plotOutput('plot')
+          ),
+          column(1)
+        ))) # End of Plot Box
+    
 ) # End of Plan Tab
 
 #### Tabs - Summary ####
@@ -199,12 +234,6 @@ tab_summary <- tabItem(
         collapsible = T, collapsed = T,
         title = 'Selection vs. DV - Detail', width = 12,
         dataTableOutput('summary_avgDT'))),
-  
-  # fluidRow(
-  #   column(12, align = 'right',
-  #          
-  #   )),
-  
 
   fluidRow(
     box(status = 'primary', solidHeader = T,

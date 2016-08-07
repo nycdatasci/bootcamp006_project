@@ -27,14 +27,15 @@ renderLineChart <- function(expr, env=parent.frame(), quoted=FALSE) {
   # function called `func`. It's needed for the RStudio IDE's built-in
   # debugger to work properly on the expression.
   installExprFunction(expr, "func", env, quoted)
-
+  
   function() {
     dataframe <- func()
+    
     mapply(function(col, name) {
       
       values <- mapply(function(val, i) {
         list(x = i, y = val)
-      }, col, 1:nrow(dataframe), SIMPLIFY=FALSE, USE.NAMES=FALSE)
+      }, col, 2005:2014, SIMPLIFY=FALSE, USE.NAMES=FALSE)
       
       list(key = name, values = values)
       
