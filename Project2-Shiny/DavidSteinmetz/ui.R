@@ -26,12 +26,13 @@ shinyUI(dashboardPage(
                 tabName = "acc_loc",
                 icon = icon("map")
             ),
+            menuItem("Accident Data", tabName = "acc_data", icon = icon("database")),
             menuItem(
                 "Transportation Jobs",
                 tabName = "trans",
                 icon = icon("map")
             ),
-            menuItem("Data", tabName = "data", icon = icon("database"))
+            menuItem("Jobs Data", tabName = "jobs_data", icon = icon("database"))
         )
     ),
 
@@ -125,6 +126,10 @@ shinyUI(dashboardPage(
                         textOutput("tot")
                     )
                 )), 
+        
+        tabItem(tabName = "acc_data",
+                fluidRow(box(DT::dataTableOutput("table_acc"), width = 12))
+        ),
 
         tabItem(tabName = "trans", # Create tab with jobs maps
                 fluidRow(column(
@@ -156,9 +161,10 @@ shinyUI(dashboardPage(
                     )
                 ))), 
         
-        tabItem(tabName = "data",
-            fluidRow(box(DT::dataTableOutput("table"), width = 12))
+        tabItem(tabName = "jobs_data",
+                fluidRow(box(DT::dataTableOutput("table_jobs"), width = 12))
         )
+        
     ))
 )
 )
