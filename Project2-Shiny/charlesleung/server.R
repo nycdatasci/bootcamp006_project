@@ -5,7 +5,7 @@
 # Find out more about building applications with Shiny here:
 # 
 #    http://shiny.rstudio.com/
-#
+#Shiny Project
 
 
 Incomes = select(ACS, PUMA, Year, HINCP) %>% 
@@ -28,7 +28,12 @@ shinyServer(function(input, output) {
   #   if(input$second == ''){char2 = '03702'} else {char2 = input$second}
   #   if(input$third == ''){char3 = '03703'} else {char3 = input$third}
   #   if(input$fourth == ''){char4 = '03704'} else {char4 = input$fourth}
-  # 
+  #   
+  #   char1 = '03701'
+  #   char2 = '03702'
+  #   char3 = '03703'
+  #   char4 = '03704'
+  #   
   #   data.frame(
   #     N01 = filter(Incomes, PUMA == char1) %>% select(HINCP),
   #     N02 = filter(Incomes, PUMA == char2) %>% select(HINCP),
@@ -36,6 +41,26 @@ shinyServer(function(input, output) {
   #     N04 = filter(Incomes, PUMA == char4) %>% select(HINCP)
   #   )
   #   })
+  
+  test1 = filter(Incomes, PUMA == '03805')[[3]]
+  PUMA_03802 = c(29850, 32000, 35000, 40050, 41000, 40000, 41450, 36900, 47600, 50000)
+  PUMA_03805 = c(85000, 96875, 95000, 104200, 97550, 95000, 124500, 112850, 118150, 124200)
+  PUMA_04008 = c(43320, 46400, 45800, 48100, 46500, 43000, 44800, 42500, 46200, 46500)
+  
+  linedf <- data.frame(
+    
+    PUMA_03802,
+    PUMA_03805,
+    PUMA_04008
+  )
+  
+  # test1 = as.data.frame(filter(Incomes, PUMA == '04011')$HINCP)
+  
+  output$mychart <- renderLineChart({
+    # Return a data frame. Each column will be a series in the line chart.
+  linedf
+  })
+  
   output$mylines = renderPlot({
     PlotVals = filter(Incomes, PUMA == '04011')
     g = ggplot(data = PlotVals, aes(x = Year, y = HINCP)) + geom_line()

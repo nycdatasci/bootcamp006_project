@@ -37,12 +37,20 @@ funding_breakdown <- function(df,company)
 
 shinyServer(function(input, output, ssesion) {
     output$invest_global_map <- renderGlobe({
-      invest_3D_use <- invest[1:input$N,]
       
-      globejs(img=earth, arcs=invest_3D_use,
-              arcsHeight=0.3, arcsLwd=2,
-              arcsColor='#E73009', arcsOpacity=0.3,atmosphere=T, 
-              bg = '0f1119')
+      invest_3D <- invest[input$N[1]:input$N[2],]
+      
+      invest_3D$cut <- as.numeric(
+        cut(invest_3D$number,
+            breaks=quantile(invest_3D$number, probs=c(0,0.25,0.5,0.75,1), na.rm=TRUE),
+            include.lowest=TRUE)
+      )
+      
+    col = c("#ffffb3","#ffcc00","#ff6600","#ff0000")[invest_3D$cut]
+      
+    globejs(img=earth, arcs=invest_3D[,1:4],
+            arcsHeight=0.32, arcsLwd=2, arcsColor=col, arcsOpacity=0.25,
+            atmosphere=T, bg = '#0f1119')
     })
     
     output$plot_in <- renderPlot({
@@ -64,6 +72,8 @@ shinyServer(function(input, output, ssesion) {
     output$table <- renderDataTable({
       investment
     })
+    
+    
     
 
 })
