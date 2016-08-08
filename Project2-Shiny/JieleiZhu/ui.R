@@ -430,6 +430,17 @@ shinyUI(
                  width = 9,
                  htmlOutput('hist')
                )
+             ),
+             fluidRow(
+               br(),
+               column(width = 8,
+                      offset = 2,
+                      h5('This dataset is obtained from', a(href="https://www.census.gov/data/tables/time-series/demo/income-poverty/cps-pinc/pinc-02.html", " Census.gov website."),
+                         tags$ul(
+                           tags$li("All income data are reported by people who are 18 years or older, and who have worked full time, all year round.")
+                         )
+                      )
+               )
              )
     ),
     tabPanel('Summary',
@@ -456,7 +467,7 @@ shinyUI(
                       div(
                         h1("You earned ", textOutput('money', inline = T), ' dollars',
                            style = 'color:red')
-                        ),
+                      ),
                       br(),
                       br(),
                       br(),
