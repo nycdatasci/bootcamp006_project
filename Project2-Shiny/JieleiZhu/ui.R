@@ -220,7 +220,7 @@ shinyUI(
                         h1('RULES:'),
                         br(),
                         br(),
-                        h2('1. Answer the following 5 questions about Personal Income in the U.S. using your intuitions'),
+                        h2('1. Answer the following 5 questions about Personal Income in the U.S. using your intuitions.'),
                         h2('2. Choose how much money you are willing to bet on each of your answers.'),
                         h2('ATTENTION: THIS IS REAL. If your answer is correct, you win the amount that you have bet on. If your answer is incorrect, you LOSE the amount you have bet on.', span('So, it is very important that you choose the amount that best reflects your confidence. Not more. Not less.', style = 'color : red'), 'The amount of money you can bet on each answer ranges from $1 to $10, giving a maximum of $50 you can win in this game, and a maximum of $50 you can lose in this game.'),
                         br(),
@@ -228,6 +228,8 @@ shinyUI(
                       br(),
                       br(),
                       br(),
+                      h5('This dataset is obtained from', a(href="https://www.census.gov/data/tables/time-series/demo/income-poverty/cps-pinc/pinc-02.html", " Census.gov website.")),
+                      h5("All income data are reported by people who are 18 years old or over, and who have worked full time, all year round."),
                       br(),
                       br(),
                       br(),
@@ -240,7 +242,7 @@ shinyUI(
                )
              ),
              fluidRow(
-               h2('Income vs. Marital Status', align = 'center'),
+               h2(div('Income vs. Marital Status', style = 'color:green'), align = 'center'),
                br(),
                column(width = 4,
                       offset = 1,
@@ -281,7 +283,7 @@ shinyUI(
                       br(),
                       br(),
                       br(),
-                      h2('Income vs. Gender', align = 'center'),
+                      h2(div('Income vs. Gender', style = 'color:green'), align = 'center'),
                       radioButtons("answer3", 
                                    label = h2("Who has the higher income?"),
                                    choices = list("Male" = 1, "Female" = 2),
@@ -299,7 +301,7 @@ shinyUI(
                       offset = 2,
                       br(),
                       br(),
-                      h2('Income vs. Race', align = 'center'),
+                      h2(div('Income vs. Race', style = 'color:green'), align = 'center'),
                       radioButtons("answer4", 
                                    label = h2("Who has the highest income?"),
                                    choices = list("White" = 1, "Black" = 2, "Asian" = 3, "Hispanic" = 4),
@@ -321,13 +323,12 @@ shinyUI(
              fluidRow(
                column(width = 5,
                       offset = 4,
-                      h2('Income vs. Gender & Race', align = 'center'),
+                      h2(div('Income vs. Gender & Race', style = 'color:green'), align = 'center'),
                       radioButtons("answer5", 
                                    label = h2("Who has the highest income?"),
                                    choices = list("White female" = 1, "Asian male" = 2, "Black male" = 3, "Hispanic female" = 4),
                                    width = '600px'
                       ),
-                      
                       sliderInput("bet5", 
                                   label = h2("How much would you bet on your answer?"), 
                                   min = 0, 
@@ -430,17 +431,6 @@ shinyUI(
                  width = 9,
                  htmlOutput('hist')
                )
-             ),
-             fluidRow(
-               br(),
-               column(width = 8,
-                      offset = 2,
-                      h5('This dataset is obtained from', a(href="https://www.census.gov/data/tables/time-series/demo/income-poverty/cps-pinc/pinc-02.html", " Census.gov website."),
-                         tags$ul(
-                           tags$li("All income data are reported by people who are 18 years or older, and who have worked full time, all year round.")
-                         )
-                      )
-               )
              )
     ),
     tabPanel('Summary',
@@ -491,7 +481,7 @@ shinyUI(
                       br(),
                       br(),
                       h1("If you have enjoyed this app, invite your friends and families to play!", style = 'color:blue'),
-                      h1("Help them to see whether they are over-trusting their intuitions!", style = 'color:blue')
+                      h1("Find out about their intuitions and help them to see whether they are over-trusting them!", style = 'color:blue')
                )
              )
     )

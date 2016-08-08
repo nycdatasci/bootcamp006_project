@@ -2,8 +2,8 @@ name: IntuitionWithIncomeData
 account: emmazhu
 server: shinyapps.io
 appId: 118069
-bundleId: 526291
+bundleId: 526979
 url: https://emmazhu.shinyapps.io/IntuitionWithIncomeData/
-when: 1470621629.06969
+when: 1470683687.06133
 asMultiple: FALSE
 asStatic: FALSE

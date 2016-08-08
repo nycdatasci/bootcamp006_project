@@ -13,8 +13,8 @@ library(reshape2)
 
 
 #------------- load data
-marital_data = read.xlsx('data/marital_data.xlsx', colNames=T)     
-marital_data = marital_data %>% select(Marital_Status, Year, Median) #using only these 3 columns
+marital_raw = read.xlsx('data/marital_data.xlsx', colNames=T)     
+marital_data = marital_raw %>% dplyr::select(Marital_Status, Year, Median) #using only these 3 columns
 
 gender_data = read.xlsx('data/gender_data.xlsx', colNames=T)
 
