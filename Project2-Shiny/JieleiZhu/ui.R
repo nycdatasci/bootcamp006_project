@@ -491,7 +491,7 @@ shinyUI(
                       br(),
                       br(),
                       h1("If you have enjoyed this app, invite your friends and families to play!", style = 'color:blue'),
-                      h1("Find out about their intuitions and whether they are over-trusting their intuitions!", style = 'color:blue')
+                      h1("Help them to see whether they are over-trusting their intuitions!", style = 'color:blue')
                )
              )
     )
