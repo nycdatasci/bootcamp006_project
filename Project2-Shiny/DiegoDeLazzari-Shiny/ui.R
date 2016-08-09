@@ -1,7 +1,7 @@
 
 shinyUI(
-  fluidPage(
-  titlePanel('Tracking migration paths from the Middle East'),
+  # fluidPage(
+  # titlePanel('Tracking migration paths from the Middle East'),
   dashboardPage(
     dashboardHeader(title = "Navigation"),
     dashboardSidebar(
@@ -36,19 +36,26 @@ shinyUI(
                     ),
             tabItem(tabName = "about",
                     fluidRow(
-                      box(title = "Tracking migration paths from the Middle East", status = "info", solidHeader = TRUE, collapsible = TRUE, width = 12,
+                      box(title = "Tracking migration paths through Eastern and Southern Europe", status = "primary", solidHeader = TRUE, collapsible = F, width = 12,
                          br(),
-                           h4("In the past 2.5 years, over 1.4 million people crossed the Mediterranean Sea to reach South Europe,
-                           determining one of the largest migrations recorded to date. The project is an attempt to trace the migration paths,
-                           from Central Africa and Middle East, towards Italy and Greece."),
-                           h4("The work is based on the estimated data gathered by the UN Refugee Agency (UNHR). For more information,
-                              visit the UNHR website:"),
+                           h4('The project attempts to visualize the migration paths followed by over a million migrants in the last 
+                              18 months, by means of an interactive map developed in "Shiny".'),
+                          h4('While offering a dynamic picture of the migration flow through Eastern and Southern Europe, 
+                              the project aims at analyzing its composition in terms of country of origin and gender.'),
+                           # h4("In the past 2.5 years, over 1.4 million people reached Southern Europe,
+                           # determining one of the largest migrations recorded to date. The project is an attempt to trace the migration paths,
+                           # from Central Africa and Middle East, towards Italy and Greece."),
+                           h4("This work is based on the estimated daily arrivals recorded by the hosting countries and gathered by the UN Refugee Agency (UNHCR). For more information,
+                              visit the blog or the UNHCR website:"),
                          tags$hr(),
-                         tags$a(href = "http://data.unhcr.org/mediterranean/regional.php", "About refugee emergency on the Mediterranean", style = "font-size: 18px;"),
+                         tags$a(href = "http://blog.nycdatascience.com/student-works/r-shiny/shiny-tracking-migration-paths-eastern-europe/", " Blog post: Tracking migration paths through Eastern Europe", style = "font-size: 18px;"),
                          tags$br(),
-                         tags$a(href = "http://data.unhcr.org/syrianrefugees/regional.php", "Refugees in Syria", style = "font-size: 18px;")
+                         tags$br(),
+                         tags$a(href = "http://data.unhcr.org/mediterranean/regional.php", "UNHCR: About refugee emergency on the Mediterranean", style = "font-size: 18px;"),
+                         tags$br(),
+                         tags$a(href = "http://data.unhcr.org/syrianrefugees/regional.php", "UNHCR: Refugees in Syria", style = "font-size: 18px;")
                         ),
-                      box(title = "About me", status = "info", solidHeader = TRUE, collapsible = TRUE, width = 12,
+                      box(title = "About me", status = "primary", solidHeader = TRUE, collapsible = F, width = 12,
                            h4("Diego De Lazzari"),
                            h5("Applied Physicist"),
                            tags$span(
@@ -56,45 +63,41 @@ shinyUI(
                              tags$a(href = "https://github.com/nycdatasci/bootcamp006_project/tree/master/Project2-Shiny/DiegoDeLazzari", icon("github", "fa-2x"), style = "margin-left: 20px;")
                                     ),
                            tags$hr(),
-                           h4("This project was completed for the NYC Data Science Academy. More info on them at: "),
+                           h4("This project was completed for the NYC Data Science Academy. More info at: "),
                            tags$a(href = "http://nycdatascience.com/", "NYC Data Science", style = "font-size: 18px;"),
-                           h4("All code available at the GitHub location above.")
+                           h4("All code is available at the GitHub location above.")
                           )
                            )
                     ),
             tabItem(tabName = "destination",
                     fluidRow(
-                      box(width = 12,
+                      box(width = 12,  status = "primary", solidHeader = TRUE, title = 'Daily arrivals across the Balkans and the Mediterranean Sea',
                           plotlyOutput("map"),
-                          absolutePanel(bottom = 0, left = 10, right = 10,
-                                        sliderInput("slider.map", "Date", min(slider.range),
-                                                    max(slider.range),
-                                                    min(slider.range), ticks = TRUE,
-                                                    sep = ",", timeFormat = '%F',
-                                                    dragRange = TRUE, animate = animationOptions(interval = 500,
-                                                    loop = FALSE))   
-                                        )
+                          #absolutePanel(bottom = 0, left = 10, right = 10,
+                                        sliderInput("slider.map", "Date", min = min(slider.range),
+                                                    max = max(slider.range),
+                                                    value=min(slider.range),
+                                                    timeFormat = "%b %Y",
+                                                    step = 31,
+                                                    ticks = TRUE,
+                                                    sep = ",",
+                                                    animate = animationOptions(interval = 500,
+                                                    loop = FALSE)
+                                                    ) ,
+                          dygraphOutput("arrivals_by_day", width = '100%', height=150)
+                                        #)
                       )
-                      
-                      # box(width = 12, sliderInput("slider.map", "Date", min(slider.range),
-                      #                             max(slider.range),
-                      #                             min(slider.range), ticks = TRUE,
-                      #                             sep = ",", timeFormat = '%F',
-                      #                             dragRange = TRUE, animate = 
-                      #                             animationOptions(interval = 500,
-                      #                             loop = FALSE))
-                      #                 
-                      #     )
-                            ),
-                    box(width = 12,
-                      dygraphOutput("arrivals_by_day", width = '100%', height=150)
-                    )
+                            )
             ),
             tabItem(tabName = "stats",
                     fluidRow( 
                         column( width = 9,
-                                box(plotlyOutput("origin"), width = "100%", height = '70%'),
-                                box(plotlyOutput("gender"), width = "100%", height = '70%')
+                                box(width = "100%", height = '70%',status = "primary", solidHeader = TRUE, 
+                                    collapsible = T, title = 'Country of origin and country of asylum',
+                                    plotlyOutput("origin")),
+                                box(width = "100%", height = '70%',status = "primary", solidHeader = TRUE, 
+                                    collapsible = T, collapsed = T, title = 'Demographics per country of asylum',
+                                    plotlyOutput("gender"))
                               ),
                         column( width = 3, 
                           box( width = NULL, status = "primary", solidHeader = TRUE, title = "Parameters",
@@ -115,6 +118,6 @@ shinyUI(
                               )
                     )
             )
-            )
+            #)
     )))
 )
