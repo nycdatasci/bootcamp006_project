@@ -15,26 +15,16 @@ sidebar <- dashboardSidebar(
   
   # Tabs
   sidebarMenu(
+    menuItem('About', tabName = 'tab_about',
+             icon = icon('info-circle')),
     menuItem("Overview", tabName = "tab_map", 
              icon = icon("map")),
     menuItem("Explorer", tabName = "tab_plan", 
              icon = icon("apple", lib = "glyphicon")),
-    menuItem('Summary', tabName = 'tab_summary', 
-             icon = icon("star")),
+    # menuItem('Summary', tabName = 'tab_summary', 
+    #          icon = icon("star")),
     br(),
-    verbatimTextOutput('summary_statVB'),
-    br(),
-    fluidRow(align = 'center',
-    actionButton(inputId = 'summary_reset', 
-                 label = 'Reset Selections',
-                 icon('refresh'),
-                 style = "color: #fff; 
-                 background-color: #337ab7; 
-                 border-color: #2e6da4;
-                 height: 60px")),
-    br(),
-    menuItem('About', tabName = 'tab_about',
-             icon = icon('info-circle'))
+    verbatimTextOutput('summary_statVB')
   )
 )
 
@@ -50,16 +40,19 @@ tab_about <- tabItem(
         "About World Food Fact Data",
         fluidRow(
           column(
-            width = 3,
-            tags$img(src = 'openfoodfacts-logo.png', width = "178px", height = "150px")),
+            width = 5, align = 'center',
+            tags$img(src = 'openfoodfacts-logo.png', width = "356px", height = "300px")),
           column(
-            width = 9,
-            tags$p("Open Food Facts is a food products
-                     database made by everyone, for everyone."),
-            tags$p("You can use it to make better food choices, 
-                     and as it is open data, anyone can re-use it for any purpose."),
+            width = 7,
+            tags$h3('Open Food Facts is a food products
+                    database made by everyone, for everyone. 
+                    You can use it to make better food choices, 
+                    and as it is open data, anyone can re-use it for any purpose.'),
+            tags$h3('This Shiny App is built as a user-friendly replacement for 
+                    original search interface on the Open Food Facts website.'),
             tags$a(href = 'http://world.openfoodfacts.org/discover',
-                   'Learn more about Open Food Facts', target = '_blank'))
+                   'Learn more about Open Food Facts',
+                   class="btn btn-primary"))
         )), # End of Tab Panel 1
       tabPanel(
         "About Me",
@@ -76,12 +69,15 @@ tab_about <- tabItem(
               tags$p(aboutme),
               br(),
               br(),
-              tags$p(icon('github-alt'), 
-                     tags$a(href = 'https://github.com/jonathanlxy',
-                            'My Github', target = '_blank')),
-              tags$p(icon('linkedin'), 
-                     tags$a(href = 'https://www.linkedin.com/in/jonathanlxy',
-                            'My LinkedIn', target = '_blank'))
+              tags$p(tags$a(icon('github-alt'), target = '_blank',
+                            'My Github',
+                            href = 'https://github.com/jonathanlxy',
+                            class="btn btn-primary")),
+              tags$p(
+                     tags$a(icon('linkedin'), target = '_blank',
+                            'My LinkedIn',
+                            href = 'https://www.linkedin.com/in/jonathanlxy',
+                            class="btn btn-primary"))
             )))) # End of Tab Panel 2
     ))) # End of Tab Box
                
@@ -90,11 +86,20 @@ tab_map <- tabItem(
   tabName = "tab_map", 
   # Row 1, Region Selection
   fluidRow(
-    column(9, align = 'center',
-           selectInput(inputId  = 'Map_RegionSelection',
-                       label    = 'Select Region to Display',
+    column(6, align = 'justify',
+           box(title = 'About This Tab', width = 13,
+               status = 'info', solidHeader = T,
+               'This overview dashboard shows the number of products included
+               in the Open Food Facts database, summarized by each country.'
+               )
+           ),
+    column(3, align = 'center',
+           box(title = 'Select Region to Display', width = 12, height = 100,
+               status = 'info', solidHeader = T,
+               selectInput(inputId  = 'Map_RegionSelection',
+                       label    = NULL,
                        choices  = region_geo$Region,
-                       selected = 'World')
+                       selected = 'World'))
     ),
     column(3, align = 'left',
            valueBox(
@@ -103,7 +108,7 @@ tab_map <- tabItem(
              icon = icon("globe", lib = "glyphicon"),
              width = 16)
     )
-  ),
+    ),
   
   # Row 2, Map of Region + Country List
   fluidRow(
@@ -127,60 +132,49 @@ tab_plan    <- tabItem(
     
     #### Country Selection
     fluidRow(
+      box(
+        title = ('Select Your Country'), width = 12,
+        status = 'info', solidHeader = T,
       selectInput(inputId = 'plan_RegionSelection',
-                  label = 'Select Your Destination',
+                  label = NULL,
                   choices = country_stat$Country),
-      align = 'center'),
+      align = 'center')),
     
     #### Nutrition Filters
     fluidRow(
       box(width = 12, align = 'center', 
         collapsible = T, collapsed = T,
         status = 'info', solidHeader = T,
-        title = tagList(shiny::icon("sliders"), 'Nutrition Filters'),
+        title = tagList(shiny::icon("sliders"), 'Select Nutritional Items'),
         
         # Checkgroup
-        column(2, align = 'left',
-               helpText("Only Filters of Selected 
-                        Nutritions Will be Effective"),
-               checkboxGroupInput(
-                 inputId = "plan_CheckGroup", 
-                 label = h3("Select Nutritions"),
-                 choices = nutritions,
-                 selected = NULL
-               )
+        fluidRow(
+          column(1),
+          column(10,
+                 checkboxGroupInput(
+                   inputId = "plan_CheckGroup", 
+                   label = h3("Step 1 - Select Nutritional Items"),
+                   choices = nutritions,
+                   selected = NULL, inline = T
+                 )),
+          column(1)
+          
+          # column(1, actionButton(inputId = 'filter_reset', 
+          #                        label = NULL,
+          #                        icon('refresh'),
+          #                        style = "color: #fff; 
+          #        background-color: #337ab7; 
+          #        border-color: #2e6da4"
+          # ))
+          
         ), # End of Checkgroup
-        
+        helpText('("_100g" means "per 100 grams of food")'),
         # Sliders col 1
-        column(5, 
-               lapply(1:5, function(i) {
-                 sliderInput(inputId = paste0('plan_', nutritions[i]), 
-                             label   = nutritions[i],
-                             min = min_v[nutritions[i]],
-                             max = max_v[nutritions[i]],
-                             value = c(min_v[nutritions[i]],
-                                       max_v[nutritions[i]])
-                 )
-               })
-        ), # End of Slider col 1
-        
-        # Sliders col 2
-        column(5,
-               lapply(6:10, function(i) {
-                 sliderInput(inputId = paste0('plan_', nutritions[i]), 
-                             label   = nutritions[i],
-                             min = min_v[nutritions[i]],
-                             max = max_v[nutritions[i]],
-                             value = c(min_v[nutritions[i]],
-                                       max_v[nutritions[i]])
-                 )
-               })
-        )  # End of Slider col 2
+        htmlOutput('plan_filterUI') # End of Slider Row
       )  # End of Filter Box 
     ), # End of Filter Row
     
-    # Stats
-    htmlOutput('plan_statVB'),
+    
     
     # Items DT
     fluidRow(
@@ -188,7 +182,9 @@ tab_plan    <- tabItem(
           collapsible = T, collapsed = F,
           title = tagList(shiny::icon("table"), 'Matching Items'), 
           width = 12,
-        dataTableOutput('plan_displayDT')
+          # Stats
+          htmlOutput('plan_statVB'),
+          dataTableOutput('plan_displayDT')
         )
       ),
     
@@ -198,21 +194,16 @@ tab_plan    <- tabItem(
         width = 12, height = 'auto', align = 'center', 
         collapsible = T, collapsed = T,
         status = 'primary', solidHeader = T,
-        title = tagList(shiny::icon("line-chart"), 'Correlations Between Nutritions'),
+        title = tagList(shiny::icon("bar-chart"), 
+                        'Distribution of Nutritional Items'),
         
         fluidRow(
           column(
-            width = 6,
+            width = 12,
             selectInput(inputId  = 'map_plotX',
-                        label    = 'Select Nutrition for X axis',
+                        label    = 'Select Nutritional Item',
                         choices  = nutritions,
-                        selected = nutritions[1])),
-          column(
-            width = 6,
-            selectInput(inputId  = 'map_plotY',
-                        label    = 'Select Nutrition for Y axis',
-                        choices  = nutritions,
-                        selected = nutritions[2]))
+                        selected = nutritions[1]))
         ),
         fluidRow(
           column(1),
@@ -220,26 +211,41 @@ tab_plan    <- tabItem(
             10, plotOutput('plot')
           ),
           column(1)
-        ))) # End of Plot Box
+        ))), # End of Plot Box
+    
+    h2('Summary of Selections'),
+    htmlOutput('summary_infoUI'),
+    
+    
+    fluidRow(
+      box(status = 'primary', solidHeader = T,
+          collapsible = T, collapsed = T,
+          title = 'Selection vs. DV - Detail', width = 12,
+          dataTableOutput('summary_avgDT'))),
+    
+    fluidRow(
+      box(status = 'primary', solidHeader = T,
+          title = 'Selection Detail', width = 12,
+          dataTableOutput('summary_DT')))
     
 ) # End of Plan Tab
 
 #### Tabs - Summary ####
-tab_summary <- tabItem(
-  tabName = 'tab_summary',
-  htmlOutput('summary_infoUI'),
-  
-  fluidRow(
-    box(status = 'primary', solidHeader = T,
-        collapsible = T, collapsed = T,
-        title = 'Selection vs. DV - Detail', width = 12,
-        dataTableOutput('summary_avgDT'))),
-
-  fluidRow(
-    box(status = 'primary', solidHeader = T,
-        title = 'Detail', width = 12,
-        dataTableOutput('summary_DT')))
-) # End of summary Tab
+# tab_summary <- tabItem(
+#   tabName = 'tab_summary',
+#   htmlOutput('summary_infoUI'),
+#   
+#   fluidRow(
+#     box(status = 'primary', solidHeader = T,
+#         collapsible = T, collapsed = T,
+#         title = 'Selection vs. DV - Detail', width = 12,
+#         dataTableOutput('summary_avgDT'))),
+# 
+#   fluidRow(
+#     box(status = 'primary', solidHeader = T,
+#         title = 'Detail', width = 12,
+#         dataTableOutput('summary_DT')))
+# ) # End of summary Tab
 
 #### Dashboard Body ####
 body <- dashboardBody(
@@ -247,7 +253,7 @@ body <- dashboardBody(
   tabItems(
     tab_map,    # Map tab
     tab_plan,   # Plan tab
-    tab_summary, # Summary tab
+    # tab_summary, # Summary tab
     tab_about  # About tab
   ) # End of Tabs
 ) # End of Body

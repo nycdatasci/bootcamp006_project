@@ -5,27 +5,25 @@ library(data.table)
 library(DT)
 library(ggplot2)
 
-# #### MISC ####
-# aboutme <- readChar('Data/AboutMe.txt', nchars = 9999)
-# 
-# #### Data Preparation ####
-# # Read Country Statistics 
-# country_stat <- fread('Data/Country_Stat.csv') %>% rename(Country = index)
-# 
-# # Read file
-# food <- fread('Data/Food_cleaned.csv') %>%
-#   # Additional cleanning (Product name == 'France')
-#   filter(!(Product_name %in% country_stat$Country)) %>%
-#   filter(Url != '')
-# 
-# # Translate kj to Calories
-# food[, Energy_100g := round(Energy_100g/4.1858, 0)]
-# # Round Sodium to integers
-# food[, Sodium_100g := round(Sodium_100g, 2)]
-# # Transform Code into String
-# food[, Code:=as.character(Code)]
+#### MISC ####
+aboutme <- readChar('Data/AboutMe.txt', nchars = 9999)
 
-load('Data/Data.RData')
+#### Data Preparation ####
+# Read Country Statistics 
+country_stat <- fread('Data/Country_Stat.csv') %>% rename(Country = index)
+
+# Read file
+food <- fread('Data/Food_cleaned.csv') %>%
+  # Additional cleanning (Product name == 'France')
+  filter(!(Product_name %in% country_stat$Country)) %>%
+  filter(Url != '')
+
+# Translate kj to Calories
+food[, Energy_100g := round(Energy_100g/4.1858, 0)]
+# Round Sodium to integers
+food[, Sodium_100g := round(Sodium_100g, 2)]
+# Transform Code into String
+food[, Code:=as.character(Code)]
 
 # Separate this from food for better performance
 food_reactive <- reactive(food)
@@ -67,4 +65,4 @@ createLink <- function(val) {
 # -----------------------------------------------------------------
 
 #### Variables for Summary Tab ####
-# daily_nutritions <- fread('Data/DV.csv')
+daily_nutritions <- fread('Data/DV.csv')
