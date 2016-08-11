@@ -15,7 +15,7 @@ library(dplyr)
 suppressPackageStartupMessages(library(googleVis))
 # convert matrix to dataframe
 
-load('./data.RData')
+load('./test.RData')
 load('./sectorData.RData')
 load('./sectorGrowthData.RData')
 load('./byYear.RData')
