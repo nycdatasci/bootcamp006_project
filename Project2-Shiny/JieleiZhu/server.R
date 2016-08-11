@@ -65,7 +65,7 @@ shinyServer(function(input, output){
     else {
       money = money - input$bet3
     }
-    if (input$answer4 %in% c(1,3)) {
+    if (input$answer4 == 5) {
       money = money + input$bet4
     }
     else {
