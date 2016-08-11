@@ -12,18 +12,21 @@ require(DT)
 require(dplyr)
 require(Hmisc)
 require(shinythemes)
-library(shiny)
-library(shinyBS)
-#install.packages("SnowballC")
+require(shiny)
+require(shinyBS)
+require(SnowballC)
+
+# package 3js spencer app
 
 # 10.0.0.16:3168
 
 # -------------------------------twitter connection--------------------------------------------
 connectTwitter = function(){
-  consumer_key = 'bE7OZyqGwtVaJmowVEsUNdFmf'
-  consumer_secret = 'UWjxpnscW3LooEUSKbgTaI1u3TAv13AZbZmsfuka6QQfzfi5pr'
-  access_token = '701978984888868865-OZRSuWjJFJw5z53Z5HHU9p0RyPqVEY2'
-  access_secret = '68XxLu15BkjQjBfAKYitpu21RQfgF1LIwKp86n2ALeE7I'
+  consumer_key = 'bE7OZyqGwtVaJmowVEsUNdFmf648'
+  consumer_secret = 'UWjxpnscW3LooEUSKbgTaI1u3TAv13AZbZmsfuka6QQfzfi5prsa'
+  access_token = '701978984888868865-OZRSuWjJFJw5z53Z5HHU9p0RyPqVEY2666'
+  access_secret = '68XxLu15BkjQjBfAKYitpu21RQfgF1LIwKp86n2ALeE7Ish'
+  # not valid keys. Has been changed 
   setup_twitter_oauth(consumer_key,consumer_secret,access_token, access_secret)
 }
 #------------------------------------------------------------------------------------------------------
@@ -34,12 +37,12 @@ SearchTweets = function(Searchvalue = 'Twitter', NoOfTweets, FromDate, Todate){
                          since = FromDate
                          , until= Todate ,geocode='42.08185,-78.43214,100mi',
                          retryOnRateLimit=1000)
-  tweets_df <- twListToDF(tweets)
+  tweets_df = twListToDF(tweets)
   return(tweets_df)
 }
 #--------------------------------------------------------------------------------------------------------
 
-getTextData <- function(df) {
+getTextData = function(df) {
   # Gather corpus 
   textdata = Corpus(VectorSource(df$text))# creates corpus out of vector source
   # Corpora are collections of documents containing (natural language) text
@@ -64,24 +67,24 @@ getTextData <- function(df) {
 
 #------------------------------------------------------------------------------------------------------
 
-getSentiments <- function(df){
+getSentiments = function(df){
   textdata = getTextData(df)
-  sentiments <- sapply(textdata, function(x) get_nrc_sentiment(as.character(x)))
-  sentiments <- as.data.frame(aperm(sentiments)) # transpose and save as dataframe
-  sentiments <- as.data.frame(lapply(sentiments, as.numeric)) # a bit more to organize
-  sentiments <-
+  sentiments = sapply(textdata, function(x) get_nrc_sentiment(as.character(x)))
+  sentiments = as.data.frame(aperm(sentiments)) # transpose and save as dataframe
+  sentiments = as.data.frame(lapply(sentiments, as.numeric)) # a bit more to organize
+  sentiments =
     sentiments %>%
     mutate(positivity = positive - negative)
   tweet_sentiments = lapply(sentiments,as.numeric)
   tweet_sentiments = as.data.frame(tweet_sentiments)
   tweet_sentiments = tweet_sentiments[,c(1,2,3,4,6,5,7,8,9,10)]
   feelings = data.frame("count"=colSums(tweet_sentiments))
-  tot_sentiment <- cbind("sentiment" = rownames(feelings), feelings)
+  tot_sentiment = cbind("sentiment" = rownames(feelings), feelings)
   return(tot_sentiment)
 }
 #------------------------------------------------------------------------------------------------------
 
-Top10UserTweets <- function(df) {
+Top10UserTweets = function(df) {
   User_10_tweets = df %>% 
     group_by(screenName) %>% 
     summarise(TotalTweets= n()) %>% 

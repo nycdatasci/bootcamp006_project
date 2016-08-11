@@ -3,7 +3,7 @@ shinyServer(function(input, output){
   
   # show income data for never married, married(total) and divorced
   output$marital_total_motion <-renderGvis({
-    gvisMotionChart(marital_total, 'Marital_Status', 'Year')
+    gvisMotionChart(marital_total_only, 'Marital_Status', 'Year')
   })
   
   # show income data for everything above plus spouse present and spouse absent
@@ -28,12 +28,12 @@ shinyServer(function(input, output){
   
   # show histogram using googleVis
   data <-reactive({
-    data = rename(melt(filter(hist_data,
+    data = melt(filter(hist_data,
                               Marital_Status == input$marital_status,
                               Year == input$year,
                               Race == input$race,
-                              Gender == input$gender)[, !(colnames(hist_data) %in% optional_columns), drop=FALSE]
-    ))})
+                              Gender == input$gender)[, !(colnames(hist_data) %in% optional_columns), drop=FALSE])})
+  
   
   output$hist <- renderGvis({
     (a<- gvisColumnChart(data(), 
@@ -45,40 +45,40 @@ shinyServer(function(input, output){
                                       height = 700)))
   })
   
-  # calculate points
-  output$points <- renderText({
+  # calculate money
+  output$money <- renderText({
     if (input$answer1 == 2) {
-      points = points + input$bet1
+      money = money + input$bet1
     }
     else {
-      points = points - input$bet1
+      money = money - input$bet1
     }
     if (input$answer2 == 2) {
-      points = points + input$bet2
+      money = money + input$bet2
     }
     else {
-      points = points - input$bet2
+      money = money - input$bet2
     }
     if (input$answer3 == 1) {
-      points = points + input$bet3
+      money = money + input$bet3
     }
     else {
-      points = points - input$bet3
+      money = money - input$bet3
     }
     if (input$answer4 %in% c(1,3)) {
-      points = points + input$bet4
+      money = money + input$bet4
     }
     else {
-      points = points - input$bet4
+      money = money - input$bet4
     }
     if (input$answer5 == 2) {
-      points = points + input$bet5
+      money = money + input$bet5
     }
     else {
-      points = points - input$bet5
+      money = money - input$bet5
     }
-    points
-    })
+    money
+  })
 })
 
 
