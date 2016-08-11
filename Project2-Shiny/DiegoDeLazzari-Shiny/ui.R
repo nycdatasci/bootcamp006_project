@@ -9,8 +9,8 @@ shinyUI(
         #                image = "photo.jpg"),
         sidebarMenu(
             menuItem("About", tabName = "about", icon = icon("info")),
-            menuItem("Balkan route", tabName = "destination", icon = icon("map")),
-            menuItem("Stats", tabName = "stats", icon = icon("bar-chart")),
+            menuItem("Migration routes", tabName = "destination", icon = icon("map")),
+            menuItem("Analytics", tabName = "stats", icon = icon("bar-chart")),
             menuItem("Data", tabName = "data", icon = icon("database"))
                   )
                   ),
@@ -80,7 +80,7 @@ shinyUI(
                               
                               tags$hr(),
                               h4("This project was completed for the NYC Data Science Academy. More info at: "),
-                              tags$a(href = "http://nycdatascience.com/", "NYC Data Science", style = "font-size: 18px;")
+                              tags$a(href = "http://nycdatascience.com/", "NYC Data Science Academy", style = "font-size: 18px;")
                               )
                           )
                            )
