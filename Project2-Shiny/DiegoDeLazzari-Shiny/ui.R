@@ -38,14 +38,11 @@ shinyUI(
                     fluidRow(
                       box(title = "Tracking migration paths through Eastern and Southern Europe", status = "primary", solidHeader = TRUE, collapsible = F, width = 12,
                          br(),
-                           h4('The project attempts to visualize the migration paths followed by over a million migrants in the last 
-                              18 months, by means of an interactive map developed in "Shiny".'),
-                          h4('While offering a dynamic picture of the migration flow through Eastern and Southern Europe, 
-                              the project aims at analyzing its composition in terms of country of origin and gender.'),
-                           # h4("In the past 2.5 years, over 1.4 million people reached Southern Europe,
-                           # determining one of the largest migrations recorded to date. The project is an attempt to trace the migration paths,
-                           # from Central Africa and Middle East, towards Italy and Greece."),
-                           h4("This work is based on the estimated daily arrivals recorded by the hosting countries and gathered by the UN Refugee Agency (UNHCR). For more information,
+                         tags$p('The project attempts to visualize the migration paths followed by over a million migrants in the last 
+                              18 months, by means of an interactive map developed in Shiny. While offering a dynamic picture of the migration flow through Eastern and Southern Europe, 
+                              the app aims at analyzing the composition of such flow in terms of country of origin and gender.'),
+                           br(),
+                           tags$p("The dataset is based on the estimated daily arrivals recorded by the hosting countries and gathered by the UN Refugee Agency (UNHCR). For more information,
                               visit the blog or the UNHCR website:"),
                          tags$hr(),
                          tags$a(href = "http://blog.nycdatascience.com/student-works/r-shiny/shiny-tracking-migration-paths-eastern-europe/", " Blog post: Tracking migration paths through Eastern Europe", style = "font-size: 18px;"),
@@ -56,24 +53,42 @@ shinyUI(
                          tags$a(href = "http://data.unhcr.org/syrianrefugees/regional.php", "UNHCR: Refugees in Syria", style = "font-size: 18px;")
                         ),
                       box(title = "About me", status = "primary", solidHeader = TRUE, collapsible = F, width = 12,
-                           h4("Diego De Lazzari"),
-                           h5("Applied Physicist"),
-                           tags$span(
-                             tags$a(href = "https://www.linkedin.com/in/diegodelazzari", icon("linkedin", "fa-2x")),
-                             tags$a(href = "https://github.com/nycdatasci/bootcamp006_project/tree/master/Project2-Shiny/DiegoDeLazzari", icon("github", "fa-2x"), style = "margin-left: 20px;")
-                                    ),
-                           tags$hr(),
-                           h4("This project was completed for the NYC Data Science Academy. More info at: "),
-                           tags$a(href = "http://nycdatascience.com/", "NYC Data Science", style = "font-size: 18px;"),
-                           h4("All code is available at the GitHub location above.")
+                          column(
+                              width = 2,
+                              br(),
+                              br(),
+                              tags$img(
+                                src = 'DiegoDeLazzari.jpg',
+                                width = "100px", height = "100px"),
+                              br(),
+                              br(),
+                              br(),
+                              tags$a(href = "https://www.linkedin.com/in/diegodelazzari", icon("linkedin", "fa-2x")),
+                              tags$a(href = "https://github.com/nycdatasci/bootcamp006_project/tree/master/Project2-Shiny/DiegoDeLazzari-Shiny", icon("github", "fa-2x"), style = "margin-left: 20px;")
+                              ),
+                            column(
+                              width = 10,
+                              h4("Diego De Lazzari"),
+                              tags$p("Researcher, developer and data scientist(?). Diego De Lazzari is an applied physicist with a rather
+                                      diverse background. He spent 8 years in applied research, developing computational 
+                                      models in the field of Plasma Physics (Nuclear Fusion) and Geophysics. As a Research 
+                                      Geophysicist at Shell Global Solutions, He developed data-driven applications
+                                      to predict and extract small, usually unwanted features in large seismic datasets. 
+                                      Diego holds a Ph.D. in Applied physics from Eindhoven University of Technology and is 
+                                      interested in energy industry, energy scenario modeling and global trends for business 
+                                      and society."),
+                              
+                              tags$hr(),
+                              h4("This project was completed for the NYC Data Science Academy. More info at: "),
+                              tags$a(href = "http://nycdatascience.com/", "NYC Data Science", style = "font-size: 18px;")
+                              )
                           )
                            )
                     ),
             tabItem(tabName = "destination",
                     fluidRow(
-                      box(width = 12,  status = "primary", solidHeader = TRUE, title = 'Daily arrivals across the Balkans and the Mediterranean Sea',
+                      box(width = 12,  status = "primary", solidHeader = TRUE, title = 'Monthly arrivals across the Balkans and the Mediterranean Sea',
                           plotlyOutput("map"),
-                          #absolutePanel(bottom = 0, left = 10, right = 10,
                                         sliderInput("slider.map", "Date", min = min(slider.range),
                                                     max = max(slider.range),
                                                     value=min(slider.range),
@@ -81,11 +96,10 @@ shinyUI(
                                                     step = 31,
                                                     ticks = TRUE,
                                                     sep = ",",
-                                                    animate = animationOptions(interval = 500,
+                                                    animate = animationOptions(interval = 1500,
                                                     loop = FALSE)
                                                     ) ,
                           dygraphOutput("arrivals_by_day", width = '100%', height=150)
-                                        #)
                       )
                             )
             ),
@@ -96,7 +110,7 @@ shinyUI(
                                     collapsible = T, title = 'Country of origin and country of asylum',
                                     plotlyOutput("origin")),
                                 box(width = "100%", height = '70%',status = "primary", solidHeader = TRUE, 
-                                    collapsible = T, collapsed = T, title = 'Demographics per country of asylum',
+                                    collapsible = T, collapsed = F, title = 'Demographics per country of asylum',
                                     plotlyOutput("gender"))
                               ),
                         column( width = 3, 
@@ -118,6 +132,5 @@ shinyUI(
                               )
                     )
             )
-            #)
     )))
 )

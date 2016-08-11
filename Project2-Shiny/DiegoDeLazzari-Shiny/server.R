@@ -47,13 +47,13 @@ shinyServer(function(input, output,session){
     )
     plot_ly(sel.data, z = Arrivals, text = Country, locations = Code, type = 'choropleth',
             color = Arrivals, colors = 'Blues', marker = list(line = l),inherit = FALSE,
-            colorbar = list(title = 'Arrivals')) %>%
+            colorbar = list(title = 'Balkans',xanchor = 'left')) %>%
       add_trace(.,type="scattergeo",
                 locations = country_codes$Code, text = country_codes$Country, mode="text") %>%
-      add_trace(., z = sel.data2$Arrivals, text = sel.data2$Country, locations = sel.data2$Code, type = 'choropleth',
+      add_trace(., z = sel.data2$Arrivals, zmax = 25000, zmin = 500, text = sel.data2$Country, locations = sel.data2$Code, type = 'choropleth',
       color = sel.data2$Arrivals, colors = 'Greens', marker = list(line = l),inherit = FALSE,
-      showscale = FALSE) %>%
-      layout(geo = g, width = "100%")
+      colorbar = list(title = 'Mediterranean', xanchor = 'right')) %>%
+      layout(geo = g, widths = "100%")
              
   })
   
@@ -74,7 +74,7 @@ shinyServer(function(input, output,session){
         y = filt.dataOrigin2016$Total.2015,
         name = "2015",
         type = "bar") %>%
-        layout(.,
+        layout(.,widths = "90%",
                yaxis = list(title = "Arrivals",type='log'), xaxis = list(title = "", tickangle=-90))
      })
   
