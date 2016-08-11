@@ -36,6 +36,10 @@ shinyServer(function(input, output, session) {
   
   #### Food Browsing ####
   
+  # observeEvent(input$filter_reset, 
+  #              updateCheckboxGroupInput(session, 'plan_CheckGroup', selected = NULL)
+  # )
+  
   # Data with selected variables
   foodFilterDT <- reactive (
     food[, c('Product_name',
@@ -85,19 +89,32 @@ shinyServer(function(input, output, session) {
                  'Link'))
   )
   
+  # # 
+  # plot <- reactive({
+  #   Xnutri <- input$map_plotX
+  #   Ynutri <- input$map_plotY
+  #   
+  #   plotdata <- food_reactive()[inRangeIndex(), 
+  #                              c(Xnutri, Ynutri, input$plan_RegionSelection),
+  #                              with = F] %>%
+  #     filter(.[,input$plan_RegionSelection] > 0)
+  #   
+  #   ggplot(data = plotdata, aes(x = get(Xnutri), y = get(Ynutri))) +
+  #     geom_point(color = '#2980B9', alpha = 0.5) +
+  #     labs(x = Xnutri, y = Ynutri)
+  # })
   # 
   plot <- reactive({
     Xnutri <- input$map_plotX
-    Ynutri <- input$map_plotY
     
     plotdata <- food_reactive()[inRangeIndex(), 
-                               c(Xnutri, Ynutri, input$plan_RegionSelection),
-                               with = F] %>%
+                                c(Xnutri, input$plan_RegionSelection),
+                                with = F] %>%
       filter(.[,input$plan_RegionSelection] > 0)
     
-    ggplot(data = plotdata, aes(x = get(Xnutri), y = get(Ynutri))) +
-      geom_point(color = '#2980B9', alpha = 0.5) +
-      labs(x = Xnutri, y = Ynutri)
+    ggplot(data = plotdata, aes(x = get(Xnutri))) +
+      geom_histogram(bins = 100, fill = '#2980B9', alpha = 0.5) +
+      labs(x = Xnutri)
   })
   
   # output$plot <- renderText(plot())
@@ -105,17 +122,38 @@ shinyServer(function(input, output, session) {
     
   
   ## Browsing Outputs ##
+  output$nrow_display <- renderText(nrow(displayDT()))
+  output$num_filter <- renderText(length(input$plan_CheckGroup))
+  output$plan_filterUI <- renderUI(
+    fluidRow(
+      h3('Step 2 - Adjust Range', align = 'center'),
+      column(3, 
+             helpText('Number of Filters Selected'),
+             verbatimTextOutput('num_filter'),
+             helpText('Number of Matching Items'),
+             verbatimTextOutput('nrow_display')),
+      column(8, align = 'justify',
+             if (length(input$plan_CheckGroup)) {
+               lapply(input$plan_CheckGroup, 
+                    function(i) {
+                      sliderInput(inputId = paste0('plan_', i), 
+                                  label   = i,
+                                  min = min_v[i],
+                                  max = max_v[i],
+                                  value = c(min_v[i],
+                                            max_v[i])
+                      )
+                    }) # End of filter generators
+               }), # End of if
+      column(1)
+    ))
   
   output$plan_statVB <- renderUI(
     fluidRow(
-      valueBox(
-        value = dim(displayDT()),
-        subtitle = 'Items Matching Conditions',
-        width = 3),
-      valueBox(
-        value = length(input$plan_CheckGroup),
-        subtitle = 'Filters Selected',
-        width = 3),
+      column(6,
+             h3('Click items in data table to select them,
+                then click "Add Selections to Summary" to 
+                add them into your selection list below')),
       valueBox(
         value = dim(summaryDT()),
         subtitle = 'Items in Summary',
@@ -209,9 +247,9 @@ shinyServer(function(input, output, session) {
         )})
     )))
   
-  # stat <- renderText(dim(summaryDT())[1])
+  # Selection Summary InfoBoxes
   output$summary_statVB <- renderText(
-    paste0(dim(summaryDT())[1], ' Food In Summary'))
+    paste0(dim(food_reactive())[1], ' Food in Database'))
   
   # Avg vs DV Table
   output$summary_avgDT <- 

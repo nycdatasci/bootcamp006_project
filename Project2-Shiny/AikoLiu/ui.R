@@ -14,7 +14,7 @@ shinyUI(dashboardPage(
         conditionalPanel(
         condition = "input.selected!=\"personal income per capita\" && input.selected!=\"population\" && input.selected!=\"per capita real GDP growth\" && input.selected!=\"per capita real GDP\"",  
         selectizeInput("sector", "Select Sector to Display", c('all', sectors))),
-        sliderInput("slider1", "Slider input Year:", min=2000, max=2015, value=2000,animate=T)
+        sliderInput("slider1", "Slider input Year:", min=2000, max=2015, value=2000,animate=animationOptions(interval=2500))
     ),
     dashboardBody(
         tabItems(
@@ -23,7 +23,11 @@ shinyUI(dashboardPage(
                     fluidRow(infoBoxOutput("maxBox"),
                              infoBoxOutput("medBox"),
                              infoBoxOutput("minBox")),
-                    fluidRow(htmlOutput("map"), title='US GDP Colored Map')), 
+                    #fluidRow(box(htmlOutput("map"), title='US GDP Colored Map', solidHeader = F,background='teal')), #570 on the web, 380 local
+                    fluidRow(htmlOutput("map"), title='US GDP Colored Map')), #570 on the web, 380 local
+                    #fluidRow(box(htmlOutput('table1'),height = 325,width=5),
+                    #         box(htmlOutput('barPlot'),height= 325,width=7,background='teal'))),
+                    #fluidRow(htmlOutput('table1'), htmlOutput('barPlot'))),
             tabItem(tabName = "plot1",
                             fluidRow(box(htmlOutput("title2"),width=12,background='orange')),
                             fluidRow(box(htmlOutput("warning"),width=12,background='red')),
@@ -52,7 +56,7 @@ shinyUI(dashboardPage(
                     fluidRow(box(htmlOutput("whichStates"),height=80,width=4,background='light-blue'),
                              box(selectizeInput("stateA", "first state", choices=states,selected='California'), height=80,width=4,background='light-blue'),
                              box(selectizeInput("stateB", "second state", choices=states,selected='New York'), height=80,width=4,background='light-blue')),
-                    fluidRow(box(htmlOutput("bubble2"), height=325,width = 8,background='blue'))), 
+                    fluidRow(box(htmlOutput("bubble2"), height=325,width = 8,background='blue'))), #9 on web, 12 local
             tabItem(tabName = "heat",
                     fluidRow(box(htmlOutput("title4"),width=12,background='red')),
                     fluidRow(box(plotOutput("heat"),height=420,width = 12,background='navy')),
