@@ -40,6 +40,8 @@ open_sesame <- function(data){
 
 # Univariate EDA
 uni_eda <- function(vec){
+  # Clean
+  vec <- vec[!is.na(vec)]
   # SOCS - Shape, Outliers, Center, Spread
   if (class(vec) %in% c('integer', 'numeric')) {
     par(mfcol=c(3,1), mfrow=c(1,3))
@@ -57,12 +59,24 @@ uni_eda <- function(vec){
   }
 }
 
-
 # Wait for Enter keystroke to continue function
 readkey <- function()
 {
   cat ("Press [enter] to continue, type 'q' to quit")
   line <- readline()
+}
+
+# Uni_eda for all columns in a data table
+uni <- function(df){
+  if (is.data.frame(df)){
+    for (col in 1:length(df)) {
+      uni_eda(as.vector(df[[col]]))
+      print(paste('Variable name:', names(df)[col]))
+      if(readkey() == 'q') break
+    }
+  } else {
+    print('Error: Not a data frame')
+  }
 }
 
 
@@ -79,22 +93,43 @@ dt <- fread('data.csv')
 dt[, gender:=as.factor(gender)]
 dt[, nat:=as.factor(nat)]
 dt[, year:=as.factor(year)]
+df = as.data.frame(dt)
 
 # Investigate new dataset
-df = as.data.frame(dt)
 open_sesame(df)
+
+
+# Univariate EDA
+uni(dt)
+
+
+# Bivariate EDA
 isnum = sapply(df, class) %in% c('integer', 'numeric')
 library(corrplot)
 cor(df[,isnum])
 corrplot(cor(df[,isnum]))
-
-for (col in 1:length(dt)) {
-  uni_eda(as.vector(dt[[col]]))
-  print(paste('Variable name:', names(dt)[col]))
-  if(readkey() == 'q') break
-}
+plot(df[1:100,])
 
 
 
+# Investigate and Clean Outliers ------------------------------------------
 
+# birth_year
+dt[birth_year==0]  # View 
+dt[birth_year==0, birth_year:=NA]  # All values were missing in the results
+dt[is.na(birth_year)]  # View
+
+# nat
+dt[nat=='NON']  # View
+dt[nat=='NON', nat:=NA]  # All values were missing in the results
+dt[is.na(nat)]
+
+# age
+dt[age<0]  # View 
+dt <- dt[-which(dt$age<0),]  # One falsely read row
+dt[age<0]  # View that it's empty
+dt[age>100]  # View
+dt[age>100, age:=NA]  # Miscalculations due to missing birth_year
+dt[age>100]
+uni_eda(dt[['age']])  # View new age distribution
 
