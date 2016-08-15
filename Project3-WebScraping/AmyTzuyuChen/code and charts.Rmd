@@ -1,0 +1,139 @@
+---
+title: "The World of Starbucks Muggers"
+author: "Amy Tzu-Yu Chen"
+date: "August 14, 2016"
+output: html_document
+---
+
+
+```{r load data, echo=TRUE, message=FALSE, warning=FALSE}
+mug <- read.csv("https://raw.githubusercontent.com/amy17519/FredorangeMuggers/master/FredorangeMug.csv")
+user <- read.csv("https://raw.githubusercontent.com/amy17519/FredorangeMuggers/master/FredorangeUser.csv")
+```
+
+```{r geographic distribution of mug products and collectors, echo=TRUE, fig.height=7, fig.width=10, message=FALSE, warning=FALSE}
+library(dplyr)
+library(plotly)
+library(countrycode)
+
+mug_country<-as.data.frame(mug %>% 
+              group_by(Country) %>%
+              summarise(Quantity = length(Country)))
+user_country<-as.data.frame(user %>% 
+                              group_by(Country) %>%
+                              summarise(People = length(Country)))
+#take out users who did not indicate country. There are 1646 of them.
+user_country<-user_country[-which(user_country$Country=='undefined country'),]
+
+mug_country$CountryCode<-countrycode(mug_country$Country,"country.name", "iso3c")
+user_country$CountryCode<-countrycode(user_country$Country,"country.name", "iso3c")
+
+mug_country_noUSA<-mug_country[-which(mug_country$Country=='USA'),]
+user_country_noUSA<-user_country[-which(user_country$Country=='usa'),]
+
+#plotly maps
+l <- list(color = toRGB("gray85"), width = 0.5)
+g <- list(showframe = FALSE,showcoastlines = FALSE,
+          projection = list(type ='equirectangular'))
+
+plot_ly(mug_country, z = Quantity, text = Country, 
+        locations = CountryCode, type = 'choropleth',
+        color = Quantity, colors = 'Oranges', marker = list(line = l),
+        colorbar = list(title = '# of Products')) %>%
+  layout(title = 'Geographic Distribution of Mug Products', geo = g)
+
+plot_ly(mug_country_noUSA, z = Quantity, text = Country, 
+        locations = CountryCode, type = 'choropleth',
+        color = Quantity, colors = 'Oranges', marker = list(line = l),
+        colorbar = list(title = '# of Products')) %>%
+  layout(title = 'Geographic Distribution of Mug Products, excluding USA', geo = g)
+
+plot_ly(user_country, z = People, text = Country, 
+        locations = CountryCode, type = 'choropleth',
+        color = People, colors = 'YlGnBu', marker = list(line = l),
+        colorbar = list(title = '# of Collectors')) %>%
+  layout(title = 'Geographic Distribution of Mug Collectors', geo = g)
+
+plot_ly(user_country_noUSA, z = People, text = Country, 
+        locations = CountryCode, type = 'choropleth',
+        color = People, colors = 'GnBu', marker = list(line = l),
+        colorbar = list(title = '# of Collectors')) %>%
+  layout(title = 'Geographic Distribution of Mug Collectors, excluding USA', geo = g)
+```
+
+```{r unsupervised kmeans clustering, echo=TRUE, fig.height=7, fig.width=10, message=FALSE, warning=FALSE}
+#choosing k for k-means clustering, k=4
+wss <- (nrow(mug[,7:9])-1)*sum(apply(mug[,7:9],2,var))
+for (i in 2:10) wss[i] <- sum(kmeans(mug[,7:9], 
+                                     centers=i)$withinss)
+plot(1:10, wss, type="b", xlab="Number of Clusters",
+     ylab="Within groups sum of squares")
+
+set.seed(123)
+mugCluster <- kmeans(mug[, 7:9], 4, nstart = 20)
+
+#observe patterns in each cluster, rename clusters by their characteristics, then #use it as a new variable: Difficulty
+mugCluster$centers
+mugCluster$cluster <- as.factor(mugCluster$cluster)
+levels(mugCluster$cluster) <- c("Medium Difficulty","Inconclusive",
+                                "Hard to Get Mugs","Easy to Get Mugs")
+mug$Difficulty <- mugCluster$cluster
+
+plot_ly(data = mug, x = Owner, y = Seeker, mode = "markers",
+        text= paste(Name, "<br>Edition: ", Edition, "<br>Country: ", Country,
+                    "<br>City: ",City, "<br>Owner: ",Owner,"<br>Seeker: ",
+                    Seeker,"<br>Trader",Trader, "<br>Difficulty: ",Difficulty),
+        color = mugCluster$cluster, 
+        colors =c('olivedrab3','navyblue','indianred2','darkgoldenrod1')) %>% 
+  layout(title='K-means Clustering: # of Seekers vs. # of Owners')
+```
+
+```{r popular editions, echo=TRUE, fig.height=7, fig.width=10, message=FALSE, warning=FALSE}
+#view editions and countries with most hard to find and collectible mugs
+#table(mug$Edition, mugCluster$cluster)
+
+popular_editions<-mug[mug$Edition %in% c("08 Icon Edition","13 You Are Here Series",
+                                         "Japan Country Series",'Relief Series'),]
+popular_editions$Edition<-as.factor(as.character(popular_editions$Edition))
+
+plot_ly(data = popular_editions, x = Rarity, y = Popularity, mode = "markers",
+        text= paste(Name, "<br>Edition: ", Edition, "<br>Country: ", Country,
+                    "<br>City: ",City, "<br>Owner: ",Owner,"<br>Seeker: ",
+                    Seeker,"<br>Trader: ",Trader, "<br>Difficulty: ",Difficulty),
+        color = Edition, 
+        colors = c('olivedrab3','navyblue','indianred2','darkgoldenrod1')) %>%
+  layout(title='Collectible Editions: Popularity vs. Rarity')
+
+plot_ly(data = popular_editions, x =Rarity , y =WillingnessToTrade , 
+        mode = "markers",
+        text= paste(Name, "<br>Edition: ", Edition, "<br>Country: ", Country,
+                    "<br>City: ",City, "<br>Owner: ",Owner,"<br>Seeker: ",
+                    Seeker,"<br>Trader: ",Trader, "<br>Difficulty: ",Difficulty),
+        color = Edition, 
+        colors = c('olivedrab3','navyblue','indianred2','darkgoldenrod1')) %>%
+  layout(title='Collectible Editions: Willingness to Trade vs. Rarity')
+```
+
+```{r popular countries, echo=TRUE, fig.height=7, fig.width=10, message=FALSE, warning=FALSE}
+table(mug$Country, mugCluster$cluster)
+popular_country<-mug[mug$Country %in%
+                       c("Canada","China","Germany","Mexico","Russia","USA"),]
+popular_country$Country<-as.factor(as.character(popular_country$Country))
+
+plot_ly(data = popular_country, x = Rarity, y = Popularity, mode = "markers",
+        text= paste(Name, "<br>Edition: ", Edition, "<br>Country: ", Country,
+                    "<br>City: ",City, "<br>Owner: ",Owner,"<br>Seeker: ",
+                    Seeker,"<br>Trader: ",Trader, "<br>Difficulty: ",Difficulty),
+        color = Country, 
+        colors = 'Dark2') %>%
+  layout(title='Collectible Countries: Popularity vs. Rarity')
+
+plot_ly(data = popular_country, x =Rarity , y =WillingnessToTrade , 
+        mode = "markers",
+        text= paste(Name, "<br>Edition: ", Edition, "<br>Country: ", Country,
+                    "<br>City: ",City, "<br>Owner: ",Owner,"<br>Seeker: ",
+                    Seeker,"<br>Trader: ",Trader, "<br>Difficulty: ",Difficulty),
+        color = Country, 
+        colors = 'Dark2') %>%
+  layout(title='Collectible Countries: Willingness to Trade vs. Rarity')
+```
