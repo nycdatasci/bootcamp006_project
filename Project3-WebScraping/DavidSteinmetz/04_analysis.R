@@ -19,6 +19,16 @@ boxplot(dt[['time']] ~ dt[['gender']],
         main = "Sample Distribution of Race Times",
         col = c("red", "blue"), names = c("Women", "Men"))
 
+# Boxplots
+# --Gender
+g <- ggplot(dt, aes(as.factor(gender), time))
+g <- g + geom_boxplot(aes(colour=as.factor(gender)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Gender') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Gender")
+g
+
 # Density plots
 g <- ggplot(dt, aes(x = time))
 g <- g + geom_density(aes(colour = gender))
@@ -364,7 +374,7 @@ g <- g + geom_boxplot(aes(colour=as.factor(nat)))
 g <- g + theme_minimal()
 g <- g + ggtitle('Distribution of Race Times')
 g <- g + xlab('Year') + ylab('Time (s)')
-g <- g + scale_colour_discrete(name = "Year")
+g <- g + scale_colour_discrete(name = "Nationality")
 g
 
 # --Nationality reordered according to median time
@@ -432,7 +442,7 @@ g <- g + scale_colour_discrete(name = "Nationality")
 g
 
 # One-way ANOVA between Nationalities
-summary(aov(time ~ nat, data = dt))  # Sig. diff in mean time across ages
+summary(aov(time ~ nat, data = dt))  # Sig. diff in mean time across nats
 # Check assumptions:
 # 1. Population is normally distributed
 # 2. SD of populations are equal
