@@ -17,3 +17,6 @@ dt[, age.cat:= cut2(age, g=7)]  # Split age into 7 quantile blocks
 barplot(table(cut2(dt$time, g=7)))  # View
 dt[, time.cat:= cut2(time, g=7)]  # Split time into 7 quantile blocks
 
+# Create place buckets
+barplot(table(cut2(dt$place, g=7)))  # View
+dt[, place.cat:= cut2(place, g=7)]  # Split time into 7 quantile blocks
