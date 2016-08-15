@@ -1,0 +1,90 @@
+---
+title: "Project3"
+author: "Jurgen de Jager"
+date: "August 12, 2016"
+output: html_document
+---
+
+```{r, echo = FALSE}
+library(randomForest)
+library(ggplot2)
+library(rpart)
+library(rpart.plot)
+library(rattle)
+library(party)
+library(RColorBrewer)
+library(MASS)
+nba = read.csv("nba.csv")
+nba$Position = as.character(nba$Position)
+which(nchar(nba$Position)>3)
+nba = nba[1:342,]
+nba = nba[-c(159,260,324,327),]
+```
+
+#VIZ
+```{r}
+library(GGally)
+ggpairs(nba3, aes(col = Position))
+
+#points
+ggplot(nba, aes(x = PER)) + geom_density(aes(fill = Position, alpha = 0.2))
+
+#true shootings score
+ggplot(nba, aes(x = TS)) + geom_density(aes(fill = Position, alpha = 0.2))
+
+#Offensive Rebounds
+ggplot(nba, aes(x = TRB)) + geom_density(aes(fill = Position, alpha = 0.2))
+
+#Defensive Rebounds
+ggplot(nba, aes(x = DRB)) + geom_density(aes(fill = Position, alpha = 0.2))
+
+#Steals
+ggplot(nba, aes(x = STL)) + geom_density(aes(fill = Position, alpha = 0.2))
+
+```
+
+#Decision Tree - Good Fit 
+```{r}
+#splitting up between test and train set. 
+nba$randu = runif(338, 0, 1)
+nba.train = nba[nba$randu < .4,]
+nba.test = nba[nba$randu >= .4,]
+
+#model2
+fit = rpart(Position ~., data = nba.train[,c(2,6:21)], method="class")
+fancyRpartPlot(fit)
+#prediction
+nba.test$Prediction <- predict(fit, nba.test, type = "class")
+#tabling results
+table(nba.test$Position, nba.test$Prediction)
+prop.table(table(nba.test$Position,nba.test$Prediction),1)
+```
+
+#Decision Tree - Over Fit 
+```{r}
+#model2
+fit = rpart(Position ~., data = nba.train[,c(2,6:21)], method="class", control=rpart.control(minsplit=3, cp=0.001))
+fancyRpartPlot(fit)
+#prediction
+nba.test$Prediction <- predict(fit, nba.test, type = "class")
+#tabling results
+table(nba.test$Position, nba.test$Prediction)
+prop.table(table(nba.test$Position,nba.test$Prediction),1)
+```
+
+#RF
+```{r}
+#model 1
+rf.model = randomForest(as.factor(Position) ~ . , data= nba.train[,c(2,6:21)], mtry = 10, nsplit = 5000)
+#predicting using test set
+nba.test$pred.pos.rf = predict(rf.model, nba.test, type="response")
+#tabling resutls 
+table(nba.test$Position,nba.test$pred.pos.rf)
+#proportion table 
+prop.table(table(nba.test$Position,nba.test$pred.pos.rf),1)
+
+```
+
+
+
+

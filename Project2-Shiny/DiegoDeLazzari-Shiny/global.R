@@ -6,15 +6,20 @@ library(plotly)
 library(dygraphs)
 library(xts)
 library(DT)
-# library(leaflet)
-# library(ggmap)
+
+# Function to get the first day of the month, given a date
+monthStart <- function(x) {
+  x <- as.POSIXlt(x)
+  x$mday <- 1
+  as.Date(x)
+}
 
 # Local path
 # setwd("~/Documents/NYCDSA/Project 2")
 
 # First dataset
 balkanRoute = readRDS('data/PathGreeceBalkans2016.rds', refhook = 'Balkans')
-
+mediteRoute = readRDS('data/PathSpainItaly2016.rds', refhook = 'Medite')
 # Modify to join worldMap: Add country and coordinates:
 
 # First, turn columns into country names, except Date
@@ -27,16 +32,28 @@ colnames(balkanRoute)[2] = c('Greece')
 # geo_loc = geocode(names(balkanRoute)[2:length(balkanRoute)]) %>% 
 # mutate(.,"Country" = names(balkanRoute)[2:length(balkanRoute)])
 
-# Next load country codes and join them to the initial data frame
+# Next load country codes and join them to the initial data frame. Note that 
+# mediteRoute.map is already in months
 country_codes =  readRDS('data/countryCodes.rds', refhook = 'codes')
 
-balkanRoute.map = balkanRoute %>% 
+# Aggregate by month and back to data frame using xts. Changing Date format
+# in month year. gathering and joining with country codes
+balkanTimeSeries = xts(balkanRoute[,-1] ,order.by = unique(balkanRoute$Date))
+
+balkanTimeSeries_month = apply.monthly(balkanTimeSeries,FUN=colSums)
+
+balkanRoute.map = data.frame(Date = index(balkanTimeSeries_month), 
+                                        coredata(balkanTimeSeries_month)) %>% 
+                  mutate(.,Date = monthStart(Date)) %>%
                   gather(.,key="Country",value="Arrivals",2:8) %>% 
                   inner_join(.,country_codes,by = "Country")
 
-balkanTimeSeries = xts(balkanRoute[,-1],order.by = unique(balkanRoute$Date))
+mediteRoute.map = mediteRoute %>% 
+                  inner_join(.,country_codes,by = "Country") %>%
+                  mutate(.,Date = monthStart(Date))
 
-slider.range = balkanRoute.map$Date
+# Set input slider
+slider.range = unique(balkanRoute.map$Date)
 
 # Second dataset: About country of origin
 dataOrigin2016 = readRDS('data/dataOrigin2016.rds', refhook = 'dataOrigin')

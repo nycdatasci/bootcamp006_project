@@ -2,7 +2,7 @@ library(shiny)
 library(leaflet)
 library(RColorBrewer)
 library(dplyr)
-library(googleVis)
+library(ggplot2)
 library(fmsb)
 
 ########## The Server Body  #############
@@ -87,7 +87,7 @@ shinyServer(function(input, output){
     leaflet(worldaps) %>%
       setView(lng = -64.787342, lat = 32.300140, zoom = 2) %>%
       addProviderTiles("CartoDB.Positron") %>%
-      addPolygons(stroke = TRUE, smoothFactor = 0.2, fillOpacity = 0.7,
+      addPolygons(stroke = TRUE, weight = 3, smoothFactor = 0.2, fillOpacity = 0.7,
                   color = mypal()(myratio()), popup = detail_popup()
       ) %>%
       addLegend("bottomleft", pal = mypal(),
@@ -97,8 +97,7 @@ shinyServer(function(input, output){
                 opacity = 0.7
       )
   })
-  
-  
+
   ########### Tab2 - The Country Profile  #############
   
   # Tab2 - Output 1myRadarName --- Interactive Chart Name -----
@@ -138,7 +137,44 @@ shinyServer(function(input, output){
     )
   })
   
+  # Tab3 - Output 1 --- Interactive Rank Charts ---------
   
+  Rank1table <- reactive({
+    arrange_(aps[1:input$rank_,], input$Ratio2[1])
+  })
+
+  Rank2table <- reactive({
+    arrange_(aps[1:input$rank_,], input$Ratio2[2])
+  })
+  
+  output$Rank1 <- renderPlot({
+    # print(Rank1table())
+    ggplot(data = Rank1table(),
+           #aes_string(x = reorder("Economy", input$Ratio2[1]), y = input$Ratio2[1])
+           aes(x = reorder(Economy, desc(Rank1table()[[input$Ratio2[1]]])), 
+               y = Rank1table()[[input$Ratio2[1]]]
+               )
+           ) +
+      geom_bar(stat = "identity", aes(fill = Economy)) +
+      theme(axis.text.x=element_blank()) +
+      labs(x = "Country", y = input$Ratio2[1])
+  })
+  
+  output$Rank2 <- renderPlot({
+    ggplot(data = Rank2table(),
+           aes(x = reorder(Economy, desc(Rank1table()[[input$Ratio2[2]]])), 
+               y = Rank1table()[[input$Ratio2[2]]]
+           )
+           ) +
+      geom_bar(stat = "identity", aes(fill = Economy)) +
+      theme(axis.text.x=element_blank()) +
+      labs(x = "Country", y = input$Ratio2[2]) 
+  })
+  
+  # Tab4 - Output 1 --- Data Tables ---------
+  output$nesTable <- DT::renderDataTable(nes, options = list(scrollX = TRUE))
+  
+  output$apsTable <- DT::renderDataTable(aps, options = list(scrollX = TRUE))
   
 })
 

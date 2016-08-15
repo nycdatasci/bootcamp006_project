@@ -7,7 +7,6 @@
 #    http://shiny.rstudio.com/
 #
 
-library(shiny)
 library(DT)
 
 cols = c('PUMA', 'Property Value', 'Household Income', 'Household Type (Married)', 'Sex (Male)', 'Race (White)', 'Education (Higher)')
@@ -41,7 +40,38 @@ shinyUI(fluidPage(
                DT::dataTableOutput("table")),
       tabPanel('Comparison', h3('Trending Demographics'),
                h5('For the 2005-2014 period, you can select variables to track amongst the New York Population'), br(),
-               plotOutput('mylines')
+               #plotOutput('mylines')
+               lineChartOutput("mychart"),
+               fluidRow(
+                 column(width=6,
+                        column(4,
+                               selectInput("first",
+                                           "PUMA 1:",
+                                           c(Incomes$PUMA))
+                        )
+                 ),
+                 column(width=6,
+                        column(4,
+                               selectInput("second",
+                                           "PUMA 2:",
+                                           c(Incomes$PUMA))
+                        )
+                 ),
+                 column(width=6,
+                        column(4,
+                               selectInput("third",
+                                           "PUMA 3:",
+                                           c(Incomes$PUMA))
+                        )
+                 ),
+                 column(width=6,
+                        column(4,
+                               selectInput("fourth",
+                                           "PUMA 4:",
+                                           c(Incomes$PUMA))
+                        )
+                 )
+               )
       ),
       tabPanel('Variable Map', plotOutput("heat"),
                selectInput('mapvar', choices = colnames(ACS_P), label = 'Variable', selected = 'RACE_W'),
@@ -51,47 +81,5 @@ shinyUI(fluidPage(
       )
   # Create a new row for Line chart showing Household income change, property Value, higher education
   
-  #fluidRow(
-    
-    
-    # column(width=9,
-    #        lineChartOutput("mychart")
-    # ),
-    # 
-    # column(width=3,
-    #        column(4,
-    #               selectInput("first",
-    #                           "PUMA 1:",
-    #                           c(Incomes$PUMA))
-    #        )
-    # ),
-    # column(width=3,
-    #        column(4,
-    #               selectInput("second",
-    #                           "PUMA 2:",
-    #                           c(Incomes$PUMA))
-    #        )
-    # ),
-    # column(width=3,
-    #        column(4,
-    #               selectInput("third",
-    #                           "PUMA 3:",
-    #                           c(Incomes$PUMA))
-    #        )
-    # ),
-    # column(width=3,
-    #        column(4,
-    #               selectInput("fourth",
-    #                           "PUMA 4:",
-    #                           c(Incomes$PUMA))
-    #        )
-    # )
-    # 
-    # column(width=3,
-    #        sliderInput("sinePhase", "Sine phase", -180, 180, 0, step=10,
-    #                    animate=animationOptions(interval=100, loop=TRUE)),
-    #        sliderInput("sineAmplitude", "Sine amplitude", -2, 2, 1, step=0.1,
-    #                    animate=animationOptions(interval=100, loop=TRUE))
-    #   )
-   # ) #end fluid
+  
   ))

@@ -26,38 +26,44 @@ shinyServer(function(input, output,session){
     # Create Map
     
   output$map <- renderPlotly({
-    sel.data <- filter(balkanRoute.map, Date == input$slider.map)
-    
+    sel.data <- filter(balkanRoute.map, Date == monthStart(input$slider.map))
+    sel.data2 <- filter(mediteRoute.map, Date == monthStart(input$slider.map))
+     
     # light grey boundaries
     l <- list(color = toRGB("grey"), width = 0.5)
     
     # specify map projection/options
     g <- list(
       scope='world',
+      resolution = 50,
       projection=list(scale = 1),
       showframe = T,
       showcoastlines = T,
-      projection = list(type = 'Mercator'),#''Orthographic
+      projection = list(type = 'Mercator'),
       lataxis = list(range = c(30,50)),
-      lonaxis = list(range = c(0,40)),
+      lonaxis = list(range = c(-10,40)),
       showsubunits = T,
       showcountries = T
     )
     plot_ly(sel.data, z = Arrivals, text = Country, locations = Code, type = 'choropleth',
             color = Arrivals, colors = 'Blues', marker = list(line = l),inherit = FALSE,
-            colorbar = list(title = 'Arrivals')) %>%
+            colorbar = list(title = 'Balkans',xanchor = 'left')) %>%
       add_trace(.,type="scattergeo",
                 locations = country_codes$Code, text = country_codes$Country, mode="text") %>%
-      layout(title ='Daily arrivals across the Balkans', geo = g, width = 900)
+      add_trace(., z = sel.data2$Arrivals, zmax = 25000, zmin = 500, text = sel.data2$Country, locations = sel.data2$Code, type = 'choropleth',
+      color = sel.data2$Arrivals, colors = 'Greens', marker = list(line = l),inherit = FALSE,
+      colorbar = list(title = 'Mediterranean', xanchor = 'right')) %>%
+      layout(geo = g, widths = "100%")
              
   })
   
 
     output$origin <- renderPlotly({
       
-      filt.dataOrigin2016 = filter(dataOrigin2016, Country == input$country)
+      filt.dataOrigin2016 = filter(dataOrigin2016, Country == input$country) %>%
+                            arrange(.,desc(Total.2015))
       
-      p1 = plot_ly(
+        p1= plot_ly(
         x = filt.dataOrigin2016$Origin,
         y = filt.dataOrigin2016$Total.2016,
         name = "2016",
@@ -68,15 +74,10 @@ shinyServer(function(input, output,session){
         y = filt.dataOrigin2016$Total.2015,
         name = "2015",
         type = "bar") %>%
-        layout(.,title = "Country of origin",  width = 480, height = 280,
-               yaxis = list(title = "Arrivals",type='log'), xaxis = list(title = ""),tickangle=-90)
+        layout(.,widths = "90%",
+               yaxis = list(title = "Arrivals",type='log'), xaxis = list(title = "", tickangle=-90))
      })
-    # p1 = plot_ly(data=dataOrigin2016, labels = filt.dataOrigin2016$Origin, domain = list(x = c(0, 0.4), y = c(0.4, 1)),
-    #               name = '2016', values = filt.dataOrigin2016$Total.2016, type = "pie", showlegend = F) %>%
-    #       add_trace(data = dataOrigin2016, labels = filt.dataOrigin2016$Origin, domain = list(x = c(0.4, 1), y = c(0.4, 1)),
-    #              name = '2015', values = filt.dataOrigin2016$Total.2015, type = "pie", showlegend = F) %>%
-    #      layout(title = "Country of origin",  width = 480, height = 280)
-    #   })
+  
     
     output$gender <- renderPlotly({
       
@@ -93,8 +94,8 @@ shinyServer(function(input, output,session){
                   y = filt.dataGender2016$Total.2015,
                   name = "2015",
                   type = "bar") %>%
-        layout(.,title = "Demographics",  width = 480, height = 280, barmode = "stack",
-               yaxis = list(title = "Arrivals"), xaxis = list(title = ""),tickangle=-90)
+        layout(., barmode = "stack",
+               yaxis = list(title = "Arrivals"), xaxis = list(title = "",tickangle=-90))
     })
     
     # Plot time series
@@ -102,9 +103,7 @@ shinyServer(function(input, output,session){
     
     
     output$arrivals_by_day <- renderDygraph({
-    # Show only Greece, Croatia and Austria
-      dygraph(balkanTimeSeries[,c(1,4,5)]) %>%
-        # dyOptions(logscale=TRUE) %>%
+      dygraph(balkanTimeSeries) %>%
         dyHighlight(highlightCircleSize = 5, 
                     highlightSeriesBackgroundAlpha = 0.2,
                     hideOnMouseOut = FALSE) %>% 
@@ -114,92 +113,3 @@ shinyServer(function(input, output,session){
     })
     
 })
-#########################
-# show Destination map using googleVis   "Arrivals by Country of origin"
-# output$destination <- renderGvis({
-#     gvisGeoChart(balkanRoute, "state.name", input$selected,
-#                  options=list(region="", displayMode="regions",
-#                               resolution="provinces",
-#                               width="auto", height="auto"))
-# })
-# 
-#     # show statistics using infoBox
-#     output$maxBox <- renderInfoBox({
-#         max_value <- max(data_stat[,input$selected])
-#         max_state <- 
-#             data_stat$state.name[data_stat[,input$selected] == max_value]
-#         infoBox(max_state, max_value, icon = icon("hand-o-up"))
-#     })
-#     output$minBox <- renderInfoBox({
-#         min_value <- min(data_stat[,input$selected])
-#         min_state <- 
-#             data_stat$state.name[data_stat[,input$selected] == min_value]
-#         infoBox(min_state, min_value, icon = icon("hand-o-down"))
-#     })
-#     output$avgBox <- renderInfoBox(
-#         infoBox(paste("AVG.", input$selected),
-#                 mean(data_stat[,input$selected]), 
-#                 icon = icon("calculator"), fill = TRUE))
-#     
-# Legend
-# observe({
-#   proxy <- leafletProxy("map", data = balkanRoute.map)
-#   
-#   # Remove any existing legend, and only if the legend is
-#   # enabled, create a new one.
-#   proxy %>% clearControls()
-#   if (input$legend) {
-#     pal <- colorpal()
-#     proxy %>% addLegend(position = "bottomright",
-#                         pal = pal, values = ~Arrivals
-#     )
-#   }
-# })
-# 
-# This reactive expression represents the palette function,
-# which changes as the user makes selections in UI.
-# colorpal <- reactive({
-#   colorNumeric(input$colors, balkanRoute.map$Arrivals)
-# })
-
-# #creating reactive function for selected options
-# sel.spec <-reactive({ specs = paste("<strong>", sel.data()$Arrivals,"</strong>")
-# })
-# 
-# 
-# 
-#### Create the map
-# 
-# #creating reactive functions for selected Date
-# sel.data <- reactive({
-#   filter(balkanRoute.map, Date == input$slider.map)
-# })
-# 
-# # Create the static part of the map
-# output$map <- renderLeaflet({
-#   leaflet(balkanRoute.map) %>%
-#     addProviderTiles("CartoDB.Positron") %>%
-#     setView(lat = 42, lng = 20, zoom = 5) %>%
-#     addCircles(~lon, ~lat, color = "red", radius = 50000, weight = 2,
-#                fillOpacity = 0.3) %>%
-#     addPolylines(geo_loc$lon[-5], geo_loc$lat[-5],color = "red", 
-#                  weight = 2, fillOpacity = 0.7)%>%
-#     addPolylines(geo_loc$lon[c(3,5,7)], geo_loc$lat[c(3,5,7)],color = "red",
-#                  weight = 2, fillOpacity = 0.7)
-# })
-# 
-# # Create the reactive part of the map
-# observe({
-#   # pal = colorpal()
-#   leafletProxy("map", data = sel.data()) %>%
-#     clearShapes() %>%
-#     addCircles(~lon, ~lat, radius = 50000, color = "red",
-#                 fillOpacity = 0.3) %>%
-#     addPopups(~lon, ~lat, ~paste(Country,': ',Arrivals), 
-#               options = popupOptions(minWidth = 10, closeOnClick = FALSE, 
-#                                      closeButton = FALSE))%>%
-#    addPolylines(geo_loc$lon[-5], geo_loc$lat[-5],color = "red", 
-#                 weight = 2, fillOpacity = 0.7)%>%
-#    addPolylines(geo_loc$lon[c(3,5,7)], geo_loc$lat[c(3,5,7)],color = "red",
-#                 weight = 2, fillOpacity = 0.7)
-# })

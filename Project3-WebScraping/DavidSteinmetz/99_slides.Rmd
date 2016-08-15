@@ -1,0 +1,57 @@
+---
+title: "We run faster than you do"
+subtitle: ""
+author: "David Richard Steinmetz"
+date: "August 14, 2016"
+output:
+  ioslides_presentation:
+    widescreen: true
+    #smaller: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Put conclusion statement here
+
+
+
+
+## The first supporting argument goes here
+
+```{r}
+
+```
+
+
+## The second supporting argument goes here
+
+```{r}
+
+```
+
+
+## The third supporting argument goes here
+
+```{r}
+
+```
+
+
+## Put the conclusion here
+
+```{r}
+
+```
+
+
+## Takeaway
+
+- a
+- b
+- c
+
+## Future Work
+
+

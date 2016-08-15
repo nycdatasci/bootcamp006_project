@@ -33,7 +33,7 @@ support_byYear<-c("nominal GDP","real GDP","nominal GDP growth","real GDP growth
 rela_abso<-"Absolute or Relative:"
 ts_cs<-"Correlation Type"
 US_GDP_Visual<-'US GDP Data Visualization'
-
+noSectors<-c("personal income per capita","population","per capita real GDP growth","per capita real GDP")
 
 sectorsAbbreviations=c("Agriculture", "Mining", "Util", "Construt.",                                    
 "Manufac.", "Wholesale", "Retail", "Trans", "IT",                                     

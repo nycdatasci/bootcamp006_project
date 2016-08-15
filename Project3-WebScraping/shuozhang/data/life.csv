@@ -1,0 +1,224 @@
+Country,Life,Male,Female
+ Monaco,89.52,85.77,93.69
+ Japan,84.74,81.45,87.52
+ Singapore,84.68,80.5,85.74
+ Macau ,84.51,80.35,84.64
+ San Marino,83.18,78.96,85.72
+ Hong Kong,82.16,79.5,84.95
+ Andorra,82.14,79.53,84.96
+ Guernsey,82.04,79.32,84.97
+ Australia,81.81,79.4,84.35
+ Italy,81.77,79.16,84.53
+ France,81.50,78.2,84.80
+ Jersey,81.38,78.96,83.94
+ Canada,81.38,78.81,84.1
+ Spain,81.17,78.16,84.37
+  Switzerland,81.07,78.24,84.05
+ Sweden,81.07,78.78,83.51
+ Israel,80.96,78.79,83.24
+ Iceland,80.9,78.72,83.17
+ Anguilla,80.87,78.32,83.51
+ Cayman Islands,80.68,78.02,83.39
+ Bermuda,80.71,77.49,83.99
+ Isle of Man,80.64,79.09,82.32
+ New Zealand,80.59,78.61,82.67
+ Liechtenstein,80.31,76.86,83.77
+ Norway,80.2,77.53,83.02
+ Ireland,80.19,77.96,82.55
+ Germany,80.07,77.82,82.44
+ United Kingdom,80.05,77.95,82.25
+ Jordan,80.05,78.73,81.45
+ Greece,79.92,77.36,82.65
+ Saint Pierre and Miquelon,79.87,77.61,82.26
+ Republic of China,79.78,76.87,82.84
+ South Korea,79.72,77.25,82.35
+ Austria,79.72,77.45,82.12
+ Faroe Islands,79.68,77.06,82.44
+ Malta,79.61,76.36,83.08
+ Netherlands,79.51,76.35,82.81
+ Luxembourg,79.45,76.47,82.43
+ Belgium,79.35,76.0,82.7
+ Portugal,79.33,76.29,82.55
+ U.S. Virgin Islands,79.27,75.79,82.89
+ Finland,79.11,76.39,81.97
+ Turks and Caicos Islands,79.05,75.84,82.49
+ Wallis and Futuna,78.98,76,82.11
+ Puerto Rico,78.92,75.31,82.71
+ European Union,78.82,75.7,82.13
+ Bosnia and Herzegovina,78.81,75.25,82.63
+" Saint Helena, Ascension and Tristan da Cunha",78.76,75.83,81.83
+ Gibraltar,78.68,75.84,81.72
+ Denmark,78.63,76.25,81.14
+ United States,78.37,75.92,80.93
+ Bahrain,78.15,76.03,80.33
+ Cyprus,77.82,75.04,80.74
+ Panama,77.79,75.02,80.68
+ Costa Rica,77.72,75.10,80.46
+ Chile,77.70,74.44,81.13
+ Cuba,77.70,75.46,80.08
+ Libya,77.65,75.34,80.08
+ British Virgin Islands,77.63,76.32,78.99
+ Albania,77.41,74.82,80.30
+ Dominican Republic,77.31,75.16,79.55
+ Slovenia,77.30,73.64,81.20
+ Czech Republic,77.19,73.93,80.66
+ Georgia,77.12,73.80,80.82
+ French Polynesia ( France),77.10,74.62,79.70
+ Kuwait,77.09,75.95,78.3
+ Northern Mariana Islands ( US),77.08,74.45,79.87
+ Argentina,76.95,73.71,80.36
+ Saint Lucia,76.84,74.15,79.68
+ New Caledonia ( France),76.75,72.67,81.03
+ Netherlands Antilles( Netherlands),76.65,74.33,79.09
+ United Arab Emirates,76.51,73.94,79.22
+ Mexico,76.47,73.65,79.43
+ Uruguay,76.35,73.1,79.72
+ Saudi Arabia,76.3,74.23,78.48
+ Poland,76.28,73.12,79.44
+ China,76.04,74.79,77.3
+ Tunisia,75.78,73.98,77.7
+ Paraguay,75.77,73.19,78.49
+ Brunei,75.74,73.52,78.07
+ Dominica,75.55,72.61,78.64
+ Slovakia,75.4,71.47,79.53
+ Brazil,75.35,71.52,79.38
+ Croatia,75.35,71.72,79.18
+ Qatar,75.35,71.66,77.14
+ Ecuador,75.3,72.37,78.37
+ Aruba ( Netherlands),75.28,72.25,78.38
+ Sri Lanka,75.14,73.08,77.28
+ Lithuania,74.9,69.98,80.1
+ Hungary,74.79,71.04,78.76
+ Antigua and Barbuda,74.76,72.81,
+ Macedonia,74.68,72.18,77.38
+ West Bank,74.54,72.54,76.65
+ Cook Islands,74.22,71.46,77.13
+ Oman,74.16,71.87,76.55
+ Algeria,74.02,72.35,75.77
+ Mauritius,74,70.53,77.65
+ Maldives,73.97,71.78,76.28
+ Barbados,73.94,71.65,76.26
+ Serbia,73.9,71.09,76.89
+ Suriname,73.73,71,76.65
+ American Samoa ( US),73.72,70.8,76.82
+ Solomon Islands,73.69,71.14,76.37
+ Lebanon,73.66,71.15,76.31
+ Saint Vincent and the Grenadines,73.65,71.82,75.54
+ Venezuela,73.61,70.54,76.83
+ Jamaica,73.53,71.83,75.3
+ Gaza Strip,73.42,71.82,75.12
+ Malaysia,73.29,70.56,76.21
+ Saint Kitts and Nevis,73.2,70.33,76.25
+ Thailand,73.1,70.77,75.55
+ Bulgaria,73.09,69.48,76.91
+ Seychelles,73.02,68.33,77.85
+ Estonia,72.82,67.45,78.53
+ Colombia,72.81,68.98,76.76
+ Montserrat,72.76,74.74,70.68
+ Armenia,72.68,69.06,76.81
+ Romania,72.45,68.95,76.16
+ El Salvador,72.33,68.72,76.11
+ Latvia,72.15,66.98,77.59
+ Egypt,72.12,69.56,74.81
+ Turkey,71.96,70.12,73.89
+ Uzbekistan,71.96,68.95,75.15
+ Samoa,71.86,69.03,74.84
+ Morocco,71.8,69.42,74.3
+ Cape Verde,71.61,68.27,75.05
+ Vietnam,71.58,68.78,74.57
+ Nicaragua,71.5,69.35,73.75
+ Palau,71.22,68.08,74.54
+ Marshall Islands,71.19,69.15,73.34
+ Syria,71.19,69.8,72.68
+ Iran,71.14,69.65,72.72
+ Philippines,71.09,68.17,74.15
+ Federated States of Micronesia,70.94,69.06,72.93
+ Trinidad and Tobago,70.86,67.98,73.82
+ Moldova,70.8,67.1,74.71
+ Indonesia,70.76,68.26,73.38
+ Peru,70.74,68.33,73.15
+ Fiji,70.73,68.18,73.41
+ Tonga,70.73,68.18,73.41
+ Belarus,70.63,64.95,76.67
+ Russia,70.3,64.3,76.4
+ Guatemala,70.29,68.49,72.19
+ Greenland ( Denmark),70.07,67.44,72.85
+ Iraq,69.94,68.6,71.34
+ India,69.89,67.46,72.61
+ Kyrgyzstan,69.43,65.43,73.64
+ Honduras,69.4,67.86,71.02
+ Tuvalu,69.29,66.99,71.7
+ São Tomé and Príncipe,68.32,66.65,70.04
+ Ukraine,68.25,62.37,74.5
+ Belize,68.2,66.44,70.05
+ Kazakhstan,67.87,62.58,73.47
+ Turkmenistan,67.87,64.94,70.95
+ Mongolia,67.65,65.23,70.19
+ East Timor,67.27,64.92,69.75
+ Bolivia,66.89,64.2,69.72
+ Guyana,66.68,64.09,69.4
+ Azerbaijan,66.66,62.53,71.34
+ Papua New Guinea,66.34,64.08,68.72
+ Bhutan,66.13,65.33,66.97
+ Grenada,65.95,64.06,67.85
+ The Bahamas,65.78,62.63,68.98
+   Nepal,65.46,64.3,66.67
+ Tajikistan,65.33,62.29,68.52
+ Pakistan,64.49,63.4,65.64
+ Nauru,64.2,60.58,68.01
+ Vanuatu,63.98,62.37,65.66
+ North Korea,63.81,61.23,66.53
+ Comoros,63.47,61.07,65.94
+ Burma,63.39,61.17,65.74
+ Yemen,63.27,61.3,65.33
+ Kiribati,63.22,60.14,66.45
+ Mayotte ( France),62.91,60.65,65.24
+ Madagascar,62.89,60.93,64.91
+ Cambodia,62.1,60.03,64.27
+ Botswana,61.85,61.72,61.99
+ Eritrea,61.78,59.71,63.9
+ Equatorial Guinea,61.61,60.71,62.54
+ Haiti,60.78,59.13,62.48
+ Mauritania,60.37,58.22,62.59
+ Bangladesh,60.25,57.57,63.03
+ Ghana,59.85,58.98,60.75
+ Benin,59,57.83,60.23
+ Senegal,59,57.12,60.93
+ Togo,58.69,56.56,60.88
+ Kenya,57.86,57.49,58.24
+ Guinea,57.09,55.63,58.6
+ Laos,56.68,54.56,58.9
+ Côte d'Ivoire,55.45,54.64,56.28
+ Ethiopia,55.41,52.92,57.97
+ The Gambia,55.35,53.43,57.34
+ Democratic Republic of the Congo,54.36,52.58,56.2
+Western Sahara,54.32,52,56.73
+ Republic of the Congo,54.15,52.9,55.43
+ Cameroon,53.69,52.89,54.52
+ Gabon,53.11,52.19,54.05
+ Burkina Faso,52.95,51.04,54.91
+ Uganda,52.72,51.66,53.81
+ Niger,52.6,51.39,53.85
+ Burundi,52.09,51.2,53.01
+ Tanzania,52.01,50.56,53.51
+ Sudan,62.57,60.58,64.67
+ Namibia,51.24,51.61,50.86
+ Rwanda,50.52,49.25,51.83
+ Mali,50.35,48.38,52.38
+ Afghanistan,50.11,48.81,51.47
+ Somalia,49.63,47.78,51.53
+ South Africa,48.98,49.81,48.13
+ Guinea-Bissau,47.9,46.07,49.79
+ Chad,47.7,46.67,48.77
+ Nigeria,46.94,46.16,47.76
+ Zimbabwe,45.77,46.36,45.16
+ Central African Republic,44.47,44.4,44.54
+ Malawi,43.82,44.07,43.57
+ Djibouti,43.37,41.89,44.89
+ Liberia,41.84,40.71,43
+ Sierra Leone,41.24,38.92,43.64
+ Mozambique,41.18,41.83,41.53
+ Lesotho,40.38,41.18,39.54
+ Zambia,38.63,38.53,38.73
+ Angola,38.2,37.24,39.22
+,,,
