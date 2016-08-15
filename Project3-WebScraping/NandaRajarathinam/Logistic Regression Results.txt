@@ -1,0 +1,74 @@
+> summary(logit.bschool5)
+
+Call:
+glm(formula = Top.Tier ~ Average.GMAT + Post.MBA.salary + Percentage.who.received.a.job.offer + 
+    Percent.graduates.finding.jobs.through.careers.services + 
+    Student.rating.of.programme + Student.rating.of.careers.service + 
+    Ratio.of.faculty.to.students, family = "binomial", data = bus_train_ds, 
+    control = list(maxit = 50))
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-1.65560  -0.23205  -0.01803   0.03297   2.62316  
+
+Coefficients:
+                                                          Estimate Std. Error z value Pr(>|z|)   
+(Intercept)                                             -8.829e+01  3.017e+01  -2.926  0.00343 **
+Average.GMAT                                             1.079e-01  4.437e-02   2.431  0.01504 * 
+Post.MBA.salary                                          8.380e-05  3.599e-05   2.329  0.01987 * 
+Percentage.who.received.a.job.offer                     -3.137e-01  1.598e-01  -1.963  0.04962 * 
+Percent.graduates.finding.jobs.through.careers.services  1.265e-01  5.775e-02   2.191  0.02844 * 
+Student.rating.of.programme                              4.753e+00  3.772e+00   1.260  0.20760   
+Student.rating.of.careers.service                        5.990e-01  1.037e+00   0.578  0.56357   
+Ratio.of.faculty.to.students                             8.373e-01  1.961e+00   0.427  0.66932   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 76.478  on 67  degrees of freedom
+Residual deviance: 26.354  on 60  degrees of freedom
+AIC: 42.354
+
+Number of Fisher Scoring iterations: 8
+
+
+
+
+> exp(logit.bschool5$coefficients)
+                                            (Intercept)                                            Average.GMAT 
+                                           4.527115e-39                                            1.113911e+00 
+                                        Post.MBA.salary                     Percentage.who.received.a.job.offer 
+                                           1.000084e+00                                            7.307354e-01 
+Percent.graduates.finding.jobs.through.careers.services                             Student.rating.of.programme 
+                                           1.134903e+00                                            1.159580e+02 
+                      Student.rating.of.careers.service                            Ratio.of.faculty.to.students 
+                                           1.820340e+00                                            2.310140e+00 
+> exp(confint.default(logit.bschool5))
+                                                               2.5 %       97.5 %
+(Intercept)                                             9.361649e-65 2.189227e-13
+Average.GMAT                                            1.021139e+00 1.215112e+00
+Post.MBA.salary                                         1.000013e+00 1.000154e+00
+Percentage.who.received.a.job.offer                     5.342508e-01 9.994822e-01
+Percent.graduates.finding.jobs.through.careers.services 1.013442e+00 1.270922e+00
+Student.rating.of.programme                             7.140756e-02 1.883031e+05
+Student.rating.of.careers.service                       2.383975e-01 1.389964e+01
+Ratio.of.faculty.to.students                            4.952567e-02 1.077572e+02
+
+
+
+
+#Comparing the true values to the predicted values:
+Top.Tier.School.predicted = ifelse(logit.bschool5$fitted.values> 0.8, 1, 0)
+table(truth = bus_school_data$Top.Tier, prediction = Top.Tier.School.predicted)
+table(bus_test_ds$Top.Tier, bus_test_ds$Predict.Top.Tier)
+
+ 
+#    FALSE TRUE
+#0    22    2
+#1    1     7
+
+ table(bus_train_ds$Top.Tier, bus_train_ds$Predict.Top.Tier)
+ #    FALSE TRUE
+ #0   51     0
+ #1   7     10
