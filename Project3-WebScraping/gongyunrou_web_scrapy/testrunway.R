@@ -171,3 +171,16 @@ s2 <- gvisScatterChart(rwdata[,c(9,10)],
 
 plot(s2)
 
+## reviews VS discount 
+s3 <- gvisScatterChart(rwdata[,c(3,13)],
+                       options=list(colors="orange",
+                                    width="1000px", height="500px",
+                                    vAxes="[{title:'Discount(%)'}]",
+                                    hAxes="[{title:'number of reviews'}]",
+                                    title="ScatterPlot Discount Vs number of reviews",
+                                    titleTextStyle="{fontSize:18}",
+                                    legend="{position:'Top'}"))
+
+plot(s3)
+
+

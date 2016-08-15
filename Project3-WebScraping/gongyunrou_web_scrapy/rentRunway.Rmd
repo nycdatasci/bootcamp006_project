@@ -170,6 +170,9 @@ s2 <- gvisScatterChart(rwdata[,c(9,10)],
 
 plot(s2,"chart")
 
+
+
+
 ```
 
 
