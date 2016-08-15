@@ -3,7 +3,7 @@ import numpy  as np
 import os
 
 #The main function to process a dictionary of Migration probability Matrices
-#and return the truncated SVD, the eigenvalues, log-odd domain residuals, the residuals
+#and return the truncated SVD, the singular values, log-odd domain residuals, the residuals
 #in the sigmoid transformed (original) domain.
 # numFct controls the cut off. 
 def SVD_MM(MM,logOdds=True,numFct=4):
@@ -13,11 +13,11 @@ def SVD_MM(MM,logOdds=True,numFct=4):
     if logOdds:   MM_logOdds = GetLogOdds(MM2)      
 
  
-    ans,eigenValues,residuals,residuals2 = \
+    ans,singularValues,residuals,residuals2 = \
     GetTSVD(MM2 if not logOdds else MM_logOdds,logOdds=logOdds,truncated=numFct)
     ans       = DressUpToDF(ans,states)
     residuals = DressUpToDF(residuals,states)
-    return(ans,eigenValues,residuals,residuals2)
+    return(ans,singularValues,residuals,residuals2)
 
 #Save the end result, pandas data frames, of the TSVD to csv files
 def SaveDF2CSV(ans,dirName='/Users/ikovsky/r_wd/data/MigrationData/'):
@@ -69,7 +69,7 @@ def GetTSVD(MM,truncated=None,logOdds=True):
     ans         = {}
     residuals   = {}
     residuals2  = {}
-    eigenValues = {}
+    singularValues = {}
 
     x   = np.arange(MM['avg'].shape[0]).reshape(1,-1)
     y   = x.reshape((-1,1))
@@ -78,7 +78,7 @@ def GetTSVD(MM,truncated=None,logOdds=True):
     for key, value in MM.items():
 
         U,S,V=np.linalg.svd(value,full_matrices=True)
-        eigenValues[key] = S.copy()
+        singularValues[key] = S.copy()
         S1               = S.copy()
         S2               = S.copy()
         S1[truncated:]   = 0
@@ -98,7 +98,7 @@ def GetTSVD(MM,truncated=None,logOdds=True):
         rA[dia]  = 0
         residuals2[key]  = pd.DataFrame(rA) 
 
-    return(ans,eigenValues,residuals,residuals2)
+    return(ans,singularValues,residuals,residuals2)
 
 # In the SVD computation, we need to convert the Data Frames into numpy matrices
 # For display or for storage into csv, we need to convert them back to DataFrame
