@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="../static/style.css"/>
+	<script src="{{url_for('static', filename='app.js')}}"></script>
+</head>
+	<body>
+		<!-- <div id="mount-point"></div> -->
+		<!-- <h3>Playlist Tracks (library_artist, library_name, suggested_artist, suggested_name, library_play_count)</h3>
+		{% for item in track_info%}
+		<!-- <p> {{ item }} </p> -->
+		<!-- {% endfor %} -->
+		<!-- <h3>Track Attributes</h3>
+		{% for item in track_attributes%}
+		<p> {{ item }} </p>
+		{% endfor %}
+		<h3>Phantom Average Track (multiply attribute nodes by play count and then find average)</h3>
+		<p> {{ phantom_average_track }} </p>
+		<h3>Distances (phantom_average_track - track) ** pairwise euclidian</h3>
+		{% for item in seed_distances%}
+		<p> {{ item }} </p>
+		{% endfor %}
+		<h3>Seed Song IDS</h3>
+		{% for item in seed_songs%}
+		<p> {{ item }} </p>
+		{% endfor %}
+		<h3>Seed Artist IDS</h3>
+		{% for item in seed_artists%}
+		<p> {{ item }} </p>
+		{% endfor %} -->
+		<!-- <h3>Target Attributes (based on phantom_average_track)</h3> -->
+		<!-- <h3>Statistics</h3>
+		<h4>reccomendations distance from phantom_average_track distribution compared to recommendations distance from phantom_average_track distribution</h4>
+		{{ seed_recommend_ttest }} -->
+		<!-- <h3>Recommendations (sorted by distance from phantom_average_track attirbutes)</h3>
+		{% for item in results%}
+		<p> {{ item }} </p>
+		{% endfor %}
+		<h3>Video</h3>
+		{% for video in videos%}
+		<p> {{ video }} </p>-->
+		<button onclickid="next-video">Next</button>
+		<iframe width="100%" height="600" src={{ video }} frameborder="0" allowfullscreen/>
+		<!-- {% endfor %} -->
+	</body>
+</html>
