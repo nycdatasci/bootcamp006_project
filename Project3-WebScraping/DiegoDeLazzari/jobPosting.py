@@ -1,7 +1,5 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup # For HTML parsing
-import urllib2 # Website connections
-import re # Regular expressions
 from time import sleep # To prevent overwhelming the server between connections
 from collections import Counter # Keep track of our term counts
 from nltk.corpus import stopwords # Filter out stopwords, such as 'the', 'or', 'and'
@@ -10,9 +8,6 @@ from selenium.webdriver.common import action_chains, keys
 from selenium.common.exceptions import NoSuchElementException
 import numpy as np
 import sys
-from plotly.graph_objs import Scatter, Layout
-from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
-from plotly.graph_objs import Bar, Scatter, Figure, Layout
 
 
 # call the helper
@@ -37,8 +32,8 @@ if __name__ == "__main__":
     
     # 2- Choose what you want to do: 
 #        get_shot => Scraping for links, 
-#        get_long => scraping for data,
-#        get_results => getting analytics
+#        get_long => Scraping for data,
+#        get_results => Getting analytics
 
     get_short = False
     get_long = False
@@ -120,23 +115,26 @@ if __name__ == "__main__":
     if get_result:
             
     # 6- Analytics:  First check for consistency
-    
-        completeDict = dict( filter(lambda x,: len(x[1]) == 6, jobDict.items()) )
+            
+        completeDict = dict(filter(lambda x,: len(x[1]) == 6, jobDict.items()))   
+        
+        finalDict = dict(map(lambda (x,y): (x, y[0:5] + [skills_info([y[0]]+y[5])]), completeDict.items()))
+        
          
         # Calculate top locations  
     
         location_dict = Counter()
-        location_dict.update([completeDict[item][3] for item in completeDict.keys()])    
+        location_dict.update([finalDict[item][3] for item in finalDict.keys()])    
         location_frame = pd.DataFrame(location_dict.items(), columns = ['Term', 'NumPostings'])
         
         # Calculate top companies - (company, rating) , Num posting
         
         company_dict = Counter()
-        company_dict.update([(completeDict[item][2],completeDict[item][1]) for item in completeDict.keys()])
+        company_dict.update([(finalDict[item][2],finalDict[item][1]) for item in finalDict.keys()])
         company_frame = pd.DataFrame(company_dict.items(), columns = ['Term', 'NumPostings'])
             
         # Calculate other analytics
-        skill_frame, edu_frame, lang_frame = skills_info(completeDict)
+        skill_frame, edu_frame, lang_frame = skills_info(finalDict)
         
         
     # 7- Find your match
@@ -146,10 +144,10 @@ if __name__ == "__main__":
         # first parse the CV
         myCV = [item.lower() for item in myCV]
         
-        BestMatch = get_match(myCV,completeDict)    
+        BestMatch = get_match(myCV,finalDict)    
         
         print 'The top 5 companies matching my CV are:' 
-        print  BestMatch
+        print  BestMatch.head(5)
     
     
     
