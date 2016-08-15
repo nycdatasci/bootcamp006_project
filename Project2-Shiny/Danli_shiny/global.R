@@ -2,7 +2,6 @@ library(dplyr)
 library(rworldmap)
 
 aps <- read.csv('Data/APS2015.csv', header = TRUE, stringsAsFactors = FALSE, strip.white=TRUE)
-?read.csv
 nes <- read.csv('Data/NES2015.csv', header = TRUE, stringsAsFactors = FALSE, check.names = TRUE, strip.white=TRUE)
 nescols <-names(nes)
 nescols <- gsub('\\.', ' ', nescols)
