@@ -7,210 +7,150 @@ from collections import Counter # Keep track of our term counts
 from nltk.corpus import stopwords # Filter out stopwords, such as 'the', 'or', 'and'
 import pandas as pd # For converting results to a dataframe and bar chart plots
 from selenium.webdriver.common import action_chains, keys
+from selenium.common.exceptions import NoSuchElementException
 import numpy as np
-
-# 1- Scrape for job posting list in Glassdoor
-
-
-#def skills_info(city=None, state=None):
-#    '''
-#    This function will take a desired city/state and look for all new job postings
-#    on GlassDoor.com. It will crawl all of the job postings and keep track of how many
-#    use a preset list of typical data science skills. The final percentage for each skill
-#    is then displayed at the end of the collation.
-#
-#    Inputs: The location's city and state. These are optional. If no city/state is input,
-#    the function will assume a national search (this can take a while!!!).
-#    Input the city/state as strings, such as skills_info('Chicago', 'IL').
-#    Use a two letter abbreviation for the state.
-#
-#    Output: A bar chart showing the most commonly desired skills in the job market for
-#    a data scientist.
-#    '''
-#
-#    final_job = 'data+scientist'  # searching for data scientist exact fit("data scientist" on Glassdoor search)
-#    website = 'https://www.glassdoor.com/Job/jobs.htm?suggestCount=10&suggestChosen=true&clickSource=searchBtn&typedKeyword=Da&sc.keyword=data+scientist&locT=C&locId=1132348&jobType='
-#
-#    # Make sure the city specified works properly if it has more than one word (such as San Francisco)
-#    if city is not None:
-#        final_city = city.split()
-#        final_city = '+'.join(word for word in final_city)
-#        final_site_list = ['http://www.glassdoor.com/jobs?q=%22', final_job, '%22&l=', final_city,
-#                           '%2C+', state]  # Join all of our strings together so that indeed will search correctly
-#    else:
-#        final_site_list = ['http://www.glassdoor.com/jobs?q="', final_job, '"']
-#
-#    final_site = ''.join(final_site_list)  # Merge the html address together into one string
-#
-#    base_url = 'http://www.indeed.com'
-#
-#    try:
-#        html = urllib2.urlopen(final_site).read()  # Open up the front page of our search first
-#    except:
-#        'That city/state combination did not have any jobs. Exiting . . .'  # In case the city is invalid
-#        return
-#    #soup = BeautifulSoup(html)  # Get the html from the first page
-#
-#    return
-    
-###############################################################################
-def get_pause():
-    return  np.random.choice(range(4,10))
-###############################################################################    
-
-def text_cleaner(text):
-    '''
-    This function just cleans up the raw html so that I can look at it.
-    Inputs: a URL to investigate
-    Outputs: Cleaned text only
-    '''
-    
-    
-    lines = (line.strip() for line in text.splitlines()) # break into lines
-    
-        
-        
-    chunks = (phrase.strip() for line in lines for phrase in line.split("  ")) # break multi-headlines into a line each
-    
-    def chunk_space(chunk):
-        chunk_out = chunk + ' ' # Need to fix spacing issue
-        return chunk_out  
-        
-    
-    text = ''.join(chunk_space(chunk) for chunk in chunks if chunk).encode('utf-8') # Get rid of all blank lines and ends of line
-        
-        
-    # Now clean out all of the unicode junk (this line works great!!!)
-        
-    try:
-        text = text.decode('unicode_escape').encode('ascii', 'ignore') # Need this as some websites aren't formatted
-    except:                                                            # in a way that this works, can occasionally throw
-        return                                                         # an exception
-       
-        
-    text = re.sub("[^a-zA-Z.+3]"," ", text)  # Now get rid of any terms that aren't words (include 3 for d3.js)
-                                                # Also include + for C++
-        
-       
-    text = text.lower().split()  # Go to lower case and split them apart
-        
-        
-    stop_words = set(stopwords.words("english")) # Filter out any stop words
-    text = [w for w in text if not w in stop_words]
-        
-        
-        
-    text = list(set(text)) # Last, just get the set of these. Ignore counts (we are just looking at whether a term existed
-                            # or not on the website)
-        
-    return text 
+import sys
+from plotly.graph_objs import Scatter, Layout
+from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
+from plotly.graph_objs import Bar, Scatter, Figure, Layout
 
 
-###############################################################################
-    
-###############################################################################
+# call the helper
 
-# 2- Scrape for text in each link if the id
-
-def init_glassdoor():
-    chrome_options = webdriver.ChromeOptions()
-    driver = '/Users/Diego/Documents/NYCDSA/Project 3/chromedriver'
-    chrome_options.add_argument('--disable-extensions')
-    chrome_options.add_argument('--profile-directory=Default')
-    chrome_options.add_argument("--incognito")
-    chrome_options.add_argument("--disable-plugins-discovery");
-    chrome_options.add_argument("--start-maximized")
-    browser = webdriver.Chrome(driver, chrome_options=chrome_options)
-#    browser = webdriver.Chrome(driver)
-    
-    sleep(10)
-    browser.get('https://www.glassdoor.com/index.htm')
-    return browser
-
-
-###############################################################################
-##############################################################################       
+from helperP3 import *
 
 if __name__ == "__main__":
     
-    
-    jobName_lst = ['Data Scientist', 'Data Analyst']
-    jobName = np.random.choice(jobName_lst)
 
-    city_lst = ['San Cose','New York','San Francisco','Detroit','Washington','Austin','Boston','Los Angeles',' ']
-    city = np.random.choice(city_lst)        
+    # 1- Load existing dictionary. Check for initial dictionary. 
+    # If empty initialize
+        
+    try:               
+        jobDict = load_obj('glassDoorDict')
+        link =    load_obj('glassDoorlink')
+    except:
+        save_obj([], 'glassDoorlink')
+        save_obj({}, 'glassDoorDict')
+        
+        jobDict = load_obj('glassDoorDict')
+        link =    load_obj('glassDoorlink')    
     
-    browser = init_glassdoor()
-    
-#    scraper = searchJobs(jobName, city=None):
+    # 2- Choose what you want to do: 
+#        get_shot => Scraping for links, 
+#        get_long => scraping for data,
+#        get_results => getting analytics
 
-    q = raw_input('Shall we scrape? (y/n)')
+    get_short = False
+    get_long = False
+    get_result = True
     
-    if q=='y':
+    if get_short or get_long:
         
-        job = browser.find_element_by_id("KeywordSearch")
-        location = browser.find_element_by_id("LocationSearch")
-        sleep(3)
-        #browser.execute_script("arguments[0].value = ''", job)
-        job.send_keys(jobName)
-        sleep(2)
-        browser.execute_script("arguments[0].value = ''", location)
-        location.send_keys(city)
+    # 3- initialize website, cities and jobs
         
-        sleep(10)
-        browser.execute_script("document.querySelectorAll('button.gd-btn')[1].click()")
+        website = "https://www.glassdoor.com/index.htm"
         
-        # Set up starting page 
-        initial_url = browser.current_url
-        pages = 10
-        jobDict = {}
-        link = []
+        jobName_lst = ['Data Scientist', 'Data Analyst']
+        jobName = np.random.choice(jobName_lst)
+    
+        city_lst = ['San Jose','New York','San Francisco','Detroit','Washington','Austin','Boston','Los Angeles',' ']
+        city = np.random.choice(city_lst)        
         
-        # Find pages link
+        # Initialize the webdriver
         
-        link_page = browser.find_elements_by_class_name('page')[1:]
-        # Find brief description
-        
-        for page in link_page:
+        browser = init_glassdoor()  
+    
+    # 4- Scrape the short list or the links (when you ae done, both are false)
+    
+    
+    if get_short:
+    
+        browser.get(website)
             
+        # search for jobs (short description) 
+        try:    
+                    update_jobDict, update_link = searchJobs(jobName_lst[0], 'US', jobDict, link)
+#                    sleep(get_pause())
+        except:
+            sys.exit("Error message")
+            
+        # save dictionary and link     
+    
+        save_obj(update_jobDict, 'glassDoorDict')
+        save_obj(update_link, 'glassDoorlink')
         
-            # Extract useful classes
-            jobPosting =browser.find_elements_by_class_name('jobListing')
+     # 5- Scrape the job description, for every link
+                    
+    if get_long:        
+        
+        while len(link) > 0:
             
-            # Create basic job Dictionary - but first check whether the keys exist    
-            newPost = filter(lambda b: b[0] not in jobDict.keys(),
-                        map(lambda a: (a.get_attribute('data-id'), a), jobPosting))
-            
-            # then process the tuple and update the dictionary
-            jobData =  map(lambda (a,b): (a,b.text.encode("utf8").split('\n')[0:4]),newPost)
-            jobDict = dict(jobData)    
-            
-            # finally find the links: make a tuple with id so that you can use the Dict
-            link = map(lambda (c,d): link.append(  \
-                   (c,d.find_element_by_partial_link_text(jobDict[c][0])) \
-                   ), newPost)
-            
-            page.click()             
-            sleep(get_pause())
+             
+            try:
+                rnd_job = np.random.choice(range(len(link)))
                 
-           
-           
-        # ... and now scrape the links
-            
-        for element in link:
-            
-            # Extract link and click it            
-            element[1].click()
-            sleep(get_pause())
-            
-            # Extract text
-            desc_list = browser.find_element_by_xpath('//*[@id="BasicInfo"]/div[2]/div').text
-            description = text_cleaner(desc_list)
-            
-            # Update dictionary
-            jobDict[element[0]].append(description)
-            sleep(get_pause())
-
-
+                ids = link[rnd_job][0]
+                page = link[rnd_job][1]
+                
+                browser.get(page)                 
+                sleep(3)
+                
+                # Extract text   //*[@id="JobDescContainer"]/div[1]
+                desc_list = browser.find_element_by_xpath('//*[@id="JobDescContainer"]/div[1]').text
+                description = text_cleaner(desc_list)
+                
+                # Update dictionary and remove succe
+                jobDict[ids].append(description)               
+                dummy=link.pop(rnd_job)
+                               
+                # if everything is fine, save
+                save_obj(jobDict, 'glassDoorDict')
+                save_obj(link, 'glassDoorlink')
+                                                
+                print 'Scraped successfully ' + ids
+                
+                sleep(get_pause())
+            except:   
+                print ids + ' is not working! Sleep for 10 seconds and retry'
+                print 'Still missing ' + str(len(link)) + ' links' 
+                sleep(8)
+                
+        browser.close()
     
-    browser.quit()
+    if get_result:
+            
+    # 6- Analytics:  First check for consistency
+    
+        completeDict = dict( filter(lambda x,: len(x[1]) == 6, jobDict.items()) )
+         
+        # Calculate top locations  
+    
+        location_dict = Counter()
+        location_dict.update([completeDict[item][3] for item in completeDict.keys()])    
+        location_frame = pd.DataFrame(location_dict.items(), columns = ['Term', 'NumPostings'])
+        
+        # Calculate top companies - (company, rating) , Num posting
+        
+        company_dict = Counter()
+        company_dict.update([(completeDict[item][2],completeDict[item][1]) for item in completeDict.keys()])
+        company_frame = pd.DataFrame(company_dict.items(), columns = ['Term', 'NumPostings'])
+            
+        # Calculate other analytics
+        skill_frame, edu_frame, lang_frame = skills_info(completeDict)
+        
+        
+    # 7- Find your match
+     
+        myCV = ['Data Scientist', 'PhD','French','Python','R','Matlab','Spark','SQL','Physics']
+        
+        # first parse the CV
+        myCV = [item.lower() for item in myCV]
+        
+        BestMatch = get_match(myCV,completeDict)    
+        
+        print 'The top 5 companies matching my CV are:' 
+        print  BestMatch
+    
+    
+    
+# 216.230.228.88
