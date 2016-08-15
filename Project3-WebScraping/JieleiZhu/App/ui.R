@@ -155,7 +155,7 @@ dashboardPage(
                 column(width = 8,
                        offset = 2,
                        br(),br(),br(),br(),
-                       h2("Can't dothe answer is not in this dataset.", align = 'center')
+                       h2("", align = 'center')
                        
                 )
               )
