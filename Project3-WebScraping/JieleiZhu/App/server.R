@@ -8,12 +8,8 @@ shinyServer(function(input, output, session){
                                       width = 1200,
                                       height = 700)))
   })
-  
-<<<<<<< HEAD
-  
-  
 
-=======
+
   popular_data = reactive({
     if (input$PopularMetric == 'Both') {
       popular_data = without_duplicates %>% select(Category, Title, Description, Popularity = Popularity) %>% filter(Category == input$PopularCategory) 
@@ -73,7 +69,7 @@ shinyServer(function(input, output, session){
     )
   })
   
-<<<<<<< HEAD
+
   output$annotation = renderGvis({
     temp = without_duplicates %>% 
       filter(Category == input$SingleMostCategory, Store == input$SingleMostStore) %>% 
@@ -91,10 +87,3 @@ shinyServer(function(input, output, session){
     
   })
 })
-=======
->>>>>>> d3eae80b1667a0750991df3a7dcd9151a194eac1
-})
-
-
-
->>>>>>> 54fdc9012e13a46dc1f29c146d3564545c7b6ec1

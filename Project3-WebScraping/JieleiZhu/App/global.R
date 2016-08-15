@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-if (!require(shinythemes)) install.packages(shinythemes)
-if (!require(shiny)) install.packages(shiny)
-if (!require(googleVis)) install.packages(googleVis)
-if (!require(dplyr)) install.packages(dplyr)
-if (!require(reshape2)) install.packages(reshape2)
-library(shiny)
-library(shinythemes)
-library(googleVis) 
-library(dplyr)
-library(reshape2)
-
-
-#------------- load data
-my_read_csv2 = function (filename, 
-                         header = T, 
-                         colClasses = c('factor', 
-                                        'character', 
-                                        'character', 
-                                        'integer', 
-=======
 if (!require(shinythemes)) install.packages('shinythemes')
 if (!require(shiny)) install.packages('shiny')
 if (!require(googleVis)) install.packages('googleVis')
@@ -44,7 +23,6 @@ my_read_csv = function (filename,
                                         'character', 
                                         'character', 
                                         'Date', 
->>>>>>> d3eae80b1667a0750991df3a7dcd9151a194eac1
                                         'integer', 
                                         'integer', 
                                         'character', 
@@ -53,15 +31,6 @@ my_read_csv = function (filename,
   return(read.csv(filename, header = header, colClasses = colClasses))
 }
 
-<<<<<<< HEAD
-without_duplicates = my_read_csv('Data/Non_duplicates.csv')
-
-with_duplicates = my_read_csv('Data/Deal_data2.csv')
-
-
-
-
-=======
 without_duplicates = my_read_csv('Data/Without_duplicates.csv')
 with_duplicates = my_read_csv('Data/Deal_data.csv')
 
@@ -77,10 +46,6 @@ most_store_temp = most_store %>% group_by(Category) %>% top_n(10, NumberOfDeals)
 category_choices = unique(without_duplicates$Category)
 metric_choices = c('Both', 'By Comments', 'By Bookmarks')
 minimum_choices = c(1, 5, 10, 20, 50)
-<<<<<<< HEAD
 store_names = unique(most_store_temp$Store)
-=======
-store_names = unique(most_store$Store)
->>>>>>> d3eae80b1667a0750991df3a7dcd9151a194eac1
->>>>>>> 54fdc9012e13a46dc1f29c146d3564545c7b6ec1
+
 
