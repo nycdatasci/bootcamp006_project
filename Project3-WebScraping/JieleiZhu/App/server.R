@@ -1,4 +1,4 @@
-shinyServer(function(input, output){
+shinyServer(function(input, output, session){
   output$hist <- renderGvis({
     (a<- gvisColumnChart(data(), 
                          options=list(fontSize = 16,
@@ -8,20 +8,16 @@ shinyServer(function(input, output){
                                       width = 1200,
                                       height = 700)))
   })
-  
-<<<<<<< HEAD
-  
-  
 
-=======
+
   popular_data = reactive({
     if (input$PopularMetric == 'Both') {
       popular_data = without_duplicates %>% select(Category, Title, Description, Popularity = Popularity) %>% filter(Category == input$PopularCategory) 
     }
-    else if(input$PopularMetric == 'Comments') {
+    else if(input$PopularMetric == 'By Comments') {
       popular_data = without_duplicates %>% select(Category, Title, Description, Popularity = NumberOfComments) %>% filter(Category == input$PopularCategory) 
     }
-    else if(input$PopularMetric == 'Bookmarks') {
+    else if(input$PopularMetric == 'By Bookmarks') {
       popular_data = without_duplicates %>% select(Category, Title, Description, Popularity = NumberOfBookmarks) %>% filter(Category == input$PopularCategory) 
     }
     
@@ -33,7 +29,7 @@ shinyServer(function(input, output){
   
   output$TopDeal = renderDataTable({
     popular_data()
-  }, options = list(lengthMenu = c(5, 10, 15, 20), pageLength = 5))
+  }, options = list(lengthMenu = c(5, 10, 15, 20), pageLength = 10))
   
   
   output$PopularStore = renderDataTable({
@@ -41,52 +37,53 @@ shinyServer(function(input, output){
     PPD = temp$Popularity
     return(temp[order(PPD, decreasing = T), ])
     
-  }, options = list(lengthMenu = c(5, 10, 15, 20), pageLength = 5))
+  }, options = list(lengthMenu = c(5, 10, 15, 20), pageLength = 10))
   
   
   output$MostStore = renderDataTable({
-    NumDeals = most_store$NumberOfDeals
-    return(most_store[order(NumDeals, decreasing = T), ])
-  }, options = list(lengthMenu = c(5, 10, 15, 20), pageLength = 5))
-  
-  
-  # output$timeline = renderGvis({
-  #   month_data = dplyr::summarise(group_by(filter(without_duplicates, Category == input$MostDealCategory), PostedTime, Category), Count = n())
-  #   
-  #   gvisCalendar(month_data, 
-  #                datevar = "PostedTime", 
-  #                numvar = "Count",
-  #                options = list(
-  #                  title = "Monthly Frequency of Deals",
-  #                  height = 320,
-  #                  calendar = "{yearLabel: { fontName: 'Times-Roman',
-  #                         fontSize: 32, color: '#1A8763', bold: true},
-  #                         cellSize: 10,
-  #                         cellColor: { stroke: 'red', strokeOpacity: 0.2 },
-  #                         focusedCellColor: {stroke:'red'}}")
-  #   )
-  # })
-  
-  # output$annotation = renderGvis({
-  # temp = without_duplicates %>% dplyr::filter(Category == input$SingleMostCategory, Store == input$DingleMostStore) %>% dplyr::group_by(PostedTime, Category) %>% dplyr::summarise(Count = n())
-  # 
-  # 
-  #   gvisAnnotationChart(temp,
-  #                       datevar="PostedTime",
-  #                       numvar="Count",
-  #                       # idvar="Device",
-  #                       # titlevar="Title",
-  #                       # annotationvar="Annotation",
-  #                       options=list(
-  #                         width=600, height=350,
-  #                         fill=10, displayExactValues=TRUE,
-  #                         colors="['#0000ff']")
-  #   )
-  # })
+    most_store_temp = most_store %>% filter(Category == input$MostStoreCategory)
 
+    NumDeals = most_store_temp$NumberOfDeals
+    return(most_store_temp[order(NumDeals, decreasing = T), ])
+  }, options = list(lengthMenu = c(5, 10, 15, 20), pageLength = 10))
   
->>>>>>> d3eae80b1667a0750991df3a7dcd9151a194eac1
+  
+  output$calendar = renderGvis({
+    month_data = without_duplicates %>% 
+      filter(Category == input$MostDealCategory, year(PostedTime) > 2012) %>% 
+      group_by(PostedTime, Category) %>%  
+      dplyr::summarise(Count = n())
+    
+    gvisCalendar(month_data,
+                 datevar = "PostedTime",
+                 numvar = "Count",
+                 options = list(
+                   # title = "Monthly Frequency of Deals",
+                   height = "500px",
+                   calendar = "{yearLabel: {fontName: 'Times-Roman',
+                          fontSize: 32, color: '#1A8763', bold: true},
+                          cellSize: 10,
+                          cellColor: { stroke: 'red', strokeOpacity: 0.2 },
+                          focusedCellColor: {stroke:'red'}}"
+                   )
+    )
+  })
+  
+
+  output$annotation = renderGvis({
+    temp = without_duplicates %>% 
+      filter(Category == input$SingleMostCategory, Store == input$SingleMostStore) %>% 
+      group_by(PostedTime, Category) %>% 
+      dplyr::summarise(Count = n())
+    
+    gvisAnnotationChart(temp,
+                        datevar="PostedTime",
+                        numvar="Count",
+                        options=list(
+                          width=600, height=350,
+                          fill=10, displayExactValues=TRUE,
+                          colors="['#0000ff']")
+    )
+    
+  })
 })
-
-
-
