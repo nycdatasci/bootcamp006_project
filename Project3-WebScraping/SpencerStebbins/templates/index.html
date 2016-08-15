@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Muse</title>
+  <!-- Material Design -->
+  <link href="{{url_for('static', filename='css/base.min.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/project.min.css')}}" rel="stylesheet">
+</head>
+<body class="ui-picker-page">
+  <header class="header header-waterfall ui-header">
+    <span class="header-logo">Muse</span>
+    <!-- STEPPER -->
+    <!-- <div class="stepper-horiz">
+		<div class="stepper-horiz-inner">
+			<div class="stepper active">
+				<div class="stepper-step">
+					<i class="icon stepper-step-icon">check</i>
+					<span class="stepper-step-num">1</span>
+				</div>
+				<span class="stepper-text">Login</span>
+			</div>
+			<div class="stepper">
+				<div class="stepper-step">
+					<i class="icon stepper-step-icon">check</i>
+					<span class="stepper-step-num">2</span>
+				</div>
+				<span class="stepper-text">
+					Pick a Playlist<br>
+					<small class="stepper-text-sub text-black-hint">Optional</small>
+				</span>
+			</div>
+			<div class="stepper">
+				<div class="stepper-step">
+					<i class="icon stepper-step-icon">check</i>
+					<span class="stepper-step-num">3</span>
+				</div>
+				<span class="stepper-text">Experience Muse</span>
+			</div>
+		</div> -->
+	</div>
+    <ul class="nav nav-list pull-right">
+      <li class="dropdown margin-right">
+        <a class="dropdown-toggle padding-left-no padding-right-no" data-toggle="dropdown">
+          <span class="access-hide">John Smith</span>
+          <span class="avatar avatar-sm"><img src={{avatar}} /></span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li>
+            <a class="padding-right-lg waves-attach" href="javascript:void(0)"><span class="icon icon-lg margin-right">account_box</span>Profile Settings</a>
+          </li>
+          <li>
+            <a class="padding-right-lg waves-attach" href="javascript:void(0)"><span class="icon icon-lg margin-right">add_to_photos</span>Upload Photo</a>
+          </li>
+          <li>
+            <a class="padding-right-lg waves-attach" href="page-login.html"><span class="icon icon-lg margin-right">exit_to_app</span>Logout</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </header>
+  <div class="progress" id="loader" style="opacity:0;position:fixed;margin-top:55px;z-index:30;width:100%;top:0px;">
+    <div class="load-bar">
+        <div class="load-bar-base">
+            <div class="load-bar-content">
+                <div class="load-bar-progress"></div>
+                <div class="load-bar-progress load-bar-progress-brand"></div>
+                <div class="load-bar-progress load-bar-progress-green"></div>
+                <div class="load-bar-progress load-bar-progress-orange"></div>
+            </div>
+        </div>
+    </div>
+    <div class="load-bar">
+        <div class="load-bar-base">
+            <div class="load-bar-content">
+                <div class="load-bar-progress"></div>
+                <div class="load-bar-progress load-bar-progress-orange"></div>
+                <div class="load-bar-progress load-bar-progress-green"></div>
+                <div class="load-bar-progress load-bar-progress-brand"></div>
+            </div>
+        </div>
+    </div>
+  </div>
+    <div class="ui-picker-wrap">
+  		<div class="ui-picker-nav" style="border-right: 1px solid lightgrey;">
+  			<div class="ui-picker-inner">
+  				<div class="menu-top" style="height: 54px;width: 239px;position: fixed;background: white;border-bottom:1px solid lightgrey; color:black">
+  					<div class="menu-top-info">
+  						<span class="menu-top-user">Playlists</span>
+  					</div>
+  					<div class="menu-top-info-sub">
+  						<small></small>
+  					</div>
+  				</div>
+  				<div class="menu-content">
+  					<ul class="nav">
+              {% for i, playlist in playlists %}
+  							<li>
+  								<a class="waves-attach waves-effect playlist" href="javascript:void(0)" name={{ i }}>{{ playlist }}</a>
+  							</li>
+						  {% endfor %}
+  					</ul>
+  				</div>
+  			</div>
+  		</div>
+      <div class="ui-picker-main" style="border-right: 1px solid lightgrey;">
+        <p class="padding-left padding-right text-black-hint" style="z-index: 10;width: 100%;top: -15px;position: absolute;background: white;padding-bottom: 15px;padding-top: 20px; border-bottom: 1px solid lightgrey; border-top: 1px solid lightgrey">
+          <strong>Songs</strong>
+          <strong style="position: absolute;right: 15px;">Strength</strong>
+          <hr/>
+        </p>
+        <div class="ui-picker-divider"></div>
+        <div class="ui-picker-inner" style="margin-top: 55px;">
+          <div id="tracks" class="tile-wrap margin-bottom-no margin-top-no ui-picker-lib">
+            <!-- DYNAMIC PLAYLIST SONGS  -->
+          </div>
+        </div>
+      </div>
+  		<div class="ui-picker-main">
+        <p class="padding-left padding-right text-black-hint" style="height: 57px; z-index: 10;width: 100%;top: -15px;position: absolute;background: white;padding-bottom: 15px;padding-top: 20px; border-bottom: 1px solid lightgrey;">
+          <strong>Recommendations</strong>
+          <strong style="position: absolute;right: 15px;">Strength</strong>
+          <hr/>
+        </p>
+        <div class="ui-picker-divider"></div>
+  			<div class="ui-picker-inner" style="margin-top: 55px;">
+  				<div id="recommendations" class="tile-wrap margin-bottom-no margin-top-no ui-picker-lib">
+            <!-- DYNAMIC RECOMMENDED SONGS  -->
+          </div>
+        </div>
+      </div>
+      <div class="ui-picker-divider"></div>
+      <div class="ui-picker-info ui-picker-info-null">
+        <div class="ui-picker-inner">
+          <div style="opacity:0" class="ui-picker-map-wrap" id="ui_picker_map_wrap"></div>
+          <!-- <div class="ui-picker-video-wrap" id="ui_picker_video_wrap"></div> -->
+          <div id='video' style="height:100%">
+            <!-- VIDEO -->
+          </div>
+          <div class="container">
+            <div class="media">
+              <div class="media-object pull-right">
+                <a class="btn btn-flat margin-bottom-xs margin-top-xs waves-attach ui-picker-info-close"><span class="icon">close</span></a>
+              </div>
+              <div class="media-inner">
+                <p class="h4 margin-bottom-sm margin-top-sm ui-picker-info-title-wrap"></p>
+              </div>
+            </div>
+          </div>
+          <hr class="margin-bottom-no margin-top-no">
+          <div class="container">
+            <div class="ui-picker-info-desc-wrap"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+	<!-- js -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+  <script src="{{url_for('static', filename='js/base.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/project.min.js')}}"></script>
+  <script type=text/javascript>
+  $(function() {
+    //RECCOMEND SONGS CALL
+    $('.playlist').bind('click', function() {
+      // loader
+      $('#loader').animate({
+        opacity: 1
+      }, 1000)
+      // clear playlists
+      $('#recommendations').empty()
+      $('#tracks').empty()
+      //add highlight
+      // $(this).css('background', '#ff4081')
+      // $(this).css('color', 'white')
+      playlist =  $(this).attr('name')
+      $.getJSON('/get_playlist', {
+        playlist: playlist
+      }, function(data) {
+        for (var item in data.recommendations) {
+          item = data.recommendations[item]
+          $('#recommendations').append('<div class="tile ui-picker-item" artist="'+ item[0] +'" title="'+item[1]+'"><div class="ui-picker-selectable-handler"></div><div class="tile-side pull-left"><div class="avatar avatar-sm ui-picker-draggable-avatar ui-picker-draggable-handler"><img src=' + item[3] + ' /></div></div><div class="tile-inner"><div class="media"><div class="media-object pull-right"><small>' + item[2] + '</small></div><div class="media-inner text-overflow"><span class="ui-picker-info-title"> ' + item[0] + ': ' + item[1] + '</span></div></div><div class="access-hide"><div class="ui-picker-info-desc"><p>Artist Info</p></div><span class="ui-picker-video">' + item[2] + '</span></div></div></div>');
+        }
+        for (var item in data.tracks) {
+          item = data.tracks[item]
+          $('#tracks').append('<div class="tile ui-picker-item" artist="'+ item[0] +'" title="'+item[1]+'"><div class="ui-picker-selectable-handler"></div><div class="tile-side pull-left"><div class="avatar avatar-sm ui-picker-draggable-avatar ui-picker-draggable-handler"><img src=' + item[3] + ' /></div></div><div class="tile-inner"><div class="media"><div class="media-object pull-right"><small>' + item[2] + '</small></div><div class="media-inner text-overflow"><span class="ui-picker-info-title"> ' + item[0] + ': ' + item[1] + '</span></div></div><div class="access-hide"><div class="ui-picker-info-desc"><p>Artist Info</p></div><span class="ui-picker-video">' + item[2] + '</span></div></div></div>');
+        }
+        $('#loader').animate({
+          opacity: 0
+        }, 500)
+        // $('.ui-picker-item:first').addClass('ui-selectee')
+        // $('.ui-picker-lib > .ui-picker-selectable-handler').first().click()
+        // $("#result").text(data.result);
+      });
+      return false;
+    });
+    // YOUTUBE CALL
+    $('.ui-picker-item').bind('click', function() {
+      artist =  $(this).attr('artist')
+      title =  $(this).attr('title')
+      console.log(artist, title)
+      $.getJSON('/get_video', {
+        artist: artist,
+        title: title
+      }, function(data) {
+        console.log(data.result)
+        $('#video').append('<iframe width="100%" height="100%" src="about:blank" frameborder="0"  allowfullscreen/>')
+        // $('.ui-picker-selectable-handler').first().addClass('ui-selectee')
+        // $('.ui-picker-lib > .ui-picker-selectable-handler').first().click()
+        // $("#result").text(data.result);
+      });
+      return false;
+    });
+  });
+  </script>
+</body>
+</html>
