@@ -1,7 +1,8 @@
 library(dplyr)
 library(tidyr)
 
-setwd("~/Documents/NYCDSA/Project 2")
+# setwd("~/Documents/NYCDSA/Project 2")
+save.flag = FALSE
 ##############################
 estimatedArrivals2016 = read.csv('data/original/20160713-AnalysisofEstimatedArrivals.csv',
                                  sep = ";",dec = ",", stringsAsFactors = F) 
@@ -12,7 +13,7 @@ estArr2016 = tbl_df(estimatedArrivals2016)[1:9]
 estArr2016[,2:ncol(estArr2016)] = sapply(estArr2016[,2:ncol(estArr2016)],
                                     function(v){as.numeric(gsub('\\.','',v))})
 # Clean and fix Idents
-estArr2016 = estArr2016 %>% select(.,-2) %>%
+estArr2016 = estArr2016[,-2] %>%
     mutate(.,Date = as.Date(Date,"%m/%d/%y"),
                  Arrivals.to.Slovenia = ifelse(Arrivals.to.Slovenia=="N/A",0,
                                                as.numeric(Arrivals.to.Slovenia)),
@@ -28,7 +29,9 @@ any(is.na(estArr2016))
 head(estArr2016)
 
 # Save route towards Balkans
+if(save.flag){
 saveRDS(estArr2016, file = "data/PathGreeceBalkans2016.rds", ascii = FALSE)
+}
 ##############################
 
 # Dataset 2: Breakdown of refugees Nationality
@@ -59,7 +62,9 @@ any(is.na(estOrig2016))
 head(estOrig2016)
 
 # Save
+if(save.flag){
 saveRDS(estOrig2016, file = "data/dataOrigin2016.rds", ascii = FALSE)
+}
 ###############################
 
 # Dataset 3: About gender distribuiton
@@ -79,8 +84,22 @@ any(is.na(estGend2016))
 head(estGend2016)
 
 # Save
+if(save.flag){
 saveRDS(estGend2016, file = "data/dataGender2016.rds", ascii = FALSE)
+}
 #####
 
+#########################
+# Dataset 4
+# 
+arrivalSea2016 = read.csv('data/original/MonthlyArrivalsByCountry.csv',
+         sep = ";",dec = ",", stringsAsFactors = F) 
 
+estArrMedit2016 = arrivalSea2016[c(3,5),c(-2:-6)] %>% 
+  gather(.,key="Date",value="Arrivals",2:32) %>% 
+  mutate(.,Date = as.yearmon(Date,"%b.%y"))
 
+# Save route towards Balkans
+if(save.flag){
+  saveRDS(estArrMedit2016, file = "data/PathSpainItaly2016.rds", ascii = FALSE)
+}

@@ -3,6 +3,7 @@ suppressPackageStartupMessages(library(shiny))
 suppressPackageStartupMessages(library(googleVis))
 suppressPackageStartupMessages(library(leaflet))
 suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(htmltools))
 
 shinyServer(function(input, output, session) {
 
@@ -51,14 +52,14 @@ shinyServer(function(input, output, session) {
 
 # Maps on transportation tab ----------------------------------------------
 
-    job_sums <- jobs[, .(tot_emp=sum(tot_emp, na.rm = TRUE)), by = area_title]
+    job_sums <- jobs[, .(Jobs=sum(tot_emp, na.rm = TRUE)), by = area_title]
     
     # Transportation jobs map
     output$trans_map <- renderGvis({
         gvisGeoChart(
             job_sums,
             "area_title",
-            'tot_emp',
+            'Jobs',
             options = list(
                 region = "US",
                 displayMode = "regions",
@@ -72,7 +73,7 @@ shinyServer(function(input, output, session) {
 
     # Calculate per capita accident rates
     n.jobs <- merge(job_sums, pop, by.x='area_title', by.y='STATE')
-    n.jobs[,PER.100:=round((tot_emp/POP_2014)*100,2)]
+    n.jobs[,PER.100:=round((Jobs/POP_2014)*100,2)]
     
     # Per capita accident map
     output$trans_map_bypop <- renderGvis({
@@ -97,30 +98,58 @@ shinyServer(function(input, output, session) {
     # create interactive map
     output$map_lf <- renderLeaflet({
         leaflet() %>%
-        addTiles(urlTemplate = "//{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png",
-            attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>') %>%
-        setView(lng = -95,
-            lat = 40,
-            zoom = 4) %>%
-        addMarkers(
-            data = acc,
-            lat = ~ LATITUDE,
-            lng = ~ LONGITUD,
-            clusterOptions = markerClusterOptions(disableClusteringAtZoom=11))
+            addTiles(urlTemplate = "//{s}.tiles.mapbox.com/v3/jcheng.map-5ebohr46/{z}/{x}/{y}.png",
+                     attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>') %>%
+            setView(lng = -95,
+                    lat = 40,
+                    zoom = 4) %>%
+            addMarkers(
+                data = acc,
+                lat = ~ LATITUDE,
+                lng = ~ LONGITUD,
+                clusterOptions = markerClusterOptions(disableClusteringAtZoom =
+                                                          11),
+                popup = ~ paste(
+                    sep = "<br/>",
+                    paste(
+                        'Location: ',
+                        round(LATITUDE, 4),
+                        ', ',
+                        round(LONGITUD, 4),
+                        sep = ''
+                    ),
+                    paste('Date: 2014-', MONTH, '-', DAY, sep = ''),
+                    paste('Day:',
+                          weekdays(as.Date(
+                              paste('2014-', MONTH, '-', DAY, sep = '')
+                          )))
+                )
+            )
     })
     
 
     
-# Data table page ---------------------------------------------------------
+# Data table pages --------------------------------------------------------
     
     # show data using DataTable
-    output$table <- DT::renderDataTable({
-        datatable(acc, rownames = FALSE) %>%
+    output$table_acc <- DT::renderDataTable({
+        datatable(acc_txt, rownames = FALSE) %>%
             formatStyle(input$selected,
                         background = "skyblue",
                         fontWeight = 'bold')
     })
-    
+
+    # show data using DataTable
+    jobs2 <- jobs[,.(Jobs=sum(tot_emp, na.rm = TRUE)),
+                  by=.(area_title,naics_title)]
+    names(jobs2) <- c('State','NAICS Title','Jobs')
+    output$table_jobs <- DT::renderDataTable({
+        datatable(jobs2, 
+                  rownames = FALSE) %>%
+            formatStyle(input$selected,
+                        background = "skyblue",
+                        fontWeight = 'bold')
+    })    
 
 # Floating panel on interactive map ---------------------------------------
     
@@ -139,7 +168,7 @@ shinyServer(function(input, output, session) {
     output$bar_hr <- renderPlot({
         g <- ggplot(data=acc_on_map()[HOUR!=99,.N,by=HOUR], 
                     aes(x=factor(HOUR),y=N))
-        g <- g + geom_bar(stat='identity')
+        g <- g + geom_bar(stat='identity', fill = 'purple4')
         g <- g + xlab('Hour of the Day')
         g <- g + ylab('Accidents')
         g <- g + theme_minimal()
@@ -150,7 +179,7 @@ shinyServer(function(input, output, session) {
     output$bar_mn <- renderPlot({
         g <- ggplot(data=acc_on_map()[,.N,by=MONTH], 
                     aes(x=factor(MONTH),y=N))
-        g <- g + geom_bar(stat='identity')
+        g <- g + geom_bar(stat='identity', fill = 'purple4')
         g <- g + xlab('Month')
         g <- g + ylab('Accidents')
         g <- g + theme_minimal()
@@ -161,7 +190,7 @@ shinyServer(function(input, output, session) {
     output$bar_dy <- renderPlot({
         g <- ggplot(data=acc_on_map()[,.N,by=DAY_WEEK], 
                     aes(x=factor(DAY_WEEK),y=N))
-        g <- g + geom_bar(stat='identity')
+        g <- g + geom_bar(stat='identity', fill = 'purple4')
         g <- g + xlab('Day of the Week')
         g <- g + ylab('Accidents')
         g <- g + theme_minimal()
