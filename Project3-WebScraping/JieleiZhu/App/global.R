@@ -16,7 +16,9 @@ library(dplyr)
 require(lubridate)
 
 
-#------------- load data
+#--------------------------#
+#      load data
+#--------------------------#
 my_read_csv = function (filename, 
                          header = T, 
                          colClasses = c('character', 
@@ -32,17 +34,21 @@ my_read_csv = function (filename,
 }
 
 without_duplicates = my_read_csv('Data/Without_duplicates.csv')
-with_duplicates = my_read_csv('Data/Deal_data.csv')
 
+#--------------------------#
+#       Compute data
+#--------------------------#
 popularity_overall = without_duplicates %>% group_by(Category, Store) %>% dplyr::summarise(NumDeals = n(), Popularity = sum(Popularity))
 popularity_by_category = without_duplicates %>% group_by(Category) %>% dplyr::summarise(Total = sum(Popularity))
 master_popularity_data = merge(popularity_overall, popularity_by_category, by = 'Category')
 master_popularity_data$PPD = master_popularity_data$Popularity / master_popularity_data$NumDeals
-
 most_store = master_popularity_data %>% select(Category, Store, NumberOfDeals = NumDeals)
-
 most_store_temp = most_store %>% group_by(Category) %>% top_n(10, NumberOfDeals)
 
+
+#--------------------------#
+#   SelecInput choices  
+#--------------------------#
 category_choices = unique(without_duplicates$Category)
 metric_choices = c('Both', 'By Comments', 'By Bookmarks')
 minimum_choices = c(1, 5, 10, 20, 50)
