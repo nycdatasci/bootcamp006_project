@@ -45,39 +45,39 @@ shinyServer(function(input, output){
   }, options = list(lengthMenu = c(5, 10, 15, 20), pageLength = 5))
   
   
-  output$timeline = renderGvis({
-    month_data = dplyr::summarise(group_by(filter(without_duplicates, Category == input$MostDealCategory), PostedTime, Category), Count = n())
-    
-    gvisCalendar(month_data, 
-                 datevar = "PostedTime", 
-                 numvar = "Count",
-                 options = list(
-                   title = "Monthly Frequency of Deals",
-                   height = 320,
-                   calendar = "{yearLabel: { fontName: 'Times-Roman',
-                          fontSize: 32, color: '#1A8763', bold: true},
-                          cellSize: 10,
-                          cellColor: { stroke: 'red', strokeOpacity: 0.2 },
-                          focusedCellColor: {stroke:'red'}}")
-    )
-  })
+  # output$timeline = renderGvis({
+  #   month_data = dplyr::summarise(group_by(filter(without_duplicates, Category == input$MostDealCategory), PostedTime, Category), Count = n())
+  #   
+  #   gvisCalendar(month_data, 
+  #                datevar = "PostedTime", 
+  #                numvar = "Count",
+  #                options = list(
+  #                  title = "Monthly Frequency of Deals",
+  #                  height = 320,
+  #                  calendar = "{yearLabel: { fontName: 'Times-Roman',
+  #                         fontSize: 32, color: '#1A8763', bold: true},
+  #                         cellSize: 10,
+  #                         cellColor: { stroke: 'red', strokeOpacity: 0.2 },
+  #                         focusedCellColor: {stroke:'red'}}")
+  #   )
+  # })
   
-  output$annotation = renderGvis({
-    # temp = without_duplicates %>% dplyr::filter(Category == input$SingleMostCategory, Store == input$DingleMostStore) %>% dplyr::group_by(PostedTime, Category) %>% dplyr::summarise(Count = n())
-
-
-    gvisAnnotationChart(temp,
-                        datevar="PostedTime",
-                        numvar="Count",
-                        # idvar="Device",
-                        # titlevar="Title",
-                        # annotationvar="Annotation",
-                        options=list(
-                          width=600, height=350,
-                          fill=10, displayExactValues=TRUE,
-                          colors="['#0000ff']")
-    )
-  })
+  # output$annotation = renderGvis({
+  # temp = without_duplicates %>% dplyr::filter(Category == input$SingleMostCategory, Store == input$DingleMostStore) %>% dplyr::group_by(PostedTime, Category) %>% dplyr::summarise(Count = n())
+  # 
+  # 
+  #   gvisAnnotationChart(temp,
+  #                       datevar="PostedTime",
+  #                       numvar="Count",
+  #                       # idvar="Device",
+  #                       # titlevar="Title",
+  #                       # annotationvar="Annotation",
+  #                       options=list(
+  #                         width=600, height=350,
+  #                         fill=10, displayExactValues=TRUE,
+  #                         colors="['#0000ff']")
+  #   )
+  # })
 
   
 })
