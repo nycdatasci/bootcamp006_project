@@ -1,0 +1,133 @@
+---
+title: "We run faster than you do"
+subtitle: "An analysis of marathon results from Switzerland"
+author: "David Richard Steinmetz"
+date: "August 14, 2016"
+output:
+  ioslides_presentation:
+    widescreen: true
+    #smaller: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(data.table))
+dt <- readRDS('data_clean.RDS')
+nat.N <- head(dt[, .N, by = nat][order(-N)],10) 
+nat <- subset(dt, nat %in% c('SUI', 'GER', 'NED', 'GBR', 'ITA'))
+```
+
+## Both external and personal factors affect your marathon times
+
+Did you train hard enough?
+
+You might consider this most when considering your marathon time and place, but a number of other factors are also at play. The number of participants, your gender, your age, can all have an affect, perhaps even your nationality.
+
+In this presentation we will investigate these factors to see how they affected marathon times and placements in the Jungfrau Marathon in Switzerland.
+
+## The year 2012 saw a lack of participants and longer race times
+
+```{r}
+# Boxplots
+# --Year
+g <- ggplot(dt, aes(as.factor(year), time))
+g <- g + geom_boxplot(aes(colour=as.factor(year)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Year') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Year")
+g
+```
+
+
+## Your gender appears to impact your time
+
+```{r}
+# Boxplots
+# --Gender
+g <- ggplot(dt, aes(as.factor(gender), time))
+g <- g + geom_boxplot(aes(colour=as.factor(gender)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Gender') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Gender")
+g
+```
+
+- T-test p-value < 2.2e-16
+- BUT: T-TEST INVALID! An F-test shows the genders have differing variances
+
+
+## Your age impacts your time
+
+```{r}
+# Boxplots
+# --Age Group
+g <- ggplot(dt[!is.na(age.cat)], aes(as.factor(age.cat), time))
+g <- g + geom_boxplot(aes(colour=as.factor(age.cat)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Age Group') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Age Category")
+g
+```
+
+## And your age also impacts your placement
+
+```{r}
+# --Age Group (Place)
+g <- ggplot(dt[!is.na(age.cat)], aes(as.factor(age.cat), place))
+g <- g + geom_boxplot(aes(colour=as.factor(age.cat)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Age Group') + ylab('Place')
+g <- g + scale_colour_discrete(name = "Age Category")
+g
+```
+
+## Proximity to Switzerland influenced who participated
+
+```{r}
+# Barchart by nationality
+g <- ggplot(nat.N, aes(nat, N))
+g <- g + geom_bar(stat='identity')
+g <- g + theme_minimal()
+g <- g + ggtitle('Number of Participants by Nationality')
+g <- g + xlab('Country') + ylab('Number')
+g <- g + coord_flip()
+g
+```
+
+## The Italians are the fastest
+
+```{r}
+# --Nationality reordered according to median time
+g <- ggplot(nat, aes(reorder(as.factor(nat), time, median), time))
+g <- g + geom_boxplot(aes(colour=as.factor(nat)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Nationality (ordered by median time)') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Nationality")
+g
+```
+
+## Gender does not change time distribution by nationality 
+
+```{r}
+# --Gender + Nationality
+g <- ggplot(nat, aes(as.factor(gender), time))
+g <- g + geom_boxplot(aes(colour=reorder(nat, time)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Gender') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Nationality")
+g
+```
+
+## Takeaway
+
+- The Italians are the fastest
+- Gender does not change nation rankings
+- Age is running still matters: younger is better
+

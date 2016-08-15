@@ -194,7 +194,7 @@ border-top-color: #c7eae5;
             ),
             # source tab
             tabItem(tabName = "sorc",
-                    box(width = 12, status = "primary", solidHeader = TRUE, title = "Introduction",
+                    box(width = 12, status = "primary", solidHeader = TRUE, title = "Info",
                         tags$p("This app visualizes the global trade of coffee from 1960 to 2015."),
                         tags$b("Units for General View, Trend, and Correlation tabs"),
                         tags$div("kg: average of total kg", tags$br(),
@@ -202,18 +202,20 @@ border-top-color: #c7eae5;
                                  "kg/gdp: average total kg divided by GDP in USD"),
                         tags$br(),
                         tags$b("General View: Map & Bar Chart"),
-                        tags$div("The coffee data groups all countries in European Union together. 
-                               In order to visualize the data on the map for countries in EU, 
-                               the data of EU is manually pass to all these 28 countries: 
-                               Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, 
-                               Denmark, Estonia, Finland, France, Germany, Greece, Hungary, 
-                               Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, 
-                               Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, and United Kingdom.", tags$br(),
-                                 "Also, distribution and supply have identical values in the original coffee dataset."),
+                        tags$div("The coffee data groups all countries in the European Union together. 
+                                 In order to visualize the data on the map for countries in the EU, 
+                                 the data for the EU is passed manually to all these 28 countries: 
+                                 Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, 
+                                 Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, 
+                                 Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, 
+                                 Romania, Slovakia, Slovenia, Spain, Sweden, and United Kingdom. 
+                                 The values for all the countries in the EU are the same, however, 
+                                 as each country reflects the single EU value in the database."),
                         tags$br(),
                         tags$b("Correlation"),
-                        tags$p("log transformation was applied to prevent data from compressing to the bottom left. 
-                               If only few countries are shown, it means the data either was not available or become infinite during data processing"),
+                        tags$p("Log transformation was applied to prevent data from compressing to the bottom left. 
+                                Jittering points was applied to reduce overlapping, which results in producing negative values for some data points.
+                               If only a few countries are shown, it means the data was not available."),
                         tags$b("Fun Facts"),
                         tags$div("The units used in the plot in this tab are different from plots in other tabs. Please refer to below for clarification.", tags$br(),
                                  "mean_kg: average total kg/population", tags$br(), 
@@ -400,7 +402,8 @@ server = function(input, output) {
         x_mean = mean(coffee_corr[,2], na.rm = TRUE)
         y_mean = mean(coffee_corr[,3], na.rm = TRUE)
         g = ggplot(coffee_corr, aes(x = coffee_corr[,2], y = coffee_corr[,3], fill = region))
-        p = g + geom_point(color="darkslategray4", alpha = .8, size = 3) + 
+        p = g + # geom_point(color="darkslategray4", alpha = .8, size = 3) + 
+            geom_jitter(color="darkslategray4", alpha = .8, size = 3) +
             labs(x = paste0("log(",input$attr_x,") (kg)"), y = paste0("log(",input$attr_y,") (kg)"), 
                  title = paste(input$attr_y, "vs.", input$attr_x)) +
             geom_vline(xintercept = x_mean, linetype="dashed", size = .2) + 
