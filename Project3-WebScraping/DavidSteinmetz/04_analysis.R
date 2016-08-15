@@ -9,6 +9,9 @@ library(ggplot2)
 
 # Gender Analysis ---------------------------------------------------------
 
+dt[, .N, by = gender]  # Far fewer women
+dt[, .N, by = .(gender, year)]
+
 # Boxplots
 male_times <- dt[gender=='M',.(time)][['time']]
 female_times <- dt[gender=='F',.(time)][['time']]
@@ -39,7 +42,7 @@ t.test(female_times, male_times, alternative = "two.sided")
 # 19955.15  18981.99 
 
 # F-test to check the validity of the T-test
-var.test(female_times, male_times, alternative = "two.sided") # T-test invalid!
+var.test(female_times, male_times, alternative = "two.sided") # T-TEST INVALID!
 # F test to compare two variances
 # 
 # data:  female_times and male_times
@@ -55,6 +58,10 @@ var.test(female_times, male_times, alternative = "two.sided") # T-test invalid!
 
 
 # Year Analysis -----------------------------------------------------------
+
+dt[, .N, by = year]  # Far fewer in 2012
+mean(dt[, .N, by = year][['N']])
+median(dt[, .N, by = year][['N']])
 
 # Boxplots
 # --Year
@@ -72,6 +79,7 @@ g <- g + geom_boxplot(aes(colour=as.factor(year)))
 g <- g + theme_minimal()
 g <- g + ggtitle('Distribution of Race Times')
 g <- g + xlab('Year (ordered by median time)') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Year")
 g
 
 # --Year + Gender
@@ -101,6 +109,15 @@ g <- g + xlab('Year') + ylab('Time (s)')
 g <- g + scale_colour_discrete(name = "Time Group")
 g
 
+# --Year + Place Group
+g <- ggplot(dt, aes(as.factor(year), time))
+g <- g + geom_boxplot(aes(colour=place.cat))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Year') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Place Group")
+g
+
 # Density plots
 # --Year
 g <- ggplot(dt, aes(time))
@@ -110,6 +127,188 @@ g <- g + ggtitle('Density Distribution of Race Times')
 g <- g + xlab('Time (s)') + ylab('Density')
 g <- g + scale_colour_discrete(name = "Year")
 g
+
+# One-way ANOVA between Years
+summary(aov(time ~ year, data = dt))  # Sig. diff in mean times across years
+# Check assumptions:
+# 1. Population is normally distributed
+# 2. SD of populations are equal
+dt[,.(SD_time = sd(time)), by = year]
+t.test(dt[year==2012][['time']], 
+       dt[year==2015][['time']], 
+       alternative = 'two.sided')  # P-value 2.2e-16; means are different
+var.test(dt[year==2012][['time']],
+         dt[year==2015][['time']],
+         alternative = "two.sided") # P-value 0.4273; 
+                                    # Null hypothesis is kept: variance between
+                                    # 2012 and 2015 is the same
+# 3. Obs. are randomly drawn and independent
+
+
+
+
+# Age Analysis ------------------------------------------------------------
+
+dt[, .N, by=age.cat]
+
+# Boxplots
+# --Age Group
+g <- ggplot(dt[!is.na(age.cat)], aes(as.factor(age.cat), time))
+g <- g + geom_boxplot(aes(colour=as.factor(age.cat)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Age Group') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Age Category")
+g
+
+# --Age Group reordered according to median time
+g <- ggplot(dt[!is.na(age.cat)], aes(reorder(as.factor(age.cat), time, median), time))
+g <- g + geom_boxplot(aes(colour=as.factor(age.cat)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Age Group (ordered by median time)') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Year")
+g
+
+# --Age Group + Gender
+g <- ggplot(dt[!is.na(age.cat)], aes(as.factor(age.cat), time))
+g <- g + geom_boxplot(aes(colour=gender))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Age Group') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Gender")
+g
+
+# --Age Group + Year
+g <- ggplot(dt[!is.na(age.cat)], aes(as.factor(age.cat), time))
+g <- g + geom_boxplot(aes(colour=as.factor(year)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Age Group') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Age Group")
+g
+
+# --Age Group + Time Group
+g <- ggplot(dt[!is.na(age.cat)], aes(as.factor(age.cat), time))
+g <- g + geom_boxplot(aes(colour=time.cat))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Age Group') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Time Group")
+g
+
+# --Age Group + Place Group
+g <- ggplot(dt[!is.na(age.cat)], aes(as.factor(age.cat), time))
+g <- g + geom_boxplot(aes(colour=place.cat))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Age Group') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Place Group")
+g
+
+
+# Density plots
+# --Age Group
+g <- ggplot(dt[!is.na(age.cat)], aes(time))
+g <- g + geom_density(aes(colour = as.factor(age.cat)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Density Distribution of Race Times')
+g <- g + xlab('Time (s)') + ylab('Density')
+g <- g + scale_colour_discrete(name = "Age Group")
+g
+
+# One-way ANOVA between Age Groups
+summary(aov(time ~ age.cat, data = dt))  # Sig. diff in mean time across ages
+# Check assumptions:
+# 1. Population is normally distributed
+# 2. SD of populations are equal
+dt[,.(SD_time = sd(time)), by = age.cat]
+t.test(dt[age.cat=='[17,35)'][['time']], 
+       dt[age.cat=='[57,77]'][['time']], 
+       alternative = 'two.sided')  # P-value 2.2e-16; means are different
+var.test(dt[age.cat=='[17,35)'][['time']],
+         dt[age.cat=='[57,77]'][['time']],
+         alternative = "two.sided") # P-value 2.2e-16; T-TEST INVALID
+# Null hypothesis is rejected: variance between
+# age groups is not the same and therefore the T-test is invalid.
+# 3. Obs. are randomly drawn and independent
+
+
+
+# Time Group Analysis -----------------------------------------------------
+
+dt[, .N, by=time.cat]
+
+# Boxplots
+# --Time Group
+g <- ggplot(dt, aes(as.factor(time.cat), time))
+g <- g + geom_boxplot(aes(colour=as.factor(time.cat)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Time Group') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Time Category")
+g
+
+# --Time Group reordered according to median time
+g <- ggplot(dt, aes(reorder(as.factor(time.cat), time, median), time))
+g <- g + geom_boxplot(aes(colour=as.factor(time.cat)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Time Group (ordered by median time)') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Time Group")
+g
+
+# --Time Group + Gender
+g <- ggplot(dt, aes(as.factor(time.cat), time))
+g <- g + geom_boxplot(aes(colour=gender))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Time Group') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Gender")
+g
+
+# --Time Group + Year
+g <- ggplot(dt[!is.na(time.cat)], aes(as.factor(time.cat), time))
+g <- g + geom_boxplot(aes(colour=as.factor(year)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Time Group') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Year")
+g
+
+# --Time Group + Age Group
+g <- ggplot(dt, aes(as.factor(time.cat), time))
+g <- g + geom_boxplot(aes(colour=age.cat))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Time Group') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Age Group")
+g
+
+# --Time Group + Place Group
+g <- ggplot(dt, aes(as.factor(time.cat), time))
+g <- g + geom_boxplot(aes(colour=place.cat))
+g <- g + theme_minimal()
+g <- g + ggtitle('Distribution of Race Times')
+g <- g + xlab('Time Group') + ylab('Time (s)')
+g <- g + scale_colour_discrete(name = "Place Group")
+g
+
+# Density plots
+# --Time Group
+g <- ggplot(dt, aes(time))
+g <- g + geom_density(aes(colour = as.factor(time.cat)))
+g <- g + theme_minimal()
+g <- g + ggtitle('Density Distribution of Race Times')
+g <- g + xlab('Time (s)') + ylab('Density')
+g <- g + scale_colour_discrete(name = "Time Group")
+g
+
+
+
+# Nationality Analysis ----------------------------------------------------
+
+
 
 
 
