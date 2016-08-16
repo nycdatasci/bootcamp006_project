@@ -1,0 +1,504 @@
+Title = c('Mad_Max: Fury_Road','The Revenant','Bridge of Spies','The Big Short','The Danish Girl','Room','Ex Machina','The Hateful Eight','Inside Out','Amy','Spotlight','Birdman','The Grand Budapest Hotel','Whiplash','The Imitation Game','American Sniper','Boyhood','Interstellar','The Theory of Everything','Ida','Selma','Citizenfour','Big Hero 6')
+RunningTime(min) = c(120,156,141,130,119,118,108,168,94,128,129,119,100,106,114,132,165,169,123,82,128,113,102)
+
+Budget(million) = c(150,135,40, 28, 15,13,15,54,175,3.4,20,18,23,3.3,14,58.8,4,165,15,2,20,1,165)
+Box_Office(million) = c(378.4, 533, 165.5,133.3, 64.2,36,36.9,155.8,857.4,22, 88.3,103.2,174.8,49,233.6,547.4,44.5, 675.1,123.7,11.1, 66.8,3.5,657.8)
+Awards = c(6,3,1,1,1,1,1,1,1,1,2,4,4,3,1,1,1,1,1,1,1,1,1)
+Nominations = c(10,12,6,5,4,4,2,2,2,1,6,9,9,5,8,6,6,5,5,2,2,1,1)
+Year = c(2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014)
+ggplot(data=NewData3, aes(x=ID, y=value, fill= factor(variable))) + geom_bar(stat="identity")
+
+NewData2 = data_frame(Awards=Awards, Nominations=Nominations)
+NewData2
+
+ggplot(NewData3, aes(x=ID, y=value, fill=factor(variable)))+ geom_point()+ geom_line()
+
+> library(ggplot2)
+> library(plotly)
+> library(dplyr)
+> Title = c('Mad_Max: Fury_Road','The Revenant','Bridge of Spies','The Big Short','The Danish Girl','Room','Ex Machina','The Hateful Eight','Inside Out','Amy','Spotlight,'Birdman','The Grand Budapest Hotel','Whiplash','The Imitation Game','American Sniper','Boyhood','Interstellar','The Theory of Everything','Ida','Selma','Citizenfour','Big Hero 6')
+Error: unexpected symbol in "Title = c('Mad_Max: Fury_Road','The Revenant','Bridge of Spies','The Big Short','The Danish Girl','Room','Ex Machina','The Hateful Eight','Inside Out','Amy','Spotlight,'Birdman"
+> Title = c('Mad_Max: Fury_Road','The Revenant','Bridge of Spies','The Big Short','The Danish Girl','Room','Ex Machina','The Hateful Eight','Inside Out','Amy','Spotlight','Birdman','The Grand Budapest Hotel','Whiplash','The Imitation Game','American Sniper','Boyhood','Interstellar','The Theory of Everything','Ida','Selma','Citizenfour','Big Hero 6')
+> RunningTime = c(120,156,141,130,119,118,108,168,94,128,129,119,100,106,114,132,165,169,123,82,128,113,102)
+> Budget = c(150,135,40, 28, 15,13,15,54,175,3.4,20,18,23,3.3,14,58.8,4,165,15,2,20,1,165)
+> Box_Office = c(378.4, 533, 165.5,133.3, 64.2,36,36.9,155.8,857.4,22, 88.3,103.2,174.8,49,233.6,547.4,44.5, 675.1,123.7,11.1, 66.8,3.5,657.8)
+> Awards = c(6,3,1,1,1,1,1,1,1,1,2,4,4,3,1,1,1,1,1,1,1,1,1)
+> Nominations = c(10,12,6,5,4,4,2,2,2,1,6,9,9,5,8,6,6,5,5,2,2,1,1)
+> Year = c(2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2015,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014,2014)
+> 
+> data = data.frame(Title=Title, RunningTime=RunningTime, Budget=Budget, Box_Office=Box_Office, Awards=Awards, Nominations=Nominations, Year=Year)
+> data
+                      Title RunningTime Budget Box_Office Awards Nominations Year
+1        Mad_Max: Fury_Road         120  150.0      378.4      6          10 2015
+2              The Revenant         156  135.0      533.0      3          12 2015
+3           Bridge of Spies         141   40.0      165.5      1           6 2015
+4             The Big Short         130   28.0      133.3      1           5 2015
+5           The Danish Girl         119   15.0       64.2      1           4 2015
+6                      Room         118   13.0       36.0      1           4 2015
+7                Ex Machina         108   15.0       36.9      1           2 2015
+8         The Hateful Eight         168   54.0      155.8      1           2 2015
+9                Inside Out          94  175.0      857.4      1           2 2015
+10                      Amy         128    3.4       22.0      1           1 2015
+11                Spotlight         129   20.0       88.3      2           6 2015
+12                  Birdman         119   18.0      103.2      4           9 2014
+13 The Grand Budapest Hotel         100   23.0      174.8      4           9 2014
+14                 Whiplash         106    3.3       49.0      3           5 2014
+15       The Imitation Game         114   14.0      233.6      1           8 2014
+16          American Sniper         132   58.8      547.4      1           6 2014
+17                  Boyhood         165    4.0       44.5      1           6 2014
+18             Interstellar         169  165.0      675.1      1           5 2014
+19 The Theory of Everything         123   15.0      123.7      1           5 2014
+20                      Ida          82    2.0       11.1      1           2 2014
+21                    Selma         128   20.0       66.8      1           2 2014
+22              Citizenfour         113    1.0        3.5      1           1 2014
+23               Big Hero 6         102  165.0      657.8      1           1 2014
+> library("ggplot2", lib.loc="~/R/win-library/3.3")
+> library("plotly", lib.loc="~/R/win-library/3.3")
+> library("graphics", lib.loc="C:/Program Files/R/R-3.3.0/library")
+> qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(vs))
+> qplot(factor(vs), data=mtcars, geom="bar", fill=factor(cyl))
+> 
+> # bar graphs
+> x = np.arange(5)
+
+> y1, y2 = np.random.randint(1, 25, size=(2, 5))
+Error: unexpected ',' in "y1,"
+> width = 0.25
+
+> ax3.bar(x+width, y2, width, color=plt.rcParams['axes.color_cycle'][2])
+Error: could not find function "ax3.bar"
+> ax3.set_xticks(x+width)
+Error: could not find function "ax3.set_xticks"
+> ax3.set_xticklabels(['a', 'b', 'c', 'd', 'e'])
+Error: unexpected '[' in "ax3.set_xticklabels(["
+> 
+> 
+> 
+> ggplot(data = data)
+> # bar graphs
+> x = np.arange(5)
+Error: could not find function "np.arange"
+> y1, y2 = np.random.randint(1, 25, size=(2, 5))
+Error: unexpected ',' in "y1,"
+> width = 0.25
+> ax3.bar(x, y1, width)
+Error: could not find function "ax3.bar"
+> ax3.bar(x+width, y2, width, color=plt.rcParams['axes.color_cycle'][2])
+Error: could not find function "ax3.bar"
+> ax3.set_xticks(x+width)
+Error: could not find function "ax3.set_xticks"
+> ax3.set_xticklabels(['a', 'b', 'c', 'd', 'e'])
+Error: unexpected '[' in "ax3.set_xticklabels(["
+> 
+> 
+> data2 = data_frame(Budget=Budget, Box_Office=Box_Office)
+> data2
+# A tibble: 23 x 2
+   Budget Box_Office
+    <dbl>      <dbl>
+1   150.0      378.4
+2   135.0      533.0
+3    40.0      165.5
+4    28.0      133.3
+5    15.0       64.2
+6    13.0       36.0
+7    15.0       36.9
+8    54.0      155.8
+9   175.0      857.4
+10    3.4       22.0
+# ... with 13 more rows
+> 
+> ggplot(data=data2, aes(x= Movie, y=value, fill=variable)) + geom_bar(stat="identity", position=position_dodge())
+Error in eval(expr, envir, enclos) : object 'Movie' not found
+> ggplot(data=data2, aes(y=value, fill=variable)) + geom_bar(stat="identity", position=position_dodge())
+Error in eval(expr, envir, enclos) : object 'value' not found
+> ggplot(data=data2, aes(fill=variable)) + geom_bar(stat="identity", position=position_dodge())
+Error in eval(expr, envir, enclos) : object 'variable' not found
+> ggplot(data=data2, aes(fill=variable)) + geom_bar(stat="identity", position=position_dodge())
+Error in eval(expr, envir, enclos) : object 'variable' not found
+> ggplot(data=data2, aes(x= fill=variable)) + geom_bar(stat="identity", position=position_dodge())
+Error: unexpected '=' in "ggplot(data=data2, aes(x= fill="
+> 
+
+> 
+
+> install.packages('reshape2')
+Installing package into ‘C:/Users/annei/OneDrive/Documents/R/win-library/3.3’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/reshape2_1.4.1.zip'
+Content type 'application/zip' length 559057 bytes (545 KB)
+downloaded 545 KB
+
+package ‘reshape2’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\annei\AppData\Local\Temp\RtmpWISCOy\downloaded_packages
+> library(reshape2)
+
+Attaching package: ‘reshape2’
+
+The following objects are masked from ‘package:data.table’:
+
+    dcast, melt
+
+Warning message:
+package ‘reshape2’ was built under R version 3.3.1 
+> ?melt
+> NewData <-melt(data2)
+No id variables; using all as measure variables
+> NewData <-melt(data2, value.name= "value")
+No id variables; using all as measure variables
+> names(NewData)
+[1] "variable" "value"   
+> NewData
+     variable value
+1      Budget 150.0
+2      Budget 135.0
+3      Budget  40.0
+4      Budget  28.0
+5      Budget  15.0
+6      Budget  13.0
+7      Budget  15.0
+8      Budget  54.0
+9      Budget 175.0
+10     Budget   3.4
+11     Budget  20.0
+12     Budget  18.0
+13     Budget  23.0
+14     Budget   3.3
+15     Budget  14.0
+16     Budget  58.8
+17     Budget   4.0
+18     Budget 165.0
+19     Budget  15.0
+20     Budget   2.0
+21     Budget  20.0
+22     Budget   1.0
+23     Budget 165.0
+24 Box_Office 378.4
+25 Box_Office 533.0
+26 Box_Office 165.5
+27 Box_Office 133.3
+28 Box_Office  64.2
+29 Box_Office  36.0
+30 Box_Office  36.9
+31 Box_Office 155.8
+32 Box_Office 857.4
+33 Box_Office  22.0
+34 Box_Office  88.3
+35 Box_Office 103.2
+36 Box_Office 174.8
+37 Box_Office  49.0
+38 Box_Office 233.6
+39 Box_Office 547.4
+40 Box_Office  44.5
+41 Box_Office 675.1
+42 Box_Office 123.7
+43 Box_Office  11.1
+44 Box_Office  66.8
+45 Box_Office   3.5
+46 Box_Office 657.8
+> names(NewData)
+[1] "variable" "value"   
+> NewData$variable <- factor(NewData$variable)
+> ggplot(data=NewData, aes(x=value, fill=variable)) + geom_bar(stat="identity")
+Error in data.frame(list(x = c(150, 135, 40, 28, 15, 13, 15, 54, 175,  : 
+  arguments imply differing number of rows: 46, 322
+> nrow(NewData)
+[1] 46
+> ggplot(data=NewData, aes(x=value)) + geom_bar(stat="identity")
+Error in `$<-.data.frame`(`*tmp*`, "ymax", value = numeric(0)) : 
+  replacement has 0 rows, data has 7
+In addition: Warning messages:
+1: Removed 59 rows containing missing values (position_stack). 
+2: In is.na(df$y) : is.na() applied to non-(list or vector) of type 'NULL'
+> ggplot(data=NewData, aes(x=variale, y=value)) + geom_bar(stat="identity")
+Error in eval(expr, envir, enclos) : object 'variale' not found
+> ggplot(data=NewData, aes(x=variable, y=value)) + geom_bar(stat="identity")
+> data2
+# A tibble: 23 x 2
+   Budget Box_Office
+    <dbl>      <dbl>
+1   150.0      378.4
+2   135.0      533.0
+3    40.0      165.5
+4    28.0      133.3
+5    15.0       64.2
+6    13.0       36.0
+7    15.0       36.9
+8    54.0      155.8
+9   175.0      857.4
+10    3.4       22.0
+# ... with 13 more rows
+> data2$ID<-seq(1,23)
+> data
+                      Title RunningTime Budget Box_Office Awards Nominations Year
+1        Mad_Max: Fury_Road         120  150.0      378.4      6          10 2015
+2              The Revenant         156  135.0      533.0      3          12 2015
+3           Bridge of Spies         141   40.0      165.5      1           6 2015
+4             The Big Short         130   28.0      133.3      1           5 2015
+5           The Danish Girl         119   15.0       64.2      1           4 2015
+6                      Room         118   13.0       36.0      1           4 2015
+7                Ex Machina         108   15.0       36.9      1           2 2015
+8         The Hateful Eight         168   54.0      155.8      1           2 2015
+9                Inside Out          94  175.0      857.4      1           2 2015
+10                      Amy         128    3.4       22.0      1           1 2015
+11                Spotlight         129   20.0       88.3      2           6 2015
+12                  Birdman         119   18.0      103.2      4           9 2014
+13 The Grand Budapest Hotel         100   23.0      174.8      4           9 2014
+14                 Whiplash         106    3.3       49.0      3           5 2014
+15       The Imitation Game         114   14.0      233.6      1           8 2014
+16          American Sniper         132   58.8      547.4      1           6 2014
+17                  Boyhood         165    4.0       44.5      1           6 2014
+18             Interstellar         169  165.0      675.1      1           5 2014
+19 The Theory of Everything         123   15.0      123.7      1           5 2014
+20                      Ida          82    2.0       11.1      1           2 2014
+21                    Selma         128   20.0       66.8      1           2 2014
+22              Citizenfour         113    1.0        3.5      1           1 2014
+23               Big Hero 6         102  165.0      657.8      1           1 2014
+> data2
+# A tibble: 23 x 3
+   Budget Box_Office    ID
+    <dbl>      <dbl> <int>
+1   150.0      378.4     1
+2   135.0      533.0     2
+3    40.0      165.5     3
+4    28.0      133.3     4
+5    15.0       64.2     5
+6    13.0       36.0     6
+7    15.0       36.9     7
+8    54.0      155.8     8
+9   175.0      857.4     9
+10    3.4       22.0    10
+# ... with 13 more rows
+> NewData<-melt(data2)
+No id variables; using all as measure variables
+> NewData
+     variable value
+1      Budget 150.0
+2      Budget 135.0
+3      Budget  40.0
+4      Budget  28.0
+5      Budget  15.0
+6      Budget  13.0
+7      Budget  15.0
+8      Budget  54.0
+9      Budget 175.0
+10     Budget   3.4
+11     Budget  20.0
+12     Budget  18.0
+13     Budget  23.0
+14     Budget   3.3
+15     Budget  14.0
+16     Budget  58.8
+17     Budget   4.0
+18     Budget 165.0
+19     Budget  15.0
+20     Budget   2.0
+21     Budget  20.0
+22     Budget   1.0
+23     Budget 165.0
+24 Box_Office 378.4
+25 Box_Office 533.0
+26 Box_Office 165.5
+27 Box_Office 133.3
+28 Box_Office  64.2
+29 Box_Office  36.0
+30 Box_Office  36.9
+31 Box_Office 155.8
+32 Box_Office 857.4
+33 Box_Office  22.0
+34 Box_Office  88.3
+35 Box_Office 103.2
+36 Box_Office 174.8
+37 Box_Office  49.0
+38 Box_Office 233.6
+39 Box_Office 547.4
+40 Box_Office  44.5
+41 Box_Office 675.1
+42 Box_Office 123.7
+43 Box_Office  11.1
+44 Box_Office  66.8
+45 Box_Office   3.5
+46 Box_Office 657.8
+47         ID   1.0
+48         ID   2.0
+49         ID   3.0
+50         ID   4.0
+51         ID   5.0
+52         ID   6.0
+53         ID   7.0
+54         ID   8.0
+55         ID   9.0
+56         ID  10.0
+57         ID  11.0
+58         ID  12.0
+59         ID  13.0
+60         ID  14.0
+61         ID  15.0
+62         ID  16.0
+63         ID  17.0
+64         ID  18.0
+65         ID  19.0
+66         ID  20.0
+67         ID  21.0
+68         ID  22.0
+69         ID  23.0
+> ?melt
+> names(NewData)
+[1] "variable" "value"   
+> NewData<-melt(data2,id='ID')
+> NewData
+   ID   variable value
+1   1     Budget 150.0
+2   2     Budget 135.0
+3   3     Budget  40.0
+4   4     Budget  28.0
+5   5     Budget  15.0
+6   6     Budget  13.0
+7   7     Budget  15.0
+8   8     Budget  54.0
+9   9     Budget 175.0
+10 10     Budget   3.4
+11 11     Budget  20.0
+12 12     Budget  18.0
+13 13     Budget  23.0
+14 14     Budget   3.3
+15 15     Budget  14.0
+16 16     Budget  58.8
+17 17     Budget   4.0
+18 18     Budget 165.0
+19 19     Budget  15.0
+20 20     Budget   2.0
+21 21     Budget  20.0
+22 22     Budget   1.0
+23 23     Budget 165.0
+24  1 Box_Office 378.4
+25  2 Box_Office 533.0
+26  3 Box_Office 165.5
+27  4 Box_Office 133.3
+28  5 Box_Office  64.2
+29  6 Box_Office  36.0
+30  7 Box_Office  36.9
+31  8 Box_Office 155.8
+32  9 Box_Office 857.4
+33 10 Box_Office  22.0
+34 11 Box_Office  88.3
+35 12 Box_Office 103.2
+36 13 Box_Office 174.8
+37 14 Box_Office  49.0
+38 15 Box_Office 233.6
+39 16 Box_Office 547.4
+40 17 Box_Office  44.5
+41 18 Box_Office 675.1
+42 19 Box_Office 123.7
+43 20 Box_Office  11.1
+44 21 Box_Office  66.8
+45 22 Box_Office   3.5
+46 23 Box_Office 657.8
+> ggplot(data=NewData, aes(x=ID, y=value, fill= factor(variable))) + geom_bar(stat="identity")
+> data2$ID<-seq(1,23)
+> 
+> NewData2 = data_frame(Awards=Awards, Nominations=Nominations)
+> NewData2
+# A tibble: 23 x 2
+   Awards Nominations
+    <dbl>       <dbl>
+1       6          10
+2       3          12
+3       1           6
+4       1           5
+5       1           4
+6       1           4
+7       1           2
+8       1           2
+9       1           2
+10      1           1
+# ... with 13 more rows
+> names(NewData2)
+[1] "Awards"      "Nominations"
+> NewData3<-melt(NewData2, id='ID')
+> NewData3
+> NewData3$ID<-seq(1,23)
+
+> NewData2$ID<-seq(1,23)
+> NewData3<-melt(NewData2)
+
+> names(NewData2)
+[1] "Awards"      "Nominations" "ID"         
+> NewData2
+# A tibble: 23 x 3
+   Awards Nominations    ID
+    <dbl>       <dbl> <int>
+1       6          10     1
+2       3          12     2
+3       1           6     3
+4       1           5     4
+5       1           4     5
+6       1           4     6
+7       1           2     7
+8       1           2     8
+9       1           2     9
+10      1           1    10
+# ... with 13 more rows
+
+> NewData3<-melt(NewData2, id='ID')
+> NewData3
+   ID    variable value
+1   1      Awards     6
+2   2      Awards     3
+3   3      Awards     1
+4   4      Awards     1
+5   5      Awards     1
+6   6      Awards     1
+7   7      Awards     1
+8   8      Awards     1
+9   9      Awards     1
+10 10      Awards     1
+11 11      Awards     2
+12 12      Awards     4
+13 13      Awards     4
+14 14      Awards     3
+15 15      Awards     1
+16 16      Awards     1
+17 17      Awards     1
+18 18      Awards     1
+19 19      Awards     1
+20 20      Awards     1
+21 21      Awards     1
+22 22      Awards     1
+23 23      Awards     1
+24  1 Nominations    10
+25  2 Nominations    12
+26  3 Nominations     6
+27  4 Nominations     5
+28  5 Nominations     4
+29  6 Nominations     4
+30  7 Nominations     2
+31  8 Nominations     2
+32  9 Nominations     2
+33 10 Nominations     1
+34 11 Nominations     6
+35 12 Nominations     9
+36 13 Nominations     9
+37 14 Nominations     5
+38 15 Nominations     8
+39 16 Nominations     6
+40 17 Nominations     6
+41 18 Nominations     5
+42 19 Nominations     5
+43 20 Nominations     2
+44 21 Nominations     2
+45 22 Nominations     1
+46 23 Nominations     1
+
+> ggplot(NewData3, aes(x=ID, y=value, fill=factor(variable)))+ geom_line()
+> ggplot(NewData3, aes(x=ID, y=value, fill=factor(variable)))+ geom_point()+ geom_line()
+> ggplot(NewData3)+ geom_point(aes(x=ID,y=value), col="Red")+ geom_line(aes(x=ID,y=value),col="Green")
+> ggplot(data=NewData3, aes(x=ID, y=value, fill= factor(variable))) + geom_bar(stat="identity")
+> ggplot(NewData3, aes(x=ID, y=value, fill=factor(variable)))+ geom_point()+ geom_line()
+> ggplot(NewData3, aes(x= ID, y=value, fill=variable)) + geom_bar(stat="identity", position=position_dodge())
+> ggplot(NewData3, aes(x= ID, y=value, fill=variable)) + geom_bar(stat="identity", position=position_dodge())
+
+
+

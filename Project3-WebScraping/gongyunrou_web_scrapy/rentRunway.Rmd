@@ -1,0 +1,215 @@
+---
+title: "Anslysis of the Rent The Runway"
+author: "Yunrou Gong (Crystal)"
+date: "August 14, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Introduction:   
+- Backgroud Review   
+- Methodology  
+- Visiualization the data  
+-  
+-  
+```{r loadingdata, include=FALSE}
+library(dplyr)
+library(googleVis)
+library(ggplot2)
+rwdata<- read.csv("data.csv")
+rwdata$item <- as.character(rwdata$item)
+```
+
+## Summary of Data 
+
+
+```{r pressure, echo=FALSE}
+str(rwdata)
+summary(rwdata[,-8])
+
+
+```
+## Exploratory Data Analysis
+### Categorical Variable : Brand and Type 
+
+```{r brand eda, echo=FALSE, results="asis"}
+brand_share <- count(rwdata, vars=brand,sort = T)
+Pie.brand <- gvisPieChart(brand_share, options=list(
+  slices="{14: {offset: 0.2}, 0: {offset: 0.3}}",
+  title='Brand Share in Pie Chart',
+  legend="{ position:'left'}",
+  width=800, height=600,
+  pieSliceText='label',
+  pieHole=0.5))
+plot(Pie.brand,"chart")
+
+type_share <- count(rwdata, vars=type,sort = T)
+Pie.type <- gvisPieChart(type_share, options=list(
+  slices="{6: {offset: 0.2}, 1: {offset: 0.3}}",
+  title='Dress Type Share in Pie Chart',
+  legend="{ position:'left'}",
+  width=800, height=600,
+  pieSliceText='label',
+  pieHole=0.5))
+plot(Pie.type,"chart")
+
+```
+
+##Popularity by dress and by brand 
+```{r popularity, echo=FALSE, results="asis"}
+
+rwdata$item <- as.character(rwdata$item)
+
+top20 <- head(rwdata%>%arrange(desc(reviews)),20)
+
+g.bar <- gvisColumnChart(top20,xvar ="item", yvar = "reviews",
+                         options=list(color="#99ccff",
+                                      width="1000px", height="500px",
+                                      vAxes="[{title:'Number of Reviews'}]",
+                                      hAxes="[{title:'Dress Name'}]",
+                                      title="Top 20 Popular Dresses ",
+                                      titleTextStyle="{fontSize:18}",
+                                      legend="{position:'Top'}"))
+plot(g.bar,"chart")
+
+
+
+rwdata$brand <- as.character(rwdata$brand)
+brand_bar <- rwdata%>%group_by(brand)%>%
+  summarise(reviews_brand=sum(reviews))%>%
+  arrange(desc(reviews_brand))
+
+brand_bar <- brand_bar[1:20,]
+brand.barchart <- gvisColumnChart(brand_bar,xvar ="brand", yvar = "reviews_brand",
+                         options=list(colors="#cc99ff",
+                                      width="1000px", height="500px",
+                                      vAxes="[{title:'Aggregate number of Reviews'}]",
+                                      hAxes="[{title:'Brand Name'}]",
+                                      title="Top 20 Popular Brands ",
+                                      titleTextStyle="{fontSize:18}",
+                                      legend="{position:'Top'}"))
+plot(brand.barchart,"chart")
+
+
+
+
+```
+
+#
+```{r scatter, echo=FALSE, results="asis"}
+
+mydata <- rwdata[-2]
+mydata <- mydata[-7]
+mydata <- mydata[-10]
+pairs(mydata[-1])
+
+
+```
+
+# EDA of numeric variable 
+```{r hist, echo=FALSE, results="asis"}
+
+hist(x=rwdata$avgRating,prob=T)
+
+hist(x=rwdata$discount,prob=T)
+lines(density(rwdata$discount), col = "purple")
+hist(x=rwdata$retailPrice,prob=T)
+lines(density(rwdata$retailPrice), col = "orange")
+hist(x=rwdata$rentalPrice_4,prob=T)
+lines(density(rwdata$rentalPrice_4), col = "red")
+
+```
+
+###data by selected relevevant variables to predict rental price 
+response variable = rentalPrice_4
+```{r sampledata, include=FALSE, results="asis"}
+library(ISLR)
+library(glmnet)
+mydata2 <- rwdata%>%select(item,brand,type,rentalPrice_4,retailPrice)
+mydata2$brand <- as.factor(mydata2$brand)
+library(car)
+scatterplotMatrix(~ rentalPrice_4 + retailPrice | type, data=mydata2,
+                  main="Scaterplot of rentalPrice_4 and retailPrice")
+
+# set.seed(0)
+# x <- model.matrix(rentalPrice_4 ~ retailPrice, mydata2)[, -1] 
+# y <- mydata2$rentalPrice_4
+# train.rw<-  sample(1:length(x), 8*length(x)/10)
+# 
+# z <-as.matrix(mydata2[-4])
+# train.zrw<-  sample(1:nrow(z), 8*nrow(z)/10)
+
+
+```
+# scatter plot pink
+
+```{r scatter2, include=FALSE, results="asis"}
+
+s <- gvisScatterChart(rwdata[,c(10,11)],
+                      options=list(colors="pink",
+                                   width="1000px", height="500px",
+                                   vAxes="[{title:'rental Price of 8 days'}]",
+                                   hAxes="[{title:'rental Price of 4 days'}]",
+                                   title="ScatterPlot rentalPrice_8 Vs rentalPrice_4",
+                                   titleTextStyle="{fontSize:18}",
+                                   legend="{position:'Top'}"))
+
+plot(s,"chart")
+
+s2 <- gvisScatterChart(rwdata[,c(9,10)],
+                      options=list(colors="hotpink",
+                                   width="1000px", height="500px",
+                                   vAxes="[{title:'rental Price of 4 days'}]",
+                                   hAxes="[{title:'retail price of dress'}]",
+                                   title="ScatterPlot rentalPrice_4 Vs retailPrice",
+                                   titleTextStyle="{fontSize:18}",
+                                   legend="{position:'Top'}"))
+
+
+plot(s2,"chart")
+
+
+
+
+```
+
+
+```{r model, echo=FALSE, results="asis"}
+##model-mutiple linear regression 
+model1 <- lm(rentalPrice_4 ~ . -item, data=mydata2)
+summary(model1)
+model2 <- lm(rentalPrice_4 ~ . -item -brand , data=mydata2)
+summary(model2)
+model3 <- lm(rentalPrice_4 ~ retailPrice,data=mydata2)
+summary(model3)
+plot(model2)
+influencePlot(model3)
+vif(model3)
+avPlots(model3)
+
+```
+The overall regression is significant as the F -test P-value is less than 0.05 , thus there is at   least one of the variable in the model is potentially useful for prediction the Price .  
+
+
+
+Adjusted coefficient of determination: 0.8479 
+approximately 85% of the variability in the Price variable 
+is explained by the model.
+
+
+plot(model)
+influencePlot(model)
+vif(model)
+avPlots(model)
+```{r cpmparemodel, echo=FALSE, results="asis"}
+
+AIC(model1,model2,model3)
+BIC(model1,model2,model3)
+
+
+```
+
+result <- predict(model3, newdata=mydata2)
+

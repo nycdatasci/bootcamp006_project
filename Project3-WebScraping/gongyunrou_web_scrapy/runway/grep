@@ -1,0 +1,7 @@
+2016-08-09 06:25:28 [scrapy] INFO: Scrapy 1.1.1 started (bot: demo)
+2016-08-09 06:25:28 [scrapy] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'demo.spiders', 'SPIDER_MODULES': ['demo.spiders'], 'DOWNLOAD_DELAY': 1, 'BOT_NAME': 'demo'}
+Usage
+=====
+  scrapy crawl [options] <spider>
+
+crawl: error: running 'scrapy crawl' with more than one spider is no longer supported

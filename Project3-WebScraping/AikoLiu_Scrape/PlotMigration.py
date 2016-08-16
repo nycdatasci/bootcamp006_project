@@ -3,16 +3,16 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy.random as random
 
-# Plot the descending sorted SVD eigenvalues 
-def PlotEigenValues(eigenValues,key='avg',logOdds=True):
+# Plot the descending sorted SVD singular values 
+def PlotSingularValues(singularValues,key='avg',logOdds=True):
 
     token = ' Log Odd ' if logOdds else 'Original'
-    numStates = eigenValues[key].shape[0]
-    plt.plot(np.arange(numStates),eigenValues[key])
+    numStates = singularValues[key].shape[0]
+    plt.plot(np.arange(numStates),singularValues[key])
     plt.xlabel("Descending Sorted Order")
-    plt.ylabel("EigenValues of %s Migration Prob. SVD" %(token))
+    plt.ylabel("Singular Values of %s Migration Prob. SVD" %(token))
 
-# Plot the SVD descending sorted eigenvalues from a random matrix 
+# Plot the SVD descending sorted singular values from a random matrix 
 def PlotRandomSVD(nrow=51,ncol=51,std=1,dist='normal'):
 
     if dist=='normal':
@@ -71,9 +71,9 @@ def PlotTSCorrDist(X,ResFct,Time=21):
     sns.kdeplot(np.array(A)[x>y].flatten())
 
 #Plot the ratio of cumulative lambda*2 covered by the truncated SVD
-def PlotRSquare(eigenValues,key='avg', logOdds=True):
+def PlotRSquare(singularValues,key='avg', logOdds=True):
 
-    eigen = eigenValues.get(key)
+    eigen = singularValues.get(key)
     if eigen is None: raise ValueError("Invalid key "+key+"!")
     X = eigen
     z = np.cumsum(X**2)/np.sum(X**2)
