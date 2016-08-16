@@ -133,3 +133,8 @@ dt[age>100, age:=NA]  # Miscalculations due to missing birth_year
 dt[age>100]
 uni_eda(dt[['age']])  # View new age distribution
 
+
+# write to file
+saveRDS(dt, file='data_clean.RDS')
+
+
