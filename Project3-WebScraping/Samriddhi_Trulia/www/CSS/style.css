@@ -1,27 +1,10 @@
 
-.modal-content {
-      width: 1000px;
-      overflow-y:auto
-              }
-			  
-
-.content{
-	 height: 700px
-}
-
-.tab-content{
-	height: 750px
-}
- 	
-div#shiny-tab-map{
-	height: 750px
-}
-
-div#map {
+ div#map {
     width: 100%;
-    height: 800px !important;
+    height: 750px !important;
 }
 
+   
 div.outer {
   
   top: 100px;
@@ -44,6 +27,72 @@ div.outer {
 }
 #hover_box:hover {
   /* Fade in while hovering */
+  opacity: 0.95;
+  transition-delay: 0;
+}
+			  
+#plot3{
+  height:800px;
+}
+
+#plot2{
+  height:800px;
+}
+
+#plot1{
+  height:800px;
+}
+
+.field1 {
+   float:left;
+}
+
+.field2 {
+   float:grid-height;
+}
+
+#table{
+overflow-x : auto !important
+}
+
+/*
+
+.content{
+	 height: 650px
+}
+
+
+.tab-content{
+	height: 650px
+}
+ 	
+div#shiny-tab-map{
+	height: 650px;
+}
+
+
+div.outer {
+  
+  top: 100px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+#hover_box {
+  /* Appearance * /
+  background-color: white;
+  padding: 0 20px 20px 20px;
+  cursor: move;
+  /* Fade out while not hovering * /
+  opacity: 0.65;
+  zoom: 0.9;
+  transition: opacity 500ms 1s;
+}
+#hover_box:hover {
+  /* Fade in while hovering * /
   opacity: 0.95;
   transition-delay: 0;
 }
@@ -91,6 +140,32 @@ margin-left : -15px !important
 }
 
 .imageContainer{
-float: left !important
+float: left !important;
 width :50%
 }
+
+#table{
+    width: 100%;
+    height: 100%;
+    visibility: inherit;
+    overflow-y: auto;
+	overflow-x: auto;
+}
+
+
+
+#shiny-tab-data{
+height: 100%;
+width: 100%;
+margin-left: -15px;
+
+}
+
+.row{
+  height: 100%;
+}
+
+.col-sm-12{
+  height: 100%;
+}
+*/

@@ -3,7 +3,9 @@ library(shinydashboard)
 library(googleVis)
 library(DT)
 library(leaflet)
-require(googleVis)
+library(googleVis)
+library(rCharts)
+library(data.table)
 
 
 shinyUI(dashboardPage(
@@ -24,7 +26,7 @@ shinyUI(dashboardPage(
                    #----------------------------SidebarMenu -------------------------------------------------
     
     sidebarMenu(
-      menuItem("Introduction", tabName = "Intro", icon = icon("comment")),
+      menuItem("Introduction", tabName = "Intro", icon = icon("database")),
       menuItem("Map", tabName = "map", icon = icon("map")),
       menuItem("Data", tabName = "data", icon = icon("database")),
       menuItem("Neighbourhood ", tabName = "plots1", icon = icon("database")),
@@ -54,7 +56,7 @@ shinyUI(dashboardPage(
                
                   
                 
-                leafletOutput("map"),  height = 800 , width = "100%"),
+                leafletOutput("map"),  height = "500" , width = "100%"),
               
                 absolutePanel(
                   id = "hover_box",
@@ -65,7 +67,7 @@ shinyUI(dashboardPage(
                   left = "auto",
                   right = 20,
                   bottom = "auto",
-                  width = 330,
+                  width = 300,
                   height = "auto",
                   # div(align = 'center', h3('New York Rentals')),
                   
@@ -91,14 +93,16 @@ shinyUI(dashboardPage(
                   #             choices = unique(as.character(IndividualApartment2$CrimeLevel)),
                   #             selected = "Low", selectize = FALSE),
                   # 
-                  div(class="row-fluid",
-                      div(class="field1",numericInput("Rentmin", label = "Rent-min", value = 500)), 
-                      div(class="field2",numericInput("Rentmax", label = "Rent-max", value = 1500000))
-                  ),
+                  div(fluidRow(
+                      div(style="display:inline-block",numericInput("Rentmin", label = "Rent-min", value = 500,
+                                                                    width = 130)), 
+                      div(style="display:inline-block",numericInput("Rentmax", label = "Rent-max", value = 1500000,
+                                                                    width =130 ))
+                  )),
                   
                   
                   
-                    plotOutput("barplot1", height = 180)
+                  plotOutput("barplot1", height = 180)
                   
                 
               )), 
@@ -111,28 +115,39 @@ shinyUI(dashboardPage(
       
       tabItem(tabName = "plots1",
               
-              fluidRow(box( htmlOutput("plot2"), height = 300, width = 1180 )),
+              selectInput(inputId = "SelectBarplot1", label= "Select Bar plot", 
+                          choices =  c("Number of Apartment" = 1 ,"Median Price of Apartments" = 2 ),
+                          selected = 1 , selectize = FALSE),
               
-              fluidRow(box( htmlOutput("plot3"), height = 300 , width = 1180))
+              fluidRow(box(  showOutput("plot1", "nvd3"), height = 600 , width = "100%"))
+              
+              # fluidRow(box( htmlOutput("plot2"), height = 300, width = 1180 ))
+              
+            
               
       ),
       
-      tabItem(tabName = "plots2",
+      tabItem(tabName = "plots2", 
               
-              fluidRow(box( htmlOutput("plot4"), height = 500, width = 1180 ))
               
-              # fluidRow(box( htmlOutput("plotx"), height = 300 , width = 1180))
+              
+              fluidRow(box(  showOutput("plot2", "nvd3"), height = 600 , width = "100%"))
+              
+              
               
       ),
       
       tabItem(tabName = "plots3",
               
-              fluidRow(box( htmlOutput("plot5"), height = 200, width = 1180 )),
+              selectInput(inputId = "SelectBarplot2", label= "Select School Type", 
+                          choices =  c("Elementary School" = 1 ,
+                                        "Middle School" = 2 ,
+                                        "High School" =3 ),
+                          selected = 1, selectize = FALSE),
               
-              fluidRow(box( htmlOutput("plot6"), height = 200 , width = 1180)),
+              fluidRow(box(  showOutput("plot3", "nvd3"), height = 600 , width = "100%"))
               
-              fluidRow(box( htmlOutput("plot7"), height = 200 , width = 1180))
-              
+             
       ),
       
 
@@ -146,12 +161,26 @@ shinyUI(dashboardPage(
               div(id = 'intro',
                   
                   fluidRow(column(
-                    12,
+                    6,
                     div(class = "imageContainer",
                         img(src="images/Apt1.png", height = 270, width = 400)
+                        # img(src="images/Apt2.png", height = 270, width = 400)
                     )
+                   
                     # div(class = "imageContainer",
-                    #     img(src="images/Apt2.png", height = 300, width = 400)
+                    #     img(src="images/Apt2.png", height = 270, width = 400)
+                    # )
+                    
+                  ),
+                  column(
+                    6,
+                    div(class = "imageContainer",
+                        # img(src="images/Apt1.png", height = 270, width = 400)
+                        img(src="images/Apt2.png", height = 270, width = 400)
+                    )
+                    
+                    # div(class = "imageContainer",
+                    #     img(src="images/Apt2.png", height = 270, width = 400)
                     # )
                     
                   )),
