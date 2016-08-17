@@ -7,6 +7,7 @@ autosize: true
 Introduction
 ========================================================
 
+
 <p>In this project I will continue the topic of facial detection and recognition</p>
 <p>in the first project. This time, however, I will go a little deeper and make </p>
 <p>the project more diversified and visualized through Shiny app and Microsoft</p><p> API</p>

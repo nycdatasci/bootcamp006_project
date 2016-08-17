@@ -1,0 +1,761 @@
+,category,discount,merchant,stocknum
+0,Apparel & Accessories,4.5,Abercrombie & Fitch,203
+1,Apparel & Accessories,16,ALDO,1
+2,Apparel & Accessories,7,American Girl,22
+3,Apparel & Accessories,14,Anthropologie,3
+4,Apparel & Accessories,11,Athleta,3
+5,Apparel & Accessories,11,Banana Republic,303
+6,Apparel & Accessories,18,Brooks Brothers,4
+7,Apparel & Accessories,19,Buckle,11
+8,Apparel & Accessories,20,Christopher & Banks,14
+9,Apparel & Accessories,13,Dick's Sporting Goods,7
+10,Apparel & Accessories,15,Dillard's,1
+11,Apparel & Accessories,17,Forever 21,103
+12,Apparel & Accessories,11,Gap,278
+13,Apparel & Accessories,30,H & M,109
+14,Apparel & Accessories,26,Hollister,2
+15,Apparel & Accessories,12,JCPenney,192
+16,Apparel & Accessories,5,Kmart,92
+17,Apparel & Accessories,9.5,Kohl's,1
+18,Apparel & Accessories,16.5,L.L. Bean,138
+19,Apparel & Accessories,10,Lacoste,1
+20,Apparel & Accessories,25,Lane Bryant,35
+21,Apparel & Accessories,21,Lucky Brand Jeans,6
+22,Apparel & Accessories,14,Men's Wearhouse,4
+23,Apparel & Accessories,17,Motherhood Maternity,1
+24,Apparel & Accessories,5,Nordstrom,90
+25,Apparel & Accessories,11,Old Navy,115
+26,Apparel & Accessories,5,Sears,400
+27,Apparel & Accessories,18,Sunglass Hut,23
+28,Apparel & Accessories,7,T.J. Maxx,8
+29,Apparel & Accessories,32.5,Talbots,85
+30,Apparel & Accessories,5.5,Target,207
+31,Apparel & Accessories,15,The North Face,1
+32,Apparel & Accessories,5,Victoria's Secret,1
+33,Apparel & Accessories,17,A Pea in the Pod,0
+34,Apparel & Accessories,10,Adidas,0
+35,Apparel & Accessories,22,Aeropostale,0
+36,Apparel & Accessories,10,AJ Wright,0
+37,Apparel & Accessories,25,American Apparel,0
+38,Apparel & Accessories,24,American Eagle Outfitters,0
+39,Apparel & Accessories,25,Ann Taylor,0
+40,Apparel & Accessories,8,Armani Exchange,0
+41,Apparel & Accessories,10,Barney's New York,0
+42,Apparel & Accessories,20,Bebe,0
+43,Apparel & Accessories,16,Belk,0
+44,Apparel & Accessories,11,Bloomingdale's,0
+45,Apparel & Accessories,12,Boscov's,0
+46,Apparel & Accessories,8,Burberry,0
+47,Apparel & Accessories,15,Burlington Coat Factory,0
+48,Apparel & Accessories,20,Chico's,0
+49,Apparel & Accessories,10,Children's Place,0
+50,Apparel & Accessories,32,Claire's,0
+51,Apparel & Accessories,2,Coach,0
+52,Apparel & Accessories,10,Columbia Sportswear,0
+53,Apparel & Accessories,30,Dress Barn,0
+54,Apparel & Accessories,17,DSW,0
+55,Apparel & Accessories,29,Express,0
+56,Apparel & Accessories,9,Foot Locker,0
+57,Apparel & Accessories,30,Frederick's Of Hollywood,0
+58,Apparel & Accessories,15,Gucci,0
+59,Apparel & Accessories,9,Guess,0
+60,Apparel & Accessories,17,Gymboree,0
+61,Apparel & Accessories,15,Hot Topic,0
+62,Apparel & Accessories,13,J. Crew,0
+63,Apparel & Accessories,30,J. Jill,0
+64,Apparel & Accessories,12,Jos. A. Bank,0
+65,Apparel & Accessories,11,Justice,0
+66,Apparel & Accessories,10,Land's End,0
+67,Apparel & Accessories,20,Lids/Hat World,0
+68,Apparel & Accessories,11,Limited Too,0
+69,Apparel & Accessories,12,Lord & Taylor,0
+70,Apparel & Accessories,8,Macy's,0
+71,Apparel & Accessories,17.5,Marshalls,0
+72,Apparel & Accessories,10,Metropark,0
+73,Apparel & Accessories,4,Neiman Marcus,0
+74,Apparel & Accessories,35,New York & Company,0
+75,Apparel & Accessories,5,Nike,0
+76,Apparel & Accessories,19,Orvis,0
+77,Apparel & Accessories,37,Pac Sun,0
+78,Apparel & Accessories,30,Payless Shoe Source,0
+79,Apparel & Accessories,11,Piperlime,0
+80,Apparel & Accessories,7,Ralph Lauren,0
+81,Apparel & Accessories,6,REI,0
+82,Apparel & Accessories,13,Ross,0
+83,Apparel & Accessories,4,Saks Fifth Avenue,0
+84,Apparel & Accessories,18,Sport Chalet,0
+85,Apparel & Accessories,23,Sports Authority,0
+86,Apparel & Accessories,13,Steve Madden Shoes,0
+87,Apparel & Accessories,10,The Bon-Ton Stores,0
+88,Apparel & Accessories,22.5,Urban Outfitters,0
+89,Apparel & Accessories,15,White House Black Market,0
+90,Apparel & Accessories,22,Zumiez,0
+91,Arts & Crafts,5.5,Target,207
+92,Arts & Crafts,20,A.C. Moore,0
+93,Arts & Crafts,17,Jo-Ann Stores,0
+94,Arts & Crafts,23.5,Michaels,0
+95,Automotive,5,Harbor Freight,1
+96,Automotive,10,Jiffy Lube,200
+97,Automotive,5,Kmart,92
+98,Automotive,5,Sears,400
+99,Automotive,3.5,76 Gas,0
+100,Automotive,2,ARCO,0
+101,Automotive,4,BP,0
+102,Automotive,4,Chevron Texaco,0
+103,Automotive,3,Citgo,0
+104,Automotive,3,Exxon Mobil,0
+105,Automotive,13,Northern Tool + Equipment,0
+106,Automotive,2,Shell,0
+107,Automotive,3,Speedway SuperAmerica,0
+108,Automotive,3,Sunoco,0
+109,Baby & Maternity,7.5,Babies R Us,2
+110,Baby & Maternity,5,Kmart,92
+111,Baby & Maternity,17,Motherhood Maternity,1
+112,Baby & Maternity,5.5,Target,207
+113,Baby & Maternity,3,Walmart,726
+114,Baby & Maternity,17,A Pea in the Pod,0
+115,Baby & Maternity,10,Children's Place,0
+116,Baby & Maternity,1,Costco,0
+117,Baby & Maternity,17,Gymboree,0
+118,Back To School,4.5,Abercrombie & Fitch,203
+119,Back To School,6,Hewlett Packard,2
+120,Back To School,12,JCPenney,192
+121,Back To School,9.5,Kohl's,1
+122,Back To School,11,Old Navy,115
+123,Back To School,5.5,Target,207
+124,Back To School,3,Walmart,726
+125,Back To School,10.5,Barnes & Noble,0
+126,Back To School,1,Costco,0
+127,Back To School,6.5,Dell,0
+128,Back To School,17,DSW,0
+129,Back To School,5,Office Depot,0
+130,Back To School,30,Payless Shoe Source,0
+131,Back To School,23,Sports Authority,0
+132,Beauty & Health,15,Dillard's,1
+133,Beauty & Health,17,Forever 21,103
+134,Beauty & Health,12,JCPenney,192
+135,Beauty & Health,9.5,Kohl's,1
+136,Beauty & Health,20,MaxStudio,1
+137,Beauty & Health,5,Nordstrom,90
+138,Beauty & Health,26,Sally Beauty Supply,201
+139,Beauty & Health,5,Sears,400
+140,Beauty & Health,8,Sephora,300
+141,Beauty & Health,8,SpaFinder,196
+142,Beauty & Health,5.5,Target,207
+143,Beauty & Health,11,The Body Shop,10
+144,Beauty & Health,5,Victoria's Secret,1
+145,Beauty & Health,12,Walgreens,250
+146,Beauty & Health,3,Walmart,726
+147,Beauty & Health,10,Barney's New York,0
+148,Beauty & Health,17.5,Bath & Body Works,0
+149,Beauty & Health,16,Belk,0
+150,Beauty & Health,11,Bloomingdale's,0
+151,Beauty & Health,12,Boscov's,0
+152,Beauty & Health,8,Burberry,0
+153,Beauty & Health,32,Claire's,0
+154,Beauty & Health,14,CVS,0
+155,Beauty & Health,6,GNC,0
+156,Beauty & Health,12,Lord & Taylor,0
+157,Beauty & Health,8,Macy's,0
+158,Beauty & Health,4,Neiman Marcus,0
+159,Beauty & Health,18,Rite Aid,0
+160,Beauty & Health,2.2,Safeway,0
+161,Beauty & Health,4,Saks Fifth Avenue,0
+162,Beauty & Health,10,The Bon-Ton Stores,0
+163,Beauty & Health,9,ULTA,0
+164,Birthday,18,AMC Theatres,150
+165,Birthday,3,Best Buy,370
+166,Birthday,10,Dunkin' Donuts,1
+167,Birthday,16,Fandango,175
+168,Birthday,15,FYE,234
+169,Birthday,9.5,GameStop,400
+170,Birthday,12,Regal Entertainment Group,100
+171,Birthday,9,Starbucks,250
+172,Birthday,5.5,Target,207
+173,Birthday,15,The Coffee Bean & Tea Leaf,11
+174,Birthday,10.5,Barnes & Noble,0
+175,Birthday,20,Cinemark,0
+176,Birthday,7,iTunes,0
+177,Birthday,5.5,Ticketmaster,0
+178,Books Music & Movies,18,AMC Theatres,150
+179,Books Music & Movies,7,American Girl,22
+180,Books Music & Movies,3,Best Buy,370
+181,Books Music & Movies,15,FYE,234
+182,Books Music & Movies,5,Kmart,92
+183,Books Music & Movies,12,Regal Entertainment Group,100
+184,Books Music & Movies,5.5,Target,207
+185,Books Music & Movies,3,Walmart,723
+186,Books Music & Movies,10.5,Barnes & Noble,0
+187,Books Music & Movies,20,Cinemark,0
+188,Books Music & Movies,1,Costco,0
+189,Books Music & Movies,7,iTunes,0
+190,Books Music & Movies,3,Sam's Club,0
+191,Books Music & Movies,5.5,Ticketmaster,0
+192,Children & Toys,7,American Girl,22
+193,Children & Toys,21,Build-A-Bear,55
+194,Children & Toys,7,T.J. Maxx,8
+195,Children & Toys,5.5,Target,207
+196,Children & Toys,3,Walmart,723
+197,Children & Toys,10,Children's Place,0
+198,Children & Toys,1,Costco,0
+199,Children & Toys,17,Gymboree,0
+200,Children & Toys,11,Limited Too,0
+201,Children & Toys,3,Sam's Club,0
+202,Children & Toys,7.5,Toys R Us,0
+203,Christmas,18,AMC Theatres,150
+204,Christmas,3,Best Buy,370
+205,Christmas,16,Fandango,175
+206,Christmas,15,FYE,234
+207,Christmas,9.5,GameStop,400
+208,Christmas,9.5,Kohl's,1
+209,Christmas,5,Nordstrom,90
+210,Christmas,12,Regal Entertainment Group,100
+211,Christmas,5.5,Target,207
+212,Christmas,3,American Airlines,0
+213,Christmas,10.5,Barnes & Noble,0
+214,Christmas,10,Barney's New York,0
+215,Christmas,16,Belk,0
+216,Christmas,11,Bloomingdale's,0
+217,Christmas,12,Boscov's,0
+218,Christmas,20,Cinemark,0
+219,Christmas,7,iTunes,0
+220,Christmas,6,JetBlue,0
+221,Christmas,12,Lord & Taylor,0
+222,Christmas,8,Macy's,0
+223,Christmas,4,Neiman Marcus,0
+224,Christmas,4,Saks Fifth Avenue,0
+225,Christmas,10,The Bon-Ton Stores,0
+226,Christmas,5.5,Ticketmaster,0
+227,Clothing,4.5,Abercrombie & Fitch,203
+228,Clothing,16,ALDO,1
+229,Clothing,7,American Girl,22
+230,Clothing,14,Anthropologie,3
+231,Clothing,11,Athleta,3
+232,Clothing,7.5,Babies R Us,2
+233,Clothing,11,Baby Gap,22
+234,Clothing,11,Banana Republic,303
+235,Clothing,18,Brooks Brothers,4
+236,Clothing,19,Buckle,11
+237,Clothing,20,Christopher & Banks,14
+238,Clothing,13,Dick's Sporting Goods,7
+239,Clothing,15,Dillard's,1
+240,Clothing,17,Forever 21,103
+241,Clothing,11,Gap,278
+242,Clothing,30,H & M,109
+243,Clothing,26,Hollister,2
+244,Clothing,12,JCPenney,192
+245,Clothing,5,Kmart,92
+246,Clothing,9.5,Kohl's,1
+247,Clothing,16.5,L.L. Bean,138
+248,Clothing,10,Lacoste,1
+249,Clothing,25,Lane Bryant,35
+250,Clothing,21,Lucky Brand Jeans,6
+251,Clothing,14,Men's Wearhouse,4
+252,Clothing,15,Mimi Maternity,1
+253,Clothing,17,Motherhood Maternity,1
+254,Clothing,10,Nine West,4
+255,Clothing,5,Nordstrom,90
+256,Clothing,11,Old Navy,115
+257,Clothing,5,Sears,400
+258,Clothing,18,Sunglass Hut,23
+259,Clothing,7,T.J. Maxx,8
+260,Clothing,32.5,Talbots,85
+261,Clothing,5.5,Target,207
+262,Clothing,15,The North Face,1
+263,Clothing,15,True Religion Brand Jeans,4
+264,Clothing,5,Victoria's Secret,1
+265,Clothing,3,Walmart,723
+266,Clothing,17,A Pea in the Pod,0
+267,Clothing,10,Adidas,0
+268,Clothing,22,Aeropostale,0
+269,Clothing,10,AJ Wright,0
+270,Clothing,25,American Apparel,0
+271,Clothing,24,American Eagle Outfitters,0
+272,Clothing,25,Ann Taylor,0
+273,Clothing,8,Armani Exchange,0
+274,Clothing,10,Barney's New York,0
+275,Clothing,20,Bebe,0
+276,Clothing,16,Belk,0
+277,Clothing,11,Bloomingdale's,0
+278,Clothing,12,Boscov's,0
+279,Clothing,8,Burberry,0
+280,Clothing,15,Burlington Coat Factory,0
+281,Clothing,20,Chico's,0
+282,Clothing,10,Children's Place,0
+283,Clothing,32,Claire's,0
+284,Clothing,2,Coach,0
+285,Clothing,10,Columbia Sportswear,0
+286,Clothing,30,Dress Barn,0
+287,Clothing,17,DSW,0
+288,Clothing,29,Express,0
+289,Clothing,9,Foot Locker,0
+290,Clothing,30,Frederick's Of Hollywood,0
+291,Clothing,15,Gucci,0
+292,Clothing,9,Guess,0
+293,Clothing,17,Gymboree,0
+294,Clothing,15,Hot Topic,0
+295,Clothing,13,J. Crew,0
+296,Clothing,30,J. Jill,0
+297,Clothing,12,Jos. A. Bank,0
+298,Clothing,11,Justice,0
+299,Clothing,10,Land's End,0
+300,Clothing,20,Lids/Hat World,0
+301,Clothing,11,Limited Too,0
+302,Clothing,12,Lord & Taylor,0
+303,Clothing,8,Macy's,0
+304,Clothing,17.5,Marshalls,0
+305,Clothing,10,Metropark,0
+306,Clothing,4,Neiman Marcus,0
+307,Clothing,35,New York & Company,0
+308,Clothing,5,Nike,0
+309,Clothing,19,Orvis,0
+310,Clothing,37,Pac Sun,0
+311,Clothing,30,Payless Shoe Source,0
+312,Clothing,11,Piperlime,0
+313,Clothing,7,Ralph Lauren,0
+314,Clothing,6,REI,0
+315,Clothing,13,Ross,0
+316,Clothing,4,Saks Fifth Avenue,0
+317,Clothing,3,Sam's Club,0
+318,Clothing,18,Sport Chalet,0
+319,Clothing,23,Sports Authority,0
+320,Clothing,13,Steve Madden Shoes,0
+321,Clothing,10,The Bon-Ton Stores,0
+322,Clothing,22.5,Urban Outfitters,0
+323,Clothing,15,White House Black Market,0
+324,Clothing,22,Zumiez,0
+325,Construction,5,Harbor Freight,1
+326,Construction,5,Home Depot,28
+327,Construction,10,Jiffy Lube,200
+328,Construction,7.5,Lowe's (In-Store Only),In-Store Only
+329,Construction,5,Sears,400
+330,Construction,3.5,76 Gas,0
+331,Construction,8,Ace Hardware,0
+332,Construction,4,BP,0
+333,Construction,1,Costco,0
+334,Construction,3,Exxon Mobil,0
+335,Construction,7,Lowe's,0
+336,Construction,13,Northern Tool + Equipment,0
+337,Construction,2,Shell,0
+338,Construction,10,Tractor Supply Co.,0
+339,Convenience & Drug Stores,5,Hess,1
+340,Convenience & Drug Stores,5.5,Target,207
+341,Convenience & Drug Stores,12,Walgreens,250
+342,Convenience & Drug Stores,3,Walmart,723
+343,Convenience & Drug Stores,14,CVS,0
+344,Convenience & Drug Stores,18,Rite Aid,0
+345,Convenience & Drug Stores,2.2,Safeway,0
+346,Department Stores,9,Carson Pirie Scott,1
+347,Department Stores,15,Dillard's,1
+348,Department Stores,12,JCPenney,192
+349,Department Stores,9.5,Kohl's,1
+350,Department Stores,5,Nordstrom,90
+351,Department Stores,5.5,Target,207
+352,Department Stores,3,Walmart,723
+353,Department Stores,10,Barney's New York,0
+354,Department Stores,16,Belk,0
+355,Department Stores,11,Bloomingdale's,0
+356,Department Stores,12,Boscov's,0
+357,Department Stores,12,Lord & Taylor,0
+358,Department Stores,8,Macy's,0
+359,Department Stores,4,Neiman Marcus,0
+360,Department Stores,4,Saks Fifth Avenue,0
+361,Department Stores,10,The Bon-Ton Stores,0
+362,Electronics,3,Apple Store (not iTunes),not iTunes
+363,Electronics,3,Best Buy,370
+364,Electronics,15,Brookstone,1
+365,Electronics,9.5,GameStop,400
+366,Electronics,6,Hewlett Packard,2
+367,Electronics,5,Kmart,92
+368,Electronics,5,Sears,400
+369,Electronics,5.5,Target,207
+370,Electronics,3,Walmart,723
+371,Electronics,1,Costco,0
+372,Electronics,6.5,Dell,0
+373,Electronics,10,Guitar Center,0
+374,Electronics,5,Office Depot,0
+375,Electronics,5,Office Max,0
+376,Electronics,3,Sam's Club,0
+377,Electronics,10,Sony Style,0
+378,Electronics,4,Staples,0
+379,Electronics,7.5,Toys R Us,0
+380,Entertainment,18,AMC Theatres,150
+381,Entertainment,16,Fandango,175
+382,Entertainment,9.5,GameStop,400
+383,Entertainment,12,Regal Entertainment Group,100
+384,Entertainment,15,Showcase Cinemas,5
+385,Entertainment,20,Cinemark,0
+386,Entertainment,15,Dave and Busters,0
+387,Entertainment,10,Guitar Center,0
+388,Entertainment,7,iTunes,0
+389,Entertainment,5.5,Ticketmaster,0
+390,Fast Food,24,Cold Stone Creamery,200
+391,Fast Food,10,Dunkin' Donuts,1
+392,Fast Food,10,Krispy Kreme,51
+393,Fast Food,14,P.F. Chang's,250
+394,Fast Food,14.5,Pinkberry,3
+395,Fast Food,20,Baja Fresh,0
+396,Fast Food,10,Boston Market,0
+397,Fast Food,13,Burger King,0
+398,Fast Food,9,Chick-fil-A,0
+399,Fast Food,15,Hardee's,0
+400,Fast Food,10,Jack in the Box,0
+401,Fast Food,25,Jamba Juice,0
+402,Fast Food,15,Panera Bread,0
+403,Fast Food,10,Quiznos,0
+404,Fast Food,10,Sonic Drive-in,0
+405,Fast Food,11,Wendy's,0
+406,Flowers &,32,1-800-Flowers.com,100
+407,Flowers &,15,Brookstone,1
+408,Flowers &,25,Godiva Chocolatier,0
+409,Flowers &,15,Yankee Candle,0
+410,Gas,3.5,76 Gas,0
+411,Gas,2,ARCO,0
+412,Gas,4,BP,0
+413,Gas,4,Chevron Texaco,0
+414,Gas,3,Citgo,0
+415,Gas,3,Exxon Mobil,0
+416,Gas,2,Shell,0
+417,Gas,3,Speedway SuperAmerica,0
+418,Gas,3,Sunoco,0
+419,Grocery,5,Kmart,92
+420,Grocery,5.5,Target,207
+421,Grocery,5,Whole Foods,2
+422,Grocery,3,Albertsons,0
+423,Grocery,10,Cost Plus World Market,0
+424,Grocery,1,Costco,0
+425,Grocery,16,Cracker Barrel,0
+426,Grocery,14,CVS,0
+427,Grocery,7,Fred Meyer,0
+428,Grocery,5,Giant Food Stores,0
+429,Grocery,6,H-E-B,0
+430,Grocery,6,Jewel-Osco,0
+431,Grocery,2.5,Kroger,0
+432,Grocery,6,Publix Super Markets,0
+433,Grocery,2.2,Safeway,0
+434,Grocery,3,Sam's Club,0
+435,Grocery,5,Trader Joe's,0
+436,Home Furnishing,14,Anthropologie,3
+437,Home Furnishing,15,Brookstone,1
+438,Home Furnishing,5,Crate & Barrel,300
+439,Home Furnishing,5,Home Depot,28
+440,Home Furnishing,12,JCPenney,192
+441,Home Furnishing,5,Kmart,92
+442,Home Furnishing,9.5,Kohl's,1
+443,Home Furnishing,7.5,Lowe's (In-Store Only),In-Store Only
+444,Home Furnishing,5,Nordstrom,90
+445,Home Furnishing,5,Sears,400
+446,Home Furnishing,7,T.J. Maxx,8
+447,Home Furnishing,5.5,Target,207
+448,Home Furnishing,3,Walmart,723
+449,Home Furnishing,6,West Elm,1
+450,Home Furnishing,15,Ballard Designs,0
+451,Home Furnishing,7,Bed Bath and Beyond,0
+452,Home Furnishing,15,Burlington Coat Factory,0
+453,Home Furnishing,8,CB2,0
+454,Home Furnishing,10,Cost Plus World Market,0
+455,Home Furnishing,1,Costco,0
+456,Home Furnishing,10,Ethan Allen,0
+457,Home Furnishing,13,Home Goods,0
+458,Home Furnishing,5,Ikea,0
+459,Home Furnishing,10,Land's End,0
+460,Home Furnishing,7,Lowe's,0
+461,Home Furnishing,8,Macy's,0
+462,Home Furnishing,17.5,Marshalls,0
+463,Home Furnishing,4,Neiman Marcus,0
+464,Home Furnishing,19,Orvis,0
+465,Home Furnishing,17,Pier 1 Imports,0
+466,Home Furnishing,7,Pottery Barn,0
+467,Home Furnishing,13,Ross,0
+468,Home Furnishing,4,Saks Fifth Avenue,0
+469,Home Furnishing,3,Sam's Club,0
+470,Home Furnishing,10,The Bon-Ton Stores,0
+471,Home Furnishing,9,The Container Store,0
+472,Home Furnishing,8,The Great Indoors,0
+473,Home Furnishing,8,Williams-Sonoma,0
+474,Home Furnishing,15,Yankee Candle,0
+475,Home Improvement,5,Harbor Freight,1
+476,Home Improvement,5,Home Depot,28
+477,Home Improvement,5,Kmart,92
+478,Home Improvement,7.5,Lowe's (In-Store Only),In-Store Only
+479,Home Improvement,5,Sears,400
+480,Home Improvement,3,Walmart,723
+481,Home Improvement,8,Ace Hardware,0
+482,Home Improvement,7,Lowe's,0
+483,Home Improvement,10,Menards,0
+484,Home Improvement,13,Northern Tool + Equipment,0
+485,Home Improvement,10,Tractor Supply Co.,0
+486,Jewelry,15,Dillard's,1
+487,Jewelry,30,H & M,109
+488,Jewelry,12,JCPenney,192
+489,Jewelry,5,Kmart,92
+490,Jewelry,9.5,Kohl's,1
+491,Jewelry,5,Nordstrom,90
+492,Jewelry,5,Sears,400
+493,Jewelry,7,T.J. Maxx,8
+494,Jewelry,5.5,Target,207
+495,Jewelry,3,Walmart,723
+496,Jewelry,10,Barney's New York,0
+497,Jewelry,16,Belk,0
+498,Jewelry,11,Bloomingdale's,0
+499,Jewelry,12,Boscov's,0
+500,Jewelry,32,Claire's,0
+501,Jewelry,12,Lord & Taylor,0
+502,Jewelry,8,Macy's,0
+503,Jewelry,17.5,Marshalls,0
+504,Jewelry,10,Metropark,0
+505,Jewelry,4,Neiman Marcus,0
+506,Jewelry,35,New York & Company,0
+507,Jewelry,13,Ross,0
+508,Jewelry,4,Saks Fifth Avenue,0
+509,Jewelry,3,Sam's Club,0
+510,Jewelry,10,The Bon-Ton Stores,0
+511,Jewelry,3.5,Tiffany & Co.,0
+512,Jewelry,22.5,Urban Outfitters,0
+513,Jewelry,15,White House Black Market,0
+514,Mother's Day,32,1-800-Flowers.com,100
+515,Mother's Day,20,Christopher & Banks,14
+516,Mother's Day,5,Crate & Barrel,300
+517,Mother's Day,17,Motherhood Maternity,1
+518,Mother's Day,5,Nordstrom,90
+519,Mother's Day,8,Sephora,300
+520,Mother's Day,8,SpaFinder,196
+521,Mother's Day,32.5,Talbots,85
+522,Mother's Day,11,The Body Shop,10
+523,Mother's Day,17,A Pea in the Pod,0
+524,Mother's Day,25,Ann Taylor,0
+525,Mother's Day,15,Ballard Designs,0
+526,Mother's Day,17.5,Bath & Body Works,0
+527,Mother's Day,7,Bed Bath and Beyond,0
+528,Mother's Day,16,Belk,0
+529,Mother's Day,11,Bloomingdale's,0
+530,Mother's Day,8,Burberry,0
+531,Mother's Day,25,Godiva Chocolatier,0
+532,Mother's Day,12,Lord & Taylor,0
+533,Mother's Day,8,Macy's,0
+534,Mother's Day,4,Neiman Marcus,0
+535,Mother's Day,17,Pier 1 Imports,0
+536,Mother's Day,7,Pottery Barn,0
+537,Mother's Day,4,Saks Fifth Avenue,0
+538,Mother's Day,10,The Bon-Ton Stores,0
+539,Mother's Day,9,ULTA,0
+540,Mother's Day,8,Williams-Sonoma,0
+541,Movie Tickets,18,AMC Theatres,150
+542,Movie Tickets,16,Fandango,175
+543,Movie Tickets,12,Regal Entertainment Group,100
+544,Movie Tickets,20,Cinemark,0
+545,Office Supplies,3,Apple Store (not iTunes),not iTunes
+546,Office Supplies,3,Best Buy,370
+547,Office Supplies,5,Kmart,92
+548,Office Supplies,5,Sears,400
+549,Office Supplies,5.5,Target,207
+550,Office Supplies,3,Walmart,723
+551,Office Supplies,6,West Elm,1
+552,Office Supplies,7,Bed Bath and Beyond,0
+553,Office Supplies,1,Costco,0
+554,Office Supplies,6.5,Dell,0
+555,Office Supplies,5,Ikea,0
+556,Office Supplies,5,Office Depot,0
+557,Office Supplies,5,Office Max,0
+558,Office Supplies,3,Sam's Club,0
+559,Office Supplies,4,Staples,0
+560,Office Supplies,9,The Container Store,0
+561,Pet Supplies,5,Kmart,92
+562,Pet Supplies,5.5,Target,207
+563,Pet Supplies,3,Walmart,723
+564,Pet Supplies,1,Costco,0
+565,Pet Supplies,24.5,Petco,0
+566,Pet Supplies,19.5,Petsmart,0
+567,Pet Supplies,2.2,Safeway,0
+568,Pet Supplies,3,Sam's Club,0
+569,Restaurants,24,Applebee's,2
+570,Restaurants,16,Bahama Breeze,200
+571,Restaurants,10,Bravo! Cucina Italiana,12
+572,Restaurants,20,Buca di Beppo,202
+573,Restaurants,17,Carrabba's Italian Grill,35
+574,Restaurants,24,Cold Stone Creamery,200
+575,Restaurants,10,Dunkin' Donuts,1
+576,Restaurants,18,Elephant Bar Restaurant,101
+577,Restaurants,20,Fleming's Steakhouse,201
+578,Restaurants,10,Gordon Biersch,12
+579,Restaurants,10,Krispy Kreme,51
+580,Restaurants,13,Lettuce Entertain You,71
+581,Restaurants,15,Logan's Roadhouse,103
+582,Restaurants,16.5,Lone Star Steakhouse,101
+583,Restaurants,11,Maggiano's Little Italy,197
+584,Restaurants,20,McCormick and Schmick's,200
+585,Restaurants,15,Morton's the Steakhouse,1
+586,Restaurants,10,Old Chicago,144
+587,Restaurants,22,Olive Garden,116
+588,Restaurants,13,Omaha Steaks,21
+589,Restaurants,13,On the Border,200
+590,Restaurants,19,Outback Steakhouse,1
+591,Restaurants,14,P.F. Chang's,250
+592,Restaurants,14.5,Pinkberry,3
+593,Restaurants,11,Pizzeria Uno,1
+594,Restaurants,18.5,Red Lobster,156
+595,Restaurants,10,Rock Bottom Restaurant Brewery,1
+596,Restaurants,10,Smokey Bones,50
+597,Restaurants,9,Starbucks,249
+598,Restaurants,20,TGI Friday's,100
+599,Restaurants,15,The Coffee Bean & Tea Leaf,11
+600,Restaurants,10,Tony Roma's,1
+601,Restaurants,12,Uno Chicago Grill,89
+602,Restaurants,20,Baja Fresh,0
+603,Restaurants,10,Benihana,0
+604,Restaurants,12,Black Angus,0
+605,Restaurants,10,Bob Evans Restaurant,0
+606,Restaurants,17,Bonefish Grill,0
+607,Restaurants,10,Boston Market,0
+608,Restaurants,16.5,Buffalo Wild Wings,0
+609,Restaurants,13,Burger King,0
+610,Restaurants,23,California Pizza Kitchen,0
+611,Restaurants,14,Capital Grille,0
+612,Restaurants,17.5,Cheesecake Factory,0
+613,Restaurants,9,Chick-fil-A,0
+614,Restaurants,20,Chili's,0
+615,Restaurants,7.5,Chipotle,0
+616,Restaurants,10,Claim Jumper Restaurants,0
+617,Restaurants,16,Cracker Barrel,0
+618,Restaurants,15.5,Darden Restaurants,0
+619,Restaurants,15,Dave and Busters,0
+620,Restaurants,11,Denny's,0
+621,Restaurants,10,Domino's Pizza,0
+622,Restaurants,10,Fogo de Chao,0
+623,Restaurants,12,Hard Rock Cafe,0
+624,Restaurants,15,Hardee's,0
+625,Restaurants,11,Hooters,0
+626,Restaurants,17,IHOP,0
+627,Restaurants,10,Jack in the Box,0
+628,Restaurants,25,Jamba Juice,0
+629,Restaurants,10,Landry's,0
+630,Restaurants,14,Legal Sea Foods,0
+631,Restaurants,23,Macaroni Grill,0
+632,Restaurants,10,Marie Callender's,0
+633,Restaurants,11,Melting Pot,0
+634,Restaurants,15,Panera Bread,0
+635,Restaurants,10,Papa John's,0
+636,Restaurants,10,Pizza Hut,0
+637,Restaurants,10,Quiznos,0
+638,Restaurants,12,Red Robin,0
+639,Restaurants,15,Rubio's,0
+640,Restaurants,10,Ruby Tuesday,0
+641,Restaurants,12,Ruth's Chris Steakhouse,0
+642,Restaurants,10,Sonic Drive-in,0
+643,Restaurants,5,Subway,0
+644,Restaurants,8,Texas Roadhouse,0
+645,Restaurants,11,Wendy's,0
+646,Shoes,16,ALDO,1
+647,Shoes,19,Buckle,11
+648,Shoes,15,Dillard's,1
+649,Shoes,17,Forever 21,103
+650,Shoes,30,H & M,109
+651,Shoes,12,JCPenney,192
+652,Shoes,9.5,Kohl's,1
+653,Shoes,16.5,L.L. Bean,138
+654,Shoes,25,Lane Bryant,35
+655,Shoes,21,Lucky Brand Jeans,6
+656,Shoes,14,Men's Wearhouse,4
+657,Shoes,5,Nordstrom,90
+658,Shoes,5,Sears,400
+659,Shoes,7,T.J. Maxx,8
+660,Shoes,5.5,Target,207
+661,Shoes,10,Adidas,0
+662,Shoes,20,Bebe,0
+663,Shoes,11,Bloomingdale's,0
+664,Shoes,12,Boscov's,0
+665,Shoes,2,Coach,0
+666,Shoes,17,DSW,0
+667,Shoes,9,Foot Locker,0
+668,Shoes,15,Gucci,0
+669,Shoes,9,Guess,0
+670,Shoes,10,Land's End,0
+671,Shoes,11,Limited Too,0
+672,Shoes,12,Lord & Taylor,0
+673,Shoes,8,Macy's,0
+674,Shoes,17.5,Marshalls,0
+675,Shoes,4,Neiman Marcus,0
+676,Shoes,5,Nike,0
+677,Shoes,37,Pac Sun,0
+678,Shoes,30,Payless Shoe Source,0
+679,Shoes,11,Piperlime,0
+680,Shoes,6,REI,0
+681,Shoes,13,Ross,0
+682,Shoes,4,Saks Fifth Avenue,0
+683,Shoes,18,Sport Chalet,0
+684,Shoes,23,Sports Authority,0
+685,Shoes,13,Steve Madden Shoes,0
+686,Shoes,10,The Bon-Ton Stores,0
+687,Shoes,22.5,Urban Outfitters,0
+688,Shoes,15,White House Black Market,0
+689,Shoes,5,Zappos,0
+690,Shoes,22,Zumiez,0
+691,Sports & Sporting Goods,11,Athleta,3
+692,Sports & Sporting Goods,15,Bass Pro Shops,364
+693,Sports & Sporting Goods,11,Cabela's,40
+694,Sports & Sporting Goods,13,Dick's Sporting Goods,7
+695,Sports & Sporting Goods,7,Gander Mountain,1
+696,Sports & Sporting Goods,9,Hibbett Sports,2
+697,Sports & Sporting Goods,5,Kmart,92
+698,Sports & Sporting Goods,16.5,L.L. Bean,138
+699,Sports & Sporting Goods,5,Sears,400
+700,Sports & Sporting Goods,5.5,Target,207
+701,Sports & Sporting Goods,15,The North Face,1
+702,Sports & Sporting Goods,3,Walmart,723
+703,Sports & Sporting Goods,10,Adidas,0
+704,Sports & Sporting Goods,10,Big 5 Sporting Goods,0
+705,Sports & Sporting Goods,10,Columbia Sportswear,0
+706,Sports & Sporting Goods,1,Costco,0
+707,Sports & Sporting Goods,9,Foot Locker,0
+708,Sports & Sporting Goods,5,Nike,0
+709,Sports & Sporting Goods,19,Orvis,0
+710,Sports & Sporting Goods,6,REI,0
+711,Sports & Sporting Goods,3,Sam's Club,0
+712,Sports & Sporting Goods,18,Sport Chalet,0
+713,Sports & Sporting Goods,23,Sports Authority,0
+714,Travel,15,BedandBreakfast.com,97
+715,Travel,3,American Airlines,0
+716,Travel,8,Best Western,0
+717,Travel,10,Four Seasons,0
+718,Travel,15,Hyatt,0
+719,Travel,6,JetBlue,0
+720,Travel,4,Marriott,0
+721,Valentine's Day,32,1-800-Flowers.com,100
+722,Valentine's Day,8,Sephora,300
+723,Valentine's Day,11,The Body Shop,10
+724,Valentine's Day,5,Victoria's Secret,1
+725,Valentine's Day,30,Frederick's Of Hollywood,0
+726,Valentine's Day,25,Godiva Chocolatier,0
+727,Valentine's Day,8,Macy's,0
+728,Valentine's Day,4,Neiman Marcus,0
+729,Valentine's Day,35,New York & Company,0
+730,Valentine's Day,5,Nike,0
+731,Valentine's Day,4,Saks Fifth Avenue,0
+732,Valentine's Day,3.5,Tiffany & Co.,0
+733,Wedding,14,Anthropologie,3
+734,Wedding,5,Crate & Barrel,300
+735,Wedding,5,Home Depot,28
+736,Wedding,12,JCPenney,192
+737,Wedding,9.5,Kohl's,1
+738,Wedding,5,Nordstrom,90
+739,Wedding,5,Sears,400
+740,Wedding,5.5,Target,207
+741,Wedding,6,West Elm,1
+742,Wedding,15,Ballard Designs,0
+743,Wedding,7,Bed Bath and Beyond,0
+744,Wedding,8,CB2,0
+745,Wedding,10,Ethan Allen,0
+746,Wedding,13,Home Goods,0
+747,Wedding,5,Ikea,0
+748,Wedding,10,Land's End,0
+749,Wedding,7,Lowe's,0
+750,Wedding,8,Macy's,0
+751,Wedding,4,Neiman Marcus,0
+752,Wedding,17,Pier 1 Imports,0
+753,Wedding,7,Pottery Barn,0
+754,Wedding,4,Saks Fifth Avenue,0
+755,Wedding,10,The Bon-Ton Stores,0
+756,Wedding,9,The Container Store,0
+757,Wedding,8,The Great Indoors,0
+758,Wedding,8,Williams-Sonoma,0
+759,Wedding,15,Yankee Candle,0

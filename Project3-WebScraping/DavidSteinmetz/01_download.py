@@ -59,7 +59,9 @@ for yr_link in yr_links:
                else u'NON'
                for line in font2_tags]
         year = [cal_yr] * len(names)
-        if re.search('RANG010', res_url):  # RANG010 for men, RANG020 for women
+        if re.search('[RrAaNnGg]010', res_url):  # RANG010 for men, RANG020 for women -- 2012-2015
+            gender = ['M'] * len(names)
+        elif re.search('[RrAaNnGg]091', res_url):  # rang091 for men, rang092 for women -- before 2012
             gender = ['M'] * len(names)
         else:
             gender = ['F'] * len(names)
@@ -82,6 +84,9 @@ for yr_link in yr_links:
                         int(line[5:7]) +  # Seconds
                         float('0.' + line[8])  # Tenths of seconds
                         for line in data['time']]  # Convert string to integer number of seconds
+        data['schnitt'] = [int(line[0]) * 60 +  # Minutes
+                           int(line[-2:])  # Seconds
+                           for line in data['schnitt']]  # Convert string to integer number of seconds
         to_int = ['place', 'birth_year', 'year']  # Create list of columns to convert to integers
         data[to_int] = data[to_int].apply(pd.to_numeric)  # Convert columns to integers
         data.insert(data.shape[1], 'age', [cal_yr - born for born in data['birth_year']])  # Calculate ages
