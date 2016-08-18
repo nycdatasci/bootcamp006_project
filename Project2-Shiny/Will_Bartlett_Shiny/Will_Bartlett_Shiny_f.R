@@ -1,4 +1,4 @@
-load("~/Downloads/violations_2016.RData")
+load("violations_2016.RData")
 
 violations = violations[as.numeric(violations$month)>5,]
 violations$popup = paste(violations$Description, violations$Make, violations$Model, sep = ", ")

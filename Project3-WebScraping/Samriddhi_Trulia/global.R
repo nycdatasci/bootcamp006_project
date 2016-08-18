@@ -1,16 +1,21 @@
+# install.packages("rCharts")
+# install.packages("devtools")
+# install_github("rCharts","ramnathv")
 
-
+library(rCharts)
+library(devtools)
 library(stringr)
 library(leaflet)
 library(dplyr)
 library(htmltools)
-require(reshape2)
-require(googleVis)
+library(reshape2)
+library(googleVis)
+library(data.table)
 
-setwd("C:/Users/Samriddhi/Desktop/NYCDataScience/Python/Trulia")
+# setwd("C:/Users/Samriddhi/Desktop/NYCDataScience/Python/Trulia")
 
-ApartmentComplex = read.csv("ApartmentsComplexes.csv")
-IndividualApartment = read.csv("Apartments.csv")
+ApartmentComplex = read.csv("./www/ApartmentsComplexes.csv")
+IndividualApartment = read.csv("./www/Apartments.csv")
 
 Central_Harlem = c(	10026, 10027, 10030, 10037, 10039)
 Chelsea_Clinton	 = c(10001, 10011, 10018, 10019, 10020, 10036)
@@ -68,10 +73,10 @@ IndividualApartment2$Neighborhood = as.factor(IndividualApartment2$Neighborhood)
 
 IndividualApartment2 = IndividualApartment2 %>%
   mutate(Bedroom_number = 
-                      ifelse(IndividualApartment2$NoOfBedroom == 1, "1",
-                      ifelse(IndividualApartment2$NoOfBedroom == 2, "2",
-                      ifelse(IndividualApartment2$NoOfBedroom == 3, "3",
-                      "3+" ))))
+                      ifelse(IndividualApartment2$NoOfBedroom == 1, "1 bed",
+                      ifelse(IndividualApartment2$NoOfBedroom == 2, "2 bed",
+                      ifelse(IndividualApartment2$NoOfBedroom == 3, "3 bed",
+                      "3+ bed" ))))
 
 IndividualApartment2 = IndividualApartment2 %>%
   mutate(Bedroom_number = ifelse(is.na(Bedroom_number),"Null",Bedroom_number))
@@ -84,23 +89,28 @@ IndividualApartment2 = IndividualApartment2 %>%
 
 Apt_Bedrooms_rent =IndividualApartment2 %>% 
   group_by(Bedroom_number) %>%
-  summarise( TotalApartments = n(), AvgRent = mean(RentRate) )
+  summarise( TotalApartments = n(), AvgRent = median(RentRate) )
 
 
+
+# 
+# IndividualApartment2 %>% 
+#   group_by(Neighborhood, Bedroom_number) %>%
+#   summarise( TotalApartments = n(), AvgRent = median(RentRate) )
 
 #-----------------------------------------------------------------------------------------------------
 
 # Apartment No of Bedrrom, Rent price, Neighboorhood
 Apt_Bedrooms_rent_Neighborhood =IndividualApartment2 %>% 
   group_by(Neighborhood, Bedroom_number) %>%
-  summarise( TotalApartments = n(), AvgRent = mean(RentRate) )
+  summarise( TotalApartments = n(), MedianRent = median(RentRate) )
 
 
 Apt_Bedrooms_rent_Neighborhood_2 = dcast(Apt_Bedrooms_rent_Neighborhood,
                                          Neighborhood ~ Bedroom_number, value.var= "TotalApartments")
 
 Apt_Bedrooms_rent_Neighborhood_3 = dcast(Apt_Bedrooms_rent_Neighborhood,
-                                         Neighborhood ~ Bedroom_number, value.var= "AvgRent")
+                                         Neighborhood ~ Bedroom_number, value.var= "MedianRent")
 
 
 #-----------------------------------------------------------------------------------------------------
