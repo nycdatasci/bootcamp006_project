@@ -6,5 +6,4 @@
 *.ipynb_checkpoints/
 *.Rapp.history
 *.DS_Store
-*.csv
 .Rproj.user
