@@ -134,7 +134,7 @@ if __name__ == "__main__":
         company_frame = pd.DataFrame(company_dict.items(), columns = ['Term', 'NumPostings'])
             
         # Calculate other analytics
-        skill_frame, edu_frame, lang_frame = skills_info(finalDict)
+        skill_frame, edu_frame, lang_frame = skills_info(completeDict)
         
         
     # 7- Find your match
