@@ -23,10 +23,44 @@ addmargins(xtabs(~party,data=pres))
 # Both parties basically even
 # party
 # 0   1 Sum 
-# 16  17  33 
+# 16  17  33
 
+# BAR CHART OF DEMOCRAT AND REPUBLICAN TERMS
+barplot(table(pres$party),
+        xlab="Party",ylab="Number Of 4 Yr Terms",main="US Presidents Data",
+        names.arg=c("Democrat","Republican"),
+        col= c("blue","green"))
+
+# BAR CHART TO SHOW PARTY IN ADMINISTRATION GIVEN PARTY IN PRIOR ADMIN
+barplot(table(pres$partybefore,pres$party),ylim=c(0,12),
+        xlab="Party",ylab="Number Of 4 Yr Terms",main="US Presidents Data",
+        names.arg=c("Democrat","Republican"),
+        beside=T,
+        col= c("blue","green"))
+legend("topleft",c("Prior Democrat","Prior Republican"),
+        bty="n",fill=c("blue","green"))
+
+# BAR CHART TO SHOW PARTY IN ADMIN RELATIVE TO NO OF REPUB IN PRIOR 4 ADMINS
+barplot(table(pres$noofrepin4,pres$party),ylim=c(0,12),
+        xlab="Party",ylab="Number Of 4 Yr Terms",main="US Presidents Data",
+        names.arg=c("Democrat","Republican"),
+        beside=T,
+        col= c(2,3,4,5,6))
+legend(0.5,11.5,c('0','1','2','3','4'),
+        bty="n",fill=c(2,3,4,5,6))
+text(2.1,11.5,"Number of Republican Terms\nin Last 4 Administrations")
+
+par(mfrow=c(1,1))
+proppres=xtabs(~party+partybefore+noofrepin4,data=pres)
+
+# proppres=prop.table(xtabs(~party+partybefore+noofrepin4,data=pres))
+mosaicplot(proppres,main="Mosaic Plot",sub="Current Party",
+           xlab = "Democrat                                   Republican",
+           ylab="Prior Party")
+text(.5,1.02,"Number of Republicans in the Last Four Administrations")
 addmargins(xtabs(~party+partybefore,data=pres))
 addmargins(prop.table(xtabs(~party+partybefore,data=pres)))
+
 # Republicans have a difficult time at winning when a democrat
 #     is incumbent but have better than average chance if 
 #     Republican incumbent. Democrats its same regardless of
@@ -47,7 +81,6 @@ plot(pres$party,pres$noofrepin4,col = pres$noofrepin4+2)
 plot(pres$party,pres$reelection,col='green')
 
 hist(pres$noofrepin4,prob=T)
-lines(density(EDA$lcavol),col="Red")
 
 ### RUN LOG REGRESSION
 logit.presall = glm(party ~ ., family = "binomial",
