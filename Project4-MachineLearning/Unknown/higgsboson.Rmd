@@ -1,0 +1,260 @@
+---
+title: "higgs.boson"
+author: "Jurgen de Jager"
+date: "August 25, 2016"
+output: html_document
+---
+80/550
+Building a model using XGBoost is easy. But, improving the model using XGBoost is difficult (at least I struggled a lot). This algorithm uses multiple parameters. To improve the model, parameter tuning is must. It is very difficult to get answers to practical questions like – Which set of parameters you should tune ? What is the ideal value of these parameters to obtain optimal output ?
+
+#LOADING PACKAGES
+```{r}
+library(Ckmeans.1d.dp)
+library(xgboost)
+library(xgboost)
+library(methods)
+library(caret)
+library(xgboost)
+library(plyr)
+library(dplyr)
+library(tidyr)
+library(dummies)
+library(doMC)
+registerDoMC(cores = 4)
+```
+
+#DATA LOADING
+```{r}
+dtrain2 = read.csv("training.csv", header=TRUE)
+vt = read.csv("vars_table.csv")
+full.vars = vt[, -c(1,2,14,18,19,20,26,37,38,39,40,41,42,47)]
+train = full.vars[1:250000,]
+test = full.vars[250001:800000,]
+dtrain = dtrain2 
+#dtest2 = read.csv("test.csv", header=TRUE)
+dtest = dtest2
+labels = ifelse(dtrain$Label == "s", 1 , 0)
+data = as.matrix(dtrain[2:31])
+data2 = as.matrix(train)
+weights = as.numeric(dtrain[[32]]) * 550000 / length(labels)
+xgmat <- xgb.DMatrix(data2, label = labels, weight = weights, missing = -999.0)
+```
+
+#BUILDING MODEL (using xgboost function) -- DONT HAVE TO RUN THIS
+```{r}
+# boost <- xgboost(data = xgmat, 
+#                       max.depth = 10, 
+#                       eta = 0.1, 
+#                       nthread = 16, 
+#                       nround = 50, 
+#                       objective = "binary:logistic",
+#                       eval_metric = "auc",
+#                       eval_metric = "ams@0.15",
+#                       verbose = 2
+#                       )
+```
+
+#BUILDING MODEL (using xgb.train function)
+```{r}
+watchlist <- list(train=xgmat)
+
+
+bst <- xgb.train(data=xgmat, 
+                 max.depth=10, 
+                 eta=0.1, 
+                 nthread = 16, 
+                 nrounds=5,
+                 watchlist=watchlist,
+                 objective = "binary:logistic",
+                 eval_metric = "auc",
+                 eval_metric = "ams@0.15",
+                 scale_pos_weight = 590, 
+                 gamma = 0,
+                 min_child_weight = 1,
+                 colsample_bytree = 1
+                 )
+```
+One of the special feature of xgb.train is the capacity to follow the progress of the learning after each round. Because of the way boosting works, there is a time when having too many rounds lead to an overfitting. You can see this feature as a cousin of cross-validation method. The following techniques will help you to avoid overfitting or optimizing the learning time in stopping it as soon as possible. XGBoost allows user to run a cross-validation at each iteration of the boosting process and thus it is easy to get the exact optimum number of boosting iterations in a single run. This is unlike GBM where we have to run a grid-search and only a limited values can be tested
+
+
+#FEATURE IMPORTANCE
+```{r}
+# importance_matrix <- xgb.importance(model = bst)
+# print(importance_matrix)
+# xgb.plot.importance(importance_matrix = importance_matrix)
+xgb.plot.tree(model = bst, n_first_tree = 3)
+```
+
+
+#SUBMITTING TO KAGGLE 
+```{r}
+#dtest <- read.csv("test.csv", header=TRUE)
+data <- as.matrix(dtest[2:31])
+idx <- dtest[[1]]
+xgmat <- xgb.DMatrix(data, missing = -999.0)
+
+ypred <- predict(bst, xgmat)
+
+rorder <- rank(ypred, ties.method="first")
+threshold <- 0.15
+# to be completed
+ntop <- length(rorder) - as.integer(threshold*length(rorder))
+plabel <- ifelse(rorder > ntop, "s", "b")
+outdata <- list("EventId" = idx,
+                "RankOrder" = rorder,
+                "Class" = plabel)
+write.csv(outdata, file = "higs.redo21.csv", quote=FALSE, row.names=FALSE)
+```
+
+
+#EVENT ID
+EventId is a unique identifier for each event. The list of EventIds must correspond to the exact list of EventIds in test.csv, but the ordering can be arbitrary.
+
+#RANK ORDER
+RankOrder is a permutation of the integer list [1,550000]. The higher the rank (larger integer value), the more signal-like is the event. 550000 is the most signal-like event. The largest background rank should be one less than the smallest signal one. Most predictors output a real-valued score for each event in the test set, in which case RankOrder is just the ordering of the test points according to the score. The RankOrder is not used for computing the AMS, but it allows the organizers to compute other metrics (e.g., ROC) related to the classification task, which is not captured entirely by the classification alone.
+
+#CLASS
+Class is either "b" or "s", and it indicates if your prediction (ŷ i
+above in the formal definition) for the event is background or signal. The AMS will be calculated based on the (hidden) weights of events that you mark "s".
+
+#PLOTS 
+```{r}
+#Read in the data for plots
+#higgs.___.full is raw data
+fulltrain = read.csv('training.csv', header=T)
+fulltest = read.csv('test.csv', header=T)
+test_higgsId = fulltest$EventId
+
+
+train_higgs = fulltrain
+test_higgs = fulltest
+
+#Tranform PRI_jet_num into a factor, as instructed
+train_higgs$PRI_jet_num <- as.factor(train_higgs$PRI_jet_num)
+test_higgs$PRI_jet_num <- as.factor(test_higgs$PRI_jet_num)
+
+#higgs.weight is the weight of the training data
+higgs.weight <- train_higgs$Weight
+higgs.labels <- make.names(as.factor(as.numeric(train_higgs$Label == 's')))
+scaled.weight = higgs.weight * nrow(test_higgs)/length(higgs.labels)
+train_higgs = train_higgs[, -c(1,32,33)]
+test_higgs <- test_higgs[,-1]
+train_higgs.dummy = dummy.data.frame(train_higgs, names = "PRI_jet_num")
+test_higgs.dummy = dummy.data.frame(test_higgs, names = "PRI_jet_num")
+
+
+
+xgb_grid_1 = expand.grid(
+  eta = c(0.5,1),                #[2-10]/num trees
+  max_depth = c(8,10,12),             #Start with 6
+  nrounds = 100,                      #Fix at 100
+  gamma = 0,                          #Usually ok to leave at 0
+  colsample_bytree = 1,   #.3 - .5
+  min_child_weight = 1                #start with 1/sqrt(eventrate)
+)
+
+# Tuning control parameters
+xgb_trcontrol_1 = trainControl(
+  method = "cv",
+  number = 5,
+  verboseIter = TRUE,
+  returnData = FALSE,
+  returnResamp = "all",                         # save losses across all models
+  classProbs = TRUE,                            # set to TRUE for AUC to be computed
+  summaryFunction = twoClassSummary,
+  allowParallel = TRUE
+)
+
+# Train the model on each set of parameters in the grid and evaluate using cross-validation
+xgb_train_1 = train(
+  x = train_higgs.dummy,
+  y = higgs.labels,
+  trControl = xgb_trcontrol_1,
+  tuneGrid = xgb_grid_1,
+  method = "xgbTree",
+  na.action = na.pass,
+  missing = NA,
+  metric = "ROC",
+  weights = scaled.weight
+)
+
+
+
+# xgboost fitting with arbitrary parameters
+xgb_params_1 = list(
+                 max.depth=11, 
+                 eta=0.1, 
+                 nthread = 16, 
+                 nround=5, ####CHANE TO 225
+                 objective = "binary:logistic",
+                 eval_metric = "auc"
+)
+
+# cross-validate xgboost to get the accurate measure of error
+xgb_cv_1 = xgb.cv(params = xgb_params_1,
+                  data = xgmat,
+                  label = labels,
+                  missing = -999,
+                  nrounds = 100, 
+                  nfold = 5, # number of folds in K-fold
+                  prediction = TRUE, # return the prediction using the final model 
+                  stratified = TRUE, # sample is unbalanced; use stratified sampling
+                  verbose = TRUE,
+                  print.every.n = 1
+)
+
+library(caret)
+library(xgboost)
+library(dplyr)
+library(tidyr)
+
+
+# plot the AUC for the training and testing samples
+xgb_cv_1$dt %>%
+  select(-contains("std")) %>%
+  mutate(IterationNum = 1:100) %>%
+  gather(TestOrTrain, AUC, -IterationNum) %>%
+  ggplot(aes(x = IterationNum, y = AUC, group = TestOrTrain, color = TestOrTrain)) + 
+  geom_line() + 
+  theme_bw() + 
+
+
+```
+
+
+#NEURAL NETWORK - Didnt use it. 
+```{r}
+library(deepnet)
+dtrain = read.csv("training.csv", header=TRUE)
+labels = ifelse(dtrain$Label == "s", 1 , 0)
+length(which(labels == 1))/ 250000
+
+data = as.matrix(dtrain[2:31])
+dtest = read.csv("test.csv", header=TRUE)
+datatest = as.matrix(dtest[2:31])
+nn = dbn.dnn.train(data, 
+                   labels, 
+                   hidden = c(10,40,1000), 
+                   activationfun = "sigm", 
+                   learningrate = 0.8, 
+                   momentum = 0.5, 
+                   learningrate_scale = 1, 
+                   output = "sigm", 
+                   numepochs = 3, 
+                   batchsize = 100, 
+                   hidden_dropout = 0, 
+                   visible_dropout = 0,
+                   cd = 1)
+pred = nn.predict(nn, datatest)
+labs = ifelse(pred > 0.3, 1, 0)
+unique(pred)
+
+
+
+length(which(pred > 0.3))/ 550000
+```
+
+
+
+
+
