@@ -1,0 +1,36 @@
+Ensemble
+
+Feature-Weighted Linear Stacking
+Bucket of models
+
+
+
+
+5.6. Expanding the feature space
+
+We have built a group of training sets using different polynomial feature expansions. There were two reasons to do this, in the first place, to promote diversity in our classifiers increasing the probability of achieving a higher AMS with the ensemble, in the second place, because non linear classification problems are assumed to be equivalent to a linear classification problem in a higher dimensional feature space.
+
+• D0 contains the training set after the preprocessing steps.
+• D1 contains the features of D0 and new features composed by the product of every pair of features.
+• D2 contains the features of D0 and new features composed by the ratios of every pair of features.
+• D3 contains the features of D0 and new features composed by the subtraction of every pair of features.
+• D4 contains the features of D0 and the products and ratios added in D1 and D2.
+• D5 contains the features of D0 and the products and subtractions added in D1 and D3.
+• D6 contains the features of D0 and the products, ratios, subtractions added in D1, D2 and D3.
+
+D5 and D6 will give a AMS score of 3.74
+
+
+Fields
+
+[1] "EventId"                     "DER_mass_MMC"                "DER_mass_transverse_met_lep"
+[4] "DER_mass_vis"                "DER_pt_h"                    "DER_deltaeta_jet_jet"
+[7] "DER_mass_jet_jet"            "DER_prodeta_jet_jet"         "DER_deltar_tau_lep"
+[10] "DER_pt_tot"                  "DER_sum_pt"                  "DER_pt_ratio_lep_tau"
+[13] "DER_met_phi_centrality"      "DER_lep_eta_centrality"      "PRI_tau_pt"
+[16] "PRI_tau_eta"                 "PRI_tau_phi"                 "PRI_lep_pt"
+[19] "PRI_lep_eta"                 "PRI_lep_phi"                 "PRI_met"
+[22] "PRI_met_phi"                 "PRI_met_sumet"               "PRI_jet_num"
+[25] "PRI_jet_leading_pt"          "PRI_jet_leading_eta"         "PRI_jet_leading_phi"
+[28] "PRI_jet_subleading_pt"       "PRI_jet_subleading_eta"      "PRI_jet_subleading_phi"
+[31] "PRI_jet_all_pt"              "Weight"                      "Label"
