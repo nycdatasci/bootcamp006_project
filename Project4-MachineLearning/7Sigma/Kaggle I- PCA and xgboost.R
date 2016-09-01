@@ -55,6 +55,7 @@ pc_train
 ##         Functions for Xgboost            ##
 ##############################################
 library(xgboost)
+library(caTools)
 # subset my own training and testing
 set.seed(0)
 idx = sample.split(dfTrain$Label, SplitRatio = .7)
