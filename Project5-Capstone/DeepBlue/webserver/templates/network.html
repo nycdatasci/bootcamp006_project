@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>dashboard</title>
+  <link rel="stylesheet" href="./static/lib/css//bootstrap.min.css">
+  <link rel="stylesheet" href="./static/lib/css/keen-dashboards.css">
+  <link rel="stylesheet" href="./static/lib/css/vis.css">
+  <link rel="stylesheet" href="./static/lib/css/dc.css">
+  <link rel="stylesheet" href="./static/css/custom.css">
+
+<!--   <script>
+    var head = document.getElementsByTagName('head')[0]
+    var js = document.createElement("script");
+    js.type = "text/javascript";
+
+    //var city_name = {{city_name}};
+    var city_name = document.getElementById('city_name_selector').value;
+    
+    if (city_name == "uk_edinburgh") {
+        js.src = "./static/data/generated_nodes_and_edges_from_json_uk_edinburgh.js";
+    } else if(city_name == "us_madison") {
+        js.src = "./static/data/generated_nodes_and_edges_from_json_us_madison.js";
+    }
+
+    head.appendChild(js);
+  </script> -->
+
+</head>
+
+
+<body class="application">
+<script src="./static/lib/js/jquery.min.js"></script>
+<script src="./static/lib/js/bootstrap.min.js"></script>
+<script src="./static/lib/js/crossfilter.js"></script>
+<script src="./static/lib/js/d3.js"></script>
+<script src="./static/lib/js/dc.js"></script>
+<script src="./static/lib/js/queue.js"></script>
+<script src="./static/lib/js/keen.min.js"></script>
+<script src="./static/lib/js/vis.js"></script>
+<script src="./static/lib/js/box.js"></script>
+
+
+<!-- <div id="floating-panel">
+      Choose City:
+      <select id="city_name_selector">
+        <option value="us_charlotte">Charlotte, USA</option>
+        <option value="us_lasvegas">Las Vegas, USA</option>
+        <option value="us_madison">Madison, USA</option>
+        <option value="us_phoenix">PHoneix, USA</option>
+        <option value="us_pittsburgh">Pittsburgh, USA</option>
+        <option value="us_urbana_champaign">Burbana Champaign, USA</option>
+
+        <option value="canada_montreal">Montreal, Canada</option>
+        <option value="germany_karlsruhe">Karlsruhe, Germany</option>
+        <option value="uk_edinburgh">Edinburgh, UK</option>
+      </select>
+    </div> -->
+
+
+<!-- need to load first -->
+<script src="./static/data/generated_nodes_and_edges_from_json_us_madison.js"></script>
+
+
+
+<div id="mynetwork"></div>
+<script src='./static/js/draw_network.js' type='text/javascript'></script>
+
+
+<!-- TODO: try another network style
+http://visjs.org/examples/network/exampleApplications/neighbourhoodHighlight.html -->
+
+
+</body>
+</html>

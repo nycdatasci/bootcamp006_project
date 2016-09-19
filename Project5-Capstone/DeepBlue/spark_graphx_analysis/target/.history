@@ -1,0 +1,2 @@
+show discoveredMainClasses
+spark-submit --master local --class "org.apache.spark.examples.LocalPi" target/scala-2.11/simple-project_2.11-1.0.jar

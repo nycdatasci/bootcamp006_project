@@ -1,0 +1,1056 @@
+,business_id,categories,latitude,longitude,review_count,stars,state,integer_business_id
+0,W2RFJg1N_MzuI8I42MQ2VA,"[u'Department Stores', u'Fashion', u'Shopping']",48.98807,8.37332,5,3.0,BW,47395
+1,frvS-8am51BA9b4G1cbX9Q,"[u'Shopping', u'Toy Stores']",49.0092,8.40115,4,4.5,BW,47396
+2,hvr8NYKtGbJL0T7Y3WRv8w,"[u'Hardware Stores', u'Beer Garden', u'Shopping', u'Home & Garden', u'Restaurants']",48.965887,8.3410161,3,3.5,BW,47397
+3,TVUIj9fsVF3JwvHkz_6-KQ,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",49.0003567,8.3958208,5,2.5,BW,47398
+4,8oHZnF6Z4EyPf4HyKWSZbw,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",49.0078622,8.4036637,9,3.5,BW,47399
+5,ePiK7IM1ZWQiwuivFwKE1Q,"[u'Fashion', u'Shopping']",49.0098,8.40257,10,4.0,BW,47400
+6,miDl22E-Vx1bTBIQXmYF9g,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",48.99499,8.40221,11,3.5,BW,47401
+7,-8YUIv3tK0Ui1G8KA5c9zA,"[u'Bars', u'Nightlife', u'Hotels & Travel', u'Event Planning & Services', u'Restaurants', u'Hotels']",48.94127,8.40434,15,3.5,BW,47402
+8,QeD2Nre6KyYf1pci4W9QgA,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",49.0049,8.39441,6,2.0,BW,47407
+9,lzJkgOCnjAA5B8tKPrLgsg,"[u'Greek', u'Restaurants']",48.9294,8.2722,8,3.5,BW,47408
+10,lUsaXEUmgHlwIq91ffl-Jg,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",48.9124,8.25379,3,2.5,BW,47409
+11,hwZfVaI9BYrhvOiPx1MEFw,"[u'German', u'Beer Garden', u'Restaurants']",49.0794,8.38975,19,4.5,BW,47410
+12,8R57IiGUkoq6A9DSEmJRcQ,"[u'German', u'International', u'Restaurants']",49.0767,8.38092,5,4.5,BW,47411
+13,E4xZKaClfyebUI59RBOePQ,"[u'Wine Bars', u'Bars', u'Nightlife', u'Restaurants']",48.9413,8.40809,6,4.5,BW,47412
+14,yzujxM_HrrNB3dri5SX18Q,"[u'German', u'Baden', u'Bed & Breakfast', u'Event Planning & Services', u'Hotels & Travel', u'Hotels', u'Restaurants']",48.9168511,8.5057262,7,4.0,BW,47413
+15,69-bzg2RpU2mi9T79u6nUg,"[u'German', u'Hotels & Travel', u'Restaurants']",48.9618109,8.292246,4,4.0,BW,47414
+16,CdZKeUZtCjqV0ni2NeFlgA,"[u'German', u'Restaurants']",48.9997,8.47296,50,4.0,BW,47415
+17,Qi61w8ZGqtipWfoALZq1hw,"[u'Modern European', u'Seafood', u'Restaurants']",49.0035,8.32291,7,4.0,BW,47416
+18,0Q7ftIbv1r7Jiupuxi7WDw,"[u'Greek', u'Restaurants']",49.0083,8.3975907,19,3.5,BW,47419
+19,ho0ycCxMxuQmcIS-aIj-TQ,"[u'Bars', u'American (Traditional)', u'Food', u'Nightlife', u'Fast Food', u'Sports Bars', u'Restaurants']",49.0097,8.41111,20,3.5,BW,47420
+20,ia4OINUjKlm8tbpI3i2s5w,[u'Restaurants'],49.0472,8.39623,5,4.5,BW,47421
+21,VaTVq_DMtcu38LrHcxdvLw,"[u'German', u'Dive Bars', u'Bars', u'Nightlife', u'Restaurants']",49.0065359,8.381561,6,3.5,BW,47422
+22,4fZtwMekeFdChOBQizz8Fg,"[u'Burgers', u'Fast Food', u'Restaurants']",49.0289,8.35834,3,2.5,BW,47423
+23,bYhw96gS3cbVSNQqMgvZ_Q,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",49.0127,8.4275007,9,4.5,BW,47424
+24,Wo5kOFvtYYP1euhiAJav-w,"[u'Restaurants', u'Italian']",49.0051,8.32785,30,4.0,BW,47425
+25,4lanRbZT3tZx9Gv63SO7kQ,"[u'Italian', u'Pizza', u'Restaurants']",49.0074469668,8.38833044805,28,3.5,BW,47426
+26,0SgsUyw0sQSpt6CSI73r6Q,"[u'Beer Garden', u'Restaurants']",48.9778654,8.3960922,6,3.5,BW,47427
+27,sXFxpk-7G_5EasbUQmIzyw,"[u'Mexican', u'Restaurants']",49.0302254414,8.34025633331,11,3.0,BW,47428
+28,8BlSo_rH0CUlkpogYMeN8Q,"[u'German', u'Restaurants']",49.00642,8.46986,12,3.5,BW,47429
+29,S1K_mg24V0704Le6B8x0AQ,"[u'Italian', u'Pizza', u'Restaurants']",49.0323,8.38811,29,3.5,BW,47430
+30,8ouXXM4deqhSREG1QPXaFA,"[u'German', u'Baden', u'Restaurants']",49.0083362,8.372624,22,4.0,BW,47431
+31,DlH3OmOOJuz5hNU6THjJCA,"[u'German', u'Restaurants']",49.008,8.38467,17,4.0,BW,47432
+32,UgdA4TRbbOvmsubfp9b03Q,"[u'Restaurants', u'Pizza', u'Italian']",49.01,8.40806,15,4.5,BW,47433
+33,mH812zDFXzfe-soYKB1E7A,"[u'German', u'Restaurants']",49.0102,8.38812,16,4.5,BW,47434
+34,Z2z3OKOAIFv1rLSBFYr6lw,"[u'Chinese', u'Restaurants']",49.0027307,8.4056083,14,2.5,BW,47435
+35,DeiWR9aL18WpVyzuey7dGg,"[u'German', u'Restaurants']",49.0052,8.33341,7,4.0,BW,47436
+36,Y2ClurK-CH47qiaxwyu4WQ,"[u'Pubs', u'Bars', u'Nightlife', u'Restaurants']",49.0073,8.41931,43,3.5,BW,47437
+37,jViZvpGS1uYO2E6t5fG4xw,"[u'French', u'Restaurants']",49.050807,8.3774673,23,4.0,BW,47438
+38,IvdsbInH0OAjk2lIiuGxJw,"[u'German', u'Italian', u'Restaurants']",49.0015013,8.3925622,12,4.0,BW,47439
+39,dGkpFKbyY39izmLuN1MMDg,"[u'Restaurants', u'Italian']",48.9689,8.40009,6,4.0,BW,47440
+40,Be3UQjMhbQDxRnmYu0pAMw,"[u'German', u'Restaurants']",48.9542,8.50841,3,3.5,BW,47441
+41,6fYqoI-jc2qpBAGOyWC65A,"[u'German', u'Steakhouses', u'Beer Gardens', u'Nightlife', u'Restaurants']",49.0037,8.52661,11,3.5,BW,47442
+42,rpSKQ-pHcRxKCNuhoEZ2iw,"[u'Bars', u'Beer Garden', u'German', u'Pubs', u'Nightlife', u'Restaurants']",49.009,8.40505,42,3.0,BW,47443
+43,oI5S8WM1vfrLtFovylkguw,"[u'German', u'Restaurants']",49.05321,8.37848,9,4.5,BW,47444
+44,m1xsKQP-gP1eL1_hFAmyhA,"[u'Restaurants', u'Pizza', u'Italian']",49.0068451,8.3948235,38,3.0,BW,47445
+45,HhRsdzXs__gDxZ7K3RWLdg,"[u'French', u'Event Planning & Services', u'Hotels & Travel', u'International', u'Hotels', u'Restaurants']",49.0013,8.47273,18,4.0,BW,47446
+46,qZPe4sIIskdoYAt5WZt2jQ,"[u'Restaurants', u'Italian']",48.9915,8.39235,6,4.0,BW,47447
+47,upJZl7WyrJaXHYLx941fjg,"[u'German', u'Hotels & Travel', u'Restaurants', u'Event Planning & Services', u'Hotels']",48.9713,8.40381,9,3.5,BW,47448
+48,EA6Ym63TtF9ntTrkZgkyJA,"[u'Restaurants', u'Pizza', u'Italian']",49.0093,8.39886,38,3.0,BW,47449
+49,3C70DNk7sa0KuRJu3zKiXQ,"[u'Italian', u'Pizza', u'Restaurants']",49.0118,8.40066,17,4.0,BW,47450
+50,jAWUEUMysKTW605pkzFT2Q,"[u'Restaurants', u'Pizza', u'Italian']",49.0312518,8.3410331,7,3.5,BW,47451
+51,4od9zZAKUnJ8XVnLP3XTfw,"[u'Active Life', u'Swimming Pools', u'Kids Activities']",49.01349,8.3468,7,4.5,BW,47452
+52,ucNCtUDrAF3rf6rYNdIEpg,"[u'Wine Bars', u'Bars', u'Nightlife', u'French', u'Restaurants']",49.0117491,8.3982185,11,4.5,BW,47453
+53,gHU8sHbkHaduYSFAd8C4Ng,[u'Restaurants'],49.0123,8.35791,27,3.5,BW,47454
+54,JDrNMAJH50LeypYcyCvtvg,"[u'German', u'Restaurants']",49.0009,8.35137,5,4.0,BW,47455
+55,ac8dhJhjJgan5T-_KHu_9w,"[u'Restaurants', u'Pizza', u'Italian']",48.9931,8.46144,18,4.0,BW,47456
+56,1vObhKVuXQF7YX5R6qxwVA,"[u'Bars', u'German', u'Arts & Entertainment', u'Pubs', u'Nightlife', u'Social Clubs', u'Restaurants']",49.0057518,8.3721617,9,4.0,BW,47457
+57,96-0tsLAkE3xC0eZ7Jsu_g,"[u'German', u'Restaurants']",48.9743038,8.453387,3,3.5,BW,47458
+58,Drf2RxbCnVybNiDcFuPFtg,"[u'German', u'Restaurants']",48.975,8.31374,4,3.0,BW,47459
+59,-3Qu8aYgOleRw-OThNPovA,"[u'Italian', u'Pizza', u'Restaurants']",48.9948165,8.393987,11,4.0,BW,47460
+60,oIZSTYYYxCMgkPQ6UhfaSg,"[u'Greek', u'Restaurants']",49.0339736,8.3533116,9,3.0,BW,47461
+61,6ffwWT-0iWLc7TnKkh-Nuw,[u'Restaurants'],49.027,8.44388,5,3.5,BW,47462
+62,O7gAxbZxe6r2SSzDaA568w,"[u'Dive Bars', u'Bars', u'Beer Garden', u'Nightlife', u'Restaurants']",49.0073259,8.3927555,79,4.0,BW,47463
+63,A7W9XAwUZ4wlZjAsG6c-Cg,"[u'Pizza', u'Restaurants']",48.9664491,8.3978461,12,4.0,BW,47464
+64,MDIliph5bpimXzXq8m8TMw,"[u'Italian', u'Pizza', u'Restaurants']",49.0102126,8.3853963,30,3.5,BW,47465
+65,rhHqf8a6DEax4uo-YpXshA,[u'Restaurants'],49.0042,8.39806,9,4.0,BW,47466
+66,fvZZp-gKF6HfoIZMhh2XtA,"[u'German', u'Chicken Shop', u'Fast Food', u'Restaurants']",49.0106,8.37497,10,2.5,BW,47467
+67,bVg-aNsf3KNJ4oSuuhw-AA,"[u'Greek', u'Restaurants']",49.004,8.40611,8,2.5,BW,47468
+68,0W3K89HZ6zkNg3AqBMq4Dw,"[u'German', u'Beer Garden', u'Restaurants']",48.9641,8.28743,7,4.0,BW,47469
+69,IuHDE3FdVwFlBb5zZmsr7w,"[u'Italian', u'Pizza', u'Restaurants']",49.0507,8.53188,6,5.0,BW,47470
+70,4uVg4Sjqd1g2cIUQYAp_Wg,"[u'German', u'Restaurants']",49.0522,8.52153,3,4.5,BW,47471
+71,YEbtpJvUrdzwpMneGIuRGw,"[u'Pizza', u'Kebab', u'Restaurants']",49.0073882,8.4961897,4,4.5,BW,47472
+72,5bxJ4vlqgYcY4YphULphsQ,"[u'Food', u'Specialty Food', u'Meat Shops']",49.0086,8.42966,4,3.0,BW,47473
+73,VEa1bofX2Lx1Tucw0zEg3Q,"[u'Food', u'Specialty Food', u'Caterers', u'Meat Shops', u'Event Planning & Services']",49.0009,8.39112,12,5.0,BW,47474
+74,PFEdj4zy3rD0wbHeEVaCDw,"[u'Food', u'Specialty Food', u'Meat Shops']",48.9922913,8.3831667,3,4.5,BW,47475
+75,Jlj-EGnDvkcEpS3k2AX9QQ,"[u'Food', u'Specialty Food', u'Meat Shops']",48.9846,8.40076,3,4.5,BW,47476
+76,JxsRmp1bIRA9YAJYYrvFqg,"[u'Food', u'Specialty Food', u'Meat Shops']",49.0087,8.39761,5,4.0,BW,47477
+77,hZQU4GhAG2WrJmNAZ0_gxg,"[u'Food', u'Specialty Food', u'Meat Shops']",49.0086,8.37607,10,4.0,BW,47478
+78,gD8p1LEbAwxtIQM5vrGBYw,"[u'Food', u'Specialty Food', u'Meat Shops']",49.0514,8.5317,3,3.5,BW,47479
+79,Zca_8faK0kYwPrchOchK7g,"[u'Food', u'Beer, Wine & Spirits']",49.0111,8.42262,3,4.5,BW,47480
+80,kQOsnOqEV1Uu9P9US6v9DA,"[u'Food', u'Beer, Wine & Spirits']",49.0082,8.40281,4,4.5,BW,47481
+81,CffrdoVMu93IbWZtEqjQFQ,"[u'Books, Mags, Music & Video', u'Vinyl Records', u'Musical Instruments & Teachers', u'Shopping', u'Bookstores']",49.0097,8.39981,3,4.5,BW,47482
+82,3LA8ABDMBZnlEnVMmJ-YIA,"[u'Bakeries', u'Food', u'Patisserie/Cake Shop', u'Cafes', u'Restaurants']",49.00981,8.42244,5,3.0,BW,47483
+83,l2yVOnZtaULa5PSx85JkjA,"[u'Accountants', u'Professional Services', u'Bookstores', u'Shopping', u'Books, Mags, Music & Video']",49.0090582,8.4102955,4,5.0,BW,47484
+84,ZhVdaEgFDO8Mg6ycyGklKw,"[u'Shopping', u'Eyewear & Opticians']",49.0123,8.36137,3,1.0,BW,47485
+85,rSCu0sU-3G6lZtSHKvZ_DA,"[u'Pet Services', u'Animal Shelters', u'Pet Boarding/Pet Sitting', u'Pets']",49.0039,8.31986,3,4.0,BW,47486
+86,6So-3mhNwaJwXVKZ2_nZfA,"[u'Active Life', u'Horseback Riding', u'Pets']",49.0223,8.36914,3,3.0,BW,47487
+87,_sWP2LkDml6bE9nKB3MUPg,"[u'Dermatologists', u'Doctors', u'Allergists', u'Health & Medical']",49.00978,8.39524,6,5.0,BW,47488
+88,JwTJcaBBc6Z2ckGCPFo0Zw,"[u'Pediatric Dentists', u'Health & Medical', u'Dentists']",49.0029,8.33613,3,4.0,BW,47489
+89,saopjBTvw8iVKmfJe-Y3fA,"[u'German', u'Nightlife', u'Restaurants']",48.9432,8.27504,3,2.5,BW,47490
+90,acPzIK1f3vybPlnjE1hWKQ,"[u'Sporting Goods', u'Shopping']",49.0047874,8.3849381,8,4.0,BW,47491
+91,gV6tV_vL3bj_a8sugZInFg,"[u'Active Life', u'Sporting Goods', u'Shopping']",49.0096,8.39924,4,3.0,BW,47492
+92,nAMMS64Iriz9grhFzO6Evg,"[u'Local Services', u'Dry Cleaning & Laundry']",48.9944,8.39914,5,3.0,BW,47493
+93,aePFUnoAYbi7uij8k4KFxA,"[u'Fashion', u'Shopping']",49.0095992,8.4063616,3,3.0,BW,47494
+94,y270_EUXpJKxlDE5LFr-CA,"[u'Local Services', u'Funeral Services & Cemeteries']",49.0061,8.32782,3,5.0,BW,47495
+95,q_Xd4xuUEcSga_n65SGejQ,"[u'Hobby Shops', u'Fashion', u'Shopping', u'Accessories']",49.0097223,8.3975624,4,4.0,BW,47496
+96,zpMiSnjnr8tiLdQkIExWFw,"[u'Auto Repair', u'Automotive', u'Car Wash']",48.99888,8.3618,3,5.0,BW,47497
+97,WZ_9uk01YHE9Blc8WrK_ZA,"[u'Active Life', u'Swimming Pools']",48.9812047,8.4016611,3,4.0,BW,47498
+98,lzlrGXBZ9RpDEpPUJ4Iezg,"[u'Food', u'Backshop']",48.9231504,8.4752712,3,4.5,BW,47499
+99,ZWiVg5Q_omqipa9gLJfwzQ,"[u'Hotels & Travel', u'Bed & Breakfast', u'Event Planning & Services', u'Hotels']",49.008,8.39149,7,4.0,BW,47500
+100,XghrOWeNSu24EaRhfDpGcg,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",49.0110712,8.3937926,3,4.0,BW,47501
+101,kGQojQzVBP39GrQAN6fN7A,"[u'Food', u'Bed & Breakfast', u'Caterers', u'Event Planning & Services', u'Hotels & Travel', u'Hotels']",48.99654,8.39155,4,4.5,BW,47502
+102,UyCBX3qu-7Yk-uRtadsi1w,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",49.0089198,8.3973768,6,3.5,BW,47503
+103,Xf2k52tRHvLt5Ji6dZJMlQ,"[u'Hotels & Travel', u'Bed & Breakfast', u'Event Planning & Services', u'Hotels']",49.00981,8.4038,4,3.5,BW,47504
+104,nO9rhaYa9v6cRWly2PTldA,"[u'Hotels & Travel', u'Bed & Breakfast', u'Event Planning & Services', u'Hotels']",49.0058,8.407,10,3.5,BW,47505
+105,W-_1qQ6B8XXAAUs3v1-4oQ,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",49.0095555,8.3863233,9,4.0,BW,47506
+106,V8oiNG50dqpSlWdencpHqw,"[u""Children's Clothing"", u'Fashion', u'Shopping']",49.0081634,8.3951634,4,3.5,BW,47507
+107,wheuLBEzZQ-my4gNt7aPUg,"[u'Arts & Entertainment', u'Cinema']",49.0102619,8.3973248,5,4.0,BW,47508
+108,V_covJrJEmKoj8qTE-sfgw,"[u'Arts & Entertainment', u'Cinema']",49.0101,8.39424,5,4.0,BW,47509
+109,QXou2_cNNSGNqpIUBikQOg,"[u'Bakeries', u'Food', u'Cafes', u'Restaurants']",49.0101,8.35593,11,4.5,BW,47510
+110,DXIsctlGnYN8-G-CJ6Xm6A,"[u'Bakeries', u'Food', u'Patisserie/Cake Shop']",49.0018,8.39192,11,3.5,BW,47511
+111,sDDPr7bV9uC1ubROF1AADQ,"[u'Bakeries', u'Food']",49.0114,8.42381,3,3.0,BW,47512
+112,ZztjV9bUMfOYMF85X0M8AA,"[u'Bakeries', u'Food']",48.992,8.46038,4,5.0,BW,47513
+113,HGfHTlOGiET5eWjDY_Zw7Q,"[u'Food', u'Breweries']",49.0019,8.40802,11,4.0,BW,47514
+114,QUl85k7lKTvY1ry0sIoBgA,"[u'German', u'Steakhouses', u'Restaurants']",49.0003129,8.4730213,13,3.5,BW,47515
+115,UPocI3b94XSzIBB1_9A62g,"[u'Shopping', u'Drugstores']",49.0098376,8.3542318,4,5.0,BW,47516
+116,Zp54x28yAHPObTYlfqNHrg,"[u'Bars', u'Cocktail Bars', u'Nightlife']",49.0075173,8.4070232,40,4.0,BW,47517
+117,hWEG9OmXJ2rPjwB5H-oetg,"[u'Flowers & Gifts', u'Shopping', u'Florists']",49.0094,8.4206,4,4.0,BW,47518
+118,S_wRQzLYdfv1KG8nKidc-Q,"[u'Sporting Goods', u'Bikes', u'Shopping']",49.0308144,8.3591498,6,2.5,BW,47519
+119,S0wr9Gj5RFscgffwYiJ4Iw,"[u'Health & Medical', u'Pharmacy']",49.0082,8.39467,5,4.0,BW,47520
+120,zRBgEqzMrrlnya2_eeRHYA,"[u'Health & Medical', u'Pharmacy']",49.0173,8.44314,3,5.0,BW,47521
+121,UJZKaJKEyYlBEa7byP-uQw,"[u'Health & Medical', u'Pharmacy']",48.9969597,8.3938408,5,4.0,BW,47522
+122,Tm3w1r_ysQSxu-hnV9BetA,"[u'Bakeries', u'Grocery', u'Food', u'Cafes', u'Coffee & Tea', u'Restaurants']",48.9109,8.25536,3,5.0,BW,47523
+123,He-DZK510V8MHobwyYBr4w,"[u'Food', u'Ice Cream & Frozen Yogurt', u'Cafes', u'Restaurants']",48.9414,8.40803,15,4.5,BW,47524
+124,YEFiDsEOdEBbbQVgkIg8_g,"[u'Food', u'Desserts', u'Specialty Food', u'Chocolatiers & Shops']",49.0031,8.39495,11,3.0,BW,47525
+125,cxs28BsfEmlkRUTucx8a8w,"[u'Food', u'Ice Cream & Frozen Yogurt', u'Coffee & Tea', u'Cafes', u'Restaurants']",49.0102,8.39732,5,4.0,BW,47526
+126,Umq7lcGqslqbIFtPHwvSYw,"[u'Food', u'Ice Cream & Frozen Yogurt', u'Coffee & Tea', u'Cafes', u'Restaurants']",49.0099839,8.3969286,27,4.5,BW,47527
+127,hJuw__aAzsTKNZjLpFUUcg,"[u'Food', u'Ice Cream & Frozen Yogurt', u'Restaurants']",49.0094,8.40791,4,4.5,BW,47528
+128,Gdb8Wz1i5HtVxZ1aP4ZI_A,[u'Restaurants'],49.0069432,8.3949231,5,4.5,BW,47529
+129,va1Mky2PWLHnRNWn8DKkkw,"[u'Food', u'Grocery', u'Cafes', u'Coffee & Tea', u'Restaurants']",49.0081,8.42112,3,3.0,BW,47530
+130,YONT5EFwfR0i2St1lU7SpA,"[u'Auto Repair', u'Automotive', u'Car Dealers']",49.0327945,8.3600327,3,3.0,BW,47531
+131,FZpJfZGc1pGaGXabeJuVHw,"[u'Auto Repair', u'Automotive', u'Car Dealers']",48.9348,8.42609,3,2.5,BW,47532
+132,FQFd7NxnZnHX_nQ9riXJjA,"[u'Greek', u'Restaurants']",48.9588,8.40607,10,3.5,BW,47533
+133,PxfqJwIO-QCB3y96Dw54Vg,"[u'Auto Repair', u'Automotive', u'Car Dealers']",48.99606,8.44667,4,2.5,BW,47534
+134,VPGbUwQa3enU1ic7ntND7A,"[u'Auto Repair', u'Automotive', u'Car Dealers']",49.0062,8.44226,5,2.5,BW,47535
+135,HIlcj33VY5Aa6eOuyu04Og,"[u'Auto Repair', u'Automotive']",48.9414,8.262,3,3.5,BW,47536
+136,MVmfa8PxHyyHiEGI3MqlSQ,"[u'Food', u'Tea Rooms', u'Flowers & Gifts', u'Gift Shops', u'Shopping']",49.0104879609,8.39823753029,8,4.0,BW,47537
+137,cwo-SSQxjvtn9S0uhjGDSQ,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",48.9988711,8.4014459,3,3.5,BW,47538
+138,DN4uBC1Om48WoHgcoR7xZw,"[u'German', u'Restaurants']",48.9431,8.40806,12,3.5,BW,47539
+139,-jphOPBtUgPuhnvHVDPBVg,"[u'Hotels & Travel', u'Hostels']",49.0155,8.39297,3,2.0,BW,47540
+140,95u9HmF30qffQtFXQphWyA,"[u'Shopping', u'Home Services', u'Arts & Crafts', u'Antiques', u'Building Supplies', u'Art Supplies']",49.0092,8.39635,4,4.5,BW,47541
+141,NEYJeDUNiWVHJY2jQ8AbUA,"[u'Auto Repair', u'Automotive', u'Car Rental', u'Car Dealers', u'Hotels & Travel']",48.9966,8.43545,4,1.0,BW,47542
+142,pTi7fwrFZTqY7mpeu8NZyw,"[u'Shopping', u'Jewelry', u'Watches']",49.0097178,8.3966118,4,3.0,BW,47555
+143,IdkXYNl84sM8g84RL-euQA,"[u'Veterinarians', u'Pets']",49.0112,8.36654,3,3.5,BW,47557
+144,7VVJwBvw0NG-LCKZ_EuCoA,"[u'Museums', u'Arts & Entertainment']",49.0115823,8.4002493,8,5.0,BW,47559
+145,6dOjMBKFbK3bRju_n4Tmog,"[u'Hospitals', u'Medical Centers', u'Health & Medical']",48.9994,8.38875,3,2.5,BW,47561
+146,VBKXWU30nlsj7ivKBlvq6w,"[u'Hair Salons', u'Beauty & Spas']",49.0115,8.36587,3,3.5,BW,47562
+147,5cOhs2bPeCMYA7OdQ3AOrQ,"[u'German', u'Hotels & Travel', u'Restaurants', u'Event Planning & Services', u'Hotels']",49.0761184,8.39144,5,5.0,BW,47564
+148,gepa_EcPF8raQjJByhbKKw,"[u'Serbo Croatian', u'German', u'Soccer', u'Amateur Sports Teams', u'Active Life', u'Restaurants']",48.9994,8.34102,5,4.0,BW,47565
+149,081EZ8AIZ4QWVaYl_1wUCw,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",49.0092602,8.3764097,4,3.5,BW,47566
+150,24n6GyhkXVcQGL-LZxOshw,"[u'Nightlife', u'Dance Clubs']",49.0090564,8.4145078,20,4.0,BW,47567
+151,OrwnIUTkAWueo46g7MM54Q,"[u'Fast Food', u'Chinese', u'Restaurants']",49.01039,8.3818002,6,5.0,BW,47568
+152,ZwguYsK83tel85bPkuURQQ,"[u'Greek', u'Restaurants']",49.0001,8.47966,19,4.5,BW,47569
+153,BGZHzaRaOuxbBPAKxmnkZw,"[u""Children's Clothing"", u'Fashion', u'Shopping', u'Appliances & Repair', u'Home & Garden', u'Local Services', u'Kitchen & Bath', u'Toy Stores']",49.0009,8.39402,3,4.5,BW,47570
+154,CBBdGhr69Op1BG-mjGBCYw,"[u'Greek', u'Restaurants']",48.9535,8.38004,7,4.0,BW,47571
+155,zp5mGqT0QQQHM1qRqxkywQ,"[u'Mediterranean', u'Hotels', u'Event Planning & Services', u'Hotels & Travel', u'Italian', u'Restaurants']",49.0057,8.40672,4,4.0,BW,47572
+156,mJxdH_5Oy4kARMwO4KF_bg,"[u'Bars', u'Tapas Bars', u'Pubs', u'Wine Bars', u'Nightlife', u'Restaurants']",49.007,8.39131,28,3.0,BW,47573
+157,ml0VNc9eREzC8fwZj9R8hA,"[u'Nightlife', u'Dance Clubs']",49.0044,8.40981,6,4.5,BW,47574
+158,3hrqeq7BVC8RP3rJBgCcIA,"[u'Italian', u'Pizza', u'Restaurants']",49.0114,8.36071,3,3.5,BW,47575
+159,hoMYlkrb_FVGHxgX4s9QOA,"[u'Italian', u'Pizza', u'Restaurants']",49.0108,8.42337,23,3.5,BW,47576
+160,8zLDRM77DWRps7k2hnoOPA,"[u'German', u'Greek', u'Restaurants']",49.0055,8.38298,15,3.5,BW,47577
+161,LuCrgEAXPoE0lcBnrVijQQ,"[u'German', u'Restaurants']",48.946,8.48018,21,4.0,BW,47578
+162,pIB6QhXYJZMOAVoGN49Tag,"[u'Active Life', u'Italian', u'Restaurants', u'Sports Clubs']",49.0489,8.5346,5,4.0,BW,47579
+163,3SD06vMXD5YxdQGiJ11imw,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",49.0516,8.53185,6,4.5,BW,47580
+164,2QclfX_80Y4T2zZ-h0FlmA,"[u'Seafood', u'Nightlife', u'Dance Clubs', u'Restaurants']",49.0103,8.39713,5,1.5,BW,47581
+165,195hVRlAgcgMNNt8Ttdu8g,"[u'Libraries', u'Public Services & Government', u'Mass Media']",49.0081042,8.3994451,5,5.0,BW,47582
+166,7i6DABDRnJ6soFGIy_2rvw,"[u'Books, Mags, Music & Video', u'Shopping', u'Bookstores']",49.0084,8.39771,5,3.5,BW,47602
+167,ktQpBOGvDKfM0-KRCY21aA,"[u'Hair Salons', u'Beauty & Spas']",49.0023,8.39548,21,4.5,BW,47603
+168,L-EkWc4HZiDVoxB7C3Z3Vg,"[u'Food', u'German', u'Breweries', u'Beer Garden', u'Restaurants']",48.9415,8.40498,38,4.0,BW,47604
+169,Pnu3TLl2vKHd9kWe6EuNTQ,"[u'Bakeries', u'Food', u'Patisserie/Cake Shop']",49.0025,8.35607,3,4.0,BW,47605
+170,3Rm2NlH_9Tp249DqicoeqQ,"[u'Steakhouses', u'Restaurants']",49.0088748,8.4021614,63,3.0,BW,47606
+171,yAvKBD9f54Mncwqd_DRDIg,"[u'Bars', u'American (Traditional)', u'Pool Halls', u'Nightlife', u'Sports Bars', u'Restaurants']",49.0085,8.39595,18,3.0,BW,47607
+172,t8WeSSHYuu2_UkHGl8kHyA,"[u'Shopping', u'Cosmetics & Beauty Supply', u'Beauty & Spas']",49.0109,8.39649,5,4.5,BW,47608
+173,rCYEy0Cg109fhpnXn1vDBw,"[u'Middle Schools & High Schools', u'Elementary Schools', u'Education']",49.0040892,8.3964755,3,4.5,BW,47609
+174,qhu-hCLlRiqoJ5du775oig,"[u'Doctors', u'Health & Medical', u'Family Practice']",49.0074,8.38963,3,5.0,BW,47610
+175,XIikFKubRRURUqQKNs29AQ,"[u'Arts & Entertainment', u'Cinema']",49.0031885,8.4077757,59,4.5,BW,47611
+176,wuOcusxzLQBMwucKp1OTUw,"[u'Active Life', u'Swimming Pools', u'Sports Clubs']",49.02624,8.44085,4,5.0,BW,47612
+177,kOfQyegQ7As4JPCpuQSZuQ,"[u'Greek', u'Restaurants']",48.9961953,8.3915446,76,4.5,BW,47613
+178,qKCYXulWC-SlD2BTc_SUzQ,"[u'German', u'Food', u'Beer Garden', u'Breweries', u'Restaurants']",49.0074424,8.4139686,79,4.0,BW,47614
+179,JKPfm4KBvDoAKJwWiMz3Lg,"[u'Shopping', u'Fashion', u'Maternity Wear', u'Baby Gear & Furniture']",49.007,8.43805,3,1.5,BW,47615
+180,vnYeVzgrdfxmkhiQfotJJA,"[u'Coffee & Tea', u'Hiking', u'Beer Garden', u'German', u'Cafes', u'Food', u'Active Life', u'Restaurants']",49.0033,8.4785,10,3.5,BW,47616
+181,q-Pc4j3mIzCfD-3eOs71jg,"[u'Fitness & Instruction', u'Police Departments', u'Martial Arts', u'Active Life', u'Public Services & Government', u'Sports Clubs']",48.9947,8.43041,3,5.0,BW,47617
+182,LcLTXfH_ado12bd6W4VT2w,"[u'German', u'Greek', u'Restaurants']",49.0101513,8.4282502,7,4.0,BW,47618
+183,HufIoqr9onRXIO9DrjcnMQ,"[u'Shopping', u'Jewelry', u'Watches']",49.01,8.39721,5,4.0,BW,47619
+184,b3mFMG1zjCscknRPPvzmrA,"[u'Dive Bars', u'Bars', u'Nightlife']",49.0085336,8.4141466,6,4.5,BW,47620
+185,8ZGrdBf9yv0hJt1aZgX7dA,"[u'Automotive', u'Gas & Service Stations']",49.0133,8.42881,5,4.0,BW,47621
+186,I_Xw9RZ01FB_7MetXIlrfw,"[u'Museums', u'Arts & Entertainment']",49.0078044,8.4007324,6,4.5,BW,47622
+187,BSi3InD9nxAfeKRlxwK7pQ,"[u'Arts & Entertainment', u'Performing Arts', u'Cultural Center']",49.0038,8.42482,6,4.5,BW,47623
+188,L3mhx94gZcCYwMvR8Y4pGA,"[u'Local Services', u'Sewing & Alterations']",49.01237,8.3577,4,5.0,BW,47624
+189,X3Tkf5L3966mwPL_FJ5d4g,"[u'Hair Salons', u'Shopping', u'Cosmetics & Beauty Supply', u'Beauty & Spas']",49.0088,8.40762,3,4.0,BW,47625
+190,4Wv8jwjLXc5NmxDOfhHEPw,"[u'Food', u'Ethnic Grocery']",49.0086534,8.4076764,4,4.5,BW,47626
+191,KVwqBtoJM4Bzzv4r1mKJSA,"[u'Doctors', u'Orthopedists', u'Health & Medical']",48.9995,8.39065,5,3.5,BW,47627
+192,nEbkDXjOoxlpIlPcwGXFXg,"[u'Hotels & Travel', u'Bed & Breakfast', u'Event Planning & Services', u'Hotels']",49.0067498,8.393843,9,3.0,BW,47628
+193,l_ctRdjXQPxLpr0GmQBLBA,"[u'Hotels & Travel', u'Bed & Breakfast', u'Event Planning & Services', u'Hotels']",49.007925,8.383684,5,3.0,BW,47629
+194,EpZsI6uHsyaE1xHI-7Qglw,"[u'Bars', u'American (Traditional)', u'Pool Halls', u'Nightlife', u'Sports Bars', u'Restaurants']",48.9202,8.5031,9,3.5,BW,47630
+195,9rCNYbOnBGKnn1otAa8nyw,"[u'Shopping', u'Home & Garden', u'Furniture Stores']",49.0087,8.39766,7,4.5,BW,47631
+196,A7Zrif-apG0Lt6ml1bXSsg,"[u""Children's Clothing"", u'Fashion', u'Shopping', u'Mattresses', u'Home & Garden', u'Furniture Stores']",49.0655226,8.4665991,4,3.5,BW,47632
+197,NSvI23_bSqDLEIyZ6CG7Fg,"[u'Veterinarians', u'Pets']",48.9979,8.471,5,4.0,BW,47633
+198,R0k3wzbxnqO6a7arCGtc-Q,"[u""Men's Clothing"", u'Fashion', u'Shopping']",49.0099,8.40286,3,3.0,BW,47634
+199,_8tUKyMRMMt1YSlac04eqg,"[u'Active Life', u'Boating', u'Amateur Sports Teams', u'Restaurants']",49.0377,8.31318,3,3.5,BW,47635
+200,5OSRQPqJQ0ilgw25wx_PIg,"[u'Active Life', u'Soccer', u'Lakes', u'Amateur Sports Teams']",49.0819,8.50123,3,3.0,BW,47636
+201,RdWxr1GAp-BrK25nNRMS6Q,"[u'Dermatologists', u'Doctors', u'Ear Nose & Throat', u'Health & Medical']",49.0094,8.42355,3,4.5,BW,47646
+202,30JWFF7VjyHnMpNGIp-fnQ,"[u'Accountants', u'Professional Services']",49.0041,8.53493,3,4.5,BW,47647
+203,INsIrE2YYnYqO3_nmGj4gQ,"[u'Sporting Goods', u'Bikes', u'Shopping']",49.0070298,8.4074855,4,3.0,BW,47648
+204,oAJFC0pUXJ1wHOehhgbmYQ,"[u'Indian', u'Restaurants']",49.0037274,8.394701,24,4.0,BW,47649
+205,7KaHhijkGVTvCBZ1hlV9Bw,"[u'Doctors', u'Health & Medical', u'Internal Medicine']",49.0057,8.39421,3,2.5,BW,47650
+206,NKaI-TV3XozbIi58MS2ssw,"[u'Mexican', u'Restaurants']",49.0104753074,8.39773624731,82,3.5,BW,47651
+207,K008tT3H-CyjiBV0zC97lw,"[u'Shopping', u'Eyewear & Opticians']",49.0095341,8.4008089,3,2.5,BW,47653
+208,Hn4X80Mughw7s2ImIUipaw,"[u'German', u'Cafes', u'Restaurants']",49.0102472,8.3849638,41,3.5,BW,47654
+209,hhkBYTa41cgPFAE0v9xrBg,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",49.0095822,8.407182,3,3.5,BW,47655
+210,vcvXl_EBMAO5ogIEApkfwA,"[u'Cafes', u'Restaurants']",49.0069786,8.4074475,61,4.0,BW,47656
+211,GeQ03iVyEc653Z9U8doO7A,"[u'German', u'Restaurants', u'Cafes', u'Italian']",49.0111,8.39969,17,3.5,BW,47657
+212,UX0dUr8Q9IgUpN6GxdneIQ,"[u'German', u'Beer Garden', u'Restaurants']",49.0014411,8.3974337,19,3.5,BW,47658
+213,XtaO8ZryRE-cp7fvWP1xdw,"[u'Greek', u'Restaurants']",49.0045,8.38479,35,4.0,BW,47659
+214,aUFag1TNdmAQYoqVRk-ziQ,"[u'Restaurants', u'Italian']",48.9923,8.44193,21,4.0,BW,47660
+215,Xqyxw2wPAb9hnMc6aWTmxQ,"[u'Indian', u'Restaurants']",49.0097,8.38991,15,3.0,BW,47661
+216,UR74mUyGwu2lKDmPELcPZg,"[u'Pubs', u'Bars', u'Nightlife']",49.0103,8.40773,16,4.0,BW,47662
+217,lku1qyIEkEPGgl-ZSMXIQw,"[u'Greek', u'Restaurants']",48.9427,8.41067,23,4.0,BW,47663
+218,14qE5P0ZtWe782tWQYwCcw,"[u'German', u'Restaurants']",49.0647934,8.4715598,11,4.5,BW,47664
+219,NkJZbX7z79t-z7VCTraFQg,"[u'Italian', u'Pizza', u'Restaurants']",48.9854,8.54414,4,3.5,BW,47665
+220,ejtVhXk9MdORE6lZxvejTg,"[u'Restaurants', u'Italian']",49.0535,8.52702,7,4.5,BW,47666
+221,qrGmLp2qyvlVYLuGzn0W7Q,"[u'Arts & Entertainment', u'Performing Arts', u'Nightlife', u'Active Life', u'Kids Activities', u'Comedy Clubs']",49.0091,8.3847,9,5.0,BW,47671
+222,TYqtq5p9HiQ92qyZGyhCqg,"[u'Italian', u'Pizza', u'Restaurants']",48.9065,8.49784,3,3.5,BW,47672
+223,CRcwhJTaOYE1IYLCFl_hrQ,"[u'Pizza', u'Restaurants']",48.9427,8.40178,3,1.5,BW,47674
+224,BbAr92cLCT-KapUEuzfn9A,"[u'German', u'Greek', u'Event Planning & Services', u'Restaurants']",48.9523,8.51714,7,4.0,BW,47675
+225,gY-_DMsOpYzSGxHp8Pqigg,"[u'Bakeries', u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",49.01059,8.37741,26,3.5,BW,47676
+226,8NylphUnH1fJ3YLZq7Yreg,"[u'Shopping', u'Home & Garden']",49.0185,8.35494,7,3.0,BW,47677
+227,HysgvS37Z-XMqL2G9FmsQQ,"[u'Food', u'Coffee & Tea Supplies']",49.0098,8.39524,12,5.0,BW,47678
+228,_DQPv4T8dGJTUOXovR0lrg,"[u'Bars', u'Nightlife']",49.0082,8.41459,3,3.5,BW,47679
+229,d4r8kOr0ZSpH2MnVoMZzbQ,"[u'German', u'Beer Garden', u'Restaurants']",49.0087709,8.3762576,37,3.5,BW,47680
+230,jDX_bbjZ-4qHyKY8IE2vvQ,"[u'Food', u'Specialty Food', u'Meat Shops']",48.9991,8.4727895,5,5.0,BW,47681
+231,_C9P5NuoOEMP5sSqDdHEJA,"[u'Bars', u'Restaurants', u'Wine Bars', u'Nightlife', u'Italian', u'Pizza']",48.9986667,8.47126,22,4.0,BW,47682
+232,_De17jwK6Frt8stTulbEeA,"[u'Doctors', u'Health & Medical', u'Obstetricians & Gynecologists']",49.0469655,8.3787081,3,3.5,BW,47683
+233,8QhUXk_Y89rMmQHzzBLNBQ,"[u'German', u'Restaurants']",48.9554,8.47922,7,4.5,BW,47684
+234,jVAsYNTmNE1q6tttEv2P-w,"[u'Vegetarian', u'Restaurants']",49.00846,8.40263,18,3.0,BW,47685
+235,OeO2xpV6Q9Ao3jCwZwdlTQ,"[u'Thai', u'Restaurants']",48.9993818072,8.5157790343,3,3.5,BW,47686
+236,D5fZo7NO8JOAu5icizIf-A,"[u'Doctors', u'Ear Nose & Throat', u'Health & Medical']",49.0056,8.39429,3,5.0,BW,47738
+237,HE5iuNFpQ1uKs1KuzLgQow,"[u'Museums', u'Arts & Entertainment']",49.0134235,8.4043185,6,5.0,BW,47740
+238,obsjrNe75ypTw8_rY_FRPw,"[u'Tobacco Shops', u'Food', u'Coffee & Tea', u'Shopping']",49.0105,8.40745,3,3.5,BW,47741
+239,iqabqwO_ZzWDZfasJy4ILQ,"[u'German', u'Pizza', u'Mediterranean', u'Restaurants']",49.04787,8.39297,6,4.5,BW,47742
+240,AAaF8hc_KTjhi-2HzWdsRg,"[u'Gastropubs', u'Steakhouses', u'Restaurants']",49.0274374,8.4593159,14,4.0,BW,47743
+241,jzmHs1saND7pr1OJ995PAA,"[u'Restaurants', u'Salad', u'Italian']",49.00413,8.40253,18,2.0,BW,47744
+242,n_n_WnX-CrjOLpHDr6Xgzg,"[u'Pubs', u'Bars', u'Beer Garden', u'Nightlife', u'Restaurants']",49.0098,8.38081,27,3.0,BW,47745
+243,om3qoz4MTGNn5JLXilys5Q,"[u'German', u'Hotels & Travel', u'Restaurants', u'Event Planning & Services', u'Hotels']",49.0174,8.45403,5,4.0,BW,47746
+244,A0g1MhXHME3C1yxc4PCxhA,"[u'Fast Food', u'Pizza', u'Restaurants']",49.0093,8.396,11,2.5,BW,47747
+245,UFzNYSm_5nzWI7YLKwJJ0w,"[u'Nightlife', u'Dance Clubs']",49.0052686651,8.41256615851,12,2.5,BW,47748
+246,F2X07Fbe8J8wsPIRQwYOLw,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",49.0093,8.33363,6,3.0,BW,47749
+247,h3oTapYP5Q1G_u1t9xN64g,"[u'Italian', u'Pizza', u'Restaurants']",49.0084,8.39637,23,4.0,BW,47750
+248,e5Vs5C6fUuHRfC5tLAr1Iw,"[u'Local Services', u'Sewing & Alterations']",49.0108,8.396301,5,3.0,BW,47751
+249,UJaAi1u6ocEMwqdiVYYOoQ,"[u'Hotels & Travel', u'Restaurants', u'Event Planning & Services', u'Hotels']",49.0109498,8.3717994,5,3.5,BW,47752
+250,M_O7vlWxe0GTzqnAhjXuHQ,"[u'Veterinarians', u'Pets']",49.0319,8.3433,8,3.5,BW,47753
+251,cVXlK6H02uSjwrmu1fW-Vg,"[u'Food', u'French', u'Event Planning & Services', u'Hotels & Travel', u'Restaurants', u'Hotels']",48.9324,8.46682,4,3.5,BW,47754
+252,tOnHeSrUQ3hGGnxrmCCiQg,"[u'Vegetarian', u'Indian', u'Restaurants']",49.0003162,8.4797723,20,4.0,BW,47755
+253,126Dmjf_NJs6OJ3ttI-J5Q,"[u'Burgers', u'Fast Food', u'Restaurants']",48.9943511847,8.39938724892,15,3.0,BW,47756
+254,7jt9kAnYOweq9y2I0uE1Dw,"[u'Indian', u'Restaurants']",49.0132,8.37467,11,3.5,BW,47757
+255,aWPbsy9tBGrixT9N0jJ2-w,"[u'Active Life', u'Greek', u'Amateur Sports Teams', u'Restaurants']",48.9965,8.37844,4,3.0,BW,47758
+256,8cfBkyIJsa3Ij25QnkDr7w,"[u'Fashion', u'Shopping']",49.0103,8.39249,8,4.0,BW,47759
+257,HL4TxicNtTTJ_WmTMpg1rg,"[u'Art Supplies', u'Shopping', u'Arts & Crafts']",49.0068,8.41,5,3.0,BW,47761
+258,FdNKP0YfRlMLMhKUlFhddQ,"[u'German', u'Restaurants']",48.9495,8.4038,5,4.0,BW,47762
+259,FjEIf2VoM1cLUgTtsPurTQ,"[u'German', u'Restaurants']",48.9417064,8.2512794,11,4.0,BW,47763
+260,mi6HyXkJK9Adzq-xti3oiA,"[u'Active Life', u'Dance Studios', u'Nightlife', u'Dance Clubs', u'Fitness & Instruction']",49.0103,8.38676,9,4.0,BW,47764
+261,d8ksSGlDe5XNZevNJwAI0g,"[u'Food', u'Breweries', u'Restaurants']",49.09044,8.39895,13,4.0,BW,47765
+262,JtthDxLSHiCopkUfS2NlSw,"[u'Shopping', u'Eyewear & Opticians']",49.0087,8.39608,5,4.0,BW,47767
+263,Z6Sn4cSiFt5Fw4aznUjJsA,"[u'Doctors', u'Ear Nose & Throat', u'Health & Medical']",49.0067498,8.393843,3,5.0,BW,47768
+264,iI-JzHYx0SQrnW3jBE2ZPQ,"[u'Veterinarians', u'Pets']",49.0064,8.49661,4,5.0,BW,47769
+265,P5kq8MLKjLm8ayy3hk8WSQ,"[u'Pets', u'Pet Stores']",49.01939,8.4658,4,4.0,BW,47770
+266,4jx3VMVyPW1gL_yoHcGSQw,"[u'Doctors', u'Health & Medical', u'Naturopathic/Holistic']",49.028,8.38622,3,4.5,BW,47771
+267,Ggk-eOeMo1aNq7kSh71e_g,"[u'Tobacco Shops', u'Food', u'Shopping']",49.0113,8.35952,4,5.0,BW,47772
+268,hMcEVZFUn_DOnvLkN9ztwQ,"[u'Courthouses', u'Public Services & Government']",49.0072,8.39668,4,4.5,BW,47773
+269,GApmMso82MaAbCWWin3d5A,"[u'Caterers', u'Greek', u'Event Planning & Services', u'Active Life', u'Sports Clubs', u'Restaurants']",49.0206,8.41481,6,3.0,BW,47774
+270,0WiuRhBf8WQlr1UqFgKEXQ,"[u'German', u'Bistros', u'Restaurants']",49.0062,8.38194,18,4.0,BW,47775
+271,D37k9DjJeF5h1ibjkdNTOQ,"[u'Fashion', u'Shopping', u'Shoe Stores']",49.0096,8.39885,4,5.0,BW,47776
+272,nygDv0V8iGOAA5HK_UpvJA,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",48.9577,8.37919,10,3.5,BW,47777
+273,PDt_BG9mYtdBf3mxvZyw3g,"[u'Shopping', u'Home & Garden', u'Furniture Stores']",49.0209,8.45697,3,2.5,BW,47778
+274,GuNsp9jyyZkk-_1-Bd4ltQ,"[u'Bars', u'Food', u'Breweries', u'Pubs', u'German', u'Nightlife', u'Restaurants']",49.0534,8.53119,24,4.0,BW,47779
+275,jKY7D_U0LMoq4Gx-UQKgdw,"[u'Bars', u'Irish Pub', u'Nightlife']",49.009,8.40328,13,3.0,BW,47780
+276,qjdPgk2OuDjmgQkLAEmpIg,"[u'Bakeries', u'Food']",49.0039,8.40658,20,5.0,BW,47781
+277,uzIDDHatzLhcc0LagyCx8g,"[u'Hardware Stores', u'Shopping', u'Home & Garden']",49.0201,8.46203,3,1.5,BW,47782
+278,wyWZ8KrGYv5rULfxTfauYQ,"[u'Bars', u'Cocktail Bars', u'Nightlife', u'Dance Clubs']",49.0082,8.39151,5,3.0,BW,47783
+279,c6qb8tQ-pozM2Q8891KPkw,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",48.9395,8.4176,9,3.0,BW,47784
+280,-czvRRDB6tTlo6HUzBTMwg,"[u'Museums', u'Arts & Entertainment', u'Shopping', u'Home Services', u'Home & Garden', u'Painters', u'Home Decor']",49.0177377,8.4023623,4,3.5,BW,47785
+281,ZQ6HmK2N2EyP3EU-vtq6_Q,"[u'Food', u'Ice Cream & Frozen Yogurt', u'Cafes', u'Restaurants']",49.0093,8.40248,10,4.5,BW,47787
+282,oDGCwoW6WLbt9_XcY0p-2A,"[u'Doctors', u'Ophthalmologists', u'Health & Medical']",49.0107,8.38877,3,3.0,BW,47790
+283,HTTgh_AzAfC09l2WyRZX5w,"[u'German', u'Food', u'Beer Garden', u'Breweries', u'Restaurants']",49.0117821,8.3939728,80,3.0,BW,47791
+284,ouovRnEE9M1R_jMm3eWqNQ,"[u'Kebab', u'Restaurants']",49.0565,8.5217,4,2.0,BW,47792
+285,96DyV1HhsRRPkFIN4zfzPQ,"[u'Doctors', u'Ophthalmologists', u'Health & Medical']",49.0075256107,8.39517480535,11,4.0,BW,47793
+286,Xd0RmBnBrogo0LETOm3ddA,"[u'Food', u'Ice Cream & Frozen Yogurt']",49.0102097,8.3858862,3,4.5,BW,47794
+287,dbXe_WkVbbTuAbbz3G8Vtw,"[u'Arts & Entertainment', u'Performing Arts']",49.0041,8.40699,11,3.5,BW,47795
+288,cd4EpU1PkomEAXjU0xyw1Q,"[u'Pizza', u'Restaurants']",48.91394,8.464,5,4.0,BW,47796
+289,zw0o_GpYMKzdRNikus_dpw,"[u'Greek', u'Restaurants']",49.0254337,8.3607027,7,3.0,BW,47797
+290,co2KapMLsKfc7fi2_GefXQ,"[u'Lebanese', u'Arabian', u'Middle Eastern', u'Restaurants']",49.0065242,8.4060692,33,4.0,BW,47798
+291,51tbyswAGxdw9mN5qrPGeA,"[u'Thai', u'Restaurants']",49.0175,8.34959,9,3.5,BW,47799
+292,_9sV86cPngkNrrkrTTvlEw,"[u'German', u'Baden', u'Restaurants']",49.0079,8.40366,6,3.5,BW,47800
+293,rI-zKwYMA6ET1TK_oybZlA,"[u'Food Delivery Services', u'Food', u'Caterers', u'Event Planning & Services', u'Italian', u'Restaurants']",48.9964,8.40859,5,2.5,BW,47801
+294,V2sfga9fwgmwpFELSWrQCw,"[u""Children's Clothing"", u'Fashion', u'Shopping', u'Food', u'Chocolatiers & Shops', u'Specialty Food']",49.0515,8.53132,4,4.0,BW,47802
+295,7NGxiZ5ya3FYIncTCU4jIA,"[u'Hair Salons', u'Food', u'Grocery', u'Beauty & Spas']",49.0116951,8.4303821,8,4.0,BW,47803
+296,czgjSyG-L0SgA2KU9Fa80w,"[u'Pubs', u'Bars', u'Nightlife']",49.0031,8.41171,3,4.5,BW,47804
+297,NCaqjfK-3uCGhixn4LD7Ug,"[u'Greek', u'Restaurants']",48.9787,8.4182,15,3.5,BW,47805
+298,QRTW1rfw1KKjsSHbboCaJQ,"[u'Bakeries', u'Grocery', u'Shopping', u'Food', u'Post Offices', u'Butcher', u'Public Services & Government']",48.9246,8.36592,5,4.5,BW,47806
+299,tCsJHnJ43IqCl-1iIccZYQ,"[u'Veterinarians', u'Pets']",49.0105893,8.4254961,4,3.0,BW,47807
+300,pK-tkeJh-nc37duo9Hg8xw,"[u'Hair Salons', u'Beauty & Spas']",49.0086495,8.3796933,4,5.0,BW,47808
+301,HIZTPZ4tXvB_EbNh3DFFNQ,"[u'Hotels & Travel', u'Car Rental', u'Automotive']",49.0095,8.42235,10,4.5,BW,47809
+302,Kq1ZRU1MgrYQa2KfxESM7w,"[u'Soup', u'Fast Food', u'Restaurants']",49.0087,8.41154,6,4.5,BW,47810
+303,bH4FuprJUD5eEMzwzO06yg,"[u'German', u'Restaurants', u'Italian']",48.9365,8.40716,7,2.5,BW,47811
+304,eKhdSimzPB9sEfFQmX-zHg,"[u'German', u'Serbo Croatian', u'Restaurants']",48.9229,8.35876,7,4.0,BW,47812
+305,hXuQgPheHrZHfYM_cqibIQ,"[u'German', u'Beer Garden', u'Restaurants']",49.0005,8.47277,9,3.5,BW,47813
+306,GrQhGmJ4sEBu8uVo8gAaGw,"[u'German', u'Restaurants']",49.004083,8.408095,82,4.5,BW,47814
+307,nb5J-28w8naR38vg6fbdmA,"[u'Arts & Entertainment', u'Nightlife', u'Music Venues']",49.0092996,8.3917067,4,3.0,BW,47815
+308,dSRFd9z_EpnW0-CCqmpPsg,"[u'Bars', u'Cafes', u'Nightlife', u'Restaurants']",49.0018,8.38312,6,3.0,BW,47816
+309,PYMkf1KLKf7bvZZOVaZjYQ,"[u'Pets', u'Pet Stores']",48.9982,8.36203,3,4.5,BW,47817
+310,FMozaZuEJ43v_aWue6hkSQ,"[u'Shopping', u'Doctors', u'Health & Medical', u'Eyewear & Opticians']",49.003,8.40426,3,1.0,BW,47818
+311,CpGgeW1ioh-DzcNheh9nGA,[u'Restaurants'],49.0064216,8.5291387,3,3.0,BW,47819
+312,xeZv-LeNe8gw8enVQL4zGQ,"[u'Health & Medical', u'Dentists']",49.0121,8.42514,4,3.5,BW,47820
+313,PfjEZGICY_QNZAQolVDncw,"[u'Doctors', u'Orthopedists', u'Health & Medical', u'Chiropractors']",49.0092,8.39616,4,3.5,BW,47821
+314,yqPt0KX2PmJjjJ_FB48r3g,"[u'Fast Food', u'Restaurants', u'Kebab', u'Turkish']",49.0022686,8.3866569,19,2.5,BW,47822
+315,k-Luaw_6agrJ3KEftVmUoQ,"[u'German', u'Serbo Croatian', u'Restaurants']",48.9951,8.3522,13,3.5,BW,47823
+316,A2aS1RVe9nM-CiLa0vN69w,"[u'German', u'Restaurants']",49.0332008,8.3368594,9,4.0,BW,47824
+317,y4Y_PFthmrdSZuJH6Jl9GQ,"[u'Sporting Goods', u'Fashion', u'Shopping', u'Shoe Stores']",49.0096384,8.3990525,6,4.0,BW,47825
+318,9sR3wYRz9WxCCCt4Br-T3g,"[u'German', u'Seafood', u'Restaurants']",48.93955,8.41691,19,4.5,BW,47826
+319,EnTfcULMZms42b4JzpqpNw,"[u'Pizza', u'Restaurants']",48.92973,8.47283,6,4.5,BW,47827
+320,OBRi8m0U1uZISuMsmrNwdw,"[u'Greek', u'Restaurants']",49.0457,8.36918,20,4.5,BW,47828
+321,DuY7M08QMrZL9D4raZDGTg,"[u'Food', u'Beer, Wine & Spirits']",49.0028,8.40571,4,5.0,BW,47829
+322,4Khs0-ezl2mwtsW1NiNv0A,"[u'Electronics', u'Computers', u'Shopping', u'Home & Garden', u'Appliances']",48.992,8.37312,4,3.5,BW,47830
+323,Dzzn3oCTxxDImla0uhhUXw,"[u'Food', u'Fast Food', u'Chinese', u'Restaurants']",49.0108781,8.395829,3,4.5,BW,47831
+324,tY_GK6bi7iyKF2RjpV5cFw,"[u'Food', u'Fast Food', u'Restaurants']",49.0004,8.38557,10,3.0,BW,47832
+325,igf4FRdL8qxIpYWYw5WYKA,[u'Restaurants'],49.0017467,8.3937144,10,4.0,BW,47833
+326,vgAl99QbSRg48FFBRk1gKg,"[u'Arts & Entertainment', u'Performing Arts']",49.0067498,8.393843,7,4.5,BW,47834
+327,SVA7nxR-nc6TbRL9LllQ0g,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",48.9955,8.45108,4,2.5,BW,47835
+328,2hTbsev_7hF8Fyla0zoUAw,"[u'Restaurants', u'Italian']",49.0551485,8.3814993,24,4.0,BW,47837
+329,l1CzJq_lzQDioUDNfdr46A,"[u'Skin Care', u'Nail Salons', u'Beauty & Spas']",49.008106,8.3937505,3,4.5,BW,47838
+330,G5u6zPWAwNnm_JvbFx05yA,"[u'Active Life', u'Gyms', u'Fitness & Instruction']",49.00618,8.43822,9,2.0,BW,47839
+331,1TmQbb_tbgi-c81-Nh7XRQ,"[u'Nurseries & Gardening', u'Home Services', u'Building Supplies', u'Home & Garden', u'Hardware Stores', u'Shopping']",49.0186,8.46165,8,4.5,BW,47840
+332,BYimKe9du2715ojyabQQYQ,"[u'Shopping Centers', u'Shopping']",48.9977,8.47294,3,3.5,BW,47841
+333,FEmI_9SAfFfDQlAlS213Pw,"[u'Food', u'Beer, Wine & Spirits']",49.0066,8.38706,3,2.5,BW,47842
+334,E7iw4558JRv7F2Un_CD76g,"[u'Fashion', u'Shopping']",49.0096273,8.3998035,4,5.0,BW,47843
+335,tjqmHj3E1zyb6Dy8TbPc8Q,"[u'Pizza', u'Kebab', u'Restaurants']",49.0025347,8.4109536,18,4.0,BW,47844
+336,mDGpCtjxl79YtwtyFEO5fg,"[u'Arts & Entertainment', u'Performing Arts']",48.9979356,8.4713051,6,4.5,BW,47845
+337,XjvhtBnGVEHeB-jzRrE7Fg,"[u'German', u'Restaurants']",48.9936,8.3992,3,2.5,BW,47846
+338,IoqDDDjJNLBD0IW9AYbYnA,"[u'Shopping', u'Toy Stores']",49.0089945,8.3972025,4,4.0,BW,47847
+339,lNforL0COH6J5hnF08l_1w,"[u'Arts & Entertainment', u'Cinema']",49.0004073788,8.38578200086,66,3.5,BW,47856
+340,0J0FdaT-dhECIrnnlfQqqA,"[u'Restaurants', u'Pizza', u'Italian']",48.9975,8.33655,9,3.5,BW,47858
+341,qaV3YBqrm9MVkXJuCPafaw,"[u'Arts & Entertainment', u'Botanical Gardens']",48.9989894,8.4031862,33,4.0,BW,47859
+342,qtpzo1XcFu7SnPsrtLH3cw,"[u'Food', u'Ethnic Grocery']",48.9951096,8.3879918,6,4.5,BW,47862
+343,16SuskmvewU0N3J4GdgLUQ,"[u'Photographers', u'Session Photography', u'Event Planning & Services', u'Event Photography']",49.0052,8.39656,3,5.0,BW,47865
+344,zd79xkJ8xqQcU26zsf8IrQ,"[u'Bakeries', u'Food', u'Sporting Goods', u'Shopping']",48.9993023,8.474428,5,4.0,BW,47866
+345,CC0OFDzmYOFLogu-Ie7jVg,"[u'Fast Food', u'Restaurants']",49.0736,8.39131,4,4.5,BW,47867
+346,BU5j4XmGAanDPZ_U9IABaA,"[u'Food', u'Gastropubs', u'Breweries', u'Beer Garden', u'Restaurants']",48.9254315,8.4781338,19,4.0,BW,47868
+347,qXKPy2VvVPn1WJtA9X3sxg,"[u'Shopping', u'Jewelry', u'Watches']",49.0087,8.4237,4,3.0,BW,47869
+348,zCVSAxJF62U8kZ8uUKA6Ug,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",49.0105543,8.4020704,50,3.0,BW,47870
+349,UKgcD3uy_y_J0NpkSUi28g,"[u'International', u'Hotels & Travel', u'Restaurants', u'Event Planning & Services', u'Hotels']",49.0314426,8.3392771,7,3.0,BW,47872
+350,MYaAu_O2PSecDRS8WqX5mw,"[u'Sporting Goods', u'Bikes', u'Shopping']",49.0073,8.40278,5,3.5,BW,47873
+351,vEy1UvNHkbPhXBamBWK43w,"[u'Food', u'Discount Store', u'Grocery', u'Shopping']",48.994,8.385,3,4.0,BW,47874
+352,7eiSjE-Q8Z9hJXkzfUYlhA,"[u'Burgers', u'Fast Food', u'Restaurants']",49.010199314,8.39469616931,4,2.5,BW,47875
+353,ebMNlzXkEl2lOVuXjgQgmA,"[u'Burgers', u'Fast Food', u'Restaurants']",48.9901,8.37307,6,2.5,BW,47876
+354,PuPi36oN9F0O8LsIK6yMng,"[u'Car Wash', u'Automotive']",49.0017255,8.4228224,4,3.5,BW,47877
+355,IVXArbjJxt7Dpciz995hwA,"[u'Active Life', u'Swimming Pools']",49.0044303,8.4810358,4,5.0,BW,47878
+356,cVWySA1qKnQ4C_2_q6E4bQ,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",48.9949,8.40016,12,2.0,BW,47880
+357,wsVODOOumODjVywjxNQjdw,[],48.9178,8.50094,3,5.0,BW,47881
+358,_lhblpeTBbfG3TnWLLEGBw,"[u'Chinese', u'Restaurants']",49.0054021129,8.41116515078,43,3.5,BW,47882
+359,PeR64AIkleu-t9gwed6vow,"[u'Pizza', u'Restaurants']",49.0055343,8.409039,11,2.0,BW,47883
+360,z1eBRYqP3VjQwuu0HbjDjw,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",49.0095,8.40681,9,4.0,BW,47884
+361,NBvCfBuShkbCfBVvtmKchQ,"[u'Food', u'Ice Cream & Frozen Yogurt', u'Coffee & Tea', u'Cafes', u'Restaurants']",49.0096,8.40472,9,3.5,BW,47885
+362,8E-1IU5PdnuitFwffFF0Wg,"[u'Hair Salons', u'Beauty & Spas']",49.0079468,8.3814841,3,5.0,BW,47886
+363,fKEwqLzYhcW9pt1rMpfK2A,"[u'German', u'Restaurants']",49.0094,8.37481,18,3.5,BW,47887
+364,nTE5qqVWDLyIwaIsZBjgmw,"[u'German', u'Beer Garden', u'Mexican', u'Restaurants']",49.0089526498,8.54924940046,17,3.5,BW,47888
+365,Y-pLdTgWBbzjvGeEwliGzw,"[u'Food', u'Fast Food', u'Kebab', u'Restaurants']",48.93023,8.26771,3,4.0,BW,47889
+366,u_xD7-AhxnhDz3lpTYCMhA,"[u'Chinese', u'Restaurants']",49.0002,8.3854,20,3.5,BW,47890
+367,p2ClOLk3iwF6glVUsXYoWQ,"[u'Italian', u'Pizza', u'Restaurants']",48.906,8.4981,3,4.0,BW,47891
+368,ivlbvS9I0457UyljErTDcw,"[u'Vegetarian', u'Restaurants', u'Vegan', u'Italian']",49.0098531,8.3899586,25,4.0,BW,47892
+369,Y5KYnewS-fsmgbXpS67wbA,"[u'German', u'Restaurants']",48.9374,8.27346,3,3.0,BW,47893
+370,FJQLkkXYvukWFTJMMJvpOg,"[u'Wine Bars', u'Bars', u'Mediterranean', u'Nightlife', u'Restaurants']",48.9999,8.47252,47,4.5,BW,47894
+371,0_6u_uhvLYGRt9YLtZLa9A,"[u'Italian', u'Pizza', u'Restaurants']",48.9375,8.4149704,4,3.0,BW,47895
+372,nLx3zKqTUrd5VOZn1JzctQ,"[u'Pizza', u'Restaurants']",48.9423958,8.4086861,13,3.5,BW,47896
+373,_J9JwsqYf1hKdtsE7A9OnA,"[u'Wine Bars', u'Bars', u'Fast Food', u'Nightlife', u'Restaurants']",49.0096502,8.405104,4,4.0,BW,47897
+374,VjUooAwjEk8kNf4RAasxdg,"[u'Bars', u'Cocktail Bars', u'Nightlife', u'Spanish', u'Restaurants', u'Italian']",48.99971,8.4754,39,3.0,BW,47898
+375,ZH7cL8waFurNpZ3B9yFnog,"[u'Active Life', u'Public Plazas']",49.0089,8.37539,3,4.5,BW,47899
+376,1t-91ideKB7wTRRmqp3GUA,"[u'Active Life', u'Yoga', u'Pilates', u'Gyms', u'Fitness & Instruction']",49.0116951,8.4303821,3,4.0,BW,47901
+377,sFP7NkMVdr8KaZ32zjYQaA,"[u'German', u'Bars', u'Nightlife', u'Restaurants']",49.033,8.39203,18,4.0,BW,47902
+378,_kcI4I_l3tMJfh7BnBoAYQ,"[u'Food', u'Coffee & Tea']",49.0073927,8.4024148,3,4.5,BW,47903
+379,RgdbMe1YL8K0ssfnA2XwmQ,"[u'Italian', u'Pizza', u'Restaurants']",48.9983346,8.4039376,17,3.0,BW,47904
+380,HgdywOlTmkSZ_7WM1foXQA,"[u'Fashion', u'Shopping', u'Shoe Stores']",49.0097,8.39476,3,2.5,BW,47905
+381,grTFv0AWA2yD1ebaRVY2Qg,"[u'Sushi Bars', u'Restaurants']",49.0073,8.40278,53,3.5,BW,47906
+382,FlCwXSxMXckSrIuP18YQUQ,"[u'Japanese', u'Restaurants']",49.0090362,8.4030282,3,3.5,BW,47907
+383,OSLkuwNmT-bAXWx_T-SbUg,"[u'Bakeries', u'Food', u'Patisserie/Cake Shop', u'Cafes', u'Restaurants']",49.0094449,8.4279634,3,4.5,BW,47908
+384,Ko0IWAEQtHd5kWr30PXD_A,"[u'Bakeries', u'Food', u'Patisserie/Cake Shop', u'Cafes', u'Restaurants']",49.0331501,8.4555942,3,3.5,BW,47909
+385,6ofpfv6Bb4_KaUN3YoT8Ew,"[u'Bakeries', u'Food']",48.994,8.40179,4,1.0,BW,47910
+386,-yS-eOYb9q88ffWwVVFzng,"[u'Health & Medical', u'Pharmacy']",49.0052,8.41053,3,3.5,BW,47911
+387,n7FOMSsN4wSv6PEMuRX_PA,"[u'Food', u'Ice Cream & Frozen Yogurt']",48.9933,8.35395,7,4.0,BW,47914
+388,BOfs0NbVsCSiBAo1jb1Tvw,"[u'Shopping', u'Beauty & Spas', u'Food', u'Beer, Wine & Spirits', u'Delicatessen', u'Cosmetics & Beauty Supply']",49.0007,8.40439,4,4.5,BW,47915
+389,MOM_hUdqkA7rCN0Tg6c7GQ,"[u'Health Markets', u'Food', u'Specialty Food']",49.00868,8.39705,8,4.0,BW,47916
+390,BPY-04VxlC60qxww38dFTQ,"[u'Bakeries', u'Food', u'Patisserie/Cake Shop', u'Cafes', u'Restaurants']",49.0101131,8.3907078,24,4.5,BW,47917
+391,gKrRXJNjGlZHsoJ7oBbb3g,"[u'Bakeries', u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",49.00934,8.40339,20,2.5,BW,47918
+392,4vjxL_Mjgc8Mx0JYb0kCGQ,"[u'Food', u'Organic Stores']",49.0079,8.43876,7,3.5,BW,47919
+393,censB138iZoYjr_riZSY3Q,"[u'Sushi Bars', u'Asian Fusion', u'Restaurants']",49.01,8.39424,7,3.0,BW,47920
+394,emjlzT7V_g-k80oyJqSnXA,"[u'Shopping', u'Toy Stores']",48.9606,8.30283,3,4.5,BW,47922
+395,kW09pbl03gT_u9mNYHktgQ,"[u'German', u'Greek', u'Restaurants']",49.07333,8.45283,7,4.5,BW,47923
+396,DxnQjhwf2h2qxB7N-mCVAw,"[u'German', u'Greek', u'Restaurants']",48.9935,8.36215,4,3.5,BW,47924
+397,SqbXhueVJl4F4rbc2193wg,"[u'Arabian', u'Restaurants']",49.0046,8.34122,15,4.0,BW,47925
+398,cVQWrQpeKsQVphwW_6LcpQ,"[u'Arabian', u'Restaurants']",49.007737,8.3874269,6,3.0,BW,47926
+399,8FgK0h0Kh0BpxhaqDsjaZA,"[u'Thai', u'Asian Fusion', u'Restaurants']",49.005,8.35002,34,3.5,BW,47927
+400,lPLr1-rZziBW6gVDENLUUQ,"[u'Shopping', u'Home & Garden', u'Furniture Stores']",49.0017,8.46756,7,4.5,BW,47928
+401,wlpEw_wjXNqmwzMw4Trv-g,"[u'Food', u'Kebab', u'Restaurants']",48.9597,8.2909,5,4.0,BW,47929
+402,XN7BBS6Ol6vB5Rr7dRpYZw,"[u'Shopping', u'Luggage']",49.0077223,8.3969197,4,5.0,BW,47930
+403,sGS6fMyhAAOd8j2I-NORRg,"[u'Building Supplies', u'Home Services']",49.0175,8.35435,3,2.5,BW,47931
+404,jyCkvh9oCyhQS8sotRCUGA,"[u'Food', u'Fast Food', u'Restaurants']",48.9944,8.39605,5,3.0,BW,47932
+405,fvAX_2GOqzsxj6GW7dEjFw,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",49.0045,8.40004,21,4.5,BW,47933
+406,MozQ5aTlhJwaI2OjeMM7EQ,"[u'Hair Salons', u'Beauty & Spas']",49.0065,8.39551,3,4.0,BW,47934
+407,1n5hiaLwfqWY9T6X8kdQCw,"[u'Fashion', u'Shopping']",49.0091,8.39699,5,4.5,BW,47935
+408,9hws9grDsZHAnhWEl_RICA,"[u'Active Life', u'Climbing', u'Arts & Entertainment', u'Bed & Breakfast', u'Hotels & Travel']",49.0071,8.36151,8,5.0,BW,47936
+409,YylCWByGj96aKdMg5rXaPw,"[u'International', u'Breakfast & Brunch', u'Restaurants']",49.0088,8.39414,22,3.0,BW,47937
+410,-D1hveyCgKKdTSczvU0IRA,"[u'Art Supplies', u'Shopping', u'Home Services', u'Arts & Crafts']",49.0082984,8.3932819,4,4.0,BW,47938
+411,l-pMt_YiLJXUGMeQOdtd_g,"[u'Food', u'Specialty Food', u'Coffee & Tea', u'Desserts', u'Chocolatiers & Shops']",49.0013779,8.406358,8,5.0,BW,47939
+412,MKBXPWocpfd196680kx4Ig,"[u'International', u'Mediterranean', u'Restaurants']",49.002,8.39408,32,4.0,BW,47940
+413,cvLKebSflUBkBIfh-E5s9Q,"[u'Restaurants', u'Italian']",49.0334,8.33761,3,3.0,BW,47961
+414,eMwVhYxZ7FKYPoatICELjw,"[u'Food', u'Beverage Store']",49.0074,8.39246,5,4.5,BW,47962
+415,WOtB-YXdiiWKGk8nOVdTZA,[u'Food'],49.0083,8.40902,3,4.5,BW,47963
+416,qjM94mEJRjhcFZfjJ0zXVg,"[u'German', u'Cafes', u'Restaurants']",49.0103284,8.3953298,78,3.5,BW,47964
+417,nNlj8cScT8uG6zeXpgstHg,"[u'Bistros', u'Restaurants']",49.009,8.3983,62,3.0,BW,47965
+418,ujJhvCkk_fhmRCwn7W1rSw,"[u'Sporting Goods', u'Bikes', u'Shopping']",48.9974,8.40459,3,3.5,BW,47966
+419,iYyVFRBxOd5IwVSrsQu1BQ,"[u'Bakeries', u'Food']",49.01,8.42358,3,2.5,BW,47967
+420,9HZiyUyDcZl5WCA248mAJA,"[u'Food', u'Fast Food', u'Restaurants', u'Turkish']",48.9427,8.40888,6,3.0,BW,47968
+421,TvxZ7G16ez9GhD5yRClyyQ,"[u'Shopping', u'Jewelry']",49.0074541576,8.40700060129,3,5.0,BW,47969
+422,UEm1wCQvtUlXJJYhV_ckRw,"[u'Car Wash', u'Automotive']",48.9906,8.37151,5,5.0,BW,47970
+423,_PWHhThtFJRf7oEnP6w82Q,"[u'Used, Vintage & Consignment', u'Fashion', u'Shopping']",49.0004,8.39394,7,3.0,BW,47971
+424,BD5L_swLr5x6NFh7nzWEJA,"[u'Restaurants', u'Italian']",49.0063,8.3817,18,3.5,BW,47972
+425,Vu5RhYLqBigUSXHrQbdpTQ,"[u'Hair Salons', u'Beauty & Spas']",49.0092,8.41089,11,2.5,BW,47973
+426,ah-Czxz576_ZTtbetYmwNw,"[u'Oral Surgeons', u'Health & Medical', u'Dentists', u'Cosmetic Surgeons', u'Doctors']",49.0056,8.39429,5,4.0,BW,47974
+427,JACNqt4si0ciKrnKWfBKRw,"[u'Active Life', u'Indoor Playcentre', u'Kids Activities']",49.0258,8.35607,9,3.5,BW,47975
+428,uMI7fuUCZ8Bgy_xq37JuJQ,"[u'German', u'Cafes', u'Restaurants']",49.0094,8.37548,16,3.5,BW,47976
+429,nwZpULvp0sz_A38zRdwQog,[u'Restaurants'],48.94142,8.40803,23,3.5,BW,47977
+430,GZFfHlX-hLlVR1KFQK1_Ag,"[u'Bistros', u'Mediterranean', u'French', u'Restaurants']",48.9453706746,8.41329270636,6,4.5,BW,47978
+431,XcAPlAy9JANXI7sGXAkSpg,"[u'Food', u'Food Delivery Services']",49.0095,8.42144,6,4.0,BW,47979
+432,pTDZ9IbXXQLBPeev-Oupbg,"[u'Fashion', u'Shopping']",49.0096938,8.3979247,7,3.5,BW,47980
+433,HqSEeW3CCeQ6c-0WlNo-8A,"[u'Shopping', u'Home & Garden']",48.9952878,8.3900675,3,3.5,BW,47981
+434,OLSLqsB22pn5tXW08CnfIA,"[u'German', u'Baden', u'Restaurants']",49.001,8.49739,4,4.0,BW,47982
+435,OIMZrrL5kGyZ6W6J8xsyEw,"[u'Food', u'Food Delivery Services', u'Restaurants', u'Pizza', u'Italian']",49.0091,8.41238,10,3.5,BW,47983
+436,xFENYZF63fiV00uaNlB9VA,"[u'Cafes', u'Nightlife', u'Dance Clubs', u'Restaurants']",49.004,8.40409,14,3.5,BW,47984
+437,QJsgf4Vcj6ZAKmbt4LPtXQ,"[u'Bars', u'Mediterranean', u'Pubs', u'Nightlife', u'Italian', u'Restaurants']",49.011017814,8.4268913196,6,5.0,BW,47985
+438,QAeEEK-XQlpWQl6LJYOtnA,"[u'Hair Salons', u'Beauty & Spas']",49.006398,8.3944912,4,4.0,BW,47986
+439,byFsjYzzttWh6DLptWx_fg,"[u'Museums', u'Arts & Entertainment']",49.0018,8.3831,28,4.5,BW,47987
+440,XjueQh8rz0RiUWCUzGYY-A,"[u'German', u'Italian', u'Restaurants']",49.0013,8.38305,36,2.5,BW,47989
+441,r79r7YC7NwxlncEMmJnffw,"[u""Men's Clothing"", u'Fashion', u'Shopping']",49.0067,8.40208,5,4.0,BW,47990
+442,3BvclNio2VNl3aZv3JYSsQ,"[u'Fashion', u'Shopping']",49.0098,8.40058,5,4.0,BW,47991
+443,bhwbuKiu0f6FdhAx6_hgVQ,"[u'Food', u'Grocery', u'Beverage Store']",49.0095779658,8.43823270436,4,3.5,BW,47992
+444,zCCSkDIz7KUHoDDdN64L7Q,"[u'Food Delivery Services', u'Financial Services', u'Indian', u'Food', u'Banks & Credit Unions', u'Restaurants']",49.007288,8.3848354,6,3.0,BW,47995
+445,crxcNtV1S8FmllOpgAL-yA,"[u'Books, Mags, Music & Video', u'Shopping', u'Bookstores']",49.0056,8.40342,3,3.5,BW,47996
+446,ZdR3HDqMyBeDtQJUEQJRkw,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",48.9981222,8.4656999,11,5.0,BW,47997
+447,D2LF87_v_nC4sK7ZAAmQkw,"[u'Fashion', u'Shopping', u'Shoe Stores']",49.0067,8.40208,3,2.0,BW,47998
+448,7J75VLZKDJhCypKjUAcFXQ,"[u'Dermatologists', u'Doctors', u'Health & Medical', u'Internal Medicine']",48.94011,8.40789,3,3.5,BW,47999
+449,6WbvAT9Il4Fi9egO4F2M5g,"[u'Italian', u'Pizza', u'Restaurants']",49.0056,8.40342,7,2.5,BW,48000
+450,cK-Aa0DUAUHJmNTJQc109Q,"[u'Fast Food', u'Restaurants']",49.0094,8.40972,8,3.0,BW,48001
+451,kgVAfgnBMaiumvKnz5FShQ,"[u'Food', u'Grocery']",49.0096532935,8.35227048497,4,3.5,BW,48002
+452,hgGC4Y8TsJRuBTGUn08RBw,"[u'Music Venues', u'Arts & Entertainment', u'Nightlife', u'Dance Clubs']",49.0106,8.34813,5,4.5,BW,48003
+453,C8CSSQU2pE1MWgNJT6J2JA,"[u'Restaurants', u'Pizza', u'Kebab', u'Turkish']",49.0087744,8.3918717,7,4.5,BW,48004
+454,ve7DN5QQtIx7mX2ZiBT3aw,"[u'Hotels & Travel', u'Bed & Breakfast']",48.9705,8.40514,6,5.0,BW,48005
+455,H5HP3XK0wYpCeHga60zg4Q,"[u'Bakeries', u'Food']",49.0112,8.36022,4,3.5,BW,48006
+456,fmYWSos9ySdLN6zkcS5cNg,"[u'International', u'Mediterranean', u'Restaurants']",49.0089,8.39723,6,4.0,BW,48007
+457,0h64oEQLhlMrrsko7B1eNA,"[u'German', u'Tapas Bars', u'Beer Garden', u'Restaurants']",48.9994,8.47134,52,4.0,BW,48008
+458,lZdaEd0x4nCPtOgkBeKDFA,"[u'Professional Services', u'Matchmakers', u'Home Services', u'Internet Service Providers']",48.93762,8.38447,3,1.5,BW,48009
+459,PGKNUqWf8bbh3SQMcuKvCA,"[u'French', u'Restaurants']",48.943208,8.3980172,24,4.0,BW,48010
+460,n7-VcjUylQ94Zte3mWqLJg,"[u'Sporting Goods', u'Bikes', u'Shopping']",49.0092,8.42398,5,3.0,BW,48011
+461,M5qaph3f4UYT13TVbXiq3Q,"[u'Hair Salons', u'Beauty & Spas']",49.0092009,8.3953327,5,2.0,BW,48014
+462,n5EMZZ4EfnPIgCfN3z4sfQ,"[u'Hair Salons', u'Beauty & Spas']",49.0078,8.38672,6,4.5,BW,48015
+463,GLZnniRlevgOYkdLoVze-A,"[u'Hair Salons', u'Beauty & Spas']",48.9397829,8.4089486,5,5.0,BW,48016
+464,vuczGNr6J88hTboUQQSh_w,"[u'Food', u'Specialty Food', u'Meat Shops']",49.0067498,8.393843,5,2.0,BW,48017
+465,G8RItqxdcG89jOKUk-neZw,"[u'German', u'Vietnamese', u'Restaurants']",49.0027,8.38666,14,4.0,BW,48018
+466,g6KpN1q6yllfnJayA6K9CA,"[u'Electronics', u'Computers', u'Shopping']",49.0103,8.39326,8,3.5,BW,48019
+467,a1LTUTyHEe4z63KGiaSuog,"[u'Food', u'Grocery']",49.0053857,8.4106836,25,4.5,BW,48020
+468,1djuLQ8LqHHYcJnh0WDuyg,"[u'Shopping', u'Jewelry']",48.9975075,8.4699817,3,5.0,BW,48021
+469,_8DkBpvIb05yeT2bHsrBMQ,"[u'Health & Medical', u'Hospitals']",49.0156295,8.3746667,6,2.0,BW,48022
+470,aM0RwIaM3IRrCb4mtLwPig,"[u'Cafes', u'Restaurants']",48.99945,8.47156,21,4.0,BW,48023
+471,B3gjclBEA5cL4TooZUjYkw,"[u'Food', u'Breweries', u'German', u'Nightlife', u'Restaurants', u'Beer Gardens']",49.00418,8.36873,59,3.0,BW,48024
+472,4N3t84XBpdBk0b1D6d9oYw,"[u'Automotive', u'Gas & Service Stations']",48.9577380507,8.40662655582,4,4.0,BW,48025
+473,z7KdYRdwLG9O8oL89cxmug,"[u'German', u'Restaurants']",48.97009,8.54856,30,4.5,BW,48026
+474,xCmGSQ4evtMcLUe8LJRYnw,"[u'Chinese', u'Restaurants']",48.9991,8.46771,3,4.5,BW,48027
+475,FgXSF5rB-sXvqeheZPFwZw,"[u'Maternity Wear', u'Fashion', u'Shopping', u'Baby Gear & Furniture']",49.0035,8.39429,3,1.5,BW,48028
+476,xzucDze4qdMbBNlf4WIM6g,"[u'Bakeries', u'Food']",48.9966844,8.3803797,3,2.5,BW,48029
+477,rJZRC9dVdsHuIeQmDdp3rA,"[u'Department Stores', u'Fashion', u'Shopping']",49.009768,8.4005128,13,4.5,BW,48030
+478,WF050Paitkk6zu1nYvxnfQ,"[u'Hair Salons', u'Beauty & Spas']",48.9960045,8.4054053,5,5.0,BW,48031
+479,3DiXqoaoni15N1eYkM31rA,"[u'Bars', u'Cocktail Bars', u'Nightlife']",49.0013,8.39458,21,2.5,BW,48032
+480,L0t1AKtrhmZj03K8Q_pcZg,"[u'Shopping', u'Cosmetics & Beauty Supply', u'Drugstores', u'Beauty & Spas']",48.9417,8.40681,3,4.5,BW,48033
+481,RIGDf2wpemxhAmCgWGOR9w,"[u'Asian Fusion', u'Chinese', u'Restaurants']",48.9727,8.54874,8,3.0,BW,48034
+482,I_Zobc5TXNMAl9PxasrUcA,"[u'German', u'Restaurants']",49.0262,8.4529,3,2.5,BW,48035
+483,qGKau05zpV-qnYmbDVJbnQ,"[u'Perfume', u'Shopping', u'Cosmetics & Beauty Supply', u'Beauty & Spas']",49.0067,8.40208,3,3.5,BW,48036
+484,r1odoOBw1oyge8U3H_w9lQ,"[u'Financial Services', u'Tax Services']",49.0087,8.36715,6,3.0,BW,48037
+485,R8TNHc1Gw6LOVtflqgSelg,"[u'Food', u'Delicatessen', u'Ethnic Grocery']",49.0059996,8.3944138,13,4.0,BW,48038
+486,feSkNQq2U7scCVkGGJpudA,"[u'Food', u'Food Delivery Services', u'Pizza', u'Vegan', u'Restaurants']",49.0087,8.41021,19,3.5,BW,48039
+487,gw8c-CiE_6mAhJmG7aqxlw,"[u'Bars', u'Cafes', u'Nightlife', u'Restaurants']",49.0109985,8.3949319,54,3.5,BW,48040
+488,wefS54RONhAHbY9CreX4Hw,"[u'Shopping', u'Home & Garden', u'Furniture Stores']",49.004,8.44425,17,2.5,BW,48041
+489,6FAJctqkP0uwTWfSV3lDSQ,"[u'Caterers', u'Event Planning & Services', u'Austrian', u'Hotels & Travel', u'Hotels', u'Restaurants']",48.9722843,8.403436,15,3.0,BW,48042
+490,Gq9Cb7HsJSx-fLY2w16iZw,"[u'Steakhouses', u'Tapas Bars', u'Spanish', u'Restaurants']",49.0090322,8.403884,59,3.0,BW,48043
+491,OSqi_tZwydODzqff2LCLtQ,"[u'Hair Salons', u'Beauty & Spas']",49.0096,8.40767,8,3.5,BW,48044
+492,_w_wNs6zkvMNZWu43nVbmg,"[u'Shopping', u'Jewelry', u'Watches']",49.0067,8.40208,4,1.5,BW,48056
+493,nCiqlnIu7pNmnRkQFibKsg,"[u'Veterinarians', u'Pets']",49.0126,8.38676,4,3.5,BW,48057
+494,0gk2GChsoEbRYhb0Myf5fw,"[u'Nightlife', u'Dance Clubs']",49.024,8.35311,9,4.0,BW,48058
+495,9rz7hggrbeIOg1FcQa_uwQ,"[u'Restaurants', u'Italian']",48.9974,8.46465,75,3.5,BW,48059
+496,uDcPmLSWvq3vWac__ZhJrQ,"[u'German', u'Baden', u'French', u'Restaurants']",48.99,8.38594,5,3.0,BW,48060
+497,0tIwFdNA942oqnm47cnw4w,"[u'Bars', u'Beer Garden', u'Cocktail Bars', u'Nightlife', u'Restaurants', u'Beer Gardens']",48.9395,8.4176,23,3.5,BW,48061
+498,8kAzpUJWlFx8HBc6cJZZ0g,"[u'Food', u'Breweries']",49.00167,8.4079,4,3.5,BW,48062
+499,TdFHwzPd5Ah_maA-kYktHw,"[u'Neurologist', u'Doctors', u'Health & Medical', u'Physical Therapy', u'Psychiatrists']",48.939,8.41062,3,4.5,BW,48063
+500,Jd8dJj7xYvDlQIBPh4OAjQ,"[u'Doctors', u'Health & Medical', u'Family Practice']",49.0094,8.42414,4,4.0,BW,48064
+501,QX4eqLqfkmBVPGQana7Y4g,"[u'Food', u'Specialty Food', u'Caterers', u'Meat Shops', u'Event Planning & Services']",49.052,8.53058,7,4.5,BW,48066
+502,qb9ZA9SvLJ4Lhi4LQclseQ,"[u'Active Life', u'Hotels & Travel', u'Parks', u'Kids Activities']",48.9988,8.37373,15,4.5,BW,48067
+503,18QdyaHkxw-DR-lLAzWpAA,"[u'Beauty & Spas', u'Saunas', u'Swimming Pools', u'Health & Medical', u'Active Life', u'Day Spas']",48.9276,8.47079,9,4.0,BW,48069
+504,IjmbpK1bK8r3-c4bBb9N6Q,"[u'Indian', u'Restaurants']",49.0108,8.39575,10,3.0,BW,48070
+505,UMXxDCwStYjH5-ISb3ikUg,"[u'Cafes', u'Restaurants']",49.0086,8.37437,5,4.5,BW,48071
+506,rrH-nfQE_qOfeoq1EmrJ2A,"[u'Shopping', u'Baby Gear & Furniture']",49.0045344354,8.45006712126,4,3.5,BW,48072
+507,4svxTJsNoi1P6zt93_sGTg,"[u'Department Stores', u'Fashion', u'Shopping']",48.9917,8.37562,4,2.5,BW,48073
+508,tFsknMJ5yAafN1tAcfMVKA,"[u'Hair Salons', u'Beauty & Spas']",49.0081,8.3941,5,4.5,BW,48074
+509,L8ptAswq0UvUwXdnVWjE8Q,"[u'Nightlife', u'Bars', u'Cocktail Bars', u'Tex-Mex', u'Restaurants']",49.0087155,8.3955183,68,3.0,BW,48075
+510,dTbDlUwayfvD0WwS7AlUSg,"[u'Food', u'Coffee & Tea']",49.0098,8.39891,26,3.5,BW,48076
+511,zzlpdQ2GPcXj7mo0lut3Vg,"[u'Gift Shops', u'Flowers & Gifts', u'Shopping', u'Home Decor', u'Home & Garden']",49.0067,8.40208,3,5.0,BW,48077
+512,TrCimnSt42AbJMLVQiiJJQ,"[u'Food', u'Beer, Wine & Spirits']",49.0098351,8.3886321,4,3.5,BW,48078
+513,9107Qw2zL_zIoLR9acqnag,"[u'Used, Vintage & Consignment', u'Fashion', u'Shopping']",48.9987216,8.4716335,3,3.5,BW,48079
+514,Nl0WDdgd_SsmxQ1L4osn0g,"[u'Bars', u'Irish Pub', u'Nightlife']",49.0115582,8.3950411,33,4.5,BW,48080
+515,gy26G9TuzHCF5pEOswcBtA,"[u'Active Life', u'Sporting Goods', u'Bikes', u'Shopping', u'Bike Rentals']",49.0105,8.40164,4,4.0,BW,48081
+516,e2jCiEX8eqWa-kdCUB2UYA,"[u'German', u'Wine Bars', u'Bars', u'Nightlife', u'Restaurants']",49.00856,8.49792,15,4.0,BW,48082
+517,u9KzJQFIh49y7KacPbaNaw,"[u'Restaurants', u'Italian']",49.0105,8.39388,20,3.5,BW,48083
+518,KuKKjFdKH_0rVPx79q2uAA,"[u'Greek', u'Italian', u'Restaurants']",49.0674942,8.4794283,5,5.0,BW,48084
+519,-xK-9VwI0WbIdyme7N_0MA,"[u'Pizza', u'Kebab', u'Restaurants']",49.0039002,8.39467,3,3.5,BW,48085
+520,MAgvMutGp9HHfQ_opx2btQ,"[u'Restaurants', u'Italian']",49.0056,8.40342,4,3.5,BW,48086
+521,iqNw9UHBlsumItmncc8zAA,"[u'American (Traditional)', u'Restaurants']",48.99534,8.45017,53,4.0,BW,48087
+522,h0i4gaAXH3GsU4n6yqzL9w,"[u'Thai', u'Chinese', u'Restaurants']",49.0079053,8.3956308,10,4.5,BW,48088
+523,WEWNWZ9Jgu5rdTz-Wm6j-Q,"[u'Restaurants', u'Italian']",48.9984263,8.45441335144,10,4.5,BW,48089
+524,cNHMLhlDBLeMP-UcES677g,[u'Automotive'],49.016,8.35114,4,3.0,BW,48090
+525,LRevsPnXvytCmV7gWOh_1w,"[u'Indian', u'Restaurants']",48.94035,8.40748,24,4.5,BW,48092
+526,35Znve8wyIqKcGRJ3vVdLA,"[u'Italian', u'Pizza', u'Restaurants']",48.9420364,8.4097545,16,3.5,BW,48094
+527,07PyHL0ClNT5ZQaD6mLTWQ,"[u'Shopping Centers', u'Shopping']",49.0097067,8.394782,12,3.5,BW,48095
+528,JFxYTyGxtmxZSCQAfkcD1Q,"[u'Train Stations', u'Hotels & Travel']",48.9942704875,8.40047106364,25,3.5,BW,48096
+529,xCUUzCt4EqRiVrsFl6hiYQ,"[u'Mediterranean', u'Restaurants']",49.00895,8.39655,22,2.5,BW,48103
+530,ZuNZZsIId-0PIpTFQoWR8g,"[u'Thai', u'Restaurants']",49.0081741,8.3895511,46,4.0,BW,48104
+531,WPhNbOH_AocROquwLMDl1A,"[u'Bars', u'Cocktail Bars', u'Nightlife', u'Italian', u'Restaurants', u'Pizza']",49.008644,8.3953945,101,3.0,BW,48105
+532,wb_EtII5_-kMzYGFC6cD1Q,"[u'Pubs', u'Dive Bars', u'Bars', u'Nightlife']",49.0079297,8.3897357,10,4.0,BW,48106
+533,JO7YPZUarTWSmgH6lvvo-g,"[u'Italian', u'Pizza', u'Restaurants']",49.008,8.40972,9,4.0,BW,48107
+534,GKe4j0FMpaN_4QUcSSUPcw,"[u'Italian', u'Pizza', u'Restaurants']",49.0034,8.40551,11,3.5,BW,48108
+535,doAthESAlj4_-FtsyHGyNw,"[u'Turkish', u'Pizza', u'Kebab', u'Restaurants']",48.9984,8.39386,6,3.5,BW,48109
+536,i5RiBntsRyVbH4sZPnhfyg,"[u'Food', u'Food Delivery Services', u'Italian', u'Pizza', u'Restaurants']",48.9985,8.46293,3,4.0,BW,48110
+537,7Sl1qWqsYO_K0Ah7btDzbA,"[u'Food Delivery Services', u'Food', u'Mediterranean', u'German', u'Italian', u'Restaurants']",49.0042,8.49771,11,3.5,BW,48111
+538,k7Y8zXSL2X3Gm_MxJj2Zsw,"[u'Local Services', u'Dry Cleaning & Laundry']",49.012,8.36142,4,2.0,BW,48112
+539,h-L8_QFAaGaXRxY1HsuRGA,"[u'Restaurants', u'Italian']",48.978,8.31623,3,3.0,BW,48113
+540,8rtzGl1pt3YrICBum8cRxA,"[u'Restaurants', u'Pizza', u'Kebab', u'Turkish']",49.0102082,8.3930013,15,3.5,BW,48114
+541,UX8ORZVzrGK8AfZpIBd82A,"[u'Hair Salons', u'Beauty & Spas']",49.0101799,8.3654629,3,3.5,BW,48115
+542,f2PQkagSYmdKKCQgE1fFTA,"[u'German', u'Restaurants']",49.0079,8.33601,4,3.5,BW,48116
+543,PwNiXX_Q9zEAvuypP-6zQA,"[u'Active Life', u'Swimming Pools']",48.9996774,8.2943549,7,4.5,BW,48117
+544,_CEgkUvPLL-omIutKaWs5Q,"[u'Thai', u'Restaurants']",49.0084,8.42079,18,3.5,BW,48118
+545,6yCm35snSRmCQqXI8MlYSw,"[u'Restaurants', u'Italian']",49.04508,8.38144,13,4.0,BW,48119
+546,H_N5mmhIApJuh-FLG-2txg,"[u'Restaurants', u'Pizza', u'Italian']",49.0055627,8.3850415,46,3.5,BW,48120
+547,OsNORlL36i6ucMO9EEhNoA,"[u'Restaurants', u'Italian']",49.00458,8.38397,4,4.5,BW,48121
+548,ffeXXtc122dtJKUbTwBSrQ,"[u'Fast Food', u'Restaurants']",48.9845,8.39189,4,3.0,BW,48122
+549,7a2RrK3SYgMOEuJesKBZLA,"[u'Italian', u'Pizza', u'Restaurants']",49.02983,8.34055,7,4.5,BW,48123
+550,5wfKnQS46yzNQSVfK0Cugg,"[u'Turkish', u'Pizza', u'Kebab', u'Restaurants']",48.9726,8.40868,4,4.0,BW,48124
+551,ILtKHOTf_EwrzAesMeNBOw,[u'Restaurants'],48.9629,8.28568,8,4.0,BW,48125
+552,HrxiJyQx7qW9xlMI83pf4A,[u'Restaurants'],48.9432,8.40735,4,3.0,BW,48126
+553,o04jZ9Pqlo0363KStsoVIw,"[u'Italian', u'Pizza', u'Restaurants']",49.0789,8.38203,5,2.0,BW,48128
+554,DmytExiYa2CmxaFssW2ULQ,"[u'Electronics', u'Computers', u'Shopping', u'Mobile Phones']",49.0108,8.40073,15,2.0,BW,48129
+555,jthSxhOVK5NH5FGSPKmkng,"[u'Building Supplies', u'Home Services', u'Flooring']",48.9896,8.45797,5,5.0,BW,48131
+556,iIMc7_Kuipe4IO9CXPjk1A,"[u'Fast Food', u'Sandwiches', u'Restaurants']",49.0101678,8.3973169,18,4.5,BW,48132
+557,Rk6LiMxPpMhbERugYspYwQ,"[u'Professional Services', u'Window Washing', u'Office Cleaning', u'Home Services']",49.03553,8.43593,3,5.0,BW,48133
+558,nPg1a-Buzv-PvxfHDKOrfg,"[u'Food', u'Restaurants', u'Italian']",49.008578,8.4022544,7,3.5,BW,48134
+559,4cFtvtuV0UQ3fTW1nN4_YQ,[u'Active Life'],48.9968,8.47963,3,4.0,BW,48135
+560,dvZkN9RW6juVCyRolSyYAQ,"[u'Fast Food', u'Salad', u'Restaurants']",49.0099533389,8.39320553334,40,4.0,BW,48136
+561,TCX0oX11PBB9yPKa37N57w,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",48.9952067,8.4043631,13,3.5,BW,48137
+562,udplZdoBV0YHb7nVEZbSEw,"[u'Modern European', u'Bars', u'Wine Bars', u'Nightlife', u'International', u'Restaurants']",49.0028,8.39384,20,5.0,BW,48138
+563,g0rOtkDM3DI49LPQERF_pQ,[u'Restaurants'],48.9928286,8.3854008,14,4.0,BW,48139
+564,LudeITL-wiw883I4Nqq0Fg,"[u'Sporting Goods', u'Fashion', u'Shopping', u'Outdoor Gear']",49.0106767352,8.3964018274,6,5.0,BW,48140
+565,acyHuDT1T7naRmWDVfDhXg,"[u'German', u'Alsatian', u'French', u'Restaurants']",49.0056066859,8.36678147042,31,3.5,BW,48141
+566,fPZ9g2t2HTLRh5aL8BBIAw,"[u""Children's Clothing"", u'Fashion', u'Shopping']",49.0067498,8.393843,3,4.5,BW,48142
+567,pb8ZcncghqEFyte3-6nJWg,"[u'Greek', u'Restaurants']",49.0038099,8.3983042,9,4.0,BW,48143
+568,tTy1Mm_nvhs_9XV8QuUXDg,"[u'Food', u'Grocery']",49.0367941002,8.3524849897,3,3.0,BW,48144
+569,XJGMtkWT1d-SFYQlkYOXJA,"[u'Food', u'Specialty Food', u'Chocolatiers & Shops']",49.0067498,8.393843,4,5.0,BW,48145
+570,RK-nzsaTzF5at7ncuPm2Pg,"[u'Restaurants', u'Italian']",49.0090115,8.3679247,10,4.5,BW,48146
+571,tMzGMo61zvpfh7g1JtMacg,"[u'German', u'Greek', u'Restaurants']",49.0804348,8.3989263,8,4.5,BW,48147
+572,E5xhRV3bFwzPoKYf6gfvkg,"[u'Bars', u'Cocktail Bars', u'Nightlife']",49.0735090878,8.3913690825,5,5.0,BW,48148
+573,kIoT-cofPtnlNvcx5DM0BQ,[u'Restaurants'],49.005462,8.416214,4,4.5,BW,48149
+574,tb7-JM1FYdITIQBWES7XRA,"[u'Hardware Stores', u'Shopping', u'Home & Garden']",48.9201,8.50174,3,3.5,BW,48150
+575,lAGqSQW24ym7OFxMBXf4RQ,"[u'Chinese', u'Restaurants']",49.0683,8.39917,38,3.0,BW,48166
+576,hUpQanrrN-jdyfB-4hUJOA,"[u'Food', u'Beverage Store']",49.0034716,8.3888723,3,3.5,BW,48167
+577,q_qBMxTjNX3w17SF3o8wWg,[u'Restaurants'],48.9991,8.47009,3,4.5,BW,48168
+578,5VTBQov3GPKQ-dl-GW4JeA,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",49.0016589351,8.38298072723,5,4.5,BW,48169
+579,Sdb26i3k-2oGfFIOM7Vo1g,"[u'Asian Fusion', u'Food Stands', u'Restaurants']",49.02862,8.45656,6,4.0,BW,48270
+580,8btINBSesNjN9uZuUrJ09A,"[u'Libraries', u'Public Services & Government']",49.0088319,8.3999258,7,4.5,BW,48271
+581,ZZPfV62S73wqtWhQxiBALg,"[u'Arts & Entertainment', u'Cultural Center']",48.93814,8.41873,3,4.0,BW,48273
+582,hW63nfujjfovCp_MS26UVw,"[u'Turkish', u'Fast Food', u'Restaurants']",49.0113349,8.4381722,4,3.0,BW,48274
+583,3Dk5qrbYaP7lCYyjmo0JRg,"[u'Restaurants', u'African']",49.0126722,8.397885,38,4.0,BW,48275
+584,fuO8q9apAj88q9RHx3yecQ,"[u'Arts & Entertainment', u'Stadiums & Arenas']",49.0200561969,8.41312408447,3,3.0,BW,48277
+585,Za_v4P5dEdOFkGFvVgzg7A,"[u'Food', u'Food Delivery Services', u'Indian', u'Restaurants']",48.99565,8.44813,4,3.0,BW,48278
+586,VaXpkWMusOM9uCcQoGGUXw,"[u'Shopping', u'Office Equipment']",49.01046,8.3810059,12,3.5,BW,48281
+587,sWUJBOH7_iL4OcjX9tVIbg,"[u'Cafes', u'Restaurants']",49.0096595469,8.39439690113,6,3.0,BW,48282
+588,0nrEqOgqxqV00HLjnLuRIg,"[u'Hotels & Travel', u'Public Transportation', u'Transportation']",49.00754,8.432,12,3.0,BW,48284
+589,YTnPEttnoV_syCBU_oqP4w,"[u'Food', u'Grocery']",49.01021,8.3793,4,5.0,BW,48287
+590,mAoCr7W94jiERo1xVyg2_Q,"[u'Turkish', u'Fast Food', u'Kebab', u'Restaurants']",49.0114575662,8.42393875122,7,4.5,BW,48288
+591,F2eR662GpiItrtCKvQovFQ,"[u'Local Services', u'Computers', u'Shopping', u'IT Services & Computer Repair']",49.0100196,8.3911933,15,4.0,BW,48291
+592,mz1n2HTQONwj2Q7VnfvykQ,"[u'Turkish', u'Fast Food', u'Restaurants']",49.0090252,8.4147571,5,1.5,BW,48308
+593,f1Qz5IoAcCF-fGMOfCXpSg,"[u'Burgers', u'Diners', u'Restaurants']",49.0005885882,8.38512449722,35,3.0,BW,48311
+594,4lMdi_QR1JZ1PqEWVWQ0oA,"[u'Hotels & Travel', u'Transportation']",49.02429,8.42705,3,3.0,BW,48312
+595,KrxtCW45J_5zfxbrrQK_VQ,"[u'Active Life', u'Landmarks & Historical Buildings', u'Public Services & Government', u'Public Plazas']",49.0094308313,8.40403676033,6,3.0,BW,48313
+596,GcYGGOoTlN9qa5zVvbwbTw,[u'Restaurants'],49.0442998,8.3896307,6,3.0,BW,48314
+597,bqcemu1Y-ZTX8haoRqQQog,"[u'Food', u'German', u'Breweries', u'Beer Garden', u'Restaurants']",48.9981222,8.4656999,40,4.0,BW,48315
+598,FZ-jz2T0X6Pso3yCrzICdQ,[u'Nightlife'],49.010976,8.3581748,4,4.0,BW,48318
+599,CId0P8GkPJxBVXKgWyM2tA,"[u'Vietnamese', u'Asian Fusion', u'Restaurants']",48.9972962,8.4588132,13,4.0,BW,48319
+600,cnXDAjSiySOySahN0HPoyw,"[u'Restaurants', u'Italian']",49.0016943,8.4624687,4,4.0,BW,48320
+601,VP_gLCwB9tfiatdz2m0zPA,"[u'Colleges & Universities', u'Education']",49.01416,8.42662,3,4.5,BW,48322
+602,MrgvarMQLLFGY8ov6vnvyg,[u'Local Flavor'],49.0141934229,8.4010657555,4,4.5,BW,48323
+603,XlytpM7Y7EIMrqy3gK2xjg,"[u'Castles', u'Museums', u'Arts & Entertainment']",49.0135556806,8.40437493546,5,4.5,BW,48324
+604,4qI8E_OhC1RsO4nRtim-cQ,"[u'German', u'Restaurants']",49.0954451373,8.48420262337,5,4.0,BW,48325
+605,3jaMO63QpH_3JgbkpwmVdg,"[u'Food', u'Coffee & Tea']",49.0103318,8.4015934,34,3.5,BW,48326
+606,GY9pfuQlO0BhRUxvY9whmA,"[u'Pizza', u'Restaurants']",49.0086696,8.4176549,13,2.5,BW,48328
+607,b3051J8Ii1485ZOJBYVzhQ,[u'Restaurants'],49.0138712434,8.40487360954,14,3.5,BW,48329
+608,ByZychE8TxTgsNez8nhjfw,"[u'Indian', u'Restaurants']",49.0072917,8.3848345,11,4.0,BW,48330
+609,vrQMMH_VuNExMbUDMSuU-A,"[u'Active Life', u'Bowling']",49.02465,8.35389,36,3.5,BW,48331
+610,Bsj9BC15wZDAlWTsP8kfVg,"[u'Turkish', u'Fast Food', u'Kebab', u'Restaurants']",49.0057367102,8.37287586182,18,4.5,BW,48332
+611,tpR2U16lkQJI5TK4AOZH7w,"[u'German', u'Restaurants', u'Italian']",49.0088115,8.395907,24,3.0,BW,48343
+612,4aPi5_R5cu2OLnsB0v7e-Q,"[u'Food', u'Grocery']",49.0048342036,8.44914482943,9,3.0,BW,48350
+613,E8X4A-nmbkgZb5L7QRy5SA,"[u'Active Life', u'Saunas', u'Health & Medical', u'Swimming Pools']",48.9958523853,8.37638043915,48,2.5,BW,48353
+614,UVfh-2Jod32qq-CcpV2rGg,[u'Restaurants'],48.9725587168,8.45411896706,3,3.5,BW,48385
+615,sldKc-I-PDQg973dIf4Yyg,"[u'Thai', u'Asian Fusion', u'Restaurants']",49.0103544,8.3926273,36,3.5,BW,48396
+616,oU97TcNDBHZu0gGH2wiT7Q,"[u'Food', u'Ice Cream & Frozen Yogurt']",49.0789607,8.3890607,10,4.5,BW,48406
+617,iiB7mtJQEkwxhr3ka7Wb_w,"[u'Food', u'Ice Cream & Frozen Yogurt']",49.0054172,8.4967142,5,3.0,BW,48908
+618,CDjAcUDYcvYCFvMYE3L4Pg,"[u'Food', u'Grocery', u'Beverage Store']",49.0096685935,8.42368866012,3,1.5,BW,48925
+619,7xrdf_JJSbswG8hxChJ-KA,"[u'Mexican', u'Restaurants']",49.010274,8.420658,4,4.0,BW,49645
+620,RdTksJbfVwDbuOqvpv3zZQ,"[u'Hotels & Travel', u'Education', u'Adult Education', u'Event Planning & Services', u'Hotels']",48.9817494,8.4133683,3,4.0,BW,50061
+621,hc4D6AnfzhtMpOCWgXaZSA,"[u'Turkish', u'Oriental', u'Kebab', u'Restaurants']",49.0094777073,8.40783935114,10,3.0,BW,50199
+622,WhuwyDN8C6dOGsgcdXA3Xw,"[u'Bars', u'Restaurants', u'Nightlife', u'Italian']",49.011186,8.395393,78,3.0,BW,50286
+623,uwlK60hWjozFJULa5etk6A,"[u'Car Wash', u'Automotive']",48.9966881549,8.44648858903,5,4.0,BW,50759
+624,UYegAlQFh85wH9FKkC-O9Q,"[u'Turkish', u'Pizza', u'Kebab', u'Restaurants']",49.013779765,8.43130409718,6,4.0,BW,50875
+625,OMed9SgOJ4H1G5gqUn_umA,"[u'Shopping', u'Outlet Stores', u'Home & Garden']",49.0068114272,8.36156571712,3,4.5,BW,50946
+626,P5dLuhD2vCJxurMCE-UGtA,"[u'Restaurants', u'African']",48.9995353,8.3938027,4,4.5,BW,51069
+627,NOVlS5DyG-W5ryzxw5D4qA,"[u'Used, Vintage & Consignment', u'Used Bookstore', u'Fashion', u'Shopping']",49.0176507,8.3808372,3,5.0,BW,51170
+628,XOzf-Nn9W_TIT7YlSTQpnQ,"[u'Food', u'Grocery']",49.0091470416,8.41037747628,4,3.5,BW,51173
+629,Ii03xj1XMhwFBOYfE2AHBQ,"[u'Food', u'Tea Rooms']",49.0115582,8.3950411,5,5.0,BW,51335
+630,41tFQSXt68OyPDbm3GAQdQ,"[u'Food', u'Specialty Food', u'Thai', u'Asian Fusion', u'Restaurants']",49.010514,8.393407,35,4.0,BW,51342
+631,516cVatYZRqXcHEdfSTasw,"[u'Cafes', u'Restaurants']",49.009768,8.40367,6,3.5,BW,51645
+632,gJB9U9MI5_C2NpkfhCJiRg,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",49.00011,8.40406,3,2.5,BW,52210
+633,JemgxznJZEEAsxfYmV5fBA,"[u'Bakeries', u'Food']",49.0170552,8.4443215,3,3.0,BW,52214
+634,eMtSU9hLX1sl4jATF_mdVA,"[u'Beer Garden', u'Restaurants']",49.0126096,8.4269795,3,3.5,BW,52494
+635,24nfW5gDvX9ot2hT9rf6xg,"[u'Cafes', u'Restaurants']",49.0148810124,8.38418841362,12,4.5,BW,53225
+636,F7bt2jRmYrzUrC-KRcKl-w,"[u'Pizza', u'Kebab', u'Restaurants']",48.9993295,8.4673396,3,2.5,BW,53449
+637,huNUOZSeshXtXf_P-ZC47A,"[u'Food Stands', u'Restaurants']",49.00422,8.4485,3,1.5,BW,53558
+638,6B1uanM3lvWBkwfnsrROdQ,"[u'Nightlife', u'Dance Clubs']",49.0085908,8.3959056,9,3.5,BW,54076
+639,wbw8qLswN1fjzL25OrXw0g,"[u'Nightlife', u'Dance Clubs']",49.0093716,8.3915255,8,3.5,BW,54077
+640,0EvzDoylgqvrEw8R5AqoRA,"[u'Nightlife', u'Dance Clubs']",49.0099921,8.39723,12,3.5,BW,54078
+641,3uIRIs9Bs1ImPjfQp-lYoA,"[u'Bavarian', u'Beer Garden', u'Gastropubs', u'Restaurants']",49.009036,8.3953183,64,3.5,BW,54079
+642,RB4_iLGkfDVahkFf1koDBw,"[u'Hotels & Travel', u'Travel Services']",48.9939846,8.4002427,4,2.5,BW,54279
+643,7sXsHuRzSFWoo6ajkk-ZsA,"[u'Hotels & Travel', u'Public Transportation', u'Transportation']",49.0050744797,8.40442836285,5,1.5,BW,55013
+644,WUV8x3y7LdX-bpLyNrWnrQ,"[u'Kebab', u'Restaurants']",48.9935237289,8.40179443359,3,1.5,BW,55280
+645,CFY7dqMoc3r06cbAyeavRw,"[u'Active Life', u'Lakes']",48.9653430233,8.32368850708,10,3.5,BW,55313
+646,oHIWHZQAO6N2QezzrGWpsw,"[u'Tapas Bars', u'Spanish', u'Restaurants']",49.0107267,8.393975,27,4.5,BW,55604
+647,Lg5F2e02jBaK0lrqbc8SRw,"[u'Greek', u'Restaurants']",48.9979177,8.3940762,25,3.5,BW,55759
+648,VXdS6bj2V-Bh3V7WLpbSgg,"[u'Beauty & Spas', u'Saunas', u'Swimming Pools', u'Health & Medical', u'Active Life', u'Massage']",49.0013688674,8.40286361542,24,4.5,BW,56596
+649,DLozdaBHmK_J8SMEVOUPFQ,"[u'Food', u'Cupcakes']",49.0086276,8.4076925,11,4.0,BW,57175
+650,y_qmQDXa5ve9zdOd46P7Zw,"[u'Food', u'Food Delivery Services', u'Pizza', u'Restaurants']",49.0097298,8.3819565,3,1.0,BW,57527
+651,obJE7v4DCIX7JrHo0ULlIA,"[u'Asian Fusion', u'Restaurants']",49.0092757,8.3955415,11,3.5,BW,57698
+652,U6YILIsxeF57X7IygtAzmw,"[u'Nightlife', u'Irish', u'Irish Pub', u'Bars', u'Restaurants']",49.0046994,8.391051,14,4.5,BW,59039
+653,c74DXZNvjNgOMKKwaL8HUg,"[u'Bistros', u'Bars', u'Cocktail Bars', u'Nightlife', u'Lounges', u'Restaurants']",49.0093069,8.4223463,42,4.0,BW,59331
+654,ZIoJzo1Sv9MkwuZ9L1AxDg,"[u'Food', u'Ice Cream & Frozen Yogurt', u'Restaurants', u'Italian']",49.0631554,8.4709425,15,4.5,BW,59947
+655,QL3A3JgdImfDFOHqU1YV0w,"[u'Modern European', u'Restaurants']",48.9468570702,8.40981960297,15,4.5,BW,60037
+656,rgu4D8r828sQvPM4p3k4XQ,"[u'Sushi Bars', u'Chinese', u'Restaurants']",49.0105991,8.3921432,66,4.0,BW,60328
+657,6B2uNKnslhbSFfym3Tw4ZQ,"[u'Cafes', u'Restaurants']",49.01288,8.36553,3,4.5,BW,60738
+658,him1b0hMxc1m8RVCj1gQIg,"[u'Pizza', u'Kebab', u'Restaurants']",49.0087271,8.4175911,12,4.0,BW,60956
+659,LEt0zGi-on6rI1h4r7IP_w,"[u'Dive Bars', u'Burgers', u'Bars', u'Nightlife', u'Restaurants']",49.0082425,8.4197889,15,4.0,BW,60957
+660,xGY-VLTZMWG-nVdn5yRorQ,"[u'Champagne Bars', u'Bars', u'Cocktail Bars', u'Nightlife', u'Lounges']",49.0090802958,8.40301717592,3,4.5,BW,60964
+661,-TFEXcfgracI_wMtman35A,"[u'Shopping', u'Mobile Phones']",49.0099,8.4,4,5.0,BW,60998
+662,A-DrNFzlaynJgnPtu8LBMw,"[u'Vietnamese', u'Asian Fusion', u'Chinese', u'Restaurants']",48.9874338,8.541948,3,5.0,BW,61019
+663,R-Ly3sJyBLWLBTg-SbKhKg,"[u'Restaurants', u'Pizza', u'Italian']",48.94524,8.38349,4,3.0,BW,61032
+664,zik3Lj994wNXYkYoK1PqKQ,"[u'Shopping', u'Home Decor', u'Home & Garden', u'Furniture Stores']",49.02025,8.45814,7,1.5,BW,61081
+665,W_iPq6VOpMwAzEfqr0WLfw,"[u'Books, Mags, Music & Video', u'Shopping', u'Bookstores']",48.99435,8.40147,4,4.5,BW,61170
+666,zUr4vwqXQvx2BW6w1DlDtA,"[u'Food', u'Coffee & Tea', u'Bagels', u'Coffee & Tea Supplies']",48.9938439481,8.40095067428,7,3.5,BW,61192
+667,UTTXRaoaowgCDrkkZtwHVQ,"[u'Curry Sausage', u'Restaurants']",49.0107203897,8.39721520747,31,4.5,BW,61284
+668,j-v-m38xQvnFtdGsm6GXkQ,"[u'Hair Salons', u'Beauty & Spas']",48.9945138,8.3974989,7,4.5,BW,61549
+669,dUz8Sa9SY6l_nIEyUhC90A,"[u'Restaurants', u'Pizza', u'Italian']",49.0674569008,8.48156011792,15,4.5,BW,61606
+670,TkDLSrDMOe0i7y5olhTmjg,"[u'Bistros', u'Bars', u'Cafes', u'Nightlife', u'Lounges', u'Restaurants']",49.0071138,8.4035151,20,3.0,BW,62439
+671,S78B3Ue7HfdJRmuGsxoEKg,"[u'Sushi Bars', u'Restaurants']",49.0103292529,8.39998456958,6,3.5,BW,62701
+672,fIPiGSlvwxHf7_R2FL4KDQ,"[u'Bars', u'Food', u'Cafes', u'Coffee & Tea', u'Nightlife', u'Restaurants']",49.0088345162,8.39717618455,7,4.5,BW,62910
+673,kXImHciCMfjoze9Ctrpw-A,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",49.008252,8.3960414,5,5.0,BW,62960
+674,b4TLYjfO6iiY0bZEnm3uzA,"[u'Restaurants', u'Pizza', u'Italian']",48.9294,8.47129,5,4.5,BW,62961
+675,hhCpRudOwsKhqnDFahXfZA,"[u'Restaurants', u'Pizza', u'Italian']",49.0108491593,8.39435460274,56,3.5,BW,63008
+676,9O13j4NIYBkZVfInk6FDEA,"[u'German', u'Restaurants']",48.9194631757,8.47973795128,5,4.5,BW,63567
+677,ILFArDwgCQjTTOs7B3bYBA,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",49.0289195,8.3486919,7,3.0,BW,63690
+678,fkdzXWjseG1gKubQD_fkGg,"[u'Bars', u'German', u'Mediterranean', u'Wine Bars', u'Nightlife', u'Restaurants']",49.001901,8.3898204,12,4.0,BW,64320
+679,ggmtudEwKHHDd9sq2CvqLQ,"[u'Tapas Bars', u'Spanish', u'Restaurants']",49.0008,8.47261,17,4.0,BW,64730
+680,ltTBqHLIlXPe1qkvDYbAvQ,"[u'Restaurants', u'Italian']",49.0034,8.52589,3,4.5,BW,65453
+681,C-3H0JM_J3Ow3u-8dwjhnA,"[u'German', u'Burgers', u'Curry Sausage', u'Restaurants']",49.00868,8.39705,59,3.5,BW,65464
+682,kBhO7ZsUsA-Dq0iZJN5YuQ,"[u'Bars', u'American (Traditional)', u'German', u'Cocktail Bars', u'Nightlife', u'Restaurants']",49.0093693,8.4117936,30,4.0,BW,65508
+683,UFhXPp4kA9zwbjdkUivTiA,"[u'German', u'Beer Garden', u'Restaurants']",49.0077534769,8.38232528278,20,3.5,BW,65512
+684,bm8_IYhdxx20XFWYCHYrSg,"[u'German', u'Restaurants']",49.0076646,8.4075991,25,4.0,BW,65534
+685,kvWf4Z4afJvWZdkCVxDyeg,"[u'German', u'Baden', u'Beer Garden', u'Restaurants']",49.00774,8.35631,42,3.0,BW,66043
+686,I2nPfACCnDbuGRHB5wafWQ,"[u'German', u'Restaurants']",48.97907,8.31881,5,4.5,BW,66058
+687,W-JfMG8YsOk7EpwqOKOHdg,"[u'Nightlife', u'Dance Clubs']",49.0108418134,8.41566883028,5,4.0,BW,66391
+688,eQ6pqLsqEZQRKU4lwrreDg,[u'Mass Media'],48.9998433,8.3857352,21,3.5,BW,66403
+689,JSa4ZYN1NQoQgzYJ_BJEmg,"[u'Pubs', u'Bars', u'Nightlife']",49.0081537,8.3967254,11,4.0,BW,66407
+690,8KCsKouVZYtpRB0fniPrdg,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",48.9423505,8.406616,6,5.0,BW,66440
+691,jptSDzDj9XS82tlJk7T1mg,"[u'German', u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",48.99677,8.48544,20,4.0,BW,66487
+692,zUXC9zZApdSehZVbT7cgYg,"[u'Bars', u'Beer Garden', u'German', u'Dive Bars', u'Nightlife', u'Rhinelandian', u'Restaurants']",48.9786462,8.4040376,9,4.0,BW,66633
+693,uAbMtNpZiRDqf61PRX4bDw,"[u'Fashion', u'Shopping', u'Sporting Goods', u'Local Services', u'Bikes', u'Sports Wear', u'Bike Repair/Maintenance']",49.00984,8.35423,7,3.0,BW,66765
+694,kpknqAb5inS0ic0-0UtUng,"[u'Local Services', u'Dry Cleaning & Laundry']",49.0079520267,8.38159125106,4,1.5,BW,66829
+695,B4f4wksmcqYTFh4eESm3Kg,"[u'German', u'Italian', u'Restaurants']",49.0092885338,8.37642007355,8,3.5,BW,66860
+696,E6xrU8gCZxRlL60nGnf86w,"[u'Arts & Entertainment', u'General Festivals', u'Festivals']",48.9935726631,8.40099795225,7,4.0,BW,66914
+697,1FVEeqJv6V6decG4S4ZNFw,"[u'Beer Garden', u'Restaurants']",48.96339,8.33443,3,3.5,BW,67009
+698,-6NaBMeSXBnY7j9p7sdPhw,"[u'German', u'Baden', u'Restaurants', u'Beer Garden', u'Beer Hall']",49.0370694,8.3485875,25,3.0,BW,67032
+699,NW8oT7STzS_lnGq9na1hKw,"[u'Cafes', u'Restaurants']",49.0113,8.39522,9,4.5,BW,67091
+700,6Ai-Uz3h9eC7UiaLvR-irA,"[u'Turkish', u'Pizza', u'Kebab', u'Restaurants']",49.0102281449,8.39209101482,19,4.0,BW,67186
+701,zZMUjeW_fPtReXlXqRbnLw,"[u'Musical Instruments & Teachers', u'Shopping']",49.0419,8.39253,9,4.5,BW,67419
+702,fkW1FJY_x-iw7tG3dz3wZg,"[u'Spanish', u'Restaurants']",49.0171785,8.381289,12,3.0,BW,67421
+703,irK6XZ6yBrs6EZsb_uGMVQ,"[u'Food', u'Coffee & Tea']",49.0072595196,8.40181142254,10,3.0,BW,67425
+704,agkUtfCYDPnLmxcFL54r5w,"[u'Arts & Entertainment', u'Arcades']",49.0240654,8.3528615,17,5.0,BW,67429
+705,TbPbHknC5EMptGyoq0uK3A,"[u'Bars', u'German', u'Baden', u'Cafes', u'Pubs', u'Nightlife', u'Restaurants']",49.023,8.41793,18,4.5,BW,67434
+706,bSNb73315kS9dOJ1q6uy9g,"[u'Restaurants', u'Italian']",48.92931,8.2673,3,3.0,BW,67436
+707,9jSE6VWYhI_4NRwoXRQQ4w,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",49.0090329,8.4153663,11,5.0,BW,67444
+708,Ds15PXK8uFDvkvVDaBuOVw,"[u'Greek', u'Fast Food', u'Restaurants']",49.0091593,8.4112859,14,4.5,BW,67445
+709,n8Ky9yX7KdM9uhO5PIS5IQ,"[u'Bars', u'Cocktail Bars', u'Nightlife', u'Lounges']",49.0053857,8.4106836,12,4.5,BW,67453
+710,i5OJAtAfw_adcXuiYPXM2w,"[u'Bars', u'German', u'Dance Clubs', u'Pubs', u'Nightlife', u'Restaurants']",49.0090852,8.4036314,42,3.5,BW,67454
+711,YWp1E5ZBJQhlbgbDhS6zcw,"[u'Department Stores', u'Fashion', u'Shopping']",49.0099888,8.3946101,5,2.5,BW,67464
+712,hhJKsnDFDLGhIbvzFhWAEw,"[u'Hotels & Travel', u'Restaurants', u'Event Planning & Services', u'Hotels']",49.0127895,8.3933216,14,3.0,BW,67467
+713,p9zQzAarxtulvnR3N4xcbA,"[u'German', u'Restaurants']",48.974622,8.3160137,23,4.0,BW,67469
+714,xOHV4QKNn_9FH7gslunbEQ,"[u'German', u'Restaurants']",49.0091019,8.4125177,10,4.0,BW,67475
+715,sMe3y_v4-VKoQts-VGbw5A,"[u'Chinese', u'Restaurants']",49.0100204,8.3986103,11,4.5,BW,67481
+716,0_PhTFpxw-wYuqYDMvniZg,"[u'German', u'Bars', u'Irish Pub', u'Nightlife', u'Restaurants']",49.0076344,8.4145013,10,4.5,BW,67484
+717,qWsWsHsOY9rTZVEr773LEw,"[u'Mediterranean', u'Restaurants']",49.0094259,8.4203417,14,3.5,BW,67493
+718,Vj3Dvf9OwTrEZiOzpwr4-w,"[u'Restaurants', u'Beer Garden', u'Italian']",49.0177377,8.4023623,21,3.5,BW,67592
+719,upQpcnTaJXNV5Gh3DN6TBg,"[u'Asian Fusion', u'Sushi Bars', u'Chinese', u'Restaurants']",49.0106,8.39766,31,3.0,BW,67593
+720,Q9KZP_PPmKwdBKdt18yCWQ,"[u'International', u'Greek', u'German', u'Restaurants']",48.99959,8.40702,5,3.0,BW,67599
+721,j6H1XEdbv516TevwrWKB1g,"[u'Pubs', u'Bars', u'Nightlife']",49.0058161422,8.4293905016,6,4.0,BW,67602
+722,22yGKqF09XSoZ49A9E209g,"[u'Arts & Entertainment', u'General Festivals', u'Festivals']",48.9908752,8.3820167,12,5.0,BW,67609
+723,X2ZBdPEgnrv34ygFRq0W2A,"[u'Shopping Centers', u'Shopping']",49.0067,8.40208,40,4.0,BW,67610
+724,opCB7X-WIu2uiyvg7zU5dw,"[u'Bars', u'Cafes', u'Pubs', u'Nightlife', u'Italian', u'Restaurants']",49.0007241258,8.38479626924,14,2.5,BW,67615
+725,CpURBK7JfC1j_UzcBiLJgQ,"[u'Active Life', u'Parks']",49.013063,8.4029521,26,4.5,BW,67694
+726,ZnnkbDBP0km2m9mA2Nvbng,"[u'Food', u'Desserts']",49.0085449,8.3925748,10,4.5,BW,67707
+727,wwTIhfgZRwYJuyygUQ3WAw,"[u'Restaurants', u'Pizza', u'Kebab', u'Turkish']",49.0056391431,8.38173602632,48,5.0,BW,67953
+728,r6_hgwcSv_YSLRtn8F3M8Q,"[u'Specialty Schools', u'Education', u'Cooking Schools']",49.0010024,8.4812932,6,5.0,BW,67965
+729,J2ydU33ZLTdXHLhG9YKlnQ,"[u'Nightlife', u'Dance Clubs']",49.0081532,8.3958681,9,5.0,BW,67966
+730,mHchPV-YF9bjZroxXSHMyQ,"[u'French', u'Restaurants']",48.959069,8.2939138,3,4.5,BW,67967
+731,xYMNYPWBbrtYihJJ4n14vQ,"[u'Greek', u'Restaurants']",49.0010011,8.4129912,4,3.0,BW,67968
+732,EC8I62pXmzHJUU-Fr16K8w,[u'Restaurants'],49.0075253,8.4130358,7,3.5,BW,67969
+733,pdISA8BqlOzP415f6l0a9g,"[u'German', u'Baden', u'Restaurants']",49.0466,8.51328,16,4.5,BW,67970
+734,UsmhvNhN6mLe8oB2_trLvg,[u'Mass Media'],49.0081936,8.3787489,4,4.0,BW,67971
+735,nkS1No7nnXaQcTjPLsCJTw,"[u'Bistros', u'Restaurants']",49.00132,8.36659,48,4.0,BW,67972
+736,bBBmsMx5uLVC82Si8FE_XA,[u'Health & Medical'],48.9979501,8.3935327,5,5.0,BW,67973
+737,jKF4HnOgBKDPOj-1bgwyrw,"[u'Coffee & Tea', u'Food', u'Cafes', u'Bars', u'Nightlife', u'Restaurants']",49.0099639,8.4203651,9,4.5,BW,67974
+738,Wee6twJlL64BuE-QKhTHDw,"[u'Bars', u'Cocktail Bars', u'Nightlife']",49.0117821,8.3939728,11,3.5,BW,67975
+739,OM_STp3HD4_VD8Cj7bk5FA,"[u'Local Services', u'Food', u'Printing Services', u'Internet Cafes']",49.0107889,8.3956698,6,5.0,BW,67976
+740,0GJhI55FYF_ELmm88stj3Q,"[u'Local Services', u'Food', u'Printing Services', u'Internet Cafes']",49.0102368,8.3925711,6,5.0,BW,67977
+741,7GFd-ao4w7MzUDb-qz-ayg,"[u'Sushi Bars', u'Restaurants']",49.0079107,8.3956589,40,4.0,BW,67978
+742,J6OFcAKsbOvzZBoNqTe2dQ,"[u'Food', u'Ice Cream & Frozen Yogurt']",49.00804,8.38314,8,4.5,BW,67979
+743,0mqni7gWoWJ1H5dN4Wwzsg,"[u'Fashion', u'Shopping']",48.9942088,8.4686236,3,2.5,BW,67980
+744,AThVusdWIYLmXMCVFN5n2w,"[u'Cafes', u'Restaurants']",49.0113,8.35909,5,4.5,BW,67981
+745,m6LIw1KHnog2HM__IHIYBA,"[u'Food', u'Coffee & Tea']",48.9969962,8.3926684,3,5.0,BW,67982
+746,qBID4rvYlBllq0SR59vvjw,"[u'Keys & Locksmiths', u'Home Services']",49.0067498,8.393843,5,4.0,BW,67983
+747,wnvR-kWXT0q9fKk-yQYqOA,"[u'Active Life', u'Laser Tag']",49.0081199,8.3590617,3,3.5,BW,67984
+748,0dLjH5zWnbJDukuM3iQYvg,"[u'Fashion', u'Shopping', u'Shoe Stores']",49.0099485,8.3958862,9,3.5,BW,67985
+749,ll6IEuZo2hLh4PoAHjc6cA,"[u""Women's Clothing"", u'Fashion', u'Shopping']",49.0116172,8.3953935,5,4.0,BW,67986
+750,yVLlsYh3UOFZMBFgqlWxJA,"[u'Bars', u'Cocktail Bars', u'Nightlife']",48.9412368,8.4051311,30,3.5,BW,67987
+751,4xU89g2zEgAsLNjr5epnww,"[u'Food', u'Herbs & Spices', u'Specialty Food']",49.0083587,8.3220774,3,5.0,BW,67988
+752,g15qf0dUuu_aMN3mpY5quA,"[u'Bars', u'Cafes', u'Nightlife', u'Restaurants']",49.0085,8.39323,28,3.5,BW,67989
+753,WS1tXjucYwsln41EnK6gJw,"[u'German', u'Restaurants']",49.0080511,8.3811441,8,4.0,BW,67990
+754,TZI0KlF9whWU1JgUjIRP_Q,"[u'German', u'Mediterranean', u'Restaurants']",49.0081303,8.40286,26,4.5,BW,67991
+755,ELbBgsX1rccs9ZZ9c9p9PA,"[u'Thai', u'Restaurants']",49.0106768,8.3961036,3,3.5,BW,67993
+756,sJYgtBb-To4rG12ANUtYmw,"[u'Tapas/Small Plates', u'Italian', u'Cafes', u'Restaurants']",48.9413605464,8.40529078514,15,4.0,BW,67995
+757,2fS1ssXEmuXH7t2zNx_DZQ,"[u'Food', u'Patisserie/Cake Shop', u'Cafes', u'Restaurants']",48.9881413,8.4743368,4,4.5,BW,67996
+758,LzA2QseZ4oowaikIn_i8QA,"[u'German', u'Restaurants']",48.9999,8.46405,5,4.0,BW,67997
+759,6tey1FM5BY4Noema-aDqwQ,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",48.96559,8.47645,3,3.5,BW,67998
+760,C3thwROobYHtoeZXjcoQXQ,"[u'German', u'Greek', u'Buffets', u'Restaurants']",48.990186,8.467055,8,3.0,BW,67999
+761,yszLaYWs06eEc2ZcsK02aQ,"[u'Doctors', u'Health & Medical', u'Podiatrists']",49.011065,8.3611818,3,5.0,BW,68000
+762,Q4Y66vz2e-NIXNuvBLkBog,"[u'Arts & Entertainment', u'Festivals']",48.9992,8.47149,3,5.0,BW,68001
+763,nTfeDYEy9fV4dEc7LMgM2g,"[u'Food', u'Food Delivery Services', u'Restaurants', u'Pizza', u'Italian']",48.9916,8.38906,3,2.0,BW,68002
+764,PNyQejGIQy_oNCu3qIKRRg,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",49.0074421,8.4208641,5,4.0,BW,68003
+765,6G6T-7zxuPtAOLbt6SGwAg,"[u'Hardware Stores', u'Shopping', u'Home Services', u'Home & Garden']",49.00817,8.44044,8,2.5,BW,68004
+766,-FknImM3ehQDq2yVCCjnGQ,"[u'Bars', u'Cafes', u'Cocktail Bars', u'Nightlife', u'Restaurants']",49.00895,8.39655,10,3.5,BW,68005
+767,IA4P3XkXs3boHlQ0v5CsMw,"[u'Pubs', u'Bars', u'Gay Bars', u'Nightlife']",49.0084288,8.4126713,4,4.5,BW,68006
+768,CECYpgLeL0Vd02mpICiZ2g,"[u'Pubs', u'Bars', u'Nightlife']",49.0083302,8.3961836,5,4.0,BW,68007
+769,UDvpY4D2zWLInNxNWGb3iw,"[u'Indian', u'Restaurants']",48.98584,8.39254,6,4.0,BW,68008
+770,LnhGhSZFbUPbd-TaHFSlUA,[u'Shopping'],49.0086194,8.400592,6,4.5,BW,68009
+771,Gg5MtU-QEaeazysV3jmn3A,"[u'Hair Salons', u'Beauty & Spas']",49.0176507,8.3808372,3,2.0,BW,68010
+772,Q0eBAW3YgXGHjAulqu7k2g,"[u'Middle Eastern', u'Restaurants']",49.0111355,8.39603,49,4.5,BW,68011
+773,zM5wAxEDbOMxDHllgDkTyg,"[u'Auto Repair', u'Automotive', u'Auto Parts & Supplies']",48.9890434,8.374274,9,2.5,BW,68012
+774,guaPlDZLMG3kljQv0OsCYA,"[u'Food', u'Ice Cream & Frozen Yogurt']",49.0089285,8.3933518,4,4.5,BW,68013
+775,Kl4KJn41-jTkO5g_o9J2bQ,"[u'Local Services', u'Shoe Repair']",49.0098249,8.3990264,3,3.5,BW,68014
+776,3POAu53GjpkGdimWn_sWcQ,"[u'Local Services', u'Printing Services']",49.0040554,8.3946437,7,3.5,BW,68015
+777,pRCxPIEmu2UojXphKguGvQ,"[u'Burgers', u'Fast Food', u'Restaurants']",49.0094,8.40494,3,4.5,BW,68016
+778,jqGVJRgYeeDBNGwDf98e3A,"[u'French', u'Restaurants']",48.96959,8.42389,8,4.0,BW,68017
+779,wrx5vY6gRznXwn_XKgRrwQ,"[u'Active Life', u'Go Karts']",48.99565,8.44813,7,4.5,BW,68018
+780,bgBafNxzbhvsC4GAivwWtQ,"[u'Bars', u'Cafes', u'Nightlife', u'Restaurants']",49.0088291,8.4017419,44,3.5,BW,68019
+781,JSUrYTag6F5_D9sVrUEtjw,"[u'Middle Eastern', u'Restaurants']",49.0088458,8.4103471,5,5.0,BW,68020
+782,IT4_iHuLkHBVl8gcKvL5qw,"[u'Portuguese', u'Restaurants']",49.005811,8.4069024,9,4.5,BW,68021
+783,-YUFxZVqO5i-LlqVjsGwPQ,"[u'Sporting Goods', u'Bikes', u'Shopping']",49.0071347,8.392423,9,2.0,BW,68022
+784,Gd4X1HOo96SvxKGKad_rwQ,"[u'Pubs', u'Bars', u'Cocktail Bars', u'Nightlife']",49.009151,8.3914728,8,4.5,BW,68023
+785,GFCSVqiFmOtkGmvE2IsqKA,"[u'Curry Sausage', u'Restaurants']",49.01144,8.41754,3,4.0,BW,68024
+786,1FQtU5Wa-POL8Mfyc1uIpg,"[u'Sporting Goods', u'Bikes', u'Shopping']",49.0102513,8.4279636,3,5.0,BW,68025
+787,G2xs4wZI6dBsOUEpGaGw1w,"[u'Nightlife', u'Dance Clubs']",49.0067498,8.393843,5,3.5,BW,68026
+788,xkHfkj1MjALGf-rOjTkTJQ,"[u'Pubs', u'German', u'Bars', u'Nightlife', u'Restaurants']",49.0010596,8.3672117,7,4.0,BW,68027
+789,39zkau4YW8ovL3zUS10SAA,"[u'Restaurants', u'African']",49.0079738,8.4141097,5,2.5,BW,68028
+790,kaX0K0Zg2iiHzL-UJ9hRKQ,"[u'Bars', u'Cocktail Bars', u'Nightlife']",49.0083004,8.3917658,39,4.5,BW,68029
+791,SEDbbnlM6veHdjECABo3dg,"[u'Cafes', u'Restaurants']",49.01386,8.35779,3,4.5,BW,68030
+792,5xXr_KnqboB4SclCe9d9jg,"[u'Falafel', u'Mediterranean', u'Restaurants']",49.0088292,8.3915418,13,5.0,BW,68031
+793,cHuREuonkS-83voJLeQdqw,"[u'Hair Salons', u'Beauty & Spas']",49.0087709,8.3951608,6,4.5,BW,68032
+794,vBOOyfb6stKNQmz3gFYpSA,"[u'Bars', u'Food', u'Cafes', u'Coffee & Tea', u'Pubs', u'Nightlife', u'Restaurants']",49.018094,8.3809944,3,5.0,BW,68033
+795,NnDsg_PHsc_aVjUqw-2EiQ,"[u'Fashion', u'Shopping']",49.0099619,8.3975037,3,4.5,BW,68034
+796,yJ0BlRamJw1SROzx5O4FSQ,"[u'Hotels & Travel', u'Hostels']",49.0112399,8.3977674,3,3.5,BW,68035
+797,yKA1moKJGHg_XNHmEfmigQ,"[u'Arts & Entertainment', u'Festivals', u'Christmas Markets']",49.0067498,8.393843,12,3.0,BW,68036
+798,68zFUO8bfLmGwZePLyguuA,"[u'Books, Mags, Music & Video', u'Shopping', u'Bookstores']",49.0093271,8.4058917,11,4.0,BW,68037
+799,fxDQVbsUK0EjsME2dr8ZIw,"[u'German', u'Restaurants']",49.00684,8.41076,5,4.0,BW,68038
+800,eba6WF8cDN1TQ2_0rCkh4g,"[u'Shopping', u'Home & Garden', u'Appliances']",49.0116951,8.4303821,4,4.5,BW,68039
+801,PAyUvQEZcxrS9X2D9YiXwA,"[u'Shopping', u'Cosmetics & Beauty Supply', u'Beauty & Spas']",49.007481,8.4067408,7,5.0,BW,68041
+802,ibs9X0FApCT9yt7o7kNpyw,"[u'Bars', u'Nightlife']",48.9992469,8.4035604,4,3.5,BW,68042
+803,Hxw62K84VXUysh1QjWZlqA,"[u'Fashion', u'Shopping']",49.0215295,8.4625259,3,3.5,BW,68043
+804,43A2uNd1EDp_tZGAzcl0AA,"[u'Kebab', u'Restaurants']",49.0079271,8.3795858,5,4.0,BW,68103
+805,Eq-BpslGrZ2wDes-8miHIQ,"[u'Thai', u'Restaurants']",48.99266,8.39199,11,3.5,BW,68135
+806,cOlL-Zz3joijfR-pzKadtg,[u'Beauty & Spas'],49.0101159,8.3998019,11,2.5,BW,68182
+807,ZgBGrt_faLaLk273rEyRdA,"[u'Mediterranean', u'Restaurants']",49.0014456,8.4616611,10,4.5,BW,68183
+808,ntjg79DoncBIViCa2_ES7w,[u'Arts & Entertainment'],48.97557,8.37226,3,4.5,BW,68200
+809,beCsTM1YSCFHoGqzjjQewQ,"[u'Food', u'Street Vendors']",49.0092773,8.4084149,4,3.0,BW,68209
+810,R3kAGyaVGZt0Hhq9M46xPw,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",49.0071518,8.4058565,21,5.0,BW,68216
+811,4KDLhTvuO9lMyYndr-m5Lw,"[u'Active Life', u'Parks']",49.0115823,8.4002493,7,4.5,BW,68221
+812,O_8KPbCJpKSuFeqgmY0rHQ,"[u'Sporting Goods', u'Shopping', u'Outdoor Gear']",49.0100738,8.3914972,15,4.5,BW,68222
+813,uT5v2rBqLJJ3-2eHxOJ0qg,"[u'Bars', u'Nightlife', u'Lounges']",49.02763,8.40807,14,3.5,BW,68226
+814,sVcfcjQ3X5dAMQyndIm35w,"[u'Arts & Entertainment', u'Festivals']",48.99888,8.47371,7,4.5,BW,68228
+815,ICQLD1gYrYlnahI-wQabQg,"[u'Kebab', u'Restaurants']",49.0107061,8.3755378,3,2.0,BW,68231
+816,U1OrMffyVeE2qbpNTrSSuA,"[u'Restaurants', u'Turkish']",49.0021803,8.4045914,10,4.0,BW,68236
+817,Cu4mKzo8TsOEzZJuF4EAXA,"[u'Cafes', u'Restaurants']",49.0092633789,8.40509200086,23,3.5,BW,68237
+818,nSfVhbKMbB72kb48ALuC4Q,"[u'Indian', u'Restaurants']",49.009264,8.4073135,22,3.5,BW,68239
+819,Bo8T_i8a76dZZfuFVo_O0g,[u'Restaurants'],49.00868,8.39705,4,3.0,BW,68245
+820,eZ5bRX8Et83RKG2RkbTajQ,"[u'Asian Fusion', u'Wok', u'Chinese', u'Restaurants']",49.0119516,8.3957352,5,4.5,BW,68251
+821,6S-7J-16S4hMEFSFfJpZBQ,"[u'Arts & Entertainment', u'Cinema']",49.0037318,8.4258554,4,4.5,BW,68255
+822,cOWWG-2_-3SVCARMihigAA,[u'Active Life'],49.0119068316,8.40420113108,3,3.5,BW,68278
+823,eV0EsRRpx4M8tWr2W4Laxw,"[u'Breakfast & Brunch', u'Cafes', u'Restaurants']",49.0106922,8.3748808,17,4.0,BW,68282
+824,flxT4xQdjw8U6R7XlA3IrA,"[u'Burgers', u'Fast Food', u'Restaurants']",49.009148,8.3799444,3,2.0,BW,68321
+825,2L7zKmpJ20jFaH4oJ3zZxw,"[u'Libraries', u'Public Services & Government']",49.012177,8.4161444,7,4.5,BW,68324
+826,UbMfwmBEU9Jt3rRysjh4Yg,"[u'Bakeries', u'Food', u'Cafes', u'Restaurants']",49.0038897551,8.42019146224,11,3.5,BW,68671
+827,lHTVUmgsQIxGI9WqCCXnQw,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",49.0000156,8.4033877,12,3.5,BW,68687
+828,XCPhxkTG4C7BnLIeewPwUA,"[u'Nightlife', u'Dance Clubs']",49.0023,8.36439,4,4.0,BW,68861
+829,TxXxBOiBEyHZfVfRnduECA,"[u'Kebab', u'Restaurants']",49.0103,8.40166,4,4.5,BW,68862
+830,rCj_SENiF0dwX1qiCzQ0tg,"[u'Massage', u'Beauty & Spas']",49.01,8.40659,8,3.5,BW,68863
+831,Rw3wYzqmc_GtI8Ocx2xHUA,"[u'Kebab', u'Restaurants']",49.0067,8.41033,5,4.0,BW,68864
+832,UhT3MBAwJKEBXUxui8ggrg,"[u""Women's Clothing"", u'Fashion', u'Shopping']",49.006,8.40278,3,2.5,BW,68865
+833,t19dYb7sygky_uSFze7nlg,"[u'Kebab', u'Restaurants']",49.0084,8.39153,17,3.5,BW,68866
+834,-u_0NiWheH6iz8ONMDv-og,[u'Restaurants'],49.01,8.36957,7,3.5,BW,68867
+835,WFvTk1sfSHMLCQkxzk0jlg,"[u'Department Stores', u'Fashion', u'Shopping']",49.0095,8.40234,13,4.0,BW,68868
+836,L4NBf0qY6wE2jQCD3ui9sA,"[u'Food', u'Coffee & Tea Supplies']",49.0042,8.4078,3,4.5,BW,68869
+837,rrcU9G5p62u9CTQOTIBIxQ,"[u'Moroccan', u'Restaurants']",49.0111,8.36559,8,4.0,BW,68870
+838,FfJOOwYH4yRGKlBoZZcUfg,"[u'Nightlife', u'Dance Clubs']",49.0091,8.39113,3,2.5,BW,68871
+839,uYHtexRRnIWpxXkfnYIvcQ,[u'Restaurants'],49.0269,8.46418,5,3.0,BW,68872
+840,rOVEvIMMA0f7-PakoMtjtA,"[u'Active Life', u'Lakes', u'Restaurants']",49.0168,8.36126,7,2.5,BW,68873
+841,nibjXk78MTLgs3NrLVs2GA,"[u'Bars', u'Pool Halls', u'Sports Bars', u'Nightlife']",48.9419,8.26256,5,1.5,BW,68874
+842,bi7VIc7INLhKaYZqBJR_8Q,"[u'Chinese', u'Restaurants']",49.0443,8.39407,16,3.5,BW,68875
+843,B8N9wQBMktl0qwz3-22n6w,"[u'Automotive', u'Auto Parts & Supplies', u'Car Dealers']",49.0083,8.4169,4,4.5,BW,68876
+844,yGgSNX8uJ6cKJQzLfmIjIQ,"[u'Arts & Entertainment', u'Cinema']",49.0109,8.39512,4,4.5,BW,68877
+845,HYWs2uSBdFgj73yvKm7gLQ,"[u'Bars', u'Cafes', u'Nightlife', u'Restaurants']",49.0091,8.40311,4,4.0,BW,68878
+846,uKN9qKI9_FUJya2tQc2S_Q,"[u'Kebab', u'Restaurants']",49.0783,8.38828,8,4.5,BW,68879
+847,HN7n-Ms4X-sXn2Yz-pKgwA,"[u'Shopping', u'Home Decor', u'Home & Garden']",49.0059,8.40308,3,5.0,BW,68880
+848,3M9El2CzdEeSJUuDzZkslg,"[u'Bakeries', u'Food']",49.0091,8.37639,19,2.5,BW,68881
+849,qjK0z9LZCJa8p4JljmC11w,"[u'Food', u'Grocery']",48.9204,8.37438,3,3.5,BW,68882
+850,T3k3GslUxFXnEAFSMGvNwg,"[u'Bars', u'Nightlife']",49.0016,8.40675,9,5.0,BW,68883
+851,xDgwDsrhS3S4Jb25qW2vZA,"[u'Cafes', u'Restaurants']",49.0075,8.40768,11,4.0,BW,68884
+852,Xip3lJW6qUXCWoP8ieGF7g,"[u'Pubs', u'Bars', u'Cafes', u'Nightlife', u'Restaurants']",49.0022,8.40796,8,4.5,BW,68885
+853,_BTySD9rDdvEH5ftVE4adQ,"[u'Fashion', u'Shopping']",49.0097,8.39478,8,3.5,BW,68886
+854,Qzpjop2y6h2B646l-fl4Iw,"[u'Champagne Bars', u'Bars', u'Nightlife']",49.0045,8.43061,6,3.5,BW,68887
+855,DPQt9KMXB9i0lF7ib3F5Mw,[u'Restaurants'],49.0089,8.46856,30,3.0,BW,68888
+856,TnFAFcoYTEwGD5E8m0z0Og,"[u'Kebab', u'Restaurants']",49.0424,8.44355,7,4.5,BW,68889
+857,dCbLF_ttaqLxUcdW0n0S8g,"[u'Arts & Entertainment', u'Festivals', u'Christmas Markets']",49.0299,8.36877,3,3.5,BW,68890
+858,ryf9ITBNPAwT0dq0qFTrkg,[u'Restaurants'],49.0154,8.39756,11,4.5,BW,68891
+859,UPA058i2o2W_3F5PvnlU1g,"[u'Restaurants', u'Italian']",49.0108,8.35596,4,3.0,BW,68892
+860,S_N2AIRJLgv8MVNnwe40Qg,"[u'Hair Salons', u'Beauty & Spas']",49.0056,8.40342,6,3.0,BW,68893
+861,JpQ39ls7X6SHuRywHofweQ,"[u'Bars', u'Nightlife', u'Lounges']",49.0051,8.39439,3,3.5,BW,68894
+862,kJYmRN3h_Uihnje_mEQlvw,"[u'Fast Food', u'Asian Fusion', u'Restaurants']",49.0049181545,8.45026210857,3,3.0,BW,68895
+863,HWbMWSe_ZTE_tzP9ocim4Q,"[u'Asian Fusion', u'Chinese', u'Restaurants']",48.9412,8.40781,9,3.0,BW,68896
+864,V3uUrc-aM1z5TCersU_RSQ,"[u'Fast Food', u'Restaurants']",49.0185,8.35627,4,3.0,BW,68897
+865,dzZnC5YVzZVzW0he28HwEA,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",48.9845,8.39833,6,3.0,BW,68898
+866,QkttdZaXAt5csTYffJvVfg,"[u'German', u'Restaurants']",48.9162,8.28885,6,3.5,BW,68899
+867,3vhkvCQizEJqcPfdURBj3g,"[u'Restaurants', u'Italian']",49.0103,8.39786,11,3.5,BW,68900
+868,WIZor-PCkR7ZnSIw7FtdQA,"[u'Bars', u'Sports Bars', u'Nightlife']",48.997,8.39384,6,3.5,BW,68901
+869,0123BsbSufx_cKhbbVWmIQ,"[u'German', u'Restaurants']",49.0108,8.44033,3,4.5,BW,68902
+870,n5FnfX35tQgiWPHw1gNH0w,[u'Food'],49.0249,8.39842,4,4.0,BW,68903
+871,_v0l_NYqRLE12GJMflm4Zg,"[u'Food', u'Vietnamese', u'Juice Bars & Smoothies', u'Restaurants']",49.0109,8.39556,17,4.0,BW,68904
+872,XOfQK8EptEGG6DEQGTIfZw,"[u'Pizza', u'Restaurants']",49.0521,8.53168,4,4.0,BW,68906
+873,zM64LVtsIiPojs1SBECBNA,"[u'German', u'Beer Garden', u'Restaurants']",49.0987,8.52754,12,4.0,BW,68907
+874,eHrMM9fBLZAtGrU7yCNm-g,"[u'Landmarks & Historical Buildings', u'Public Services & Government']",49.0091,8.41772,4,3.0,BW,68908
+875,Mhv_TCsXRVOfeatAZnm3xg,"[u'German', u'International', u'Restaurants']",49.0051,8.32635,11,5.0,BW,68909
+876,u_QcgQDztf0juiqHooRqxQ,[u'Restaurants'],49.0318,8.38735,7,4.5,BW,68911
+877,BXFghFhSCtHsl0x85qUH1w,"[u'Active Life', u'Skating Rinks']",49.0079,8.40082,6,4.0,BW,68912
+878,Sx2rwD5PWZgQzS_T7Czz-A,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",48.9973,8.39339,3,4.5,BW,68913
+879,1kvSE6sDMloFO9FeHlKmqw,"[u'Food', u'Grocery']",49.0073,8.38907,3,4.0,BW,68914
+880,2t-6PSu5S0sx_0d8Au7SZg,"[u'Food', u'Ice Cream & Frozen Yogurt']",49.0305,8.36878,4,3.5,BW,68915
+881,FpdNzWH9nEHHXfRvZ2tmqA,"[u'Bistros', u'Asian Fusion', u'Chinese', u'Restaurants']",48.9406,8.40394,3,2.0,BW,68916
+882,H9FMHAE6UK55RH0N6yItEA,"[u'Food', u'Food Delivery Services', u'Restaurants', u'Italian']",49.0074,8.53064,7,4.5,BW,68917
+883,CgiGV6dmRaI3EiRXPOWrQg,"[u'Nightlife', u'Dance Clubs']",49.0093,8.39176,6,3.5,BW,68919
+884,jICAZqd25tqWiOdErWgufA,"[u'Restaurants', u'Italian']",48.9978851,8.4634279,7,4.5,BW,68920
+885,iEg59rSBqgoASuyCGV3oMw,"[u'Mediterranean', u'Restaurants']",48.9949,8.46257,24,4.5,BW,68921
+886,CZupdTHskax-eCRbiX0LAg,"[u'Active Life', u'Swimming Pools']",49.0256,8.44493,11,3.5,BW,68922
+887,oZpN9T996T1M3eDiATfOCg,"[u'Modern European', u'International', u'Swiss Food', u'Restaurants']",48.9421,8.40788,9,4.5,BW,68923
+888,1quHOEjmPf2-M1au4E99YQ,[u'Active Life'],49.035,8.42884,3,4.0,BW,68925
+889,o7ITdXYbYHI8cY7kKi3RqA,"[u'Hotels & Travel', u'Transportation', u'Ferries']",48.9773,8.25678,5,4.0,BW,68926
+890,uz062TQVC0VZEemYUD3UGw,"[u'Banks & Credit Unions', u'Financial Services']",48.999,8.46475,3,2.5,BW,68927
+891,yZpwR6FB0jSd8TlfoX3LaA,"[u'Food', u'Grocery']",48.9996,8.36951,5,3.5,BW,68928
+892,LmGNs_JUEzpaJ_I_2O90vA,"[u'German', u'Greek', u'Mediterranean', u'Restaurants']",48.969,8.3283,4,4.5,BW,68929
+893,AvC6wcZ_BJFqLP3KtnU1Yw,"[u'Chinese', u'Restaurants']",49.0106766585,8.39623723179,11,5.0,BW,68931
+894,lSZ1IMqd3ctUB9mzf22AEQ,"[u'Restaurants', u'Kebab', u'Turkish']",49.0095,8.39541,7,3.0,BW,68932
+895,EvFikmxgDw6a69Y1BSxqXQ,"[u'Bars', u'Cocktail Bars', u'Nightlife']",49.0101,8.39468,8,3.0,BW,68933
+896,hfl9dNooP69TCQus3tfaGQ,"[u'Curry Sausage', u'Beer Gardens', u'Nightlife', u'Restaurants']",49.0127,8.4275,6,2.5,BW,68934
+897,QnClRGIbIj3Ad2CAueSRQw,"[u'Brasseries', u'Restaurants']",49.0029,8.35589,24,3.0,BW,68935
+898,w77OpJidFdGAUTs1TJ7E2w,"[u'Local Services', u'Printing Services']",49.0083,8.40905,3,4.5,BW,68936
+899,iKFaOwdFxiWutQPaUUNmng,"[u'Music Venues', u'Arts & Entertainment', u'Nightlife', u'Dance Clubs']",49.0052667602,8.42974772838,5,4.5,BW,68937
+900,NGVIpkvMko7HBIR5dSf97w,"[u'Food', u'Ice Cream & Frozen Yogurt']",49.0056,8.40342,4,3.5,BW,68938
+901,yT2lyh79mSDSQaKR7JCMfw,"[u'Health & Medical', u'Hospitals']",48.9725,8.41187,3,5.0,BW,68939
+902,rE-MBRj1Nf3pnzEQ0msotA,"[u'Food', u'Ice Cream & Frozen Yogurt']",48.940822828,8.40636807466,6,3.5,BW,68940
+903,H3mGN-sqRLpXrHlhbc_8zA,"[u'Restaurants', u'Pizza', u'Italian']",49.0054,8.38488,3,3.5,BW,68941
+904,5jb7i9_803c0YejTudYzHA,"[u'Fast Food', u'Asian Fusion', u'Restaurants']",49.0103,8.38512,13,4.0,BW,68942
+905,tbLeodBE9W6ozoDgYuXM7w,"[u'Home & Garden', u'Flowers & Gifts', u'Shopping', u'Home Decor', u'Florists']",49.0118,8.3954,3,5.0,BW,68943
+906,_Fi4b5lYGsKhI4iCw7j_BQ,"[u'Chinese', u'Restaurants']",49.0106,8.42177,3,4.0,BW,68944
+907,G_VRJTVzdSUE5ThIWUPchQ,"[u'Active Life', u'Swimming Pools', u'Lakes']",48.9159,8.36938,7,5.0,BW,68945
+908,ExFAJB0sH2M4pCeH88U8Ag,"[u'Turkish', u'Pizza', u'Kebab', u'Restaurants']",49.00888445,8.39165550926,8,4.5,BW,68946
+909,mVwUmftw4KcmLepuCyBosA,"[u'Active Life', u'Zoos']",48.9921,8.41617,3,4.5,BW,68947
+910,lxptrd5mnV0dZ9aTKEOy0g,"[u'German', u'Restaurants']",48.9949,8.49404,20,3.5,BW,68948
+911,0OTWK0GcabvOWfaqqJsBxw,"[u'Kebab', u'Restaurants']",49.0116,8.36299,4,4.0,BW,68949
+912,QKSTvcCbYHtCKST2AQ9W4Q,"[u'Active Life', u'Arts & Entertainment', u'Swimming Pools']",48.9976,8.47243,4,4.0,BW,68950
+913,h19yI0EpnAmZ6u-8FaMHrA,"[u'Hotels & Travel', u'Restaurants']",49.0378,8.30596,6,3.5,BW,68951
+914,qK447qQ0UYOGGWjlZDxycQ,"[u'Food', u'Food Delivery Services', u'Restaurants']",49.0151,8.37556,5,1.5,BW,68952
+915,3O0EjrfbFtc0VQ0QKoO9AA,"[u'Food', u'Coffee & Tea']",49.0109,8.39899,8,4.0,BW,68953
+916,-bSXOBQQMFS93NGm5j-VkA,"[u'Restaurants', u'Italian']",48.9744,8.40458,12,4.0,BW,68954
+917,nWU6WkITLvsIQLfdunpvWg,"[u'Books, Mags, Music & Video', u'Shopping', u'Bookstores']",49.0015,8.39405,8,4.5,BW,68955
+918,D-ZURROjgKZ9f8fxYXnvBg,[u'Restaurants'],49.0091,8.37994,5,2.0,BW,68956
+919,O44eQVnZciZXU-nQaiKIPw,[u'Restaurants'],49.0009,8.39363,8,4.0,BW,68957
+920,qpoBgU3CRaJp2_QYMIleBw,"[u'Cafes', u'Restaurants']",49.0116,8.3657,3,3.0,BW,68958
+921,E3iQVRnC-EYn_F6jdRU25g,"[u'Restaurants', u'Italian']",49.0086,8.37519,4,4.5,BW,68959
+922,6KnkxYDRGirlePVnVTvD7A,"[u'Bars', u'Sports Bars', u'Nightlife']",49.0049,8.39443,4,3.5,BW,68960
+923,S6JeWO2aq4HEK0JL6vu4Uw,"[u'Active Life', u'Swimming Pools']",48.939,8.41609,12,4.0,BW,68961
+924,DvzTiBV8EtCQy1VuTbZOQQ,"[u'Bars', u'Mediterranean', u'Nightlife', u'Lounges', u'Restaurants']",49.0081,8.37411,10,4.0,BW,68962
+925,14FahioZzo_F5LlscNzcUw,"[u'Kebab', u'Restaurants']",48.91062,8.25346,3,3.0,BW,68963
+926,ksC0xdA6QeNuLpew_Lvluw,"[u'German', u'French', u'Restaurants']",49.0073,8.39325,24,3.5,BW,68964
+927,dyZjJa644Es2HvJT96_6xQ,"[u'Chinese', u'Restaurants']",48.9404,8.40752,3,4.0,BW,68965
+928,py1vmsHVB6woGVXwtZtbVQ,[u'Hotels & Travel'],48.9981,8.37463,3,4.5,BW,68966
+929,W-Wl0bCoetWp4f98DJ7iiA,"[u'Thai', u'Vietnamese', u'Chinese', u'Restaurants']",49.0105,8.40199,3,4.5,BW,68967
+930,MEqB2Dve64rklDl9GE-kRg,"[u'Hair Salons', u'Beauty & Spas']",49.0079,8.42393,3,3.5,BW,68968
+931,kk7lDdUu-VwutyeKhpBQLw,"[u'Bars', u'Nightlife']",48.9315,8.26951,3,5.0,BW,68969
+932,sZkbuP7RPo7PQjOPbt3i4Q,"[u'Kebab', u'Restaurants']",49.0024,8.4034,6,3.5,BW,68970
+933,dkbalwKdoNnRWZJE-zcGmA,"[u'Asian Fusion', u'Chinese', u'Restaurants']",49.0521,8.5319,4,4.5,BW,68972
+934,k3anEHyapYdF6w8AlGYTzA,"[u'Food', u'Specialty Food', u'Chocolatiers & Shops']",49.0097,8.40318,3,3.5,BW,68973
+935,loHbUdrPuno1drdYgm2tdQ,"[u'Hotels & Travel', u'Public Transportation', u'Transportation']",48.9984,8.48114,4,5.0,BW,68974
+936,HFCGZPpfnHpCDfLYRjjkng,"[u'Cafes', u'Restaurants']",49.0089,8.40884,7,4.5,BW,68975
+937,92bAvTJN_wKOUwygwAAlQw,"[u""Children's Clothing"", u'Fashion', u'Shopping']",49.0118,8.39799,3,3.5,BW,68976
+938,5wUave1meYwsd6UFdihW4w,"[u'German', u'Restaurants']",48.9188,8.37076,9,4.0,BW,68977
+939,sb2e9t3cOqUamkdXUnSy9w,"[u'Massage', u'Beauty & Spas']",48.9987,8.46615,3,5.0,BW,68978
+940,4XZmBXSb-IvtkQ2nx_TQSg,"[u'Chinese', u'Restaurants']",48.9426,8.40896,10,3.0,BW,68979
+941,eYwk23GQRyxdTFsW7vzi0g,"[u'German', u'Hotels & Travel', u'Guest Houses', u'Restaurants']",48.914,8.49461,3,4.5,BW,68981
+942,G0l7qwpaS_4l-D86ObrVaQ,"[u'Dermatologists', u'Doctors', u'Health & Medical']",49.0098,8.3987,5,3.0,BW,68982
+943,19o_H_ZodCiXvn_gxsPO6w,"[u'Active Life', u'Playgrounds']",48.9962,8.49125,4,4.5,BW,68983
+944,qGYtcAOItY3ys7CdZ-Q4xA,"[u'Doctors', u'Health & Medical', u'Obstetricians & Gynecologists']",49.0078,8.39506,3,4.5,BW,68986
+945,CiGZR0Hr7YY6_GqcBIttxg,"[u'Fast Food', u'Restaurants']",49.0094,8.40955,6,3.5,BW,68987
+946,fTIdlK_b1_C5ZDAzUx2CBw,"[u'Bars', u'Cocktail Bars', u'Nightlife']",49.0007,8.38606,5,2.5,BW,68988
+947,SjAnB4unBymlvlXe8ltMOw,"[u'Chinese', u'Restaurants']",49.0067,8.4036,4,4.0,BW,68989
+948,kUsNaD4NZ1Gh_kDXjTq6GQ,"[u'Hotels & Travel', u'Bed & Breakfast']",49.0087,8.38526,4,3.0,BW,68990
+949,Ey6Keed9-Sn-9t9PsBT2dQ,"[u'Landmarks & Historical Buildings', u'Public Services & Government']",49.0015,8.40807,10,4.0,BW,68991
+950,DUc-A2ZYS3BFE2wl-rslvw,"[u'Food', u'Ice Cream & Frozen Yogurt']",48.9371,8.41583,4,4.0,BW,68992
+951,QarmS4FAf3tlWMbHaCksvw,"[u'Thai', u'Chinese', u'Restaurants']",49.0105,8.40164,10,4.5,BW,68996
+952,bemaKNgSiq2pWvfUCmK6Zw,"[u'Hair Salons', u'Beauty & Spas']",49.0081,8.40376,3,4.5,BW,68997
+953,OPckVDslcDH7v98nwtt5jw,"[u'Restaurants', u'Italian']",49.0077,8.39338,32,3.5,BW,68998
+954,ZWBakQIVSnqIvigLt14p1w,"[u'Jazz & Blues', u'Arts & Entertainment', u'Bistros', u'Nightlife', u'Restaurants']",49.0061,8.43102,15,4.0,BW,68999
+955,wcDIREqhp_M8MFb7jRUkuA,"[u'Kebab', u'Restaurants']",49.0093,8.40715,10,3.5,BW,69000
+956,zlLkLxf0VRs05kmdKLoQ6Q,"[u'Kebab', u'Restaurants']",49.0102,8.38704,6,3.5,BW,69001
+957,rKLqywVES-dgjQ08mnqIGA,"[u'Professional Services', u'Home Services', u'Shopping', u'Mobile Phones', u'Internet Service Providers']",49.0098,8.40201,4,2.5,BW,69002
+958,klkVCqlVYBYvO3hvtmMHeA,"[u'Food', u'Ice Cream & Frozen Yogurt']",49.009,8.42338,28,4.5,BW,69003
+959,SsThJPCbJYsWr5ZOpuzk6g,"[u'Greek', u'Restaurants']",48.9773,8.39266,23,3.5,BW,69005
+960,mzvmAOdaxImvqfqmHQrEkA,"[u'Serbo Croatian', u'Restaurants']",48.9922,8.38653,12,3.5,BW,69006
+961,QURbSnCwx5NlCszp_H89Ng,"[u'Bakeries', u'Food']",49.0056,8.36872,3,2.5,BW,69007
+962,ILl4rQCUGy7092p9ZwQ0zw,"[u'Pubs', u'Bars', u'Nightlife']",49.0016,8.40783,8,4.5,BW,69008
+963,-Lhy7f1zlTNr08lBiWb_Wg,"[u'Thai', u'Vietnamese', u'Chinese', u'Restaurants']",49.0018,8.3939,6,4.5,BW,69009
+964,oTIVPCW7ca5xjAJsB6oXJw,"[u'Thai', u'Restaurants']",49.0057,8.38768,5,3.0,BW,69010
+965,xoIZ1OqEQyDRx5ppyL8Z1w,"[u'Pubs', u'Bars', u'Nightlife']",48.9983,8.40389,6,3.0,BW,69011
+966,FCLHzkBsgjZCrHy6mm5LHg,"[u'Restaurants', u'Italian']",49.0013,8.39458,8,4.0,BW,69012
+967,mMo3W7sBDKXdYeWVSeKqMw,"[u'Hair Salons', u'Beauty & Spas']",49.007,8.40578,4,4.0,BW,69013
+968,OFD83GJxZwmVCEwWjJmwsQ,"[u'Active Life', u'Arts & Entertainment', u'Soccer', u'Stadiums & Arenas']",49.0201,8.41312,14,3.0,BW,69016
+969,feuIeCASfyAsAiWJOM6Gfg,"[u'Food', u'Coffee & Tea', u'Cafes', u'Restaurants']",48.9993,8.47479,3,5.0,BW,69017
+970,SY_vl_vFvoZv59GX8V7F8Q,"[u'German', u'Restaurants']",49.0016,8.40788,9,4.0,BW,69018
+971,FCgjMGPgKIEvvtquzEtjPQ,"[u'Event Planning & Services', u'Caterers']",49.0204,8.44139,3,2.5,BW,69021
+972,oxPnV43-BYdXRpKfAWbmMg,[u'Restaurants'],49.0139485467,8.4009953408,6,3.5,BW,69023
+973,nCNrS9LrXcqG0T-rziSZRg,"[u'Kebab', u'Restaurants']",49.0012,8.42379,3,4.5,BW,69024
+974,4yesmwc2ySsEetCAcDvv4Q,"[u'Food', u'Specialty Food', u'Chocolatiers & Shops']",49.0082,8.40257,4,5.0,BW,69025
+975,tFDuF_WwCB_AI_RlgHQZ6w,"[u'Brasseries', u'Cafes', u'Restaurants']",48.9407,8.40697,8,3.0,BW,69659
+976,iQpshLrII8DHUm5zJId0fQ,"[u'Landmarks & Historical Buildings', u'Public Services & Government']",49.0088115,8.395907,14,4.5,BW,69660
+977,oJc_PmX4cvnOCsbcRahgug,"[u'Japanese', u'Restaurants']",49.0030817,8.3941871,10,4.0,BW,70019
+978,HvVAa7W0h7sRom6rYPB_Gw,"[u'Landmarks & Historical Buildings', u'Public Services & Government']",48.9881413,8.4743368,7,4.5,BW,70291
+979,X3G0dgXKUuwWTGQftOV6qQ,"[u'German', u'Greek', u'Restaurants']",49.0125259432,8.34859171562,4,4.5,BW,70350
+980,qrCIf32eIwBG8tPdjd59Xg,"[u'Restaurants', u'Italian']",49.0034758716,8.42651170795,19,3.5,BW,70364
+981,koSCCHbaAD2JYaKoEWAGvQ,"[u'Pizza', u'Kebab', u'Restaurants']",49.0093937,8.4049898,4,2.0,BW,70383
+982,nrdrdEq0x2yPknCYCLjINw,"[u'Food', u'Ice Cream & Frozen Yogurt']",48.9992,8.47008,4,5.0,BW,70629
+983,8WUOay5hclm0wjKGCRm7Sw,"[u'Cafes', u'Restaurants']",49.0009536,8.3887202,4,3.5,BW,70807
+984,DEHWrvG-2mpR0zB_HQY1pg,"[u'Restaurants', u'Italian']",49.0048437052,8.4157222582,19,3.5,BW,71013
+985,AaTTeaibNRevU2o_JbiYOg,"[u'Colleges & Universities', u'Education']",48.99595,8.39918,3,5.0,BW,71119
+986,uEj7DJDhz6QQfDtv8JE-Mg,"[u'Shopping', u'Cosmetics & Beauty Supply', u'Beauty & Spas']",49.0111629,8.3682857,5,4.0,BW,72449
+987,uh-8pp-GZFwrB6YV--tmzA,"[u'German', u'Restaurants']",48.91349,8.25344,5,4.0,BW,72536
+988,PsKXNVUfzpTGKZuAeSSgTA,"[u'International', u'Restaurants']",49.00132,8.36659,4,5.0,BW,72810
+989,rQruj9he537QGhhaZT_aBw,"[u'Asian Fusion', u'Japanese', u'Restaurants']",49.0044976221,8.41752123861,15,3.5,BW,72983
+990,J8Iumsh8ZhDIsbYuRm44AQ,"[u'German', u'Mediterranean', u'Restaurants']",49.0375090571,8.33067881606,4,4.5,BW,73121
+991,TTrw0LfWHEpZauszXsc7aQ,"[u'Cafes', u'Restaurants']",49.0109714,8.3990277,5,4.5,BW,73371
+992,2PlaD6xXItbxo0ZbjQ7iQg,"[u'Restaurants', u'Pizza', u'Italian']",49.04215,8.36618,5,4.5,BW,73392
+993,qdKwzUXhjBQJ5AlvRZxQLg,"[u'German', u'Restaurants']",48.9847005,8.402977,9,4.0,BW,74830
+994,ujc_1tzKrEEPMv9oOSF3wA,"[u'Electronics', u'Computers', u'Shopping', u'Home & Garden', u'Appliances']",49.0060805454,8.40251955606,11,2.0,BW,75298
+995,cs8VO_3-doSW0mwH-8aAjA,"[u'Thai', u'Asian Fusion', u'Restaurants']",49.0061075202,8.40833131224,4,2.0,BW,75397
+996,LYF3dfCoYHRJzImnspKMhg,"[u'Food', u'Tea Rooms', u'Coffee & Tea', u'Cupcakes']",49.0003932598,8.39546469439,3,4.5,BW,76365
+997,5_iXaDB-1Y2hHYJZ9xtSMQ,"[u'Health & Medical', u'Dentists', u'General Dentistry', u'Cosmetic Dentists']",49.00993,8.44516,3,4.0,BW,76477
+998,s9sRbsrPoRtj4D6UQik5wg,"[u'Italian', u'Pizza', u'Fast Food', u'Restaurants']",49.008202,8.396102,3,5.0,BW,76481
+999,eqJ-p_8AYeltJU2tJHURJA,"[u'Tapas Bars', u'Spanish', u'Restaurants']",49.0075091768,8.38689706328,6,3.5,BW,77199
+1000,Mk4EOhIsaGargegbZj4cyQ,"[u'Thai', u'Asian Fusion', u'Restaurants']",49.0333794,8.3337226,5,4.0,BW,77359
+1001,GZKJ-ZuZ8FR7pFDno8fSeQ,"[u'German', u'Restaurants']",49.0006,8.35169,4,4.0,BW,77663
+1002,YWAJKGTZbpIKUOhHCBzMGw,"[u'German', u'Baden', u'Mediterranean', u'International', u'Restaurants']",49.0003,8.39572,24,4.5,BW,77664
+1003,JVIBRz1ApsunKhkv4ydzhw,"[u'Chinese', u'Restaurants']",49.078,8.38519,4,3.5,BW,77665
+1004,HZc_AmZTP9UJLygjXBGlkg,"[u'Chinese', u'Restaurants']",49.0,8.38578,7,2.5,BW,77666
+1005,qnE_bJoQlbW94yLYKAeH5A,"[u'Modern European', u'German', u'Restaurants']",48.9996,8.39385,4,3.5,BW,77667
+1006,l7UvEpdtIO66VyIGvriO0w,"[u'German', u'International', u'Italian', u'Restaurants']",48.9849,8.40427,3,2.0,BW,77668
+1007,JEsKdG3DB8x8OVMUPd4rsg,"[u'Serbo Croatian', u'Restaurants']",48.9419,8.4081,6,4.5,BW,77669
+1008,EfXDe0RE17ihEkdL3r45Ug,"[u'German', u'Restaurants']",49.0292,8.33885,3,4.5,BW,77670
+1009,rdxY4ssW8wLrHUMUSSKAeQ,"[u'German', u'Dive Bars', u'Bars', u'Nightlife', u'Restaurants']",49.0068,8.41238,3,5.0,BW,77672
+1010,kZZVvob6GNtz-J5yVe10iA,"[u'German', u'International', u'Restaurants']",48.9394,8.41647,15,4.0,BW,77673
+1011,_WxiLrlNpPuERam8YuQ-dg,"[u'Restaurants', u'Italian']",49.001,8.39079,10,4.5,BW,77674
+1012,SISGZJOJtEPMZCYXTHFftA,"[u'Greek', u'Restaurants']",48.9993,8.45698,5,4.0,BW,77675
+1013,npPXKUwvNLiEpFcRjV75BA,"[u'German', u'Baden', u'French', u'Restaurants']",49.07797,8.38809,6,5.0,BW,77676
+1014,S8mldWVT5FT2IFTAP1P1lQ,"[u'German', u'French', u'Restaurants']",48.9414,8.40504,13,3.5,BW,77677
+1015,NJcyFik3drl9bOX6fsPEMg,"[u'Vietnamese', u'Restaurants']",49.0092,8.3966,17,4.5,BW,77680
+1016,2x1USZcrV-1zrEDLzaX-lw,"[u'Vegetarian', u'Indian', u'Asian Fusion', u'Restaurants']",48.9858,8.39276,5,3.5,BW,77681
+1017,GJx5yeXImKVS-_5CY18OEw,"[u'Mediterranean', u'French', u'Restaurants']",48.9413,8.40434,3,4.5,BW,77683
+1018,8dVpiN5yCnpnhW3DL-2_uA,"[u'German', u'Restaurants']",48.9327,8.26904,3,3.5,BW,77684
+1019,O7WWyfIngvJzkurqHxt-zg,"[u'Restaurants', u'Italian']",49.0757,8.39335,4,4.5,BW,77685
+1020,IUHSaYplitEtiCS_J3fy5g,"[u'German', u'Restaurants']",49.001351,8.497428,9,4.0,BW,77687
+1021,c8QK4fd-nuyLZDQu5dzLGA,"[u'German', u'International', u'Restaurants']",49.0018,8.48009,6,4.5,BW,77688
+1022,Xx6npDqT7zPufnGubcLlSQ,"[u'German', u'Greek', u'Restaurants']",48.9732,8.41535,7,4.5,BW,77689
+1023,PzT7pqZ1GKNSOaOqNSbYwA,"[u'International', u'Mediterranean', u'Restaurants']",49.0137,8.36106,7,4.5,BW,77692
+1024,_DzuCQGb8J091N0PRo4EmQ,"[u'Greek', u'Restaurants']",49.0056,8.38314,4,3.0,BW,77693
+1025,_TgKU9RQ10RfdZz8CSGEGQ,"[u'International', u'Restaurants']",49.0093,8.40339,3,3.5,BW,77694
+1026,IBIXSk96EGamXhd8jZJ04A,"[u'German', u'Restaurants']",49.0337,8.34502,4,5.0,BW,77695
+1027,f-h9a30WaGubIQjjQs-w9A,"[u'German', u'International', u'Mediterranean', u'Restaurants']",49.0026,8.40213,3,4.0,BW,77723
+1028,xljcv1ceFxU4HtMxVnby_g,"[u'Mediterranean', u'Restaurants']",49.0084,8.43031,18,4.5,BW,77724
+1029,Xl2vFM_dc7bLsriiyKzTZw,"[u'Modern European', u'German', u'Restaurants']",48.9542,8.50859,3,2.5,BW,77725
+1030,JfmueQg8DCnM8cOHMU8mAg,"[u'Restaurants', u'French', u'Alsatian']",49.0092,8.33438,9,4.0,BW,77726
+1031,xk7mi7FGWL2UeQekjie--g,"[u'German', u'Restaurants']",49.0516,8.53175,4,4.0,BW,77727
+1032,SXMFJo-4eB5YbhHYMCLYFA,"[u'German', u'International', u'Vegetarian', u'Restaurants']",49.0473,8.4547,8,3.0,BW,77729
+1033,yC1SA1PmDTZjuc6D8FMp_w,"[u'Hotels & Travel', u'Event Planning & Services', u'Hotels']",48.9215298631,8.47500142079,5,4.0,BW,78204
+1034,ewF2Yr5BGDXO6om_GsiJcA,"[u'Food', u'Patisserie/Cake Shop']",49.007221,8.3929529,8,4.5,BW,78212
+1035,2EKGrbf2_81MrtjKZeOTng,"[u'Food', u'Coffee & Tea']",49.0092676,8.4091589,5,2.5,BW,78358
+1036,2J6pdzKizFye435wkEcMpg,"[u'Burgers', u'Fast Food', u'Sandwiches', u'Restaurants']",49.0087904,8.3898076,5,4.0,BW,79229
+1037,APr27c-qEfk7RGCPFE_tug,"[u'Vietnamese', u'Restaurants']",49.0056060683,8.38486265391,4,4.5,BW,79511
+1038,sriGkDnL9vUUjXZQDFyvsQ,"[u'Chinese', u'Restaurants']",49.0107021,8.3961268,3,4.0,BW,79607
+1039,DOYwzDK08AmZJxaoCv-7Cw,"[u'Bars', u'Steakhouses', u'Cocktail Bars', u'Nightlife', u'Restaurants']",49.010457,8.3926719,8,4.0,BW,80552
+1040,IINSC_0exUY9g6sAmo87tg,"[u'Food', u'Juice Bars & Smoothies']",48.9973263131,8.40114358072,3,3.0,BW,80609
+1041,PeqiU4qUevbRas9Z7YeOcQ,"[u'German', u'Gastropubs', u'Restaurants']",49.0058300711,8.43144959725,8,4.5,BW,81394
+1042,zEgusBF95RMBH2NP6X-3NQ,"[u'Food', u'Beer, Wine & Spirits']",49.0084614,8.3761187,5,5.0,BW,81654
+1043,wSGnhcKdwG0HdyxNhJPm4Q,[u'Restaurants'],49.010504,8.393088,6,4.0,BW,81805
+1044,YiGyXgA9lAFFZcu_JkP0qw,"[u'Food', u'Grocery']",48.9454278,8.3894149,3,3.5,BW,82285
+1045,vkFC4achkRF1B1ank-Hesg,"[u'Food', u'Coffee & Tea']",49.0039886,8.4076606,9,4.0,BW,82411
+1046,CFoN6P3YWTBEfCIRrTsYbA,"[u'Burgers', u'Beer Gardens', u'Nightlife', u'Restaurants']",49.0102279845,8.39779706841,6,3.5,BW,82540
+1047,1jDHVggroVhQAKLdktUhug,"[u'Sushi Bars', u'Restaurants']",49.009389,8.3943522,6,2.5,BW,82612
+1048,0hyxpJFwjaeTunP0IX0KZA,"[u'Food', u'Farmers Market']",49.0088777,8.3755615,7,4.0,BW,82938
+1049,VkXW8B9SSJJkLZoj-tnEvg,"[u'Food', u'Burgers', u'Food Trucks', u'Vegan', u'Restaurants']",49.0057831,8.4066376,3,3.5,BW,83240
+1050,K6QPz6vAacAxBP7h6kdEaw,"[u'Pubs', u'Bars', u'Nightlife']",49.0076340584,8.41450106353,3,4.0,BW,83660
+1051,LHYZbX-BaPg3k7xn5EG5Ug,"[u'Burgers', u'Restaurants']",49.0109530893,8.3959646523,9,4.0,BW,83940
+1052,0NWm7KorY2NDl9jAjZPTRw,"[u'Thai', u'Restaurants']",49.0062086,8.4082587,4,4.5,BW,84182
+1053,Df8FjaoiZveDswmFihT7Yw,"[u'Burgers', u'Restaurants']",49.0093382452,8.42393606901,3,4.0,BW,84946
+1054,-uEWETyry6mI6Jaq-nfucw,"[u'Burgers', u'Restaurants']",49.0078619,8.40366,4,3.0,BW,85689

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 10;
+        padding: 10;
+      }
+      #map {
+        height: 100%;
+      }
+      #get_recommendation_button {
+        height:30px; width:150px;
+      }
+      #keywords_input {
+        height:30px; width:150px;
+      }
+    </style>
+  </head>
+
+
+  <body>
+    <div id="floating-panel">
+
+      Choose City:
+      <select id="city_name_selector">
+        <option value="us_charlotte">Charlotte, USA</option>
+        <option value="us_lasvegas">Las Vegas, USA</option>
+        <option value="us_madison">Madison, USA</option>
+        <option value="us_phoenix">PHoneix, USA</option>
+        <option value="us_pittsburgh">Pittsburgh, USA</option>
+        <option value="us_urbana_champaign">Burbana Champaign, USA</option>
+
+        <option value="canada_montreal">Montreal, Canada</option>
+        <option value="germany_karlsruhe">Karlsruhe, Germany</option>
+        <option value="uk_edinburgh">Edinburgh, UK</option>
+      </select>
+
+      Enter keywords here:
+      <input type="text" id="keywords_input" value="Restaurants">
+      <button id="get_recommendation_button" onclick="getRecommendation()">Get Recommendation!</button>
+      <!-- <button id="drop" onclick="dropMarksOntoMap()">Drop Markers</button> -->
+    </div>
+
+    <div id="map" style="width: 100%; height: 90%;float:left"></div>
+    <!-- <div id="recommended_businesses" style="width: 25%; height: 90%;float:left"></div> -->
+
+    <script>
+      function getRecommendation() {
+        var keywords = document.getElementById('keywords_input').value;
+        var city_name = document.getElementById('city_name_selector').value;
+
+        if(keywords == null) {
+          keywords = "food";
+        }
+
+        var url = 'http://0.0.0.0:5000/user_id/10081786/city/' + city_name + '/top/30/keywords/' + keywords;
+        window.location.href = url;
+      }
+
+      window.onload = function() {
+        dropMarksOntoMap();
+      };
+
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+      };
+
+      // the latitudes and longitudes of recommended businesses
+      lat_list = {{lat_list}};
+      lng_list = {{lng_list}};
+      stars_list = {{stars_list}};
+      review_count_list = {{review_count_list}};
+      console.log(review_count_list)
+      //categories_list = {{categories_list}};
+
+      var neighborhoods = []
+      for (var i = 0; i < lat_list.length; i++) {
+        neighborhoods.push({lat: lat_list[i], lng: lng_list[i]})
+      }
+      var center;
+
+      if (neighborhoods.length != 0) center = neighborhoods[0];
+      else center = {lat: 37.869085, lng: -122.254775};
+
+      var markers = [];
+
+      var contentString = "hello world!!!";
+
+      var infowindow;
+
+      var mapOptions = {
+        center: center,
+        zoom: 10,
+        zoomControl: true,
+        mapTypeControl: true,
+        scaleControl: true,
+        streetViewControl: true,
+        rotateControl: true,
+        fullscreenControl: true,
+      };
+
+      function dropMarksOntoMap() {
+        clearMarkers();
+        for (var i = 0; i < neighborhoods.length; i++) {
+          console.log(review_count_list)
+          addMarkerWithTimeout(neighborhoods[i], 
+            stars_list[i], 
+            review_count_list[i],
+            //categories_list[i],
+            i * 20);
+        }
+      }
+
+      function addMarkerWithTimeout(position, star, review_count, /*categories,*/ timeout) {
+        window.setTimeout(function() {
+          var m = new google.maps.Marker({
+            position: position,
+            map: map,
+            animation: google.maps.Animation.DROP
+          });
+          
+          console.log(review_count)
+          infoWindowStr = "Star: " + star + "<br>" + 
+          "Review count: " + review_count + "<br>";
+          // "Categories: " + categories;
+          // '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
+          // 'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+          // '(last visited June 22, 2009).</p>';
+
+          infowindow = new google.maps.InfoWindow({
+            content: infoWindowStr
+          });
+
+          m.addListener('click', function() {
+            infowindow.open(map, m)
+          });
+          markers.push(m);
+        }, timeout);
+      }
+
+      function clearMarkers() {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+        }
+        markers = [];
+      }
+
+      
+      
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCe0xb02xLeWgFCqIivYntdQU7-7jBCAL4&callback=initMap"
+    async defer></script>
+  </body>
+</html>
