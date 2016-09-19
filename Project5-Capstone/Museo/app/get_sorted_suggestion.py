@@ -68,10 +68,21 @@ def get_sorted_dic(lst):
         dic[idx+1] = [item[0], item[1]]
     return dic
 
+def get_unique_recom(master_srt_lst):
+    unique_name = list(set([i[0]for i in master_srt_lst]))
+    uni_lst = []
+    for i in master_srt_lst:
+        if i[0] in unique_name:
+            uni_lst.append([ i[0],i[1] ])
+            unique_name.pop(unique_name.index(i[0]))
+
+    return uni_lst
+
 if __name__ == "__main__": 
     museum_lst = get_museum_lst(sys.argv[1])
     master_srt_lst = get_master_srt_lst(museum_lst)
-    sorted_lst = sort_list(master_srt_lst)
+    uni_lst = get_unique_recom(master_srt_lst)
+    sorted_lst = sort_list(uni_lst)
     top_lst = exclude_selected(museum_lst, sorted_lst)
     sorted_dic = get_sorted_dic(top_lst)
     to_json('sorted_suggestion', sorted_dic)     
