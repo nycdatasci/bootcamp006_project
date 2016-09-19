@@ -1,8 +1,19 @@
 # Yelper: A Matrix Factorization Based Recommendation System
 
+ __     __  _                 
+ \ \   / / | |                
+  \ \_/ /__| |_ __   ___ _ __ 
+   \   / _ \ | '_ \ / _ \ '__|
+    | |  __/ | |_) |  __/ |   
+    |_|\___|_| .__/ \___|_|   
+             | |              
+             |_|              
+
 Chuan Sun 
-chuansun76 at gmail dot com
-twitter.com/sundeepblue
+
+[chuansun76 at gmail dot com]
+
+[twitter.com/sundeepblue]
 
 
 This README file describes several major component of the "Yelper", a business recommendation system built mainly in Python using Spark framework.
