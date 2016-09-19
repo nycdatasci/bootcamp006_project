@@ -1,12 +1,17 @@
 # Yelper: A Matrix Factorization Based Recommendation System
 
+Chuan Sun 
+chuansun76 at gmail dot com
+twitter.com/sundeepblue
+
+
 This README file describes several major component of the "Yelper", a business recommendation system built mainly in Python using Spark framework.
 
 Below are some features of the "Yelper":
 
 - Divide original business data by cities allows fine tuned and customized recommendation
 - Matrix Factorization based recommendation using Spark MLlib
-- User-business graph anallysis using Spark GraphX in Scala
+- User-business graph analysis using Spark GraphX in Scala
 - Real-time user request handling using Spark Streaming and Apache Kafka
 - User-business graph visualization using D3 and graph-tool library
 - Functional webserver to recommend high rated stuff for users
@@ -75,7 +80,7 @@ Run this command to prepare mf based model for each major city:
 
 The purpose here is to simulate continuous user request handling.
 
-### STEP 0: start kafka 
+### STEP 0: Start Zookeeper and Kafka server
 Note that kafka zookeeper default port is 2181 not 9092! And, the zookeeper server and kafka server should be started in two separate terminals.
 
 - $ cd /Users/sundeepblue/Bootcamp/allweek/week9/capstone/kafka/kafka_2.11-0.10.0.1
@@ -87,7 +92,7 @@ Note that kafka zookeeper default port is 2181 not 9092! And, the zookeeper serv
 
 ### STEP 2: Launch Spark Streaming
 
-Note that this command should also be run in a new terminal. use port 2181 and use topic: "user-request-topic"
+Note that this command should also be run in a new terminal. Use port 2181 and use this topic: "user-request-topic"
 
 - $ cd /Users/sundeepblue/Bootcamp/allweek/week9/capstone
 - $ spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.0.0 ./handle_user_requests_streaming.py
