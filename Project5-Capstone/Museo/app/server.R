@@ -3,7 +3,7 @@ library(leaflet)
 library(rjson)
 library(tools)
 
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
     
     observe({
         recom_lst = museumInput()
@@ -121,7 +121,7 @@ shinyServer(function(input, output) {
         }
         
         # print (museum_names)
-        command_line = paste0('/Users/annecool37/anaconda2/bin/python get_sorted_suggestion.py "', museum_names, '"')
+        command_line = paste0('/usr/bin/python get_sorted_suggestion.py "', museum_names, '"')
         
         # print (command_line)
         # pass the selected museum names into python to compute consine similarity
@@ -143,7 +143,7 @@ shinyServer(function(input, output) {
                              popup = ~paste('<b><font color="#0a0a0a" size = "4">',MuseumName,'</font></b><font color="#595959"><br/>',
                                             "<img src=", img_link, " width = 250px><br/>",
                                             'Rating:',format(round(PreciseRating, 2), nsmall = 2),'<br/><br/>#',Rank, 'of ',
-                                            TotalThingsToDo,'things to do in this city<br/><br/>','Address:',Address, 
+                                            TotalThingsToDo,'things to do in this city<br/><br/>','Address:',Address,
                                             '<br/><br/>','Description:','<br/>',Description, '</font>')) %>%
             addLegend("bottomright", pal = pal, values = ~ museum_complete$Rating,
                       title = "Rating", opacity = 0.8)
@@ -211,15 +211,18 @@ shinyServer(function(input, output) {
         # observe the user selection to filter the museums that satisfy the criteria
         new_museum = mapInput()
         museum_complete = new_museum[which(!is.na(new_museum$Latitude)),]
-        leafletProxy("map", data = museum_complete) %>%
+        
+        leafletProxy("map",session,  data = museum_complete) %>%
             clearMarkerClusters() %>%
             addCircleMarkers(~Langtitude, ~Latitude, clusterOptions = markerClusterOptions(),
                              fillColor = ~pal(Rating), fillOpacity = 0.7, stroke = FALSE,
                              popup = ~paste('<b><font color="#0a0a0a" size = "4">',MuseumName,'</font></b><font color="#595959"><br/>',
                                             "<img src=", img_link, " width = 250px><br/>",
                                             'Rating:',format(round(PreciseRating, 2), nsmall = 2),'<br/><br/>#',Rank, 'of ',
-                                            TotalThingsToDo,'things to do in this city<br/><br/>','Address:',Address, 
+                                            TotalThingsToDo,'things to do in this city<br/><br/>','Address:',Address,
                                             '<br/><br/>','Description:','<br/>',Description, '</font>'))
+        
+        print(nrow(museum_complete))
     })
     
     
