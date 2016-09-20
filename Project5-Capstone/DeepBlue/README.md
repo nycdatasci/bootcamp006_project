@@ -1,4 +1,4 @@
-# Yelper: A Matrix Factorization Based Recommendation System
+# Yelper: A Collaborative Filtering Based Recommendation System
 
 Chuan Sun 
 
@@ -162,13 +162,21 @@ The javascript file "./webserver/static/data/generated_nodes_and_edges_from_json
 
 
 
-# 7. TODOs
+# 7. Future works
 
-- Redirect spark execution log to txt file
-- Add try/except
-- Add more comments
-- Fine tune the webpage to support more features
-- etc
-
+- More graph analysis
+    - Graph pagerank analysis using GraphX
+    - Community discovery (similar to Facebook social network)
+- Improve recommendation
+    - Content-based recommendation
+    - Clustering all businesses
+    - Extract object from business photos using Convolutional Neural Network
+- Code
+    - Redirect spark execution log to txt file
+    - Add try/except to handle potential exceptions in codes
+    - Add more comments
+    - Add test cases for critical logics
+- Google Map based web page
+    - Fine tune the webpage to support more features
 
 
