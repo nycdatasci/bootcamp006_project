@@ -12,6 +12,8 @@ from sklearn.cross_validation import train_test_split
 from sklearn import ensemble
 from requests_forecast import Forecast
 import operator
+import simplejson
+import urllib
 
 radius_complete = 0
 
@@ -76,7 +78,7 @@ def linear_regression(neighborhoods):
             ols = linear_model.LinearRegression()
             ols.fit(x_train, y_train)
 
-            neighborhoods_regression[neighborhood] = int(ols.predict(get_current_conditions()))
+            neighborhoods_regression[neighborhood] = float(ols.predict(get_current_conditions()))
     return neighborhoods_regression
 
 def trees(neighborhoods):
@@ -102,8 +104,10 @@ def trees(neighborhoods):
             np.random.seed(1)
             randomForest = ensemble.RandomForestClassifier()
             randomForest.fit(x_train, y_train) # fit
-            neighborhoods_trees[neighborhood] = (int(randomForest.predict(get_current_conditions())))
+            neighborhoods_trees[neighborhood] = (float(randomForest.predict(get_current_conditions())))
     return neighborhoods_trees
+
+
 
 
 #This function determines the neighborhoods that are within a given distance
@@ -147,8 +151,28 @@ def index():
   curlng = latlong.json()['results'][0]['geometry']['location']['lng']
   current_latlng = [curlat, curlng]
 
+  def get_distance(current_location, dest_lat, dest_lon):
+    orig_coord = '{0},{1}'.format(current_location[0], current_location[1])
+    dest_coord = '{0},{1}'.format(dest_lat, dest_lon)
+    key = 'AIzaSyBU2bHLWxzS3JPTIEmP4tBQ-DrG6Xeb1AA'
+    url_distance = "https://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=driving&departure_time=now&language=en-EN&key={2}".format(
+        str(orig_coord), str(dest_coord), str(key))
+    result = simplejson.load(urllib.urlopen(url_distance))
+    driving_distanct_km = result['rows'][0]['elements'][0]['distance']['text']
+    driving_distanct_mile = '{0} mile'.format(round(float(driving_distanct_km.split(' ')[0]) * 0.621371, 1))
+    driving_time_traffic = result['rows'][0]['elements'][0]['duration_in_traffic']['text']
 
-  returned_neighbor = trees(get_neighborhoods(current_latlng , int(radius_complete)))
+    df = [driving_distanct_mile, driving_time_traffic]
+    return df
+
+  new_dict = {}
+  # Getting the order part and stuff
+  for neighborhood in get_neighborhoods(current_latlng, float(radius_complete)):
+    traval = get_distance(current_latlng, get_neighborhoods(current_latlng, float(radius_complete))[neighborhood][0], get_neighborhoods(current_latlng, float(radius_complete))[neighborhood][1])
+    new_dict[neighborhood] = (traval[0], traval[1])
+
+
+  returned_neighbor = trees(get_neighborhoods(current_latlng , float(radius_complete)))
   max_item = max(returned_neighbor.iteritems(), key=operator.itemgetter(1))[0]
 
   #Getting directions to best neighborhood
@@ -160,7 +184,7 @@ def index():
 
 
   #Getting directions from your current location to a new latitude/longitude
-  user = {'current_location': current_loc, 'neighborhoods': max_item, 'directions': instructions} 
+  user = {'current_location': current_loc, 'neighborhoods': max_item, 'directions': instructions, 'distance': new_dict[max_item][0], 'time': new_dict[max_item][1]}
 
   return render_template('index.html',
                            title='Home',

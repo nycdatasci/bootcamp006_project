@@ -1,0 +1,26 @@
+h1 {
+  text-transform: uppercase;
+  font-size: 160px;
+    font-family: 'Medula One', cursive;
+    text-transform: none;
+    font-weight: 400;
+  margin: 30px 50px;
+  float: left;
+
+}
+
+//Sass Magic
+@mixin threedee($color) {
+  color: $color; //Sets the text to the passed in color
+  text-shadow:   //Uses shadows to create a 3D illusion
+    0 2px 0 darken($color, 14%),
+    0 4px 0 darken($color, 16%),
+    0 6px 0 darken($color, 18%), //Increase percentages to darken shadows
+    0 8px 0 darken($color, 20%),
+    3px 8px 15px rgba(0,0,0,0.1),
+    3px 8px 5px rgba(0,0,0,0.3);
+}
+
+.threedeetext {
+  @include threedee(#6d879d); //Change only this color and apply the class in your HTML
+}

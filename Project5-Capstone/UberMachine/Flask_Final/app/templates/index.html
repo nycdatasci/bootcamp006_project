@@ -4,28 +4,21 @@
 
 {% block content %}
 	<h3>You're currently near, {{ user.current_location }}</h3>
-    <h3>The Best Neighborhood Near You For Fares Is {{ user.neighborhoods }}!</h3>
-    <h4>Directions to there:</h4>
-    <!-- Put directions in here -->
-    {% for each in user.directions %}
+    <h3>The best neighborhood near you for fares is {{ user.neighborhoods }}!</h3>
+    <br></br>
+    <h4>{{ user.neighborhoods }} is about {{ user.distance }}s away, and will take about {{ user.time }} to get to.</h4>
+
     <table>
-    <thead>
-    <tr>
-    	<td>
-    		
-    	</td>
-    </tr>
-    </thead>
-    <tbody>
-    	<tr ng-repeat="each in {{ user.directions }}">
-			<td>
-				
-			</td>    		
-    	</tr>
-    </tbody>
+      <tr>
+        <th>Directions</th>
+      </tr>
+      {% for each in user.directions %}
+      <tr> 
+        <td> {{ each | safe}}
+        </td>
+      </tr>
+        </tr>
+        {% endfor %}
+
     </table>
-    <p>
-    {{ each|safe}}
-    </p>
-    {% endfor %}
 {% endblock %}

@@ -2,47 +2,22 @@
 
 {% block content %}
 	<h3>You're currently near {{ user.current }}</h3>
-    <h3>The nearest gas stations is located at {{ user.station}}</h3>
-    <h3>The gas there costs ${{ user.cost}}</h3>
+    <h3>The nearest gas station is located at {{ user.station}}</h3>
+    <h3>The gas there costs ${{ user.cost}}.</h3>
     <br></br>
-    <h4>Directions to there:</h4>
     <!-- Put directions in here -->
-    {% for each in user.gas %}
-    <table>
-    <thead>
-    <tr>
-    	<td>
-    		
-    	</td>
-    </tr>
-    </thead>
-    <tbody>
-    	<tr ng-repeat="each in {{ user.gas }}">
-			<td>
-				
-			</td>    		
-    	</tr>
-    </tbody>
-    </table>
-    <p>
-    {{ each|safe}}
-    </p>
-    <div style=padding-left: 50px> 
+<table>
+  <tr>
+    <th>Directions</th>
+  </tr>
+  {% for each in user.gas %}
+  <tr> 
+    <td> {{ each | safe}}
+    </td>
+  </tr>
+</tr>
     {% endfor %}
-    <br></br>
-    <script type="text/javascript">
-    function set_openid(openid, pr)
-    {
-        u = openid.search('<username>');
-        if (u != -1) {
-            // openid requires username
-            user = prompt('Enter your ' + pr + ' username:');
-            openid = openid.substr(0, u) + user;
-        }
-        form = document.forms['uber'];
-        form.elements['openid'].value = openid;
-    }
-    </script>
+</table>
 
     <h2>All Gassed Up? Let's Get Driving!</h2>
     <form action="/index" method="get" name="uber">

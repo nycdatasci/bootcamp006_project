@@ -2,22 +2,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-    <script type="text/javascript">
-    function set_openid(openid, pr)
-    {
-        u = openid.search('<username>');
-        if (u != -1) {
-            // openid requires username
-            user = prompt('Enter your ' + pr + ' username:');
-            openid = openid.substr(0, u) + user;
-        }
-        form = document.forms['uber'];
-        form.elements['openid'].value = openid;
-    }
     </script>
-    <div style=padding-left: 50px> 
-    <h1>Uber Driver Recomendation System!</h1>
+    <div class=splash> 
+    <h2>Uber Driver Recommendation System!</h2>
+    <div id="overlay"><img src="https://giant.gfycat.com/OffbeatDefensiveGermanwirehairedpointer.gif" alt="Be patient..." /></div>
+    
     <form action="" method="post" name="uber">
         {{ form.hidden_tag() }}
         <p>
@@ -32,9 +21,15 @@
             {% endfor %}
             -->
         </p>
+
         <p>{{ form.gas }} Do You Need Gas?</p>
+        <!--
         <p>{{ form.restaurants }} Do You Need Food?</p>
-        <p><input type="submit" value="Get Directions!"></p>
+        -->
+        <p><input type="submit" class="pure-button pure-button-primary" value="Get Directions!"></p>
+
     </form>
     </div>
 {% endblock %}
+
+
