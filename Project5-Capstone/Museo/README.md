@@ -7,7 +7,7 @@ App: http://216.230.228.88:3838/bootcamp006_project/Project5-Capstone/Museo/app/
 ### Intro
 I LOVE MUSEUMS (and FOOD). But, sometimes it takes time to find the museums that meet my interest. So, I created an application aiming to recommend museums based on users' preferences and to allow users to filter the musuems that match their needs.
 
-### Codes
+### "code" Folder
 - WebScrap_TripAdvisor.ipyn: Scraped ~1600 museums data from Tripadvisor (US/World)
 - Data_Cleaning_addingFeature.ipynb: 
   * Merge and clean US/World museums in the "Data" folder
