@@ -1,2 +1,2 @@
-# Submit your fifth machine learning project here.
-Bootcamp 5 Student Project Presentation
+# Submit your fifth capstone project here.
+Bootcamp 6 Student Project Presentation

@@ -1,0 +1,10 @@
+name: Trulia
+account: samriddhishakya
+server: shinyapps.io
+appId: 121250
+bundleId: 537107
+url: https://samriddhishakya.shinyapps.io/Trulia/
+when: 1471779214.76812
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: www/images/apt2.png

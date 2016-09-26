@@ -1,0 +1,161 @@
+
+ div#map {
+    width: 100%;
+    height: 750px !important;
+}
+
+   
+div.outer {
+  
+  top: 100px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.col-sm-6{
+left : 330px !important;
+}
+
+#hover_box {
+  /* Appearance */
+  background-color: white;
+  padding: 0 20px 20px 20px;
+  cursor: move;
+  /* Fade out while not hovering */
+  opacity: 0.65;
+  zoom: 0.9;
+  transition: opacity 500ms 1s;
+}
+#hover_box:hover {
+  /* Fade in while hovering */
+  opacity: 0.95;
+  transition-delay: 0;
+}
+
+#hover_box1:hover {
+  /* Fade in while hovering */
+  opacity: 0.95;
+  transition-delay: 0;
+}
+			  
+#plot3{
+  height:800px;
+}
+
+#plot2{
+  height:800px;
+}
+
+#plot1{
+  height:800px;
+}
+
+.field1 {
+   float:left;
+}
+
+.field2 {
+   float:grid-height;
+}
+
+#table{
+overflow-x : auto !important
+}
+
+#lambdaZero{
+  /* visibility: hidden; */
+}
+
+.slideraxis{
+   /* visibility: hidden; */
+}
+
+/* images CSS */
+    
+#slides {
+        display: none
+    }
+                         
+#slides .slidesjs-navigation {
+       margin-top:3px;
+     }
+                         
+    #slides .slidesjs-previous {
+                     margin-right: 5px;
+                         float: left;
+                         }
+                         
+                         #slides .slidesjs-next {
+                         margin-right: 5px;
+                         float: left;
+                         }
+                         
+                         .slidesjs-pagination {
+                         margin: 6px 0 0;
+                         float: right;
+                         list-style: none;
+                         }
+                         
+                         .slidesjs-pagination li {
+                         float: left;
+                         margin: 0 1px;
+                         }
+                         
+                         .slidesjs-pagination li a {
+                         display: block;
+                         width: 13px;
+                         height: 0;
+                         padding-top: 13px;
+                         background-image: url(img/pagination.png);
+                         background-position: 0 0;
+                         float: left;
+                         overflow: hidden;
+                         }
+                         
+                         .slidesjs-pagination li a.active,
+                         .slidesjs-pagination li a:hover.active {
+                         background-position: 0 -13px
+                         }
+                         
+                         .slidesjs-pagination li a:hover {
+                         background-position: 0 -26px
+                         }
+                         
+                         #slides a:link,
+                         #slides a:visited {
+                         color: #333
+                         }
+                         
+                         #slides a:hover,
+                         #slides a:active {
+                         color: #9e2020
+                         }
+                         
+                         .navbar {
+                         overflow: hidden
+                         }
+                     
+	#slides {
+                         display: none
+                         }
+                         
+                         .container {
+                         margin: 0 auto
+                         }
+.slidesjs-container{
+height : 500px !important ;
+
+}
+
+.slidesjs-control{
+height : 500px !important ;
+}
+
+.container{
+height : 550px !important ;
+width:100%
+}
+
