@@ -1,10 +1,10 @@
 # This is the user-interface definition of a Shiny web application.
 require(shinyBS)
-setwd("/Users/binfang/Documents/NYCDSA/project/Project_5/shiny_project")
+library(shinyjs)
 
 navbarPage(title="NYC Taxi Pickups Prediction",
            id = 'main',
-           theme = shinytheme("Cerulean"),
+           theme = shinytheme("cerulean"),
            # inverse=T,
            collapsible = T,
            tabPanel(title = icon('globe'),
@@ -19,8 +19,8 @@ navbarPage(title="NYC Taxi Pickups Prediction",
                                       width=140,
                                       height='auto',
                                       dateInput('slt_date',label=NULL,
-                                                value = NULL,min = '2016-09-19',
-                                                max='2016-09-25'),
+                                                value = NULL,min = '2016-09-22',
+                                                max='2016-09-28'),
                                       uiOutput('plot_type'),
                                       uiOutput('hour_output'),
                                       bsTooltip('slt_date','Date of predictions')
@@ -39,7 +39,8 @@ navbarPage(title="NYC Taxi Pickups Prediction",
                                       width='auto',
                                       height='auto',
                                       a(icon('github fa-2x'),
-                                        href='https://github.com/fangbin08/Data',target='_blank')
+                                        href='https://github.com/nycdatasci/bootcamp006_project/tree/master/Project5-Capstone/Big4',
+                                        target='_blank')
                         ),
                         uiOutput('plot_UI')
                     )

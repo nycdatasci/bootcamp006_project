@@ -3,6 +3,10 @@ library(ggplot2)
 library(ggvis)
 library(plotly)
 library(RColorBrewer)
+
+neighborhood <- taxidata$Neighborhood
+names(neighborhood) <- as.character(taxidata$Zipcode)
+
 function(input, output, session){
   
   nyczipcodecount <- reactive({
@@ -12,16 +16,19 @@ function(input, output, session){
     
     if(length(date_input) == 0)
       date_input <- 0
-    print(date_input)
-    print(input$hour)
-    count_tojoin = taxidata %>%
+
+    count_tojoin <- taxidata
+    if(!is.null(input$hour)) {
+      count_tojoin <- count_tojoin %>%
+        filter(Hour == input$hour)
+    }
+    count_tojoin = count_tojoin %>%
       filter(DayofWeek == as.character(date_input)) %>%
-      filter(Hour == 0) %>%
+      # filter(Hour == input$hour) %>%
       group_by(Zipcode) %>%
       summarise(Total = sum(Count)) %>%
       mutate(Zipcode=factor(Zipcode))
-    # print(head(count_tojoin))
-    
+
     # nyczipcode@data = merge(x = nyczipcode@data, y = count_tojoin,
     #                         by.x='GEOID10', by.y='Zipcode', all.x = TRUE)
     
@@ -36,21 +43,41 @@ function(input, output, session){
   # Create and join instant time variable to map shapefile
   # colour palette mapped to data
   
-  # Join predicted count to map shapfile
-  pal <- colorQuantile("YlGn", nyczipcode@data$Total , n = 10) 
+
   
   output$map <- renderLeaflet({
+    # Join predicted count to map shapfile
+    
+    x <- nyczipcodecount()@data$Total * 10^6 / nyczipcodecount()@data$ALAND10
+    x_unique <- unique(x[!is.na(x)])
+    colPal <- colorRampPalette(c('white', 'darkgreen'))(length(x_unique))
+    names(colPal) <- sort(x_unique)
+    
+    cols <- ifelse(is.na(x), "#808080", colPal[as.character(x)])
+    
+    zipcodes <- as.character(nyczipcodecount()@data$GEOID10)
+    count_popup <- paste0("<strong>NBH: </strong>", 
+                          neighborhood[zipcodes],
+                          "<br><strong>Zip Code: </strong>",
+                          zipcodes,
+                          "<br><strong>Count: </strong>",
+                          round(nyczipcodecount()@data$Total/3, digits = 0),
+                          "<br><strong>Density: </strong>",
+                          round(x, digits = 3),
+                          " per sq km"
+    )
+    
     basemap <- leaflet() %>%
       # leaflet::addTiles() %>%
       addProviderTiles("CartoDB.Positron") %>% 
       addPolygons(data=nyczipcodecount(),
-                           fillColor = pal(nyczipcodecount()@data$Total),
+                           fillColor = cols,
                            fillOpacity = 0.8,
                            color = "#BDBDC3",
                            stroke = TRUE,
                            weight = 2,
-                           layerId = nyczipcodecount()@data$GEOID10) %>%
-                           # popup = count_popup) %>%
+                           layerId = nyczipcodecount()@data$GEOID10,
+                  popup = count_popup) %>%
       # addMarkers(lng = -73.97,lat = 40.74) %>%
       setView(lng = -73.97,lat = 40.74, zoom = 13)
     basemap
@@ -73,8 +100,8 @@ function(input, output, session){
 
   })
 
-  observe(print(input$slt_date))
-  observe(print(typeof(as.character(input$slt_date))))
+  # observe(print(input$slt_date))
+  # observe(print(typeof(as.character(input$slt_date))))
 
  # Record marker stats
  reactive({
@@ -100,7 +127,10 @@ function(input, output, session){
          mutate(Zipcode_new = factor(Zipcode)) %>%
          mutate(Type_Zipcode = factor(paste(Type, Zipcode_new))) %>%
          ggvis(x=~Type_Zipcode, y=~`sum(Count)`, fill=~Zipcode_new) %>%
-         layer_bars(stack = FALSE)
+         layer_bars(stack = FALSE) %>%
+         add_axis("x", title = "Zip Code", title_offset = 50) %>%
+         add_axis("y", title = "Count", title_offset = 50) %>% 
+         add_legend("fill", title = "Zip Code")
        p
      }
 
@@ -127,12 +157,14 @@ function(input, output, session){
    leafletProxy('map') %>%
      clearMarkers()
    
+   click_event$Zipcode <- NULL
  })
+ 
 
   output$plot_type <- renderUI({
 
     selectInput('slt_ptype',label = NULL,
-                choices = c('Model Compare','Timeseries'),selectize = F)
+                choices = c('Model Compare','Time Series'),selectize = F)
 
   })
 
