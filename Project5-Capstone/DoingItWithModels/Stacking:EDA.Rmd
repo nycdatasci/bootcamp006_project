@@ -1,0 +1,249 @@
+---
+title: "Ames"
+author: "Jurgen de Jager"
+date: "September 7, 2016"
+output: html_document
+---
+
+#### PACKAGES
+```{r}
+library(R.utils)
+library(devtools)
+library(h2oEnsemble)
+library(h2o)
+library(h2oEnsemble) # Requires version >=0.0.4 of h2oEnsemble
+localH2O <- h2o.init(nthreads=-1, max_mem_size="6g") # Start an H2O cluster with nthreads = num cores on your machine
+```
+
+
+####DATA
+```{r}
+train1 = h2o.importFile('train.final17.ames.csv')
+test1 = h2o.importFile('test.final17.ames.csv')
+#deleting id and getting id column
+train1 = train1[,-c(1,2)]
+test1 = test1[,-1]
+Id = test1[,1]
+test1 = test1[,-1]
+h2o.assign(test1, "test")
+h2o.assign(train1, "train")
+#logging price and getting feature names
+train1$SalePrice = log(train1$SalePrice)
+y = "SalePrice"
+x = setdiff(names(train1), y)
+
+```
+
+####PLOTS
+```{r}
+#FACTORS
+p1 = ggplot(fact, aes(x = ExterQual, y = SalePrice, fill = ExterQual)) + geom_boxplot() + theme(legend.position='none')
+p2 = ggplot(fact, aes(x = KitchenQual, y = SalePrice, fill = KitchenQual)) + geom_boxplot() +  theme(legend.position='none')
+#p3 = ggplot(fact, aes(x = factor(GarageCars), y = SalePrice)) + geom_boxplot()
+p4 = ggplot(fact, aes(x = GarageFinish, y = SalePrice, fill = GarageFinish)) + geom_boxplot() + theme(legend.position='none')
+p5 = ggplot(fact, aes(x = FullBath, y = SalePrice, fill = FullBath)) + geom_boxplot() + theme(legend.position='none')
+p6 = ggplot(fact, aes(x = CentralAir, y = SalePrice, fill = CentralAir)) + geom_boxplot() + theme(legend.position='none')
+p7 = ggplot(fact, aes(x = MSZoning, y = SalePrice, fill = MSZoning)) + geom_boxplot() + theme(legend.position='none')
+p8 = ggplot(fact, aes(x = Neighborhood, y = SalePrice, fill = Neighborhood)) + geom_boxplot() + theme(legend.position='none')
+grid.arrange(p8, arrangeGrob(p1,p2,p7,p4,p5,p6, ncol=3, nrow = 2), heights=c(1/4, 2/4), ncol=1)
+
+#CONTINUOUS
+p1 = ggplot(con, aes(x = OverallQual, y = SalePrice)) + geom_point() + theme(legend.position='none') +geom_smooth(method = "lm")
+p2 = ggplot(con, aes(x = GarageArea, y = SalePrice)) + geom_point() +  theme(legend.position='none')+geom_smooth(method = "lm")
+p4 = ggplot(con, aes(x = TsIdx, y = SalePrice)) + geom_point() + theme(legend.position='none')+geom_smooth(method = "lm")
+p5 = ggplot(con, aes(x = TotalBsmtSF, y = SalePrice)) + geom_point() + theme(legend.position='none')+geom_smooth(method = "lm")
+p6 = ggplot(con, aes(x = X1stFlrSF, y = SalePrice)) + geom_point() + theme(legend.position='none')+geom_smooth(method = "lm")
+p7 = ggplot(con, aes(x = YearBuilt, y = SalePrice)) + geom_point() + theme(legend.position='none')+geom_smooth(method = "lm")
+p8 = ggplot(con, aes(x = X2ndFlrSF, y = SalePrice)) + geom_point() + theme(legend.position='none')+geom_smooth(method = "lm")
+p9 = ggplot(con, aes(x = LotArea, y = SalePrice)) + geom_point() + theme(legend.position='none') + geom_smooth(method = "lm")
+grid.arrange(p8,p1,p2,p7,p4,p5,p6, p9, ncol=4, nrow = 2)
+
+
+```
+
+#### GRID SEARCH 
+```{r}
+#####GBM
+grid <- h2o.grid("gbm", x = x, y = y, 
+                 training_frame = train1, nfolds = 5,
+                 hyper_params = list(ntrees = c(20,50,100,400), max_depth = c(10,15,20), 
+                 learn_rate = c(0.05,0.1), min_rows = c(5,10,15)))
+
+#Obtain Best Model
+grid@summary_table[1,]
+best_modelGBM <- h2o.getModel(grid@model_ids[[1]])
+
+
+
+#####NEURAL NETWORK
+hyper_params <- list(hidden=list(c(100,70,30,10), c(100,100), c(60,60,60), c(100,100,100), c(100, 50, 10)))
+
+
+grid4 <- h2o.grid(algorithm="deeplearning",training_frame=train1, x=x, y=y, 
+                  epochs=10, momentum_stable=0.9,momentum_ramp=1e7,
+                  l1=1e-5, l2=1e-5, activation=c("Tanh"),
+                  max_w2=10,hyper_params=hyper_params, nfolds = 5)
+#Obtain Best Model
+grid4@summary_table[1,]
+best_modelNN <- h2o.getModel(grid4@model_ids[[1]])
+
+
+#####RANDOM FOREST
+
+hyper_params = list(ntrees = c(200,400), max_depth = c(20,25), 
+                    col_sample_rate_per_tree = c(0.2,0.8), mtries = c(10, 30,50))
+
+gridRF <- h2o.grid("randomForest", x = x, y = y, 
+                 training_frame = train1, nfolds = 5, grid_id = "RF", hyper_params = hyper_params)
+
+#Obtain Best Model
+gridRF@summary_table[1,]
+best_modelRF <- h2o.getModel(gridRF@model_ids[[1]])
+
+
+
+##### REGRESSSION
+hyper_params <- list(alpha = c(0.1,0.3,0.5,0.7,0.9), lambda = c(0.01,0.1,0.5,0.7))
+
+gridGLM <- h2o.grid("glm", x = x, y = y, 
+                 training_frame = train1, nfolds = 5, family = "gaussian",
+                 hyper_params = hyper_params)
+#Obtain Best Model
+gridGLM@summary_table[1,]
+best_modelRF <- h2o.getModel(gridGLM@model_ids[[1]])
+
+```
+
+##MODELS WRAPPERS
+```{r}
+#LINEAR MODELS
+h2o.glm.1 <- function(..., alpha = 0.0) h2o.glm.wrapper(..., alpha = alpha)
+h2o.glm.2 <- function(..., alpha = 0.5) h2o.glm.wrapper(..., alpha = alpha)
+h2o.glm.3 <- function(..., alpha = 1.0) h2o.glm.wrapper(..., alpha = alpha)
+
+#RANDOM FOREST
+h2o.randomForest.1 <- function(..., ntrees = 200, nbins = 50, seed = 1, mtries = 20) h2o.randomForest.wrapper(..., ntrees = ntrees, nbins = nbins, seed = seed, mtries = mtries)
+h2o.randomForest.2 <- function(..., ntrees = 200, sample_rate = 0.75, seed = 1, mtries = 40) h2o.randomForest.wrapper(..., ntrees = ntrees, sample_rate = sample_rate, seed = seed, mtries = mtries)
+h2o.randomForest.3 <- function(..., ntrees = 200, sample_rate = 0.85, seed = 1, mtries = 30) h2o.randomForest.wrapper(..., ntrees = ntrees, sample_rate = sample_rate, seed = seed, mtries = mtries)
+
+#BOOSTED TREES
+h2o.gbm.1 <- function(..., ntrees = 100, seed = 1) h2o.gbm.wrapper(..., ntrees = ntrees, seed = seed)
+h2o.gbm.2 <- function(..., ntrees = 100, nbins = 50, seed = 1) h2o.gbm.wrapper(..., ntrees = ntrees, nbins = nbins, seed = seed)
+h2o.gbm.3 <- function(..., ntrees = 100, max_depth = 10, seed = 1) h2o.gbm.wrapper(..., ntrees = ntrees, max_depth = max_depth, seed = seed)
+h2o.gbm.4 <- function(..., ntrees = 100, col_sample_rate = 0.8, seed = 1) h2o.gbm.wrapper(..., ntrees = ntrees, col_sample_rate = col_sample_rate, seed = seed)
+h2o.gbm.5 <- function(..., ntrees = 100, seed = 1, max_depth = 20) h2o.gbm.wrapper(..., ntrees = ntrees, max_depth = max_depth, seed = seed)
+h2o.gbm.6 <- function(..., ntrees = 100, max_depth = 30, seed = 1) h2o.gbm.wrapper(..., ntrees = ntrees, max_depth = max_depth, seed = seed)
+
+#NEURAL NETWORK
+h2o.deeplearning.1 <- function(..., hidden = c(10,10), activation = "Tanh", epochs = 10, seed = 1)  h2o.deeplearning.wrapper(..., hidden = hidden, activation = activation, seed = seed, epochs = epochs)
+h2o.deeplearning.2 <- function(..., hidden = c(20,20), activation = "Tanh", epochs = 10, seed = 1)  h2o.deeplearning.wrapper(..., hidden = hidden, activation = activation, seed = seed, epochs = epochs)
+h2o.deeplearning.3 <- function(..., hidden = c(30,30), activation = "RectifierWithDropout", epochs = 50, seed = 1)  h2o.deeplearning.wrapper(..., hidden = hidden, activation = activation, seed = seed, epochs = epochs)
+h2o.deeplearning.4 <- function(..., hidden = c(50,50), activation = "Rectifier", epochs = 10, seed = 1)  h2o.deeplearning.wrapper(..., hidden = hidden, activation = activation, epochs = epochs, seed = seed)
+h2o.deeplearning.5 <- function(..., hidden = c(10,20,30), activation = "TanhWithDropout", epochs = 10, seed = 1)  h2o.deeplearning.wrapper(..., hidden = hidden, activation = activation, seed = seed, epochs = epochs)
+
+
+```
+
+
+#### TUNED MODEL WRAPPERS 
+```{r}
+#GBM
+h2o.gbm.tuned <- function(..., ntrees = 150, max_depth = 30, seed = 1, nbins = 40, learn_rate = 0.1, min_rows = 40,  distribution = "gamma", col_sample_rate = 1 ) h2o.gbm.wrapper(..., ntrees = ntrees, max_depth = max_depth, nbins = nbins, learn_rate = learn_rate, seed = seed, distribution = distribution, col_sample_rate = col_sample_rate, min_rows = min_rows)
+
+#RF
+h2o.randomForest.tuned <- function(..., ntrees = 150, max_depth = 25, mtries = 30, seed = 1, col_sample_rate_per_tree = 0.8) h2o.randomForest.wrapper(..., ntrees = ntrees, seed = seed, mtries = mtries, col_sample_rate_per_tree = col_sample_rate_per_tree, max_depth = max_depth)
+
+#NN
+h2o.deeplearning.tuned <- function(..., hidden = c(64,64), activation = "Tanh", epochs = 15, seed = 1)  h2o.deeplearning.wrapper(..., hidden = hidden, activation = activation, seed = seed, epochs = epochs)
+
+#Regression
+h2o.glm.tuned <- function(..., alpha = 0.1, lambda = 0.01) h2o.glm.wrapper(..., alpha = alpha, lambda = lambda)
+```
+
+
+#####LEARNERS
+```{r}
+learner <- c(#GLM
+             "h2o.glm.tuned",
+             "h2o.glm.1",
+             "h2o.glm.2",
+             "h2o.glm.3",
+             #RF
+             "h2o.randomForest.tuned",
+             "h2o.randomForest.1",
+             "h2o.randomForest.2",
+             "h2o.randomForest.3",
+             #GBM
+             "h2o.gbm.tuned",
+             "h2o.gbm.1",
+             "h2o.gbm.2",
+             "h2o.gbm.3",
+             "h2o.gbm.4",
+             "h2o.gbm.5",
+             "h2o.gbm.6")
+             #NN
+#              "h2o.deeplearning.tuned",
+#              "h2o.deeplearning.1",
+#              "h2o.deeplearning.2",
+#              "h2o.deeplearning.3",
+#              "h2o.deeplearning.4",
+#              "h2o.deeplearning.5")
+```
+
+
+###ENSEMBLE MODEL
+```{r}
+metalearner = 'h2o.deeplearning.tuned'
+fit <- h2o.ensemble(x = x, y = y, 
+                    training_frame = train1,
+                    family = "AUTO",
+                    learner = learner, 
+                    metalearner = metalearner,
+                    cvControl = list(V = 5), model_id = "ensemble")
+
+```
+
+
+#### PREDICTION
+```{r}
+# Generate predictions on the test set
+pp <- predict(fit, test1)
+predictions = as.data.frame(pp$pred)
+predictions$predict = exp(predictions$predict)
+id = as.data.frame(Id)
+kaggle.sub = cbind(id,predictions)
+colnames(kaggle.sub) = c('Id', 'SalePrice')
+write.csv(kaggle.sub, file = 'ames.stacked.csv', row.names = F, quote = F)
+```
+
+###REGRESSION
+```{r, results='asis'}
+library(MASS)
+library(stargazer)
+df = read.csv('train.final17.ames.csv')
+test = read.csv('test.final17.ames.csv')
+df = df[,-c(1,2)]
+test = test[,-c(1,2)]
+
+
+fit = lm(log(SalePrice) ~ MSZoning + LotFrontage + LotArea + LotShape + Neighborhood + 
+  BldgType + HouseStyle + OverallQual + OverallCond + Exterior1st + 
+  MasVnrArea + BsmtQual + BsmtExposure + BsmtFinType1 + X2ndFlrSF + 
+  GrLivArea + BsmtFullBath + FullBath + BedroomAbvGr + KitchenAbvGr + 
+  KitchenQual + TotRmsAbvGrd + Fireplaces + GarageCars + GarageQual + 
+  GarageCond + WoodDeckSF + ScreenPorch + HouseAge + LandContour + 
+  LandSlope + Condition1 + AccStreet + NewHome +  TsIdx + RemodAge, data = df)
+
+plot(fit)
+stargazer(fit, type = "text")
+
+pp <- predict(fit, test)
+predictions = as.data.frame(pp)
+predictions$pp = exp(predictions$pp)
+id = as.data.frame(Id)
+kaggle.sub = cbind(id,predictions)
+colnames(kaggle.sub) = c('Id', 'SalePrice')
+write.csv(kaggle.sub, file = 'ames.regression.csv', row.names = F, quote = F)
+```
+
+
